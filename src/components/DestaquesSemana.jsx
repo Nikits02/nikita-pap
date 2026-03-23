@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { destaquesSemana } from "../data/destaquesSemana";
-import { getVehicleDetailPath } from "../data/vehicleInventory";
 import useCarouselInteractions from "../hooks/useCarouselInteractions";
 
 const priceFormatter = new Intl.NumberFormat("pt-PT");
@@ -12,7 +11,6 @@ const slides = Array.from(
 );
 
 function DestaquesSemana() {
-  const navigate = useNavigate();
   const [slideAtual, setSlideAtual] = useState(0);
 
   function mostrarSlide(index) {
@@ -27,19 +25,11 @@ function DestaquesSemana() {
     setSlideAtual((atual) => (atual === slides.length - 1 ? atual : atual + 1));
   }
 
-  function abrirDetalhes(carro) {
-    navigate(getVehicleDetailPath(carro, "highlight"));
-  }
-
-  const {
-    isDragging,
-    dragOffset,
-    preventClickAfterDrag,
-    interactionHandlers,
-  } = useCarouselInteractions({
-    onPrevious: slideAnterior,
-    onNext: slideSeguinte,
-  });
+  const { isDragging, dragOffset, interactionHandlers } =
+    useCarouselInteractions({
+      onPrevious: slideAnterior,
+      onNext: slideSeguinte,
+    });
 
   useEffect(() => {
     if (isDragging) {
@@ -47,7 +37,9 @@ function DestaquesSemana() {
     }
 
     const intervalId = window.setInterval(() => {
-      setSlideAtual((atual) => (atual === slides.length - 1 ? atual : atual + 1));
+      setSlideAtual((atual) =>
+        atual === slides.length - 1 ? atual : atual + 1,
+      );
     }, 5000);
 
     return () => window.clearInterval(intervalId);
@@ -82,31 +74,15 @@ function DestaquesSemana() {
             }}
           >
             {slides.map((slide, slideIndex) => (
-              <div className="weekly-highlights__slide" key={`weekly-slide-${slideIndex}`}>
+              <div
+                className="weekly-highlights__slide"
+                key={`weekly-slide-${slideIndex}`}
+              >
                 <div className="weekly-highlights__cards">
                   {slide.map((carro) => (
                     <article
                       className="highlight-card"
                       key={`${slideIndex}-${carro.id}`}
-                      role="link"
-                      tabIndex={0}
-                      aria-label={`Ver detalhes de ${carro.marca} ${carro.modelo}`}
-                      onClick={(event) => {
-                        preventClickAfterDrag(event);
-
-                        if (event.defaultPrevented) {
-                          return;
-                        }
-
-                        abrirDetalhes(carro);
-                      }}
-                      onKeyDown={(event) => {
-                        if (event.key === "Enter" || event.key === " ") {
-                          event.preventDefault();
-                          abrirDetalhes(carro);
-                        }
-                      }}
-                      onDragStart={(event) => event.preventDefault()}
                     >
                       <div className="highlight-card__media">
                         <img
@@ -123,9 +99,9 @@ function DestaquesSemana() {
                         <p className="highlight-card__price">
                           {priceFormatter.format(carro.preco)} EUR
                         </p>
-                        <span className="highlight-card__cta">
+                        <Link className="highlight-card__cta" to="/catalogo">
                           Ver Detalhes
-                        </span>
+                        </Link>
                       </div>
                     </article>
                   ))}
@@ -136,7 +112,10 @@ function DestaquesSemana() {
         </div>
       </div>
 
-      <div className="weekly-highlights__dots" aria-label="Paginas dos destaques">
+      <div
+        className="weekly-highlights__dots"
+        aria-label="Paginas dos destaques"
+      >
         {slides.map((_, index) => (
           <button
             key={index}
