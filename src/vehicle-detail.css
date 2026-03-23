@@ -175,8 +175,8 @@
   width: min(100%, 18rem);
   padding: 0.9rem 1.4rem;
   border: 1px solid var(--vehicle-detail-accent);
-  background: var(--vehicle-detail-accent);
-  color: #0b0907;
+  background: #050505;
+  color: var(--vehicle-detail-accent);
   font-size: 0.88rem;
   font-weight: 800;
   letter-spacing: 0.2em;
@@ -190,6 +190,8 @@
 }
 
 .vehicle-detail__cta:hover {
+  background: var(--vehicle-detail-accent);
+  color: #050505;
   transform: translateY(-2px);
   box-shadow: 0 16px 30px rgba(0, 0, 0, 0.24);
 }
