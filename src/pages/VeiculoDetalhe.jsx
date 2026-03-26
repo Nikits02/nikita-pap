@@ -2,10 +2,8 @@ import { Link, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import CarCard from "../components/CarCard";
-import {
-  getRelatedVehicles,
-  getVehicleBySlug,
-} from "../data/vehicleInventory";
+import useVehicles from "../hooks/useVehicles";
+import { getRelatedVehicles, getVehicleBySlug } from "../utils/vehicleMeta";
 
 const priceFormatter = new Intl.NumberFormat("pt-PT");
 
@@ -138,7 +136,46 @@ function buildDetailRows(vehicle) {
 
 function VehicleDetailPage() {
   const { slug } = useParams();
-  const vehicle = getVehicleBySlug(slug);
+  const { vehicles, isLoading, error } = useVehicles();
+  const vehicle = getVehicleBySlug(vehicles, slug);
+
+  if (isLoading) {
+    return (
+      <>
+        <Navbar />
+
+        <main className="page-shell vehicle-detail-page">
+          <section className="vehicle-detail__missing">
+            <p className="vehicle-detail__hero-kicker">NikitaMotors</p>
+            <h1>A carregar viatura...</h1>
+          </section>
+        </main>
+
+        <Footer />
+      </>
+    );
+  }
+
+  if (error) {
+    return (
+      <>
+        <Navbar />
+
+        <main className="page-shell vehicle-detail-page">
+          <section className="vehicle-detail__missing">
+            <p className="vehicle-detail__hero-kicker">NikitaMotors</p>
+            <h1>Erro ao carregar a viatura</h1>
+            <p>{error}</p>
+            <Link className="vehicle-detail__cta" to="/catalogo">
+              Voltar ao Catalogo
+            </Link>
+          </section>
+        </main>
+
+        <Footer />
+      </>
+    );
+  }
 
   if (!vehicle) {
     return (
@@ -164,7 +201,7 @@ function VehicleDetailPage() {
     );
   }
 
-  const relatedVehicles = getRelatedVehicles(vehicle, 3);
+  const relatedVehicles = getRelatedVehicles(vehicles, vehicle, 3);
   const formattedPrice = priceFormatter.format(vehicle.preco).replace(/\u00A0/g, " ");
   const detailRows = buildDetailRows(vehicle);
   const heading = `${vehicle.title} ${vehicle.versao ?? ""} ${vehicle.potencia ?? ""}`
@@ -247,7 +284,6 @@ function VehicleDetailPage() {
                 <CarCard
                   key={relatedVehicle.slug}
                   car={relatedVehicle}
-                  source={relatedVehicle.source}
                 />
               ))}
             </div>

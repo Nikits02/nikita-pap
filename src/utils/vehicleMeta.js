@@ -1,6 +1,3 @@
-import { cars } from "./cars";
-import { destaquesSemana } from "./destaquesSemana";
-
 function slugify(value) {
   return value
     .normalize("NFD")
@@ -8,6 +5,16 @@ function slugify(value) {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
+}
+
+function normalizeVehicle(vehicle) {
+  return {
+    ...vehicle,
+    source: vehicle.source ?? "stock",
+    preco: Number(vehicle.preco),
+    insertedAt: vehicle.insertedAt ?? vehicle.inserted_at ?? null,
+    novidade: Boolean(vehicle.novidade),
+  };
 }
 
 function buildSummary(vehicle, typeLabel) {
@@ -68,54 +75,72 @@ function buildSpecs(vehicle, typeLabel) {
   ].filter((item) => item.value);
 }
 
-function withVehicleMeta(vehicle, source) {
-  const sourceLabel = source === "highlight" ? "Destaque da Semana" : "Viatura em Stock";
-  const typeLabel = vehicle.tipo ?? (source === "highlight" ? "Viatura em destaque" : "Viatura");
-  const title = `${vehicle.marca} ${vehicle.modelo}`;
-  const slug = `${source}-${vehicle.id}-${slugify(title)}`;
+export function withVehicleMeta(vehicle) {
+  const normalizedVehicle = normalizeVehicle(vehicle);
+  const sourceLabel =
+    normalizedVehicle.source === "highlight"
+      ? "Destaque da Semana"
+      : "Viatura em Stock";
+  const typeLabel =
+    normalizedVehicle.tipo ??
+    (normalizedVehicle.source === "highlight"
+      ? "Viatura em destaque"
+      : "Viatura");
+  const title = `${normalizedVehicle.marca} ${normalizedVehicle.modelo}`;
+  const slug = `${normalizedVehicle.source}-${normalizedVehicle.id}-${slugify(title)}`;
   const search = new URLSearchParams({
     veiculo: slug,
   }).toString();
 
   return {
-    ...vehicle,
-    source,
+    ...normalizedVehicle,
     slug,
     title,
     sourceLabel,
     typeLabel,
-    badgeText: vehicle.novidade ? "Novo" : source === "highlight" ? "Destaque" : "Disponivel",
+    badgeText: normalizedVehicle.novidade
+      ? "Novo"
+      : normalizedVehicle.source === "highlight"
+        ? "Destaque"
+        : "Disponivel",
     detailPath: `/viaturas/${slug}`,
     testDrivePath: `/test-drive?${search}`,
-    summary: buildSummary(vehicle, typeLabel),
-    detailHighlights: buildHighlights(vehicle, typeLabel),
-    specs: buildSpecs(vehicle, typeLabel),
+    summary: buildSummary(normalizedVehicle, typeLabel),
+    detailHighlights: buildHighlights(normalizedVehicle, typeLabel),
+    specs: buildSpecs(normalizedVehicle, typeLabel),
   };
 }
 
-export const stockVehicles = cars.map((vehicle) => withVehicleMeta(vehicle, "stock"));
-export const highlightVehicles = destaquesSemana.map((vehicle) =>
-  withVehicleMeta(vehicle, "highlight"),
-);
-export const allVehicles = [...stockVehicles, ...highlightVehicles];
+export function mapVehiclesWithMeta(vehicles = []) {
+  return vehicles.map((vehicle) => withVehicleMeta(vehicle));
+}
 
 export function getVehicleDetailPath(vehicle, source = "stock") {
-  return withVehicleMeta(vehicle, source).detailPath;
+  return withVehicleMeta({
+    ...vehicle,
+    source: vehicle.source ?? source,
+  }).detailPath;
 }
 
-export function getVehicleBySlug(slug) {
-  return allVehicles.find((vehicle) => vehicle.slug === slug) ?? null;
+export function getVehicleBySlug(vehicles, slug) {
+  return vehicles.find((vehicle) => vehicle.slug === slug) ?? null;
 }
 
-export function getRelatedVehicles(currentVehicle, limit = 3) {
-  return allVehicles
+export function getRelatedVehicles(vehicles, currentVehicle, limit = 3) {
+  return vehicles
     .filter((vehicle) => vehicle.slug !== currentVehicle.slug)
     .sort((firstVehicle, secondVehicle) => {
-      if (firstVehicle.marca === currentVehicle.marca && secondVehicle.marca !== currentVehicle.marca) {
+      if (
+        firstVehicle.marca === currentVehicle.marca &&
+        secondVehicle.marca !== currentVehicle.marca
+      ) {
         return -1;
       }
 
-      if (secondVehicle.marca === currentVehicle.marca && firstVehicle.marca !== currentVehicle.marca) {
+      if (
+        secondVehicle.marca === currentVehicle.marca &&
+        firstVehicle.marca !== currentVehicle.marca
+      ) {
         return 1;
       }
 

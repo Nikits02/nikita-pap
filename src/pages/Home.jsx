@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import DestaquesSemana from "../components/DestaquesSemana";
@@ -5,8 +6,7 @@ import PesquisaViaturas from "../components/PesquisaViaturas";
 import UltimasViaturas from "../components/UltimasViaturas";
 import Testemunhos from "../components/Testemunhos";
 import Footer from "../components/Footer";
-import { cars } from "../data/cars";
-import { allVehicles } from "../data/vehicleInventory";
+import useVehicles from "../hooks/useVehicles";
 
 const initialFilters = {
   marca: "",
@@ -59,6 +59,15 @@ function WhyChooseIcon({ type }) {
 
 function Home() {
   const navigate = useNavigate();
+  const { vehicles, isLoading, error } = useVehicles();
+  const stockVehicles = useMemo(
+    () => vehicles.filter((vehicle) => vehicle.source === "stock"),
+    [vehicles],
+  );
+  const highlightVehicles = useMemo(
+    () => vehicles.filter((vehicle) => vehicle.source === "highlight"),
+    [vehicles],
+  );
 
   function handleVehicleSearch(filters) {
     const params = new URLSearchParams();
@@ -89,19 +98,23 @@ function Home() {
       <Navbar />
 
       <main className="page-shell">
-        <DestaquesSemana />
+        <DestaquesSemana
+          vehicles={highlightVehicles}
+          isLoading={isLoading}
+          error={error}
+        />
 
         <div className="home-section-divider home-section-divider--tight" aria-hidden="true" />
 
         <PesquisaViaturas
-          cars={allVehicles}
+          cars={vehicles}
           initialFilters={initialFilters}
           onSearch={handleVehicleSearch}
         />
 
         <div className="home-section-divider home-section-divider--flush" aria-hidden="true" />
 
-        <UltimasViaturas cars={cars} />
+        <UltimasViaturas cars={stockVehicles} />
 
         <div className="home-section-divider" aria-hidden="true" />
 

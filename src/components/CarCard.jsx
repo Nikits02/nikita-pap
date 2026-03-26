@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import { getVehicleDetailPath } from "../data/vehicleInventory";
+import { getVehicleDetailPath } from "../utils/vehicleMeta";
 
 const priceFormatter = new Intl.NumberFormat("pt-PT");
 
-function CarCard({ car, source = "stock" }) {
+function CarCard({ car }) {
   const formattedPrice = priceFormatter.format(car.preco).replace(/\u00A0/g, " ");
-  const detailPath = car.detailPath ?? getVehicleDetailPath(car, source);
+  const detailPath = car.detailPath ?? getVehicleDetailPath(car);
   const powerLabel = car.potencia ?? "Sob consulta";
 
   return (

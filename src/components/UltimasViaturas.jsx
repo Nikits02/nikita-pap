@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { getVehicleDetailPath } from "../data/vehicleInventory";
+import { getVehicleDetailPath } from "../utils/vehicleMeta";
 
 const priceFormatter = new Intl.NumberFormat("pt-PT");
 
@@ -20,7 +20,7 @@ function UltimasViaturas({ cars }) {
             {latestCars.map((car) => (
               <Link
                 className="latest-card highlight-card"
-                key={car.id}
+                key={car.slug ?? car.id}
                 to={getVehicleDetailPath(car, "stock")}
                 aria-label={`Ver detalhes de ${car.marca} ${car.modelo}`}
               >

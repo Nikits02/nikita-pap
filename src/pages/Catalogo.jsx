@@ -3,15 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import CarCard from "../components/CarCard";
-import { allVehicles } from "../data/vehicleInventory";
-
-const initialFilters = {
-  marca: "",
-  modelo: "",
-  combustivel: "",
-  caixa: "",
-  ordem: "recentes",
-};
+import useVehicles from "../hooks/useVehicles";
 
 function getFiltersFromSearchParams(searchParams) {
   return {
@@ -111,6 +103,7 @@ function CatalogOrderSelect({ value, options, onChange }) {
 
 function Catalogo() {
   const [searchParams] = useSearchParams();
+  const { vehicles, isLoading, error } = useVehicles();
   const [filters, setFilters] = useState(() => getFiltersFromSearchParams(searchParams));
   const orderOptions = [
     { value: "recentes", label: "Mais recentes" },
@@ -118,7 +111,10 @@ function Catalogo() {
     { value: "preco-desc", label: "Preco descendente" },
   ];
 
-  const marcas = [...new Set(allVehicles.map((car) => car.marca))].sort();
+  const marcas = useMemo(
+    () => [...new Set(vehicles.map((car) => car.marca))].sort(),
+    [vehicles],
+  );
 
   useEffect(() => {
     setFilters(getFiltersFromSearchParams(searchParams));
@@ -144,7 +140,7 @@ function Catalogo() {
   }
 
   const filteredCars = useMemo(() => {
-    const filtered = allVehicles.filter((car) => {
+    const filtered = vehicles.filter((car) => {
       if (filters.marca && car.marca !== filters.marca) {
         return false;
       }
@@ -182,7 +178,7 @@ function Catalogo() {
 
       return secondInsertedAt - firstInsertedAt;
     });
-  }, [filters]);
+  }, [filters, vehicles]);
 
   return (
     <>
@@ -234,12 +230,23 @@ function Catalogo() {
 
         <div className="catalog-page__divider" />
 
-        <p className="catalog-page__count">{filteredCars.length} veiculos encontrados</p>
+        <p className="catalog-page__count">
+          {isLoading ? "A carregar viaturas..." : `${filteredCars.length} veiculos encontrados`}
+        </p>
 
         <section className="catalog-grid">
-          {filteredCars.length > 0 ? (
+          {isLoading ? (
+            <div className="empty-results">
+              <h3>A carregar viaturas...</h3>
+            </div>
+          ) : error ? (
+            <div className="empty-results">
+              <h3>Nao foi possivel carregar o catalogo.</h3>
+              <p>{error}</p>
+            </div>
+          ) : filteredCars.length > 0 ? (
             filteredCars.map((car) => (
-              <CarCard key={car.slug ?? `${car.marca}-${car.modelo}-${car.id}`} car={car} source={car.source} />
+              <CarCard key={car.slug ?? `${car.marca}-${car.modelo}-${car.id}`} car={car} />
             ))
           ) : (
             <div className="empty-results">

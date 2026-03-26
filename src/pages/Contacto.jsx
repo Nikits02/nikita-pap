@@ -84,6 +84,16 @@ const initialForm = {
   horaPreferida: "",
 };
 
+function buildInitialForm(assuntoParam, veiculoParam) {
+  return {
+    ...initialForm,
+    assunto: assuntoParam,
+    mensagem: veiculoParam
+      ? `Gostaria de agendar um teste drive para a viatura ${veiculoParam}.`
+      : "",
+  };
+}
+
 function getTodayDateString() {
   const now = new Date();
   const offset = now.getTimezoneOffset() * 60000;
@@ -157,27 +167,13 @@ function Contacto() {
   const assuntoParam = searchParams.get("assunto") ?? "";
   const veiculoParam = searchParams.get("veiculo") ?? "";
   const isTestDriveFlow = assuntoParam === "Pedido de Test Drive" || Boolean(veiculoParam);
-  const [formData, setFormData] = useState(initialForm);
+  const [formData, setFormData] = useState(() =>
+    buildInitialForm(assuntoParam, veiculoParam),
+  );
   const [submitted, setSubmitted] = useState(false);
   const [testDriveError, setTestDriveError] = useState("");
   const [contactError, setContactError] = useState("");
   const [todayDate] = useState(() => getTodayDateString());
-
-  useEffect(() => {
-    if (!assuntoParam && !veiculoParam) {
-      return;
-    }
-
-    setFormData((current) => ({
-      ...current,
-      assunto: current.assunto || assuntoParam,
-      mensagem:
-        current.mensagem ||
-        (veiculoParam
-          ? `Gostaria de agendar um teste drive para a viatura ${veiculoParam}.`
-          : ""),
-    }));
-  }, [assuntoParam, veiculoParam]);
 
   function updateField(field, value) {
     if (field === "horaPreferida") {

@@ -2,7 +2,8 @@ import { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { allVehicles } from "../data/vehicleInventory";
+import useVehicles from "../hooks/useVehicles";
+import { createTestDrive } from "../services/api";
 
 const testDriveHours = [
   "09:00",
@@ -66,30 +67,32 @@ function getVehicleLabel(vehicle) {
 
 function TestDrive() {
   const [searchParams] = useSearchParams();
+  const { vehicles, isLoading, error: vehicleError } = useVehicles();
   const requestedVehicle = searchParams.get("veiculo") ?? "";
   const [formData, setFormData] = useState(() => ({
     ...initialForm,
     vehicleSlug: requestedVehicle,
   }));
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState("");
+  const [formError, setFormError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const todayDate = useMemo(() => getTodayDateString(), []);
   const orderedVehicles = useMemo(
     () =>
-      [...allVehicles].sort(
+      [...vehicles].sort(
         (firstVehicle, secondVehicle) =>
           secondVehicle.preco - firstVehicle.preco,
       ),
-    [],
+    [vehicles],
   );
   const selectedVehicle =
     orderedVehicles.find((vehicle) => vehicle.slug === formData.vehicleSlug) ??
     null;
 
   function updateField(field, value) {
-    if (error) {
-      setError("");
+    if (formError) {
+      setFormError("");
     }
 
     setFormData((current) => ({
@@ -98,20 +101,28 @@ function TestDrive() {
     }));
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     if (!formData.vehicleSlug) {
-      setError("Selecione uma viatura para o teste drive.");
+      setFormError("Selecione uma viatura para o teste drive.");
       return;
     }
 
     if (!formData.horaPreferida) {
-      setError("Selecione uma hora preferida para o teste drive.");
+      setFormError("Selecione uma hora preferida para o teste drive.");
       return;
     }
 
-    setSubmitted(true);
+    try {
+      setIsSubmitting(true);
+      await createTestDrive(formData);
+      setSubmitted(true);
+    } catch (submitError) {
+      setFormError(submitError.message ?? "Nao foi possivel guardar o agendamento.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -161,33 +172,37 @@ function TestDrive() {
                 </div>
 
                 <div className="test-drive-vehicle-grid">
-                  {orderedVehicles.map((vehicle) => {
-                    const isSelected = vehicle.slug === formData.vehicleSlug;
+                  {isLoading ? <p>A carregar viaturas...</p> : null}
+                  {!isLoading && vehicleError ? <p>{vehicleError}</p> : null}
+                  {!isLoading && !vehicleError
+                    ? orderedVehicles.map((vehicle) => {
+                        const isSelected = vehicle.slug === formData.vehicleSlug;
 
-                    return (
-                      <button
-                        key={vehicle.slug}
-                        className={`test-drive-vehicle-card${isSelected ? " is-selected" : ""}`}
-                        type="button"
-                        onClick={() => updateField("vehicleSlug", vehicle.slug)}
-                      >
-                        <div className="test-drive-vehicle-card__media">
-                          <img
-                            src={vehicle.imagem}
-                            alt={getVehicleLabel(vehicle)}
-                          />
-                        </div>
+                        return (
+                          <button
+                            key={vehicle.slug}
+                            className={`test-drive-vehicle-card${isSelected ? " is-selected" : ""}`}
+                            type="button"
+                            onClick={() => updateField("vehicleSlug", vehicle.slug)}
+                          >
+                            <div className="test-drive-vehicle-card__media">
+                              <img
+                                src={vehicle.imagem}
+                                alt={getVehicleLabel(vehicle)}
+                              />
+                            </div>
 
-                        <div className="test-drive-vehicle-card__body">
-                          <p>{vehicle.marca}</p>
-                          <h3>{vehicle.modelo}</h3>
-                          <span>
-                            {vehicle.ano} | {vehicle.potencia ?? "Sob consulta"}
-                          </span>
-                        </div>
-                      </button>
-                    );
-                  })}
+                            <div className="test-drive-vehicle-card__body">
+                              <p>{vehicle.marca}</p>
+                              <h3>{vehicle.modelo}</h3>
+                              <span>
+                                {vehicle.ano} | {vehicle.potencia ?? "Sob consulta"}
+                              </span>
+                            </div>
+                          </button>
+                        );
+                      })
+                    : null}
                 </div>
               </section>
 
@@ -278,11 +293,15 @@ function TestDrive() {
                 </div>
               </section>
 
-              {error ? <p className="test-drive-form__error">{error}</p> : null}
+              {formError ? <p className="test-drive-form__error">{formError}</p> : null}
 
-              <button className="test-drive-submit" type="submit">
+              <button
+                className="test-drive-submit"
+                type="submit"
+                disabled={isSubmitting || isLoading}
+              >
                 <CheckIcon />
-                <span>Confirmar Agendamento</span>
+                <span>{isSubmitting ? "A enviar..." : "Confirmar Agendamento"}</span>
               </button>
             </form>
           )}

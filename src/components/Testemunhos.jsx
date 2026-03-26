@@ -33,17 +33,22 @@ function GoogleMark() {
 function Testemunhos() {
   const [cardsPerView, setCardsPerView] = useState(getCardsPerView);
   const [activeIndex, setActiveIndex] = useState(0);
+  const maxIndex = Math.max(0, testemunhos.length - cardsPerView);
+  const visibleIndex = Math.min(activeIndex, maxIndex);
+  const itemStep = 100 / cardsPerView;
 
   function previousTestimonials() {
-    setActiveIndex((currentIndex) =>
-      currentIndex === 0 ? maxIndex : currentIndex - 1,
-    );
+    setActiveIndex((currentIndex) => {
+      const safeIndex = Math.min(currentIndex, maxIndex);
+      return safeIndex === 0 ? maxIndex : safeIndex - 1;
+    });
   }
 
   function nextTestimonials() {
-    setActiveIndex((currentIndex) =>
-      currentIndex >= maxIndex ? 0 : currentIndex + 1,
-    );
+    setActiveIndex((currentIndex) => {
+      const safeIndex = Math.min(currentIndex, maxIndex);
+      return safeIndex >= maxIndex ? 0 : safeIndex + 1;
+    });
   }
 
   useEffect(() => {
@@ -59,17 +64,10 @@ function Testemunhos() {
     };
   }, []);
 
-  const maxIndex = Math.max(0, testemunhos.length - cardsPerView);
-  const itemStep = 100 / cardsPerView;
-
   const { isDragging, dragOffset, interactionHandlers } = useCarouselInteractions({
     onPrevious: previousTestimonials,
     onNext: nextTestimonials,
   });
-
-  useEffect(() => {
-    setActiveIndex((currentIndex) => Math.min(currentIndex, maxIndex));
-  }, [maxIndex]);
 
   useEffect(() => {
     if (maxIndex === 0 || isDragging) {
@@ -77,7 +75,10 @@ function Testemunhos() {
     }
 
     const intervalId = window.setInterval(() => {
-      nextTestimonials();
+      setActiveIndex((currentIndex) => {
+        const safeIndex = Math.min(currentIndex, maxIndex);
+        return safeIndex >= maxIndex ? 0 : safeIndex + 1;
+      });
     }, 5000);
 
     return () => {
@@ -113,7 +114,7 @@ function Testemunhos() {
             <div
               className="testimonials-section__track"
               style={{
-                transform: `translate3d(calc(-${activeIndex * itemStep}% + ${dragOffset}px), 0, 0)`,
+                transform: `translate3d(calc(-${visibleIndex * itemStep}% + ${dragOffset}px), 0, 0)`,
               }}
             >
               {testemunhos.map((testemunho) => (
@@ -159,7 +160,7 @@ function Testemunhos() {
               <button
                 type="button"
                 key={`testimonial-dot-${index}`}
-                className={`testimonials-section__dot${index === activeIndex ? " is-active" : ""}`}
+                className={`testimonials-section__dot${index === visibleIndex ? " is-active" : ""}`}
                 aria-label={`Mostrar testemunhos ${index + 1}`}
                 onClick={() => setActiveIndex(index)}
               />
