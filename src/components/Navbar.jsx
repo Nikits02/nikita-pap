@@ -1,19 +1,20 @@
 import { Link, useLocation } from "react-router-dom";
-
-const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "Sobre Nos", to: "/sobre" },
-  { label: "Catalogo", to: "/catalogo" },
-  { label: "Financiamento", to: "/financiamento" },
-  { label: "Retoma", to: "/retoma" },
-  { label: "Blog", to: "/blog" },
-  { label: "Contacto", to: "/contacto" },
-];
+import BrandWordmark from "./BrandWordmark";
+import { primaryNavigationLinks } from "../data/navigation";
+import { getCurrentUser, getDefaultRouteForUser } from "../services/authApi";
 
 function Navbar() {
   const location = useLocation();
+  const currentUser = getCurrentUser();
+  const accountPath = currentUser ? getDefaultRouteForUser(currentUser) : "";
   const isHomePage = location.pathname === "/";
   const isHome = location.pathname === "/" && location.hash === "";
+
+  function isLinkActive(path) {
+    return path === "/"
+      ? isHome
+      : location.pathname === path || location.pathname.startsWith(`${path}/`);
+  }
 
   return (
     <header className={`site-header ${isHomePage ? "site-header--home" : "site-header--inner"}`} id="topo">
@@ -24,21 +25,19 @@ function Navbar() {
             to="/"
             aria-label="NikitaMotors"
           >
-            <span className="brand-mark__text">
-              <span className="brand-mark__nikita">Nikita</span>
-              <span className="brand-mark__motors">Motors</span>
-            </span>
+            <BrandWordmark
+              className="brand-mark__text"
+              firstClassName="brand-mark__nikita"
+              secondClassName="brand-mark__motors"
+            />
           </Link>
         </div>
 
-        <div className="navbar">
+        <div className={`navbar${currentUser ? " navbar--authenticated" : ""}`}>
           <nav className="navbar__menu" aria-label="Navegacao principal">
-            {navLinks.map((link) => {
-              const isCurrent =
-                link.href === "/"
-                  ? isHome
-                  : location.pathname === link.to ||
-                    location.pathname.startsWith(`${link.to}/`);
+            {primaryNavigationLinks.map((link) => {
+              const targetPath = link.href ?? link.to;
+              const isCurrent = isLinkActive(targetPath);
 
               return link.href ? (
                 <a
@@ -58,6 +57,24 @@ function Navbar() {
                 </Link>
               );
             })}
+
+            {currentUser ? (
+              <div className="navbar__session">
+                <Link
+                  className={`navbar__link${isLinkActive(accountPath) ? " is-active" : ""}`}
+                  to={accountPath}
+                >
+                  Minha Conta
+                </Link>
+              </div>
+            ) : (
+              <Link
+                className={`navbar__link${isLinkActive("/login") ? " is-active" : ""}`}
+                to="/login"
+              >
+                Login
+              </Link>
+            )}
           </nav>
         </div>
       </div>

@@ -1,0 +1,275 @@
+.admin-page {
+  min-height: 100vh;
+  padding: 40px;
+  color: #14213d;
+  background: #f4f7fb;
+}
+
+.admin-page__container {
+  max-width: 980px;
+  margin: 0 auto;
+  display: grid;
+  gap: 24px;
+}
+
+.admin-page__container--narrow {
+  max-width: 420px;
+}
+
+.admin-page__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.admin-page__header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-page__eyebrow {
+  margin: 0;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #5c6b8a;
+}
+
+.admin-page__title {
+  margin: 8px 0 0;
+  font-size: 32px;
+}
+
+.admin-page__panel {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 18px 50px rgba(20, 33, 61, 0.08);
+}
+
+.admin-page__text {
+  margin: 0;
+}
+
+.admin-page__text--muted {
+  color: #5c6b8a;
+}
+
+.admin-page__notice {
+  padding: 14px 16px;
+  border-radius: 14px;
+  color: #0f172a;
+  background: #e8eef8;
+}
+
+.admin-page__empty-state {
+  display: grid;
+  gap: 16px;
+  justify-items: start;
+}
+
+.admin-form {
+  display: grid;
+  gap: 20px;
+}
+
+.admin-form__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.admin-form__field {
+  display: grid;
+  gap: 8px;
+}
+
+.admin-form__hint {
+  margin: 0;
+  color: #5c6b8a;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.admin-form__field input,
+.admin-form__field select {
+  min-height: 44px;
+  padding: 0.72rem 0.85rem;
+  border: 1px solid #c9d4e5;
+  border-radius: 12px;
+  color: #14213d;
+  background: #ffffff;
+}
+
+.admin-form__checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+
+.admin-form__actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 999px;
+  padding: 14px 22px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #ffffff;
+  background: #14213d;
+  cursor: pointer;
+}
+
+.admin-button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.admin-button--secondary {
+  border: 1px solid #c9d4e5;
+  color: #14213d;
+  background: #ffffff;
+}
+
+.admin-button--danger {
+  color: #ffffff;
+  background: #b42318;
+}
+
+.admin-form__error {
+  margin: 0;
+  color: #b42318;
+}
+
+.admin-vehicles {
+  display: grid;
+  gap: 20px;
+}
+
+.admin-vehicles__list {
+  display: grid;
+  gap: 18px;
+}
+
+.admin-vehicle-card {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 20px;
+  align-items: start;
+  padding: 18px;
+  border: 1px solid #dbe5f3;
+  border-radius: 18px;
+  background: #fbfdff;
+}
+
+.admin-vehicle-card__media {
+  width: 100%;
+}
+
+.admin-vehicle-card__image,
+.admin-vehicle-card__placeholder {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 14px;
+}
+
+.admin-vehicle-card__image {
+  display: block;
+  object-fit: cover;
+  background: #dde6f2;
+}
+
+.admin-vehicle-card__placeholder {
+  display: grid;
+  place-items: center;
+  color: #5c6b8a;
+  background: #eef3f9;
+}
+
+.admin-vehicle-card__content {
+  display: grid;
+  gap: 16px;
+}
+
+.admin-vehicle-card__heading {
+  display: grid;
+  gap: 6px;
+}
+
+.admin-vehicle-card__eyebrow {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #5c6b8a;
+}
+
+.admin-vehicle-card__title {
+  margin: 0;
+  font-size: 28px;
+  color: #14213d;
+}
+
+.admin-vehicle-card__meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px 16px;
+  margin: 0;
+}
+
+.admin-vehicle-card__meta div {
+  display: grid;
+  gap: 4px;
+}
+
+.admin-vehicle-card__meta dt {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #5c6b8a;
+}
+
+.admin-vehicle-card__meta dd {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #14213d;
+}
+
+.admin-vehicle-card__actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 720px) {
+  .admin-page {
+    padding: 24px 18px;
+  }
+
+  .admin-page__panel {
+    padding: 20px;
+  }
+
+  .admin-vehicle-card {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-vehicle-card__title {
+    font-size: 24px;
+  }
+}

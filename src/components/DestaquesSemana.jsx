@@ -1,11 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import useCarouselInteractions from "../hooks/useCarouselInteractions";
-
-const priceFormatter = new Intl.NumberFormat("pt-PT");
+import useCarouselIndex from "../hooks/useCarouselIndex";
+import { formatEuro } from "../utils/format";
+import { getVehicleLabel } from "../utils/vehicle";
 
 function DestaquesSemana({ vehicles = [], isLoading = false, error = "" }) {
-  const [slideAtual, setSlideAtual] = useState(0);
   const slides = useMemo(
     () =>
       Array.from(
@@ -14,47 +14,22 @@ function DestaquesSemana({ vehicles = [], isLoading = false, error = "" }) {
       ),
     [vehicles],
   );
-  const maxSlideIndex = Math.max(0, slides.length - 1);
-  const visibleSlideIndex = Math.min(slideAtual, maxSlideIndex);
 
-  function mostrarSlide(index) {
-    setSlideAtual(index);
-  }
-
-  function slideAnterior() {
-    setSlideAtual((atual) => {
-      const safeIndex = Math.min(atual, maxSlideIndex);
-      return safeIndex === 0 ? 0 : safeIndex - 1;
-    });
-  }
-
-  function slideSeguinte() {
-    setSlideAtual((atual) => {
-      const safeIndex = Math.min(atual, maxSlideIndex);
-      return safeIndex === maxSlideIndex ? safeIndex : safeIndex + 1;
-    });
-  }
-
-  const { isDragging, dragOffset, interactionHandlers } =
+  const { isDragging, dragOffset, interactionHandlers, preventClickAfterDrag } =
     useCarouselInteractions({
-      onPrevious: slideAnterior,
-      onNext: slideSeguinte,
+      onPrevious: () => goPrevious(),
+      onNext: () => goNext(),
     });
-
-  useEffect(() => {
-    if (isDragging || slides.length <= 1) {
-      return undefined;
-    }
-
-    const intervalId = window.setInterval(() => {
-      setSlideAtual((atual) => {
-        const safeIndex = Math.min(atual, maxSlideIndex);
-        return safeIndex === maxSlideIndex ? safeIndex : safeIndex + 1;
-      });
-    }, 5000);
-
-    return () => window.clearInterval(intervalId);
-  }, [isDragging, maxSlideIndex, slides.length]);
+  const {
+    setActiveIndex,
+    visibleIndex: visibleSlideIndex,
+    goPrevious,
+    goNext,
+  } = useCarouselIndex({
+    itemCount: slides.length,
+    autoplayDelay: 5000,
+    pauseAutoplay: isDragging,
+  });
 
   return (
     <section className="weekly-highlights" aria-labelledby="destaques-semana">
@@ -116,22 +91,42 @@ function DestaquesSemana({ vehicles = [], isLoading = false, error = "" }) {
                           className="highlight-card"
                           key={`${slideIndex}-${carro.id}`}
                         >
-                          <div className="highlight-card__media">
-                            <img
-                              src={carro.imagem}
-                              alt={`${carro.marca} ${carro.modelo}`}
-                              draggable="false"
-                            />
-                            <span className="highlight-card__badge">{carro.badgeText}</span>
-                          </div>
+                          <Link
+                            className="highlight-card__media-link"
+                            to={carro.detailPath}
+                            aria-label={`Ver detalhes de ${getVehicleLabel(carro)}`}
+                            draggable="false"
+                            onClick={preventClickAfterDrag}
+                            onDragStart={(event) => event.preventDefault()}
+                          >
+                            <div
+                              className="highlight-card__media"
+                              style={{
+                                "--weekly-highlight-image": `url(${carro.imagem})`,
+                              }}
+                            >
+                              <img
+                                src={carro.imagem}
+                                alt={getVehicleLabel(carro)}
+                                draggable="false"
+                              />
+                              <span className="highlight-card__badge">{carro.badgeText}</span>
+                            </div>
+                          </Link>
 
                           <div className="highlight-card__body">
-                            <p className="highlight-card__brand">{carro.marca}</p>
-                            <h3>{carro.modelo}</h3>
-                            <p className="highlight-card__price">
-                              {priceFormatter.format(carro.preco)} EUR
-                            </p>
-                            <Link className="highlight-card__cta" to={carro.detailPath}>
+                            <div className="weekly-highlight-card__copy">
+                              <p className="weekly-highlight-card__brand">{carro.marca}</p>
+                              <h3 className="weekly-highlight-card__title">{carro.modelo}</h3>
+                              <p className="weekly-highlight-card__price">
+                                {formatEuro(carro.preco)} EUR
+                              </p>
+                            </div>
+                            <Link
+                              className="highlight-card__cta weekly-highlight-card__cta"
+                              to={carro.detailPath}
+                              onClick={preventClickAfterDrag}
+                            >
                               Ver Detalhes
                             </Link>
                           </div>
@@ -153,7 +148,7 @@ function DestaquesSemana({ vehicles = [], isLoading = false, error = "" }) {
                 key={index}
                 className={`weekly-highlights__dot${index === visibleSlideIndex ? " is-active" : ""}`}
                 type="button"
-                onClick={() => mostrarSlide(index)}
+                onClick={() => setActiveIndex(index)}
                 aria-label={`Mostrar slide ${index + 1}`}
               />
             ))}

@@ -1,0 +1,59 @@
+:root {
+  /* Font families */
+  --font-family-sans: "IBM Plex Sans", "Segoe UI", sans-serif;
+  --font-family-serif: "Libre Baskerville", Georgia, serif;
+
+  /* Core palette */
+  --color-neutral-0: #ffffff;
+  --color-neutral-950: #000000;
+  --color-ink-900: #282426;
+  --color-ink-600: #6a6063;
+
+  /* Brand reds */
+  --color-brand-red-500: #ef2424;
+  --color-brand-red-600: #c81d1d;
+  --color-brand-red-50: #fff1f1;
+  --color-brand-accent: #b53a3f;
+
+  /* Shared surfaces */
+  --color-surface-primary: rgba(255, 255, 255, 0.94);
+  --color-surface-strong: #ffffff;
+  --color-line-soft: #ecdcdc;
+  --shadow-soft: 0 16px 34px rgba(119, 42, 42, 0.12);
+  --shadow-strong: 0 20px 40px rgba(166, 34, 34, 0.24);
+  --radius-xl: 34px;
+  --radius-lg: 24px;
+  --site-width: 1320px;
+
+  /* Shared accent palette used by editorial and form pages */
+  --color-accent-rose-600: #a33439;
+  --color-accent-rose-500: #d64b51;
+  --color-accent-rose-muted: #b98d91;
+  --color-accent-rose-soft-12: rgba(163, 52, 57, 0.12);
+  --color-accent-rose-soft-22: rgba(163, 52, 57, 0.22);
+  --color-accent-rose-border-22: rgba(163, 52, 57, 0.22);
+  --color-accent-rose-border-34: rgba(163, 52, 57, 0.34);
+  --color-accent-rose-border-42: rgba(163, 52, 57, 0.42);
+  --color-accent-rose-border-48: rgba(163, 52, 57, 0.48);
+
+  /* Detail and test-drive accents */
+  --color-vehicle-accent-soft: #d5a0a3;
+  --color-detail-copy: #ddd7cc;
+  --color-detail-copy-soft: #a79d92;
+  --color-detail-line: rgba(181, 58, 63, 0.2);
+  --color-detail-shadow: 0 24px 48px rgba(0, 0, 0, 0.34);
+  --color-test-drive-soft: #cf9ea2;
+  --color-test-drive-line: rgba(181, 58, 63, 0.24);
+
+  /* Legacy aliases kept to avoid visual regressions */
+  --site-black: var(--color-neutral-950);
+  --brand-red: var(--color-brand-red-500);
+  --brand-red-deep: var(--color-brand-red-600);
+  --brand-red-soft: var(--color-brand-red-50);
+  --home-accent-red: var(--color-brand-accent);
+  --ink: var(--color-ink-900);
+  --ink-soft: var(--color-ink-600);
+  --surface: var(--color-surface-primary);
+  --surface-strong: var(--color-surface-strong);
+  --line: var(--color-line-soft);
+}

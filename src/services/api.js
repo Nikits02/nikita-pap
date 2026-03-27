@@ -1,26 +1,23 @@
-export async function fetchVehicles() {
-  const response = await fetch("/api/vehicles");
+import { requestJson } from "./http";
 
-  if (!response.ok) {
-    throw new Error("Erro ao carregar viaturas.");
-  }
-
-  return response.json();
+export function fetchVehicles() {
+  return requestJson("/api/vehicles", {
+    errorMessage: "Erro ao carregar viaturas.",
+  });
 }
 
-export async function createTestDrive(payload) {
-  const response = await fetch("/api/test-drives", {
+export function createTestDrive(payload) {
+  return requestJson("/api/test-drives", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
+    body: payload,
+    errorMessage: "Erro ao guardar teste drive.",
   });
+}
 
-  if (!response.ok) {
-    const data = await response.json().catch(() => null);
-    throw new Error(data?.message ?? "Erro ao guardar teste drive.");
-  }
-
-  return response.json();
+export function createContactMessage(payload) {
+  return requestJson("/api/contact", {
+    method: "POST",
+    body: payload,
+    errorMessage: "Erro ao enviar contacto.",
+  });
 }

@@ -1,69 +1,30 @@
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import BrandWordmark from "../components/BrandWordmark";
 import DestaquesSemana from "../components/DestaquesSemana";
+import {
+  CheckMarkIcon,
+  ShieldIcon,
+  StarIcon,
+} from "../components/icons/CommonIcons";
+import TypedIcon from "../components/icons/TypedIcon";
 import PesquisaViaturas from "../components/PesquisaViaturas";
+import SectionDivider from "../components/SectionDivider";
 import UltimasViaturas from "../components/UltimasViaturas";
 import Testemunhos from "../components/Testemunhos";
-import Footer from "../components/Footer";
+import { homeInitialFilters, whyChooseItems } from "../data/home";
+import SitePage from "../components/SitePage";
 import useVehicles from "../hooks/useVehicles";
 
-const initialFilters = {
-  marca: "",
-  modelo: "",
-  combustivel: "",
-  caixa: "",
+const whyChooseIcons = {
+  check: CheckMarkIcon,
+  shield: ShieldIcon,
+  star: StarIcon,
 };
-
-const whyChooseItems = [
-  {
-    title: "Qualidade Premium",
-    text: "Apenas viaturas de topo com certificacao oficial.",
-    icon: "check",
-  },
-  {
-    title: "Atendimento Excelente",
-    text: "Equipa dedicada ao seu sucesso.",
-    icon: "star",
-  },
-  {
-    title: "Garantia Completa",
-    text: "Protecao total durante 2 anos.",
-    icon: "shield",
-  },
-];
-
-function WhyChooseIcon({ type }) {
-  if (type === "check") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="m6.5 12.5 3.2 3.2 7.8-9.2" />
-      </svg>
-    );
-  }
-
-  if (type === "star") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="m12 4.8 2.1 4.2 4.7.7-3.4 3.3.8 4.7-4.2-2.2-4.2 2.2.8-4.7-3.4-3.3 4.7-.7Z" />
-      </svg>
-    );
-  }
-
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 4.2 17 6v4.7c0 3.5-1.9 6-5 7.6-3.1-1.6-5-4.1-5-7.6V6l5-1.8Z" />
-    </svg>
-  );
-}
 
 function Home() {
   const navigate = useNavigate();
   const { vehicles, isLoading, error } = useVehicles();
-  const stockVehicles = useMemo(
-    () => vehicles.filter((vehicle) => vehicle.source === "stock"),
-    [vehicles],
-  );
   const highlightVehicles = useMemo(
     () => vehicles.filter((vehicle) => vehicle.source === "highlight"),
     [vehicles],
@@ -94,59 +55,53 @@ function Home() {
   }
 
   return (
-    <>
-      <Navbar />
+    <SitePage>
+      <DestaquesSemana
+        vehicles={highlightVehicles}
+        isLoading={isLoading}
+        error={error}
+      />
 
-      <main className="page-shell">
-        <DestaquesSemana
-          vehicles={highlightVehicles}
-          isLoading={isLoading}
-          error={error}
-        />
+      <SectionDivider variant="tight" />
 
-        <div className="home-section-divider home-section-divider--tight" aria-hidden="true" />
+      <PesquisaViaturas
+        cars={vehicles}
+        initialFilters={homeInitialFilters}
+        onSearch={handleVehicleSearch}
+      />
 
-        <PesquisaViaturas
-          cars={vehicles}
-          initialFilters={initialFilters}
-          onSearch={handleVehicleSearch}
-        />
+      <SectionDivider variant="flush" />
 
-        <div className="home-section-divider home-section-divider--flush" aria-hidden="true" />
+      <UltimasViaturas cars={vehicles} />
 
-        <UltimasViaturas cars={stockVehicles} />
+      <SectionDivider />
 
-        <div className="home-section-divider" aria-hidden="true" />
+      <section className="why-choose" aria-labelledby="porque-escolher">
+        <h2 id="porque-escolher">
+          Porque Escolher a <BrandWordmark />
+        </h2>
 
-        <section className="why-choose" aria-labelledby="porque-escolher">
-          <h2 id="porque-escolher">
-            Porque Escolher a{" "}
-            <span className="home-brand-wordmark">
-              <span className="home-brand-wordmark__nikita">Nikita</span>
-              <span className="home-brand-wordmark__motors">Motors</span>
-            </span>
-          </h2>
+        <div className="why-choose__grid">
+          {whyChooseItems.map((item) => (
+            <article className="why-choose__card" key={item.title}>
+              <div className="why-choose__icon">
+                <TypedIcon
+                  type={item.icon}
+                  icons={whyChooseIcons}
+                  fallback={ShieldIcon}
+                />
+              </div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
 
-          <div className="why-choose__grid">
-            {whyChooseItems.map((item) => (
-              <article className="why-choose__card" key={item.title}>
-                <div className="why-choose__icon">
-                  <WhyChooseIcon type={item.icon} />
-                </div>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </article>
-            ))}
-          </div>
-        </section>
+      <SectionDivider />
 
-        <div className="home-section-divider" aria-hidden="true" />
-
-        <Testemunhos />
-      </main>
-
-      <Footer />
-    </>
+      <Testemunhos />
+    </SitePage>
   );
 }
 

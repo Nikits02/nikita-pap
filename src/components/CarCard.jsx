@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
+import { ArrowRightIcon } from "./icons/CommonIcons";
+import { formatEuro } from "../utils/format";
+import { getVehicleLabel } from "../utils/vehicle";
 import { getVehicleDetailPath } from "../utils/vehicleMeta";
 
-const priceFormatter = new Intl.NumberFormat("pt-PT");
-
 function CarCard({ car }) {
-  const formattedPrice = priceFormatter.format(car.preco).replace(/\u00A0/g, " ");
+  const formattedPrice = formatEuro(car.preco);
   const detailPath = car.detailPath ?? getVehicleDetailPath(car);
   const powerLabel = car.potencia ?? "Sob consulta";
+  const vehicleLabel = getVehicleLabel(car);
 
   return (
     <Link
@@ -15,7 +17,7 @@ function CarCard({ car }) {
       aria-label={`Ver detalhes de ${car.marca} ${car.modelo}`}
     >
       <div className="catalog-card__media">
-        <img src={car.imagem} alt={`${car.marca} ${car.modelo}`} />
+        <img src={car.imagem} alt={vehicleLabel} />
         {car.novidade ? <span className="catalog-card__badge">Novo</span> : null}
       </div>
 
@@ -51,10 +53,7 @@ function CarCard({ car }) {
           <div className="catalog-card__cta-group">
             <span className="catalog-card__cta-link">Ver Detalhes</span>
             <span className="catalog-card__cta-arrow" aria-hidden="true">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M6 12h12" />
-                <path d="m13 7 5 5-5 5" />
-              </svg>
+              <ArrowRightIcon />
             </span>
           </div>
         </div>

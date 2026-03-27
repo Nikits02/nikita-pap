@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { resumoTestemunhos, testemunhos } from "../data/testemunhos";
+import useCarouselIndex from "../hooks/useCarouselIndex";
 import useCarouselInteractions from "../hooks/useCarouselInteractions";
 
 function getCardsPerView() {
@@ -32,24 +33,7 @@ function GoogleMark() {
 
 function Testemunhos() {
   const [cardsPerView, setCardsPerView] = useState(getCardsPerView);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const maxIndex = Math.max(0, testemunhos.length - cardsPerView);
-  const visibleIndex = Math.min(activeIndex, maxIndex);
   const itemStep = 100 / cardsPerView;
-
-  function previousTestimonials() {
-    setActiveIndex((currentIndex) => {
-      const safeIndex = Math.min(currentIndex, maxIndex);
-      return safeIndex === 0 ? maxIndex : safeIndex - 1;
-    });
-  }
-
-  function nextTestimonials() {
-    setActiveIndex((currentIndex) => {
-      const safeIndex = Math.min(currentIndex, maxIndex);
-      return safeIndex >= maxIndex ? 0 : safeIndex + 1;
-    });
-  }
 
   useEffect(() => {
     const handleResize = () => {
@@ -65,26 +49,22 @@ function Testemunhos() {
   }, []);
 
   const { isDragging, dragOffset, interactionHandlers } = useCarouselInteractions({
-    onPrevious: previousTestimonials,
-    onNext: nextTestimonials,
+    onPrevious: () => goPrevious(),
+    onNext: () => goNext(),
   });
-
-  useEffect(() => {
-    if (maxIndex === 0 || isDragging) {
-      return undefined;
-    }
-
-    const intervalId = window.setInterval(() => {
-      setActiveIndex((currentIndex) => {
-        const safeIndex = Math.min(currentIndex, maxIndex);
-        return safeIndex >= maxIndex ? 0 : safeIndex + 1;
-      });
-    }, 5000);
-
-    return () => {
-      window.clearInterval(intervalId);
-    };
-  }, [isDragging, maxIndex]);
+  const {
+    maxIndex,
+    setActiveIndex,
+    visibleIndex,
+    goPrevious,
+    goNext,
+  } = useCarouselIndex({
+    itemCount: testemunhos.length,
+    visibleCount: cardsPerView,
+    loop: true,
+    autoplayDelay: 5000,
+    pauseAutoplay: isDragging,
+  });
 
   return (
     <section className="testimonials-section" aria-labelledby="testemunhos">

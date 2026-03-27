@@ -1,4 +1,4 @@
-﻿.catalog-page {
+.catalog-page {
   padding-top: 0.6rem;
   width: min(1440px, calc(100% - 2rem));
 }
@@ -20,7 +20,7 @@
 .catalog-page__hero h1 {
   margin: 0;
   color: #fff8ee;
-  font-family: "Libre Baskerville", Georgia, serif;
+  font-family: var(--font-family-serif);
   font-size: clamp(3.7rem, 7.2vw, 5.8rem);
   line-height: 0.94;
 }
@@ -38,7 +38,7 @@
   height: 1px;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--surface-white-08);
 }
 
 .catalog-filters {
@@ -64,7 +64,7 @@
 .catalog-filter-tab {
   min-height: 2.75rem;
   padding: 0 1.05rem;
-  border: 1px solid rgba(181, 58, 63, 0.22);
+  border: 1px solid var(--brand-surface-22);
   background: transparent;
   color: var(--home-accent-red);
   font-size: 0.8rem;
@@ -118,7 +118,7 @@
   width: 100%;
   min-height: 2.75rem;
   padding: 0 0.95rem;
-  border: 1px solid rgba(181, 58, 63, 0.24);
+  border: 1px solid var(--brand-surface-24);
   background: #0a0a0d;
   color: #ffffff;
   font-size: 0.94rem;
@@ -143,12 +143,14 @@
   stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
-  transition: transform 0.22s ease, stroke 0.22s ease;
+  transition:
+    transform 0.22s ease,
+    stroke 0.22s ease;
 }
 
 .catalog-order__trigger.is-open {
-  border-color: rgba(181, 58, 63, 0.42);
-  box-shadow: 0 0 0 1px rgba(181, 58, 63, 0.14);
+  border-color: var(--brand-surface-42);
+  box-shadow: var(--surface-ring-brand-sm);
 }
 
 .catalog-order__trigger.is-open svg {
@@ -165,7 +167,7 @@
   display: grid;
   gap: 0.2rem;
   padding: 0.45rem;
-  border: 1px solid rgba(181, 58, 63, 0.24);
+  border: 1px solid var(--brand-surface-24);
   background: #111113;
   box-shadow: 0 18px 34px rgba(0, 0, 0, 0.34);
 }
@@ -187,7 +189,7 @@
 
 .catalog-order__option:hover,
 .catalog-order__option.is-active {
-  background: rgba(181, 58, 63, 0.16);
+  background: var(--brand-surface-16);
   color: #ffffff;
 }
 
@@ -200,7 +202,7 @@
 .catalog-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-auto-rows: 1fr;
+  grid-auto-rows: auto;
   align-items: stretch;
   gap: 1.2rem;
   margin-top: 2.4rem;
@@ -209,11 +211,12 @@
 
 .catalog-card {
   display: grid;
-  grid-template-rows: 56% 44%;
-  height: 100%;
-  aspect-ratio: 1.02 / 1;
+  grid-template-rows: auto 1fr;
+  height: auto;
+  min-height: 100%;
+  aspect-ratio: auto;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: var(--surface-divider);
   border-radius: 0;
   background: #060608;
   color: inherit;
@@ -225,7 +228,7 @@
 }
 
 .catalog-card:hover {
-  border-color: rgba(181, 58, 63, 0.32);
+  border-color: var(--brand-surface-32);
   transform: translateY(-4px);
   box-shadow: 0 22px 40px rgba(0, 0, 0, 0.28);
 }
@@ -233,7 +236,8 @@
 .catalog-card__media {
   position: relative;
   overflow: hidden;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  aspect-ratio: 1.48 / 1;
+  border-bottom: var(--surface-divider-faint);
 }
 
 .catalog-card__media img {
@@ -256,7 +260,7 @@
   border-radius: 0;
   background: var(--home-accent-red);
   color: #fff5f5;
-  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  font-family: var(--font-family-sans);
   font-size: 0.69rem;
   font-weight: 700;
   letter-spacing: 0.18em;
@@ -267,6 +271,7 @@
 .catalog-card__body {
   display: grid;
   grid-template-rows: auto auto auto 1fr;
+  align-content: start;
   gap: 0.72rem;
   padding: 0.95rem 0.9rem 0.88rem;
   min-height: 0;
@@ -275,7 +280,7 @@
 .catalog-card__brand {
   margin: 0;
   color: var(--home-accent-red);
-  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  font-family: var(--font-family-sans);
   font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.18em;
@@ -286,7 +291,7 @@
 .catalog-card h3 {
   margin: 0;
   color: #fff8ee;
-  font-family: "Libre Baskerville", Georgia, serif;
+  font-family: var(--font-family-serif);
   font-size: 1.42rem;
   font-weight: 700;
   line-height: 0.98;
@@ -316,7 +321,7 @@
   display: block;
   width: 100%;
   color: #6f6a60;
-  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  font-family: var(--font-family-sans);
   font-size: 0.52rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -328,7 +333,7 @@
 
 .catalog-card__meta-item strong {
   color: #ffffff;
-  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  font-family: var(--font-family-sans);
   font-size: 0.82rem;
   font-weight: 700;
   line-height: 1.15;
@@ -351,7 +356,7 @@
 
 .catalog-card__price-prefix {
   color: #898170;
-  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  font-family: var(--font-family-sans);
   font-size: 0.68rem;
   font-weight: 500;
   line-height: 1;
@@ -360,7 +365,7 @@
 .catalog-card__price-value {
   margin: 0;
   color: var(--home-accent-red);
-  font-family: "Libre Baskerville", Georgia, serif;
+  font-family: var(--font-family-serif);
   font-size: 1.48rem;
   font-weight: 700;
   letter-spacing: 0.07em;
@@ -370,7 +375,7 @@
 }
 
 .catalog-card__price-value span {
-  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  font-family: var(--font-family-sans);
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -388,7 +393,7 @@
   align-items: center;
   justify-content: center;
   min-height: 2.45rem;
-  border: 1px solid rgba(181, 58, 63, 0.48);
+  border: 1px solid var(--brand-surface-48);
   color: var(--home-accent-red);
   text-decoration: none;
   transition:
@@ -402,7 +407,7 @@
   padding: 0 0.88rem;
   border-radius: 0;
   color: var(--home-accent-red);
-  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  font-family: var(--font-family-sans);
   font-size: 0.64rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -438,7 +443,7 @@
   display: grid;
   gap: 0.8rem;
   padding: 3rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: var(--surface-divider);
   background: #070709;
   color: #ffffff;
   text-align: center;
@@ -546,9 +551,9 @@
 
 .highlight-card {
   display: grid;
-  grid-template-rows: 320px auto;
+  grid-template-rows: 280px auto;
   padding: 0;
-  border: 1px solid rgba(181, 58, 63, 0.18);
+  border: 1px solid var(--brand-surface-18);
   border-radius: 0;
   background: var(--site-black);
   box-shadow: none;
@@ -562,16 +567,52 @@
   outline-offset: 4px;
 }
 
+.highlight-card__media-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.weekly-highlights .highlight-card__media-link {
+  height: 100%;
+}
+
+.highlight-card__media-link:focus-visible {
+  outline: 2px solid var(--home-accent-red);
+  outline-offset: 4px;
+}
+
 .highlight-card__media {
   position: relative;
   overflow: hidden;
   border-radius: 0;
 }
 
+.weekly-highlights .highlight-card__media {
+  height: 100%;
+  isolation: isolate;
+  background-image: var(--weekly-highlight-image);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.weekly-highlights .highlight-card__media::before {
+  content: none;
+}
+
+.weekly-highlights .highlight-card__media::after {
+  content: none;
+}
+
 .highlight-card__media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.weekly-highlights .highlight-card__media img {
+  display: none;
 }
 
 .highlight-card__badge {
@@ -581,7 +622,7 @@
   padding: 0.58rem 0.84rem;
   background: var(--weekly-accent-red);
   color: #fff5f5;
-  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  font-family: var(--font-family-sans);
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -589,58 +630,106 @@
   text-transform: uppercase;
 }
 
+.weekly-highlights .highlight-card__badge {
+  z-index: 3;
+}
+
 .highlight-card__body {
   display: grid;
   align-content: start;
-  gap: 0.9rem;
-  padding: 1.35rem 1.45rem 1.5rem;
+  gap: 1rem;
+  padding: 2.05rem 1.45rem 1.5rem;
   text-align: left;
 }
 
-.highlight-card__brand {
+/* Weekly Highlights */
+.weekly-highlight-card__copy {
+  display: grid;
+  align-content: start;
+  gap: 0.7rem;
+}
+
+.weekly-highlight-card__brand,
+.latest-card .latest-card__brand {
+  display: block;
   margin: 0;
-  color: var(--weekly-accent-red);
-  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  line-height: 1;
+  font-family: var(--type-label-family);
+  font-size: var(--type-label-size);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-letter-spacing);
+  line-height: var(--type-label-line-height);
   text-transform: uppercase;
 }
 
-.highlight-card__body h3 {
-  margin: 0;
-  color: #fff8ee;
-  font-family: "Libre Baskerville", Georgia, serif;
-  font-size: 2rem;
-  font-weight: 700;
-  line-height: 0.98;
+.weekly-highlight-card__brand {
+  color: var(--weekly-accent-red);
 }
 
-.highlight-card__price {
+.weekly-highlight-card__title,
+.latest-card .latest-card__title {
+  display: block;
+  margin: 0;
+  color: #fff8ee;
+  font-family: var(--type-display-family);
+  font-size: var(--type-display-size-lg);
+  font-weight: var(--type-display-weight);
+  line-height: var(--type-display-line-height);
+}
+
+.weekly-highlight-card__price {
+  display: block;
   margin: 0;
   width: auto;
   padding: 0;
   border-radius: 0;
   background: transparent;
   color: var(--weekly-accent-red);
-  font-family: "Libre Baskerville", Georgia, serif;
-  font-size: 1.85rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  line-height: 1;
+  font-family: var(--type-price-family);
+  font-size: var(--type-price-size-lg);
+  font-weight: var(--type-price-weight);
+  letter-spacing: var(--type-price-letter-spacing);
+  line-height: var(--type-price-line-height);
+  text-align: center;
   position: static;
   z-index: auto;
   text-transform: uppercase;
 }
 
-.latest-card .highlight-card__brand,
-.latest-card .highlight-card__price {
+/* Latest Vehicles */
+.latest-card .latest-card__body {
+  gap: 0.85rem;
+  padding-top: 1.2rem;
+}
+
+.latest-card .latest-card__brand,
+.latest-card .latest-card__price,
+.latest-card .latest-card__cta {
   color: var(--home-accent-red);
 }
 
-.latest-card .highlight-card__cta {
-  color: var(--home-accent-red);
+.latest-card .latest-card__title {
+  margin-top: -0.2rem;
+}
+
+.latest-card .latest-card__price {
+  width: auto;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  font-family: var(--type-price-family);
+  font-size: 1.7rem;
+  font-weight: var(--type-price-weight);
+  text-align: center;
+  position: static;
+  z-index: auto;
+}
+
+.latest-card .latest-card__cta {
+  justify-self: center;
+  width: min(74%, 16rem);
+  min-height: 2.5rem;
+  margin-top: 0.45rem;
 }
 
 .highlight-card__cta {
@@ -653,10 +742,10 @@
   border: 1px solid var(--home-accent-red);
   background: var(--site-black);
   color: var(--weekly-accent-red);
-  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  font-family: var(--type-button-family);
+  font-size: var(--type-button-size);
+  font-weight: var(--type-button-weight);
+  letter-spacing: var(--type-button-letter-spacing);
   text-decoration: none;
   text-transform: uppercase;
   transition:
@@ -675,38 +764,40 @@
 
 @media (max-width: 1180px) {
   .highlight-card {
-    grid-template-rows: 280px auto;
+    grid-template-rows: 245px auto;
   }
 
-  .highlight-card__body h3 {
-    font-size: 1.7rem;
+  .weekly-highlight-card__title,
+  .latest-card .latest-card__title {
+    font-size: var(--type-display-size-md);
   }
 
-  .highlight-card__price {
-    font-size: 1.55rem;
+  .weekly-highlight-card__price {
+    font-size: var(--type-price-size-md);
   }
 }
 
 @media (max-width: 760px) {
   .highlight-card {
-    grid-template-rows: 240px auto;
+    grid-template-rows: 210px auto;
   }
 
   .highlight-card__body {
-    padding: 1.15rem 1.15rem 1.2rem;
+    padding: 1.7rem 1.15rem 1.2rem;
   }
 
-  .highlight-card__body h3 {
-    font-size: 1.45rem;
+  .weekly-highlight-card__title,
+  .latest-card .latest-card__title {
+    font-size: var(--type-display-size-sm);
   }
 
-  .highlight-card__price {
-    font-size: 1.34rem;
+  .weekly-highlight-card__price {
+    font-size: var(--type-price-size-sm);
   }
 
   .highlight-card__cta {
     min-height: 3rem;
-    font-size: 0.76rem;
+    font-size: var(--type-button-size-sm);
   }
 }
 
@@ -716,7 +807,7 @@
 .why-choose h2,
 .testimonials-section__heading h2 {
   color: #fff8ee;
-  font-family: "Libre Baskerville", Georgia, serif;
+  font-family: var(--font-family-serif);
   font-size: clamp(2.1rem, 3.4vw, 3.15rem);
   font-weight: 700;
   line-height: 0.98;
@@ -747,3 +838,27 @@
   color: #ffffff;
 }
 
+.catalog-page {
+  margin-top: var(--page-section-margin-top);
+  padding-top: 0;
+  width: min(var(--site-width), calc(100% - 2.5rem));
+}
+
+.catalog-page__hero {
+  max-width: none;
+  padding: var(--page-hero-padding-block) 0;
+}
+
+.contact-hero.catalog-page__hero h1 {
+  margin: 0;
+  color: #ffffff;
+  font-family: var(--font-family-serif);
+  font-size: clamp(2.8rem, 5vw, 4.6rem);
+  font-weight: 700;
+}
+
+.contact-hero.catalog-page__hero p {
+  margin: 1.35rem 0 0;
+  color: #7f7a72;
+  font-size: 1.1rem;
+}

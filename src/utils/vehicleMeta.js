@@ -10,7 +10,7 @@ function slugify(value) {
 function normalizeVehicle(vehicle) {
   return {
     ...vehicle,
-    source: vehicle.source ?? "stock",
+    source: vehicle.source ?? "catalog",
     preco: Number(vehicle.preco),
     insertedAt: vehicle.insertedAt ?? vehicle.inserted_at ?? null,
     novidade: Boolean(vehicle.novidade),
@@ -80,7 +80,7 @@ export function withVehicleMeta(vehicle) {
   const sourceLabel =
     normalizedVehicle.source === "highlight"
       ? "Destaque da Semana"
-      : "Viatura em Stock";
+      : "Catalogo";
   const typeLabel =
     normalizedVehicle.tipo ??
     (normalizedVehicle.source === "highlight"
@@ -115,7 +115,7 @@ export function mapVehiclesWithMeta(vehicles = []) {
   return vehicles.map((vehicle) => withVehicleMeta(vehicle));
 }
 
-export function getVehicleDetailPath(vehicle, source = "stock") {
+export function getVehicleDetailPath(vehicle, source = "catalog") {
   return withVehicleMeta({
     ...vehicle,
     source: vehicle.source ?? source,

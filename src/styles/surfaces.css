@@ -1,0 +1,36 @@
+:root {
+  /* Neutral translucent surfaces */
+  --surface-white-04: rgba(255, 255, 255, 0.04);
+  --surface-white-06: rgba(255, 255, 255, 0.06);
+  --surface-white-08: rgba(255, 255, 255, 0.08);
+
+  /* Brand red translucent surfaces */
+  --brand-surface-12: rgba(181, 58, 63, 0.12);
+  --brand-surface-14: rgba(181, 58, 63, 0.14);
+  --brand-surface-16: rgba(181, 58, 63, 0.16);
+  --brand-surface-18: rgba(181, 58, 63, 0.18);
+  --brand-surface-22: rgba(181, 58, 63, 0.22);
+  --brand-surface-24: rgba(181, 58, 63, 0.24);
+  --brand-surface-32: rgba(181, 58, 63, 0.32);
+  --brand-surface-36: rgba(181, 58, 63, 0.36);
+  --brand-surface-42: rgba(181, 58, 63, 0.42);
+  --brand-surface-45: rgba(181, 58, 63, 0.45);
+  --brand-surface-48: rgba(181, 58, 63, 0.48);
+  --brand-surface-52: rgba(181, 58, 63, 0.52);
+  --brand-surface-55: rgba(181, 58, 63, 0.55);
+  --brand-surface-72: rgba(181, 58, 63, 0.72);
+  --brand-surface-75: rgba(181, 58, 63, 0.75);
+
+  /* Rose translucent surfaces */
+  --rose-surface-08: rgba(163, 52, 57, 0.08);
+  --rose-surface-16: rgba(163, 52, 57, 0.16);
+  --rose-surface-18: rgba(163, 52, 57, 0.18);
+  --rose-surface-30: rgba(163, 52, 57, 0.3);
+
+  /* Reusable borders and rings */
+  --surface-divider: 1px solid var(--surface-white-08);
+  --surface-divider-faint: 1px solid var(--surface-white-06);
+  --surface-ring-brand-sm: 0 0 0 1px var(--brand-surface-14);
+  --surface-ring-brand-md: 0 0 0 4px var(--brand-surface-12);
+  --surface-ring-rose-sm: 0 0 0 1px var(--rose-surface-18);
+}

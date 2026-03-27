@@ -1,4 +1,4 @@
-﻿.finance-page {
+.finance-page {
   margin-top: 2.2rem;
   margin-bottom: 3.4rem;
 }
@@ -11,7 +11,7 @@
 }
 
 .finance-card {
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: var(--surface-divider);
   background: linear-gradient(180deg, rgba(7, 7, 10, 0.98), rgba(3, 3, 5, 0.98));
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
 }
@@ -32,7 +32,7 @@
   place-items: center;
   width: 2.55rem;
   height: 2.55rem;
-  border: 1px solid rgba(181, 58, 63, 0.48);
+  border: 1px solid var(--brand-surface-48);
   color: var(--home-accent-red);
 }
 
@@ -52,14 +52,14 @@
 .finance-card--request h2 {
   margin: 0;
   color: #ffffff;
-  font-family: "Libre Baskerville", Georgia, serif;
+  font-family: var(--font-family-serif);
   font-size: clamp(1.8rem, 3vw, 2.45rem);
   font-weight: 700;
 }
 
 .finance-control {
   padding: 1.65rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: var(--surface-divider);
 }
 
 .finance-control--last {
@@ -115,7 +115,7 @@
   border: 0;
   appearance: none;
   background: var(--home-accent-red);
-  box-shadow: 0 0 0 4px rgba(181, 58, 63, 0.12);
+  box-shadow: var(--surface-ring-brand-md);
 }
 
 .finance-range::-moz-range-thumb {
@@ -124,7 +124,7 @@
   border: 0;
   border-radius: 0;
   background: var(--home-accent-red);
-  box-shadow: 0 0 0 4px rgba(181, 58, 63, 0.12);
+  box-shadow: var(--surface-ring-brand-md);
 }
 
 .finance-control__limits {
@@ -175,7 +175,7 @@
 }
 
 .finance-result:not(:last-child) {
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: var(--surface-divider);
 }
 
 .finance-result span {
@@ -218,7 +218,7 @@
   right: 0;
   bottom: 1.8rem;
   width: 1px;
-  background: rgba(181, 58, 63, 0.55);
+  background: var(--brand-surface-55);
 }
 
 .finance-benefits__list {
@@ -231,7 +231,7 @@
   gap: 1rem;
   align-items: center;
   padding: 1.08rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: var(--surface-divider);
 }
 
 .finance-benefit span {
@@ -260,7 +260,7 @@
 .finance-submit {
   min-height: 3rem;
   margin-top: 0.1rem;
-  border: 1px solid rgba(181, 58, 63, 0.72);
+  border: 1px solid var(--brand-surface-72);
   background: transparent;
   color: var(--home-accent-red);
   font-size: 0.94rem;
