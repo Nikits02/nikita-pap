@@ -71,6 +71,14 @@ export function createAdminVehicle(payload) {
   });
 }
 
+export function uploadAdminVehicleImage(payload) {
+  return requestAdminJson("/api/admin/uploads/vehicle-image", {
+    method: "POST",
+    body: payload,
+    errorMessage: "Nao foi possivel carregar a imagem.",
+  });
+}
+
 export function updateAdminVehicle(id, payload) {
   return requestAdminJson(`/api/admin/vehicles/${id}`, {
     method: "PUT",

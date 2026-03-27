@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   CalculatorIcon,
   CheckCircleIcon,
@@ -14,6 +14,7 @@ import {
   termOptions,
 } from "../data/finance";
 import useFormState from "../hooks/useFormState";
+import useVehicles from "../hooks/useVehicles";
 import { formatRoundedNumber } from "../utils/format";
 
 const benefitIcons = {
@@ -24,6 +25,7 @@ const benefitIcons = {
 };
 
 function Financiamento() {
+  const { vehicles } = useVehicles();
   const [simulation, setSimulation] = useState({
     preco: 120000,
     entrada: 24000,
@@ -37,6 +39,40 @@ function Financiamento() {
     viatura: "",
   });
   const [submitted, setSubmitted] = useState(false);
+
+  const priceRange = useMemo(() => {
+    const vehiclePrices = vehicles
+      .map((vehicle) => Number(vehicle.preco))
+      .filter((price) => Number.isFinite(price) && price > 0);
+
+    if (vehiclePrices.length === 0) {
+      return {
+        min: 30000,
+        max: 300000,
+      };
+    }
+
+    return {
+      min: Math.min(...vehiclePrices),
+      max: Math.max(...vehiclePrices),
+    };
+  }, [vehicles]);
+
+  useEffect(() => {
+    setSimulation((current) => {
+      const nextPrice = Math.min(
+        Math.max(current.preco, priceRange.min),
+        priceRange.max,
+      );
+      const nextEntryMax = Math.round(nextPrice * 0.5);
+
+      return {
+        ...current,
+        preco: nextPrice,
+        entrada: Math.min(current.entrada, nextEntryMax),
+      };
+    });
+  }, [priceRange.max, priceRange.min]);
 
   const entryPercent = Math.round(
     (simulation.entrada / simulation.preco) * 100,
@@ -113,8 +149,8 @@ function Financiamento() {
             <input
               className="finance-range"
               type="range"
-              min="30000"
-              max="300000"
+              min={priceRange.min}
+              max={priceRange.max}
               step="1000"
               value={simulation.preco}
               onChange={(event) =>
@@ -123,8 +159,8 @@ function Financiamento() {
             />
 
             <div className="finance-control__limits">
-              <span>EUR30k</span>
-              <span>EUR300k</span>
+              <span>{formatRoundedNumber(priceRange.min)} EUR</span>
+              <span>{formatRoundedNumber(priceRange.max)} EUR</span>
             </div>
           </div>
 

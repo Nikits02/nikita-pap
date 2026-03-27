@@ -7,13 +7,29 @@ import useFormState from "../hooks/useFormState";
 import {
   createAdminVehicle,
   fetchAdminVehicle,
+  uploadAdminVehicleImage,
   updateAdminVehicle,
 } from "../services/adminApi";
 import { clearAuthSession } from "../services/authApi";
 import { formatDateForInput, getTodayDateString } from "../utils/date";
+import { formatFileSize, readFileAsDataUrl } from "../utils/file";
 
 const ADMIN_VEHICLES_PATH = "/admin/viaturas";
 const ADMIN_LOGIN_PATH = "/admin/login";
+const VEHICLE_IMAGE_FIELD = adminVehicleFields.find(
+  ({ name }) => name === "imagem",
+);
+const ADMIN_VEHICLE_MAIN_FIELDS = adminVehicleFields.filter(
+  ({ name }) => name !== "imagem",
+);
+const VEHICLE_IMAGE_ACCEPT =
+  "image/jpeg,image/png,image/webp";
+const VEHICLE_IMAGE_MAX_BYTES = 5 * 1024 * 1024;
+const SUPPORTED_VEHICLE_IMAGE_TYPES = new Set([
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+]);
 
 const initialForm = {
   source: "catalog",
@@ -71,6 +87,22 @@ function buildPayload(formData, defaultInsertedAt = null) {
   };
 }
 
+function getVehicleImageSelectionError(file) {
+  if (!file) {
+    return "Seleciona uma imagem antes de carregar.";
+  }
+
+  if (!SUPPORTED_VEHICLE_IMAGE_TYPES.has(file.type)) {
+    return "Formato invalido. Usa JPG, PNG ou WEBP.";
+  }
+
+  if (file.size > VEHICLE_IMAGE_MAX_BYTES) {
+    return "A imagem nao pode ter mais de 5 MB.";
+  }
+
+  return "";
+}
+
 function AdminVehicleInput({ field, value, onChange }) {
   if (field.control === "select") {
     return (
@@ -115,6 +147,72 @@ function AdminVehicleInput({ field, value, onChange }) {
   );
 }
 
+function AdminVehicleImageField({
+  value,
+  onChange,
+  previewUrl,
+  uploadError,
+  isUploading,
+  onFileChange,
+  selectedImageLabel,
+}) {
+  return (
+    <div className="admin-form__upload">
+      <FormField
+        className="admin-form__field admin-form__field--full"
+        label="Carregar imagem"
+        hint='Escolhe um ficheiro JPG, PNG ou WEBP. O upload preenche o campo "Imagem" automaticamente.'
+        hintClassName="admin-form__hint"
+      >
+        <div className="admin-form__upload-row">
+          <input
+            className="admin-form__file-input"
+            type="file"
+            accept={VEHICLE_IMAGE_ACCEPT}
+            onChange={onFileChange}
+          />
+
+          {isUploading ? (
+            <span className="admin-form__upload-status">A carregar imagem...</span>
+          ) : null}
+        </div>
+
+        {selectedImageLabel ? (
+          <p className="admin-form__upload-note">{selectedImageLabel}</p>
+        ) : null}
+
+        <FormError className="admin-form__error" message={uploadError} />
+      </FormField>
+
+      <FormField
+        className="admin-form__field admin-form__field--full"
+        label={VEHICLE_IMAGE_FIELD?.label ?? "Imagem *"}
+        hint={VEHICLE_IMAGE_FIELD?.hint}
+        hintClassName="admin-form__hint"
+      >
+        <input
+          type="text"
+          value={value}
+          placeholder={VEHICLE_IMAGE_FIELD?.placeholder}
+          onChange={(event) => onChange("imagem", event.target.value)}
+          required
+        />
+      </FormField>
+
+      {previewUrl ? (
+        <div className="admin-form__preview">
+          <p className="admin-form__preview-label">Pre-visualizacao</p>
+          <img
+            className="admin-form__preview-image"
+            src={previewUrl}
+            alt="Pre-visualizacao da viatura"
+          />
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 function AdminVehicleForm() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -124,13 +222,65 @@ function AdminVehicleForm() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(isEditMode);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [imageUploadError, setImageUploadError] = useState("");
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState("");
+  const [selectedImageLabel, setSelectedImageLabel] = useState("");
 
   function updateField(field, value) {
     if (error) {
       setError("");
     }
 
+    if (field === "imagem") {
+      setImagePreviewUrl("");
+      setSelectedImageLabel("");
+      setImageUploadError("");
+    }
+
     updateFormField(field, value);
+  }
+
+  async function handleImageFileChange(event) {
+    const file = event.target.files?.[0];
+    const fileInput = event.target;
+    const fileSelectionError = getVehicleImageSelectionError(file);
+
+    if (error) {
+      setError("");
+    }
+
+    setImageUploadError("");
+
+    if (fileSelectionError) {
+      setImageUploadError(fileSelectionError);
+      fileInput.value = "";
+      return;
+    }
+
+    try {
+      setIsUploadingImage(true);
+      setSelectedImageLabel(`${file.name} (${formatFileSize(file.size)})`);
+
+      const dataUrl = await readFileAsDataUrl(file);
+      setImagePreviewUrl(dataUrl);
+
+      const uploadedImage = await uploadAdminVehicleImage({
+        fileName: file.name,
+        dataUrl,
+      });
+
+      updateFormField("imagem", uploadedImage.imagem);
+      setImagePreviewUrl(uploadedImage.imagem);
+      setSelectedImageLabel(`Imagem carregada: ${file.name}`);
+    } catch (uploadError) {
+      setImageUploadError(
+        uploadError.message ?? "Nao foi possivel carregar a imagem.",
+      );
+    } finally {
+      setIsUploadingImage(false);
+      fileInput.value = "";
+    }
   }
 
   useEffect(() => {
@@ -147,6 +297,8 @@ function AdminVehicleForm() {
 
         if (isMounted) {
           setFormData(mapVehicleToForm(vehicle));
+          setImagePreviewUrl(vehicle.imagem ?? "");
+          setSelectedImageLabel("");
         }
       } catch (loadError) {
         if (!isMounted) {
@@ -176,6 +328,11 @@ function AdminVehicleForm() {
 
   async function handleSubmit(event) {
     event.preventDefault();
+
+    if (isUploadingImage) {
+      setError("Espera que a imagem termine de carregar.");
+      return;
+    }
 
     try {
       setIsSubmitting(true);
@@ -230,7 +387,7 @@ function AdminVehicleForm() {
           </p>
 
           <div className="admin-form__grid">
-            {adminVehicleFields.map((field) => (
+            {ADMIN_VEHICLE_MAIN_FIELDS.map((field) => (
               <AdminVehicleInput
                 key={field.name}
                 field={field}
@@ -239,6 +396,16 @@ function AdminVehicleForm() {
               />
             ))}
           </div>
+
+          <AdminVehicleImageField
+            value={formData.imagem}
+            onChange={updateField}
+            previewUrl={imagePreviewUrl || formData.imagem}
+            uploadError={imageUploadError}
+            isUploading={isUploadingImage}
+            onFileChange={handleImageFileChange}
+            selectedImageLabel={selectedImageLabel}
+          />
 
           <label className="admin-form__checkbox">
             <input
@@ -259,7 +426,7 @@ function AdminVehicleForm() {
             <button
               className="admin-button"
               type="submit"
-              disabled={isSubmitting}
+              disabled={isSubmitting || isUploadingImage}
             >
               {isSubmitting
                 ? "A guardar..."

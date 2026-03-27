@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
+import path from "node:path";
 import { pool } from "./db.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -14,13 +15,20 @@ import {
   VEHICLE_SELECT_ORDER_QUERY,
   VEHICLE_UPDATE_ASSIGNMENTS_SQL,
 } from "./lib/vehiclePayload.js";
+import {
+  ensureVehicleUploadDirectory,
+  saveVehicleImageUpload,
+  VehicleImageUploadValidationError,
+  VEHICLE_UPLOADS_ROOT_DIR,
+} from "./lib/vehicleImageUpload.js";
 
 const app = express();
 const port = Number(process.env.PORT) || 3001;
 const AUTH_TOKEN_DURATION = "1d";
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: "10mb" }));
+app.use("/uploads", express.static(path.resolve(VEHICLE_UPLOADS_ROOT_DIR)));
 
 function buildAdminSessionUser(admin) {
   return {
@@ -288,6 +296,21 @@ app.post("/api/admin/login", async (req, res) => {
   }
 });
 
+app.post("/api/admin/uploads/vehicle-image", authenticateAdmin, async (req, res) => {
+  try {
+    const uploadedImage = await saveVehicleImageUpload(req.body);
+
+    return res.status(201).json(uploadedImage);
+  } catch (error) {
+    if (error instanceof VehicleImageUploadValidationError) {
+      return res.status(400).json({ message: error.message });
+    }
+
+    console.error("Erro ao carregar imagem da viatura:", error.message);
+    return res.status(500).json({ message: "Erro ao carregar imagem." });
+  }
+});
+
 app.get("/api/admin/vehicles", authenticateAdmin, async (_req, res) => {
   try {
     const [rows] = await pool.query(VEHICLE_SELECT_ORDER_QUERY);
@@ -402,7 +425,7 @@ app.delete("/api/admin/vehicles/:id", authenticateAdmin, async (req, res) => {
   }
 });
 
-ensureAuthTables()
+Promise.all([ensureAuthTables(), ensureVehicleUploadDirectory()])
   .then(() => {
     app.listen(port, () => {
       console.log(`API ligada na porta ${port}`);

@@ -75,6 +75,20 @@ function buildSpecs(vehicle, typeLabel) {
   ].filter((item) => item.value);
 }
 
+function getShuffledVehicles(vehicles) {
+  const shuffledVehicles = [...vehicles];
+
+  for (let index = shuffledVehicles.length - 1; index > 0; index -= 1) {
+    const randomIndex = Math.floor(Math.random() * (index + 1));
+    const currentVehicle = shuffledVehicles[index];
+
+    shuffledVehicles[index] = shuffledVehicles[randomIndex];
+    shuffledVehicles[randomIndex] = currentVehicle;
+  }
+
+  return shuffledVehicles;
+}
+
 export function withVehicleMeta(vehicle) {
   const normalizedVehicle = normalizeVehicle(vehicle);
   const sourceLabel =
@@ -127,24 +141,11 @@ export function getVehicleBySlug(vehicles, slug) {
 }
 
 export function getRelatedVehicles(vehicles, currentVehicle, limit = 3) {
-  return vehicles
-    .filter((vehicle) => vehicle.slug !== currentVehicle.slug)
-    .sort((firstVehicle, secondVehicle) => {
-      if (
-        firstVehicle.marca === currentVehicle.marca &&
-        secondVehicle.marca !== currentVehicle.marca
-      ) {
-        return -1;
-      }
+  if (!currentVehicle) {
+    return [];
+  }
 
-      if (
-        secondVehicle.marca === currentVehicle.marca &&
-        firstVehicle.marca !== currentVehicle.marca
-      ) {
-        return 1;
-      }
-
-      return secondVehicle.preco - firstVehicle.preco;
-    })
-    .slice(0, limit);
+  return getShuffledVehicles(
+    vehicles.filter((vehicle) => vehicle.slug !== currentVehicle.slug),
+  ).slice(0, limit);
 }

@@ -50,8 +50,11 @@ export function getVehiclePayloadError(vehicle) {
     !vehicle.marca ||
     !vehicle.modelo ||
     vehicle.preco == null ||
+    vehicle.ano == null ||
+    !vehicle.quilometragem ||
     !vehicle.combustivel ||
     !vehicle.caixa ||
+    !vehicle.inserted_at ||
     !vehicle.imagem
   ) {
     return "Campos obrigatorios em falta.";

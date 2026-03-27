@@ -47,11 +47,12 @@ export const adminVehicleFields = [
   },
   {
     name: "ano",
-    label: "Ano",
+    label: "Ano *",
     type: "number",
     min: "1900",
     max: "2100",
     placeholder: "Ex.: 2023",
+    required: true,
   },
   {
     name: "potencia",
@@ -61,9 +62,10 @@ export const adminVehicleFields = [
   },
   {
     name: "quilometragem",
-    label: "Quilometragem",
+    label: "Quilometragem *",
     type: "text",
     placeholder: "Ex.: 12 000 km",
+    required: true,
   },
   {
     name: "combustivel",
@@ -81,16 +83,17 @@ export const adminVehicleFields = [
   },
   {
     name: "inserted_at",
-    label: "Data de insercao",
+    label: "Data de insercao *",
     type: "date",
     hint: "Define a ordem de aparicao nas Ultimas Viaturas Inseridas. Numa nova viatura, por defeito fica a data de hoje.",
+    required: true,
   },
   {
     name: "imagem",
     label: "Imagem *",
     type: "text",
-    placeholder: "/vehicles/tesla-model-s.jpg",
-    hint: "Usa um caminho existente no projeto ou uma URL valida.",
+    placeholder: "/uploads/vehicles/tesla-model-s.jpg",
+    hint: "Podes carregar um ficheiro acima ou usar manualmente um caminho existente no projeto ou uma URL valida.",
     required: true,
   },
 ];

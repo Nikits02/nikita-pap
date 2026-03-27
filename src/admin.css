@@ -88,6 +88,10 @@
   gap: 8px;
 }
 
+.admin-form__field--full {
+  grid-column: 1 / -1;
+}
+
 .admin-form__hint {
   margin: 0;
   color: #5c6b8a;
@@ -103,6 +107,56 @@
   border-radius: 12px;
   color: #14213d;
   background: #ffffff;
+}
+
+.admin-form__upload {
+  display: grid;
+  gap: 18px;
+  padding: 18px;
+  border: 1px solid #dbe5f3;
+  border-radius: 18px;
+  background: #fbfdff;
+}
+
+.admin-form__upload-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-form__file-input {
+  max-width: 100%;
+  color: #14213d;
+}
+
+.admin-form__upload-status,
+.admin-form__upload-note,
+.admin-form__preview-label {
+  margin: 0;
+  color: #5c6b8a;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.admin-form__upload-status {
+  font-weight: 600;
+}
+
+.admin-form__preview {
+  display: grid;
+  gap: 10px;
+  max-width: 420px;
+}
+
+.admin-form__preview-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border: 1px solid #dbe5f3;
+  border-radius: 16px;
+  background: #eef3f9;
 }
 
 .admin-form__checkbox {
