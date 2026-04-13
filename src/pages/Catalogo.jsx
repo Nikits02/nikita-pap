@@ -115,7 +115,7 @@ function Catalogo() {
         ) : (
           <div className="empty-results">
             <h3>Sem resultados para os filtros aplicados.</h3>
-            <p>Tente mudar os criterios para ver mais opcoes no catalogo.a</p>
+            <p>Tente mudar os criterios para ver mais opcoes no catalogo.</p>
           </div>
         )}
       </section>
