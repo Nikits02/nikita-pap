@@ -17,7 +17,7 @@
   bottom: 0;
   left: calc(50% - 50vw);
   z-index: -1;
-  background: #000000;
+  background: var(--color-neutral-950);
 }
 
 .test-drive-hero {
@@ -40,7 +40,7 @@
 .test-drive-step__heading h2,
 .test-drive-success h2 {
   margin: 0;
-  color: #ffffff;
+  color: var(--color-neutral-0);
   font-family: var(--font-family-serif);
 }
 
@@ -51,7 +51,7 @@
 .test-drive-hero > p:last-child,
 .test-drive-success p {
   margin: 0;
-  color: #8f887d;
+  color: var(--color-stone-310);
   font-size: 1.04rem;
   line-height: 1.75;
 }
@@ -128,7 +128,7 @@
 .test-drive-vehicle-card {
   padding: 0;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: #060608;
+  background: var(--color-black-880);
   color: inherit;
   text-align: left;
   cursor: pointer;
@@ -142,9 +142,9 @@
 .test-drive-vehicle-card:hover,
 .test-drive-vehicle-card.is-selected {
   border-color: var(--brand-surface-52);
-  background: #0a0a0c;
+  background: var(--color-black-860);
   transform: translateY(-2px);
-  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.24);
+  box-shadow: var(--shadow-elevated-dark-sm);
 }
 
 .test-drive-vehicle-card__media {
@@ -177,13 +177,13 @@
 
 .test-drive-vehicle-card__body h3 {
   margin: 0;
-  color: #ffffff;
+  color: var(--color-neutral-0);
   font-size: 1.02rem;
   line-height: 1.2;
 }
 
 .test-drive-vehicle-card__body span:last-child {
-  color: #7f7a72;
+  color: var(--color-stone-300);
   font-size: 0.88rem;
   letter-spacing: 0.02em;
   text-transform: none;
@@ -207,9 +207,9 @@
   width: 100%;
   min-height: 3.35rem;
   padding: 0 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: #141416;
-  color: #ffffff;
+  border: var(--surface-divider-strong);
+  background: var(--surface-input-dark-alt);
+  color: var(--color-neutral-0);
   font-size: 1rem;
 }
 
@@ -225,9 +225,9 @@
 
 .test-drive-hours__button {
   min-height: 3rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: var(--surface-divider-strong);
   background: transparent;
-  color: #bfb7ab;
+  color: var(--color-taupe-300);
   font-size: 0.95rem;
   cursor: pointer;
   transition:
@@ -241,7 +241,7 @@
 .test-drive-hours__button.is-active {
   border-color: var(--test-drive-accent);
   background: var(--test-drive-accent);
-  color: #050506;
+  color: var(--color-black-900);
   transform: translateY(-1px);
 }
 
@@ -255,7 +255,7 @@
 
 .test-drive-form__error {
   margin: -0.6rem 0 0;
-  color: #e17379;
+  color: var(--color-rose-400);
   font-size: 0.95rem;
   line-height: 1.5;
   text-align: center;
@@ -287,7 +287,7 @@
 .test-drive-submit:hover {
   border-color: var(--test-drive-accent);
   background: var(--test-drive-accent);
-  color: #050506;
+  color: var(--color-black-900);
   transform: translateY(-1px);
 }
 
@@ -295,7 +295,7 @@
   justify-items: center;
   padding: 2.8rem 2rem;
   border: var(--surface-divider);
-  background: linear-gradient(180deg, rgba(7, 7, 10, 0.98), rgba(3, 3, 5, 0.98));
+  background: var(--surface-panel-dark);
   text-align: center;
 }
 
@@ -305,7 +305,7 @@
 }
 
 .test-drive-success strong {
-  color: #ffffff;
+  color: var(--color-neutral-0);
 }
 
 @media (max-width: 1180px) {
@@ -344,3 +344,5 @@
     padding: 2rem 1.2rem;
   }
 }
+
+

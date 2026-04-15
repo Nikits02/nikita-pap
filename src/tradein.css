@@ -33,7 +33,7 @@
 .tradein-section-heading h2,
 .tradein-success h2 {
   margin: 0;
-  color: #ffffff;
+  color: var(--color-neutral-0);
   font-family: var(--font-family-serif);
   font-size: clamp(2.6rem, 5vw, 4.5rem);
   font-weight: 700;
@@ -42,7 +42,7 @@
 .tradein-hero p:not(.section-kicker) {
   margin: 1.4rem 0 0;
   max-width: 620px;
-  color: #7e7a73;
+  color: var(--color-stone-280);
   font-size: 1.1rem;
   line-height: 1.7;
 }
@@ -104,7 +104,7 @@
   height: 1.25rem;
   padding: 0 0.2rem;
   background: var(--tradein-accent);
-  color: #fff4f4;
+  color: var(--color-ivory-40);
   font-size: 0.78rem;
   font-weight: 700;
 }
@@ -117,7 +117,7 @@
 
 .tradein-step h3 {
   margin: 0;
-  color: #ffffff;
+  color: var(--color-neutral-0);
   font-size: 1.05rem;
   font-weight: 600;
   text-align: center;
@@ -129,8 +129,8 @@
   margin: 0 auto;
   padding: 2.2rem 2.4rem;
   border: var(--surface-divider);
-  background: linear-gradient(180deg, rgba(7, 7, 10, 0.98), rgba(3, 3, 5, 0.98));
-  box-shadow: 0 24px 54px rgba(0, 0, 0, 0.26);
+  background: var(--surface-panel-dark);
+  box-shadow: var(--shadow-elevated-dark-lg);
 }
 
 .tradein-section-heading {
@@ -186,23 +186,147 @@
 }
 
 .tradein-field input,
-.tradein-field select,
 .tradein-field textarea {
   width: 100%;
   padding: 0.95rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: var(--surface-divider-strong);
   border-radius: 0;
-  background: #151517;
-  color: #ffffff;
+  background: var(--surface-input-dark-alt);
+  color: var(--color-neutral-0);
   font-size: 1rem;
-}
-
-.tradein-field select option {
-  color: #111111;
 }
 
 .tradein-field textarea {
   resize: vertical;
+}
+
+.tradein-select {
+  position: relative;
+  isolation: isolate;
+}
+
+.tradein-select__trigger {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.9rem;
+  width: 100%;
+  min-height: 3.3rem;
+  padding: 0.95rem 1rem;
+  border: var(--surface-divider-strong);
+  background: var(--surface-input-dark-alt);
+  color: var(--color-neutral-0);
+  font-size: 1rem;
+  font-family: inherit;
+  line-height: 1.2;
+  text-align: left;
+  cursor: pointer;
+  user-select: none;
+  -webkit-appearance: none;
+  appearance: none;
+  transition:
+    border-color 0.22s ease,
+    background-color 0.22s ease,
+    color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.tradein-select__trigger:hover,
+.tradein-select__trigger.is-open {
+  border-color: var(--tradein-accent);
+  box-shadow: var(--surface-ring-rose-sm);
+}
+
+.tradein-select__trigger.is-placeholder {
+  color: var(--color-stone-400);
+}
+
+.tradein-select__trigger span {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tradein-select__trigger svg {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  transition: transform 0.22s ease;
+}
+
+.tradein-select__trigger.is-open svg {
+  transform: rotate(180deg);
+}
+
+.tradein-select__menu {
+  position: absolute;
+  top: calc(100% + 0.45rem);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: grid;
+  gap: 0.24rem;
+  padding: 0.4rem;
+  border: 1px solid var(--tradein-accent-border);
+  border-radius: 0;
+  background: var(--surface-input-dark-strong);
+  overflow: hidden;
+  box-shadow: var(--shadow-elevated-dark-md-strong);
+}
+
+.tradein-select__option {
+  all: unset;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 2.9rem;
+  padding: 0.78rem 0.9rem;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--color-ivory-100);
+  font-size: 0.98rem;
+  font-family: inherit;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+  user-select: none;
+  -webkit-appearance: none;
+  appearance: none;
+  transition:
+    border-color 0.22s ease,
+    background-color 0.22s ease,
+    color 0.22s ease;
+}
+
+.tradein-select__trigger:focus-visible,
+.tradein-select__option:focus-visible {
+  outline: none;
+}
+
+.tradein-select__option:hover,
+.tradein-select__option.is-active {
+  border-color: var(--rose-surface-30);
+  background: var(--rose-surface-16);
+  color: var(--color-neutral-0);
+}
+
+.tradein-field__error {
+  margin: 0;
+  color: var(--color-rose-400);
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
+.tradein-form-error {
+  margin: 1.2rem 0 0;
+  color: var(--color-rose-400);
+  font-size: 0.92rem;
+  line-height: 1.5;
 }
 
 .tradein-submit {
@@ -224,11 +348,16 @@
     transform 0.22s ease;
 }
 
-.tradein-submit:hover {
+.tradein-submit:hover:not(:disabled) {
   border-color: var(--tradein-accent);
   background: var(--tradein-accent);
-  color: #050506;
+  color: var(--color-black-900);
   transform: translateY(-1px);
+}
+
+.tradein-submit:disabled {
+  opacity: 0.7;
+  cursor: wait;
 }
 
 .tradein-success {
@@ -254,7 +383,7 @@
 .tradein-success p {
   max-width: 640px;
   margin: 0;
-  color: #8e877d;
+  color: var(--color-stone-290);
   font-size: 1.1rem;
   line-height: 1.7;
 }
@@ -266,8 +395,10 @@
 
 .contact-hero.tradein-hero p {
   margin: 1.35rem 0 0;
-  color: #7f7a72;
+  color: var(--color-stone-300);
   font-size: 1.1rem;
 }
+
+
 
 

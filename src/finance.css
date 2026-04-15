@@ -12,8 +12,8 @@
 
 .finance-card {
   border: var(--surface-divider);
-  background: linear-gradient(180deg, rgba(7, 7, 10, 0.98), rgba(3, 3, 5, 0.98));
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+  background: var(--surface-panel-dark);
+  box-shadow: var(--shadow-elevated-dark-xl);
 }
 
 .finance-card--simulator {
@@ -51,7 +51,7 @@
 .finance-benefits h2,
 .finance-card--request h2 {
   margin: 0;
-  color: #ffffff;
+  color: var(--color-neutral-0);
   font-family: var(--font-family-serif);
   font-size: clamp(1.8rem, 3vw, 2.45rem);
   font-weight: 700;
@@ -74,7 +74,7 @@
 }
 
 .finance-control__top span {
-  color: #8b8378;
+  color: var(--color-stone-335);
   font-size: 0.92rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -131,7 +131,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 0.6rem;
-  color: #4d4a45;
+  color: var(--color-brown-450);
   font-size: 0.88rem;
 }
 
@@ -144,9 +144,9 @@
 
 .finance-term-button {
   min-height: 3rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: var(--surface-divider-strong);
   background: transparent;
-  color: #8f8677;
+  color: var(--color-stone-315);
   cursor: pointer;
   transition:
     background-color 0.2s ease,
@@ -157,7 +157,7 @@
 .finance-term-button.is-active {
   border-color: var(--home-accent-red);
   background: var(--home-accent-red);
-  color: #080707;
+  color: var(--color-black-895);
 }
 
 .finance-results {
@@ -179,14 +179,14 @@
 }
 
 .finance-result span {
-  color: #756d62;
+  color: var(--color-brown-380);
   font-size: 0.82rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .finance-result strong {
-  color: #ffffff;
+  color: var(--color-neutral-0);
   font-size: clamp(1.3rem, 2vw, 2rem);
   font-weight: 700;
 }
@@ -197,7 +197,7 @@
 
 .finance-disclaimer {
   margin: 1.5rem 0 0;
-  color: #5f5a52;
+  color: var(--color-brown-420);
   font-size: 0.92rem;
 }
 
@@ -235,7 +235,7 @@
 }
 
 .finance-benefit span {
-  color: #d5cec4;
+  color: var(--color-sand-190);
   font-size: 1.04rem;
 }
 
@@ -252,9 +252,9 @@
 .finance-request-form input {
   min-height: 3.25rem;
   padding: 0.95rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.05);
-  color: #ffffff;
+  border: 1px solid var(--surface-white-10);
+  background: var(--surface-white-05);
+  color: var(--color-neutral-0);
 }
 
 .finance-submit {
@@ -278,7 +278,7 @@
 .finance-submit:hover {
   border-color: var(--home-accent-red);
   background: var(--home-accent-red);
-  color: #050506;
+  color: var(--color-black-900);
   transform: translateY(-1px);
 }
 
@@ -286,11 +286,13 @@
   display: grid;
   gap: 0.25rem;
   margin-top: 1rem;
-  color: #d5cec4;
+  color: var(--color-sand-190);
 }
 
 .finance-success strong {
-  color: #ffffff;
+  color: var(--color-neutral-0);
 }
+
+
 
 

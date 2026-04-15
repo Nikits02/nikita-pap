@@ -1,10 +1,34 @@
 :root {
   /* Neutral translucent surfaces */
   --surface-white-04: rgba(255, 255, 255, 0.04);
+  --surface-white-05: rgba(255, 255, 255, 0.05);
   --surface-white-06: rgba(255, 255, 255, 0.06);
   --surface-white-08: rgba(255, 255, 255, 0.08);
+  --surface-white-10: rgba(255, 255, 255, 0.1);
+  --surface-white-12: rgba(255, 255, 255, 0.12);
+  --surface-white-14: rgba(255, 255, 255, 0.14);
+
+  /* Shared dark panels and controls */
+  --surface-panel-dark: linear-gradient(180deg, rgba(7, 7, 10, 0.98), rgba(3, 3, 5, 0.98));
+  --surface-input-dark: var(--color-night-870);
+  --surface-input-dark-alt: var(--color-night-860);
+  --surface-input-dark-strong: var(--color-night-890);
+  --surface-overlay-dark-84: rgba(10, 10, 11, 0.84);
+  --surface-panel-light: var(--color-neutral-0);
+  --surface-panel-light-soft: var(--color-neutral-50);
+  --surface-panel-light-muted: var(--color-neutral-150);
+  --surface-panel-light-notice: var(--color-neutral-200);
+
+  /* Shared elevation */
+  --shadow-elevated-dark-sm: 0 18px 34px rgba(0, 0, 0, 0.24);
+  --shadow-elevated-dark-md: 0 20px 40px rgba(0, 0, 0, 0.3);
+  --shadow-elevated-dark-md-strong: 0 20px 40px rgba(0, 0, 0, 0.38);
+  --shadow-elevated-dark-lg: 0 24px 54px rgba(0, 0, 0, 0.26);
+  --shadow-elevated-dark-xl: 0 30px 60px rgba(0, 0, 0, 0.3);
+  --shadow-elevated-light-md: 0 18px 50px rgba(20, 33, 61, 0.08);
 
   /* Brand red translucent surfaces */
+  --brand-surface-08: rgba(181, 58, 63, 0.08);
   --brand-surface-12: rgba(181, 58, 63, 0.12);
   --brand-surface-14: rgba(181, 58, 63, 0.14);
   --brand-surface-16: rgba(181, 58, 63, 0.16);
@@ -30,6 +54,9 @@
   /* Reusable borders and rings */
   --surface-divider: 1px solid var(--surface-white-08);
   --surface-divider-faint: 1px solid var(--surface-white-06);
+  --surface-divider-strong: 1px solid var(--surface-white-12);
+  --surface-border-light: 1px solid var(--color-neutral-300);
+  --surface-border-light-strong: 1px solid var(--color-neutral-400);
   --surface-ring-brand-sm: 0 0 0 1px var(--brand-surface-14);
   --surface-ring-brand-md: 0 0 0 4px var(--brand-surface-12);
   --surface-ring-rose-sm: 0 0 0 1px var(--rose-surface-18);

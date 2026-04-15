@@ -22,40 +22,44 @@ function Sobre() {
       <PageHero
         className="about-page__hero"
         title="A Nossa Historia"
-        description="Conheca o percurso, a motivacao e a visao por tras da NikitaMotors."
+        description="Conheca a origem do projeto, a motivacao por tras da sua criacao e a visao que orientou o seu desenvolvimento."
       />
 
       <section className="about-story">
         <div className="about-story__content">
           <p>
-            A NikitaMotors foi criada no Ammbito da Prova de Aptidão
+            A NikitaMotors foi criada no ambito da Prova de Aptidao
             Profissional (PAP), com o objetivo de desenvolver um website
-            dedicado ao mercado de automóveis de luxo. Este projeto surgiu da
-            minha motivação em aplicar os conhecimentos adquiridos ao longo do
-            curso, especialmente na área do desenvolvimento web.
+            dedicado ao mercado de automoveis de luxo. O projeto nasceu da
+            vontade de aplicar, num caso pratico e completo, os conhecimentos
+            adquiridos ao longo do curso, com especial foco no desenvolvimento
+            web, na organizacao de conteudo e na experiencia do utilizador.
           </p>
 
           <p>
-            Desde o início, o principal objetivo foi criar uma plataforma
+            Desde o inicio, o principal objetivo foi criar uma plataforma
             moderna, funcional e intuitiva, capaz de proporcionar uma boa
-            experiência ao utilizador. Ao longo do desenvolvimento, fui
-            explorando diferentes ideias, tecnologias e soluções, sempre com o
-            intuito de melhorar o design e as funcionalidades do website.
+            experiencia ao utilizador. Ao longo do desenvolvimento, fui
+            explorando diferentes ideias, tecnologias e solucoes para construir
+            uma interface apelativa, com navegacao clara, identidade visual
+            consistente e areas funcionais pensadas para diferentes tipos de
+            utilizacao.
           </p>
 
           <p>
-            Durante a realização do projeto, enfrentei vários desafios técnicos,
-            que me permitiram aprender e evoluir, tanto ao ni­vel da programação
-            como na organizacão do trabalho. Com dedicaçã e esforço, consegui
-            desenvolver um website que reflete nã só os conhecimentos
-            adquiridos, mas também o meu interesse pela áera e vontade de
-            aprender mais.
+            Durante a realizacao do projeto, enfrentei varios desafios
+            tecnicos, que me permitiram aprender e evoluir, tanto ao nivel da
+            programacao como na organizacao do trabalho. Com dedicacao e
+            esforco, fui consolidando competencias em frontend, estruturacao de
+            dados, validacao de formularios, area administrativa e integracao
+            entre interface, servidor e base de dados.
           </p>
 
           <p>
-            Este projeto representa, assim, uma etapa importante no meu percurso
-            académico, demonstrando as competências que desenvolvi ao longo da
-            minha formacão.
+            Este projeto representa, assim, uma etapa importante no meu
+            percurso academico, demonstrando nao apenas as competencias
+            tecnicas que desenvolvi, mas tambem a minha capacidade de planear,
+            executar e melhorar um produto digital de forma progressiva.
           </p>
         </div>
 
@@ -72,11 +76,11 @@ function Sobre() {
       <section className="about-quote" aria-label="Mensagem da marca">
         <div className="about-quote__mark" aria-hidden="true" />
         <blockquote>
-          "Proporcionar a cada cliente uma experiencia de aquisicao automovel
-          verdadeiramente premium, com transparencia, confianca e dedicacao
-          total."
+          "Criar uma experiencia digital elegante, funcional e credivel, capaz
+          de refletir a exigencia e o detalhe associados ao universo automovel
+          premium."
         </blockquote>
-        <p>- Nikita Kazutinas, CEO</p>
+        <p>- Nikita Kazutinas, Autor do Projeto</p>
       </section>
 
       <section className="about-values" aria-labelledby="o-que-nos-define">

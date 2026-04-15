@@ -1,29 +1,29 @@
 export const historyStats = [
-  { value: "2026", label: "Ano de Fundacao" },
-  { value: "120+", label: "Veiculos em Stock" },
-  { value: "2.400+", label: "Clientes Satisfeitos" },
-  { value: "98%", label: "Taxa de Satisfacao" },
+  { value: "2026", label: "Ano de Criacao" },
+  { value: "14", label: "Viaturas em Catalogo" },
+  { value: "4", label: "Areas Principais" },
+  { value: "1", label: "Projeto PAP Completo" },
 ];
 
 export const coreValues = [
   {
     title: "Excelencia",
-    text: "Nunca comprometemos a qualidade em nenhum aspeto do nosso servico.",
+    text: "Cada detalhe do projeto foi pensado para transmitir qualidade, clareza e consistencia visual.",
     icon: "award",
   },
   {
     title: "Confianca",
-    text: "Transparencia e honestidade em cada transacao e interacao.",
+    text: "A estrutura do website foi desenvolvida para comunicar informacao de forma clara, organizada e fiavel.",
     icon: "people",
   },
   {
     title: "Paixao",
-    text: "O amor pelos automoveis de luxo esta no ADN de toda a nossa equipa.",
+    text: "O interesse pelo universo automovel esteve presente em todas as decisoes criativas e funcionais.",
     icon: "spark",
   },
   {
     title: "Inovacao",
-    text: "Adotamos sempre as mais recentes tecnologias e metodologias.",
+    text: "Foram aplicadas ferramentas e abordagens atuais para construir uma experiencia moderna e evolutiva.",
     icon: "target",
   },
 ];

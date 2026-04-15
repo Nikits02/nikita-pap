@@ -19,7 +19,7 @@
 
 .catalog-page__hero h1 {
   margin: 0;
-  color: #fff8ee;
+  color: var(--color-ivory-50);
   font-family: var(--font-family-serif);
   font-size: clamp(3.7rem, 7.2vw, 5.8rem);
   line-height: 0.94;
@@ -83,7 +83,7 @@
 .catalog-filter-tab.is-active {
   border-color: var(--home-accent-red);
   background: var(--home-accent-red);
-  color: #050505;
+  color: var(--color-black-905);
 }
 
 .catalog-order {
@@ -97,7 +97,7 @@
 .catalog-order svg {
   width: 1rem;
   height: 1rem;
-  color: #6f695e;
+  color: var(--color-stone-365);
   stroke: currentColor;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -105,7 +105,7 @@
 }
 
 .catalog-order span {
-  color: #8a8377;
+  color: var(--color-stone-320);
   font-size: 0.92rem;
 }
 
@@ -119,8 +119,8 @@
   min-height: 2.75rem;
   padding: 0 0.95rem;
   border: 1px solid var(--brand-surface-24);
-  background: #0a0a0d;
-  color: #ffffff;
+  background: var(--color-black-940);
+  color: var(--color-neutral-0);
   font-size: 0.94rem;
   display: flex;
   align-items: center;
@@ -139,7 +139,7 @@
   height: 1rem;
   flex-shrink: 0;
   fill: none;
-  stroke: #8a8377;
+  stroke: var(--color-stone-320);
   stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -168,7 +168,7 @@
   gap: 0.2rem;
   padding: 0.45rem;
   border: 1px solid var(--brand-surface-24);
-  background: #111113;
+  background: var(--color-night-890);
   box-shadow: 0 18px 34px rgba(0, 0, 0, 0.34);
 }
 
@@ -178,7 +178,7 @@
   padding: 0.7rem 0.8rem;
   border: 0;
   background: transparent;
-  color: #f4efe7;
+  color: var(--color-ivory-100);
   font-size: 0.94rem;
   text-align: left;
   cursor: pointer;
@@ -190,7 +190,7 @@
 .catalog-order__option:hover,
 .catalog-order__option.is-active {
   background: var(--brand-surface-16);
-  color: #ffffff;
+  color: var(--color-neutral-0);
 }
 
 .catalog-page__count {
@@ -218,7 +218,7 @@
   overflow: hidden;
   border: var(--surface-divider);
   border-radius: 0;
-  background: #060608;
+  background: var(--color-black-880);
   color: inherit;
   text-decoration: none;
   transition:
@@ -259,7 +259,7 @@
   padding: 0.54rem 0.86rem;
   border-radius: 0;
   background: var(--home-accent-red);
-  color: #fff5f5;
+  color: var(--color-ivory-80);
   font-family: var(--font-family-sans);
   font-size: 0.69rem;
   font-weight: 700;
@@ -290,7 +290,7 @@
 
 .catalog-card h3 {
   margin: 0;
-  color: #fff8ee;
+  color: var(--color-ivory-50);
   font-family: var(--font-family-serif);
   font-size: 1.42rem;
   font-weight: 700;
@@ -313,14 +313,14 @@
   min-height: 3.3rem;
   padding: 0.58rem 0.55rem 0.54rem;
   border-radius: 0;
-  background: #0a0a0d;
+  background: var(--color-black-940);
   text-align: center;
 }
 
 .catalog-card__meta-label {
   display: block;
   width: 100%;
-  color: #6f6a60;
+  color: var(--color-stone-360);
   font-family: var(--font-family-sans);
   font-size: 0.52rem;
   font-weight: 700;
@@ -332,7 +332,7 @@
 }
 
 .catalog-card__meta-item strong {
-  color: #ffffff;
+  color: var(--color-neutral-0);
   font-family: var(--font-family-sans);
   font-size: 0.82rem;
   font-weight: 700;
@@ -355,7 +355,7 @@
 }
 
 .catalog-card__price-prefix {
-  color: #898170;
+  color: var(--color-stone-340);
   font-family: var(--font-family-sans);
   font-size: 0.68rem;
   font-weight: 500;
@@ -435,7 +435,7 @@
 .catalog-card__cta-arrow:hover {
   border-color: var(--home-accent-red);
   background: var(--home-accent-red);
-  color: #050506;
+  color: var(--color-black-900);
   transform: translateY(-1px);
 }
 
@@ -444,8 +444,8 @@
   gap: 0.8rem;
   padding: 3rem;
   border: var(--surface-divider);
-  background: #070709;
-  color: #ffffff;
+  background: var(--color-black-870);
+  color: var(--color-neutral-0);
   text-align: center;
 }
 
@@ -621,7 +621,7 @@
   left: 1rem;
   padding: 0.58rem 0.84rem;
   background: var(--weekly-accent-red);
-  color: #fff5f5;
+  color: var(--color-ivory-80);
   font-family: var(--font-family-sans);
   font-size: 0.7rem;
   font-weight: 700;
@@ -669,7 +669,7 @@
 .latest-card .latest-card__title {
   display: block;
   margin: 0;
-  color: #fff8ee;
+  color: var(--color-ivory-50);
   font-family: var(--type-display-family);
   font-size: var(--type-display-size-lg);
   font-weight: var(--type-display-weight);
@@ -758,7 +758,7 @@
 .highlight-card__cta:hover {
   border-color: var(--home-accent-red);
   background: var(--home-accent-red);
-  color: #050506;
+  color: var(--color-black-900);
   transform: translateY(-1px);
 }
 
@@ -806,7 +806,7 @@
 .latest-vehicles__title,
 .why-choose h2,
 .testimonials-section__heading h2 {
-  color: #fff8ee;
+  color: var(--color-ivory-50);
   font-family: var(--font-family-serif);
   font-size: clamp(2.1rem, 3.4vw, 3.15rem);
   font-weight: 700;
@@ -835,7 +835,7 @@
 }
 
 .home-brand-wordmark__motors {
-  color: #ffffff;
+  color: var(--color-neutral-0);
 }
 
 .catalog-page {
@@ -851,7 +851,7 @@
 
 .contact-hero.catalog-page__hero h1 {
   margin: 0;
-  color: #ffffff;
+  color: var(--color-neutral-0);
   font-family: var(--font-family-serif);
   font-size: clamp(2.8rem, 5vw, 4.6rem);
   font-weight: 700;
@@ -859,6 +859,7 @@
 
 .contact-hero.catalog-page__hero p {
   margin: 1.35rem 0 0;
-  color: #7f7a72;
+  color: var(--color-stone-300);
   font-size: 1.1rem;
 }
+

@@ -21,3 +21,11 @@ export function createContactMessage(payload) {
     errorMessage: "Erro ao enviar contacto.",
   });
 }
+
+export function createTradeInRequest(payload) {
+  return requestJson("/api/trade-ins", {
+    method: "POST",
+    body: payload,
+    errorMessage: "Erro ao guardar pedido de retoma.",
+  });
+}

@@ -1,7 +1,9 @@
 import { useState } from "react";
+import CustomSelect from "../components/form/CustomSelect";
 import {
+  FormError,
+  FormField,
   FormInputField,
-  FormSelectField,
   FormTextareaField,
 } from "../components/form/FormField";
 import {
@@ -13,8 +15,12 @@ import {
 import TypedIcon from "../components/icons/TypedIcon";
 import PageHero from "../components/PageHero";
 import SitePage from "../components/SitePage";
-import { tradeInSteps } from "../data/tradeIn";
+import {
+  tradeInSteps,
+  tradeInVehicleConditionOptions,
+} from "../data/tradeIn";
 import useFormState from "../hooks/useFormState";
+import { createTradeInRequest } from "../services/api";
 
 const currentYear = new Date().getFullYear();
 
@@ -49,17 +55,44 @@ function Retoma() {
     observacoes: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [vehicleConditionError, setVehicleConditionError] = useState("");
+  const [submitError, setSubmitError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   function updateField(field, value) {
+    if (field === "estado" && vehicleConditionError) {
+      setVehicleConditionError("");
+    }
+
+    if (submitError) {
+      setSubmitError("");
+    }
+
     updateFormField(
       field,
       field === "ano" || field === "quilometragem" ? Number(value) : value,
     );
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    setSubmitted(true);
+
+    if (!formData.estado) {
+      setVehicleConditionError("Selecione o estado geral da viatura.");
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      await createTradeInRequest(formData);
+      setSubmitted(true);
+    } catch (error) {
+      setSubmitError(
+        error.message ?? "Nao foi possivel enviar o pedido de retoma.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -155,19 +188,23 @@ function Retoma() {
                 required
               />
 
-              <FormSelectField
+              <FormField
                 className="tradein-field"
                 label="Estado Geral *"
-                value={formData.estado}
-                onChange={(event) => updateField("estado", event.target.value)}
-                required
+                error={vehicleConditionError}
+                errorClassName="tradein-field__error"
               >
-                <option value="">-</option>
-                <option value="Excelente">Excelente</option>
-                <option value="Muito Bom">Muito Bom</option>
-                <option value="Bom">Bom</option>
-                <option value="Regular">Regular</option>
-              </FormSelectField>
+                <CustomSelect
+                  value={formData.estado}
+                  options={tradeInVehicleConditionOptions}
+                  placeholder="-"
+                  onChange={(value) => updateField("estado", value)}
+                  rootClassName="tradein-select"
+                  triggerClassName="tradein-select__trigger"
+                  menuClassName="tradein-select__menu"
+                  optionClassName="tradein-select__option"
+                />
+              </FormField>
             </div>
 
             <div className="tradein-section-heading tradein-section-heading--contact">
@@ -216,8 +253,10 @@ function Retoma() {
               />
             </div>
 
-            <button className="tradein-submit" type="submit">
-              Solicitar Avaliacao
+            <FormError className="tradein-form-error" message={submitError} />
+
+            <button className="tradein-submit" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "A enviar..." : "Solicitar Avaliacao"}
             </button>
           </form>
         )}

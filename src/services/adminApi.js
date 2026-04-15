@@ -57,6 +57,40 @@ export function fetchAdminVehicles() {
   });
 }
 
+export function fetchAdminTradeIns() {
+  return requestAdminJson("/api/admin/trade-ins", {
+    errorMessage: "Nao foi possivel carregar os pedidos de retoma.",
+  });
+}
+
+export function updateAdminTradeInStatus(id, payload) {
+  return requestAdminJson(`/api/admin/trade-ins/${id}`, {
+    method: "PATCH",
+    body: payload,
+    errorMessage: "Nao foi possivel atualizar o pedido de retoma.",
+  });
+}
+
+export function deleteAdminTradeIn(id) {
+  return requestAdminJson(`/api/admin/trade-ins/${id}`, {
+    method: "DELETE",
+    errorMessage: "Nao foi possivel eliminar o pedido de retoma.",
+  });
+}
+
+export function fetchAdminUsers() {
+  return requestAdminJson("/api/admin/users", {
+    errorMessage: "Nao foi possivel carregar os utilizadores.",
+  });
+}
+
+export function deleteAdminUser(id) {
+  return requestAdminJson(`/api/admin/users/${id}`, {
+    method: "DELETE",
+    errorMessage: "Nao foi possivel eliminar o utilizador.",
+  });
+}
+
 export function fetchAdminVehicle(id) {
   return requestAdminJson(`/api/admin/vehicles/${id}`, {
     errorMessage: "Nao foi possivel carregar a viatura.",

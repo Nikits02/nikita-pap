@@ -1,0 +1,167 @@
+:root {
+  /* Core neutrals */
+  --color-neutral-0: #ffffff;
+  --color-neutral-50: #fbfdff;
+  --color-neutral-100: #f4f7fb;
+  --color-neutral-150: #eef3f9;
+  --color-neutral-200: #e8eef8;
+  --color-neutral-250: #dde6f2;
+  --color-neutral-300: #dbe5f3;
+  --color-neutral-400: #c9d4e5;
+  --color-line-soft: #ecdcdc;
+  --color-neutral-900: #111111;
+  --color-neutral-925: #0f172a;
+  --color-neutral-950: #000000;
+
+  /* Dark canvases */
+  --color-black-905: var(--color-black-900);
+  --color-black-900: #050506;
+  --color-black-890: var(--color-black-880);
+  --color-black-895: #080707;
+  --color-black-885: #0f0d0b;
+  --color-black-880: #060608;
+  --color-black-870: #070709;
+  --color-black-860: #0a0a0c;
+  --color-black-920: var(--color-black-940);
+  --color-black-930: var(--color-black-940);
+  --color-black-940: #0a0a0d;
+  --color-night-850: var(--color-night-860);
+  --color-night-860: #151517;
+  --color-night-870: #17171a;
+  --color-night-880: var(--color-night-890);
+  --color-night-890: #111113;
+  --color-night-900-72: rgba(10, 10, 13, 0.72);
+
+  /* Ink and muted copy */
+  --color-ink-900: #282426;
+  --color-ink-700: #3b3537;
+  --color-ink-600: #6a6063;
+  --color-ink-850: #181617;
+  --color-ink-860: var(--color-ink-870);
+  --color-ink-865: var(--color-ink-870);
+  --color-ink-870: #1e1c1d;
+  --color-ink-875: var(--color-ink-900);
+  --color-ink-880: var(--color-ink-900);
+  --color-stone-400: #8d867b;
+  --color-stone-450: var(--color-stone-400);
+  --color-stone-260: #726b61;
+  --color-stone-270: #857d72;
+  --color-stone-280: var(--color-stone-300);
+  --color-stone-290: var(--color-stone-400);
+  --color-stone-300: #7f7a72;
+  --color-stone-310: var(--color-stone-400);
+  --color-stone-315: var(--color-stone-400);
+  --color-stone-320: var(--color-stone-400);
+  --color-stone-330: var(--color-stone-400);
+  --color-stone-335: var(--color-stone-400);
+  --color-stone-340: var(--color-stone-400);
+  --color-stone-345: var(--color-stone-300);
+  --color-stone-390: var(--color-stone-440);
+  --color-stone-370: var(--color-stone-400);
+  --color-stone-360: #6f6a60;
+  --color-stone-365: var(--color-stone-360);
+  --color-stone-430: var(--color-stone-400);
+  --color-stone-440: #9d9588;
+  --color-brown-380: #756d62;
+  --color-brown-420: #5f5a52;
+  --color-brown-460: #4a4547;
+  --color-brown-450: #4d4a45;
+
+  /* Warm editorial copy */
+  --color-ivory-20: #fff1d8;
+  --color-ivory-40: var(--color-ivory-80);
+  --color-ivory-50: #fff8ee;
+  --color-ivory-80: #fff5f5;
+  --color-ivory-90: var(--color-ivory-100);
+  --color-ivory-100: #f4efe7;
+  --color-ivory-120: #f3ede3;
+  --color-ivory-200: #ddd7cc;
+  --color-sand-240: #a6927e;
+  --color-sand-180: var(--color-sand-200);
+  --color-sand-190: var(--color-sand-200);
+  --color-sand-200: #d7d0c5;
+  --color-sand-210: var(--color-sand-200);
+  --color-sand-220: #ddd4c7;
+  --color-sand-230: #e5ddd1;
+  --color-slate-200: #aeb4bf;
+  --color-taupe-300: #bfb7ab;
+  --color-taupe-350: #b4aa9b;
+
+  /* Brand reds */
+  --color-brand-red-500: #ef2424;
+  --color-brand-red-490: var(--color-brand-red-500);
+  --color-brand-red-480: var(--color-brand-red-500);
+  --color-brand-red-470: #ff3d3d;
+  --color-brand-red-460: #ff4444;
+  --color-brand-red-450: #ff4a4a;
+  --color-brand-red-440: #ff4a58;
+  --color-brand-red-600: #c81d1d;
+  --color-brand-red-625: #c23232;
+  --color-brand-red-650: #b63939;
+  --color-brand-red-350: #d85d5d;
+  --color-brand-red-320: #ef5c5c;
+  --color-brand-red-50: #fff1f1;
+  --color-brand-accent: #b53a3f;
+  --color-accent-rose-600: #a33439;
+  --color-accent-rose-500: #d64b51;
+  --color-accent-rose-muted: #b98d91;
+  --color-accent-rose-soft-12: rgba(163, 52, 57, 0.12);
+  --color-accent-rose-soft-22: rgba(163, 52, 57, 0.22);
+  --color-accent-rose-border-22: rgba(163, 52, 57, 0.22);
+  --color-accent-rose-border-34: rgba(163, 52, 57, 0.34);
+  --color-accent-rose-border-42: rgba(163, 52, 57, 0.42);
+  --color-accent-rose-border-48: rgba(163, 52, 57, 0.48);
+  --color-danger-700: #b42318;
+
+  /* Admin palette */
+  --color-admin-ink: #14213d;
+  --color-admin-muted: #5c6b8a;
+  --color-admin-notice-ink: var(--color-neutral-925);
+
+  /* Detail and test-drive accents */
+  --color-vehicle-accent-soft: var(--color-accent-rose-muted);
+  --color-detail-copy: var(--color-ivory-200);
+  --color-detail-copy-soft: #a79d92;
+  --color-detail-line: rgba(181, 58, 63, 0.2);
+  --color-test-drive-soft: #cf9ea2;
+  --color-test-drive-line: rgba(181, 58, 63, 0.24);
+
+  /* Luxury accent palette */
+  --color-lux-gold: #c9a76e;
+  --color-lux-copy: var(--color-ivory-100);
+  --color-lux-copy-soft: #aea596;
+
+  /* Status accents */
+  --color-warning-gold: #ffcc48;
+  --color-info-cyan: #43b9ca;
+  --color-peach-400: #ff8a7a;
+  --color-rose-400: #e17379;
+  --color-success-400: #62c27a;
+  --color-rose-100: #fff7f7;
+  --color-rose-110: #fff8f8;
+  --color-rose-200: #f1c3c3;
+  --color-rose-210: #efe2e2;
+  --color-rose-220: #f1e2e2;
+  --color-rose-230: #efb8b8;
+  --color-rose-240: #f1dddd;
+  --color-rose-250: #e4d0d0;
+  --color-rose-260: #f0d4d4;
+  --color-neutral-225: #d7d1d1;
+  --color-neutral-230: #d7cfd0;
+  --color-neutral-240: #dedede;
+  --color-neutral-75: #f5f5f5;
+
+  /* Legacy aliases kept to avoid visual regressions */
+  --site-black: var(--color-neutral-950);
+  --brand-red: var(--color-brand-red-500);
+  --brand-red-deep: var(--color-brand-red-600);
+  --brand-red-soft: var(--color-brand-red-50);
+  --home-accent-red: var(--color-brand-accent);
+  --ink: var(--color-ink-900);
+  --ink-soft: var(--color-ink-600);
+  --surface-strong: var(--color-neutral-0);
+
+  --lux-gold: var(--color-lux-gold);
+  --lux-copy: var(--color-lux-copy);
+  --lux-copy-soft: var(--color-lux-copy-soft);
+}

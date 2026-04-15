@@ -4,6 +4,14 @@
   --contact-accent-soft: var(--color-accent-rose-soft-22);
   --contact-accent-border: var(--color-accent-rose-border-42);
   --contact-accent-muted: var(--color-accent-rose-muted);
+  --auth-notice-background: var(--color-black-930);
+  --auth-notice-overlay: var(--color-accent-rose-soft-12);
+  --auth-notice-shadow: var(--color-night-900-72);
+  --auth-copy-strong: var(--color-ivory-120);
+  --auth-copy-heading: var(--color-ivory-50);
+  --auth-copy-muted: var(--color-stone-400);
+  --auth-copy-inverse: var(--color-neutral-0);
+  --auth-copy-contrast: var(--color-black-900);
   margin-top: var(--page-section-margin-top);
   margin-bottom: var(--page-section-margin-bottom);
 }
@@ -36,8 +44,8 @@
   padding: 1rem 1.1rem;
   border: 1px solid var(--contact-accent-border);
   background:
-    linear-gradient(180deg, rgba(163, 52, 57, 0.12), rgba(10, 10, 13, 0.72)),
-    #09090b;
+    linear-gradient(180deg, var(--auth-notice-overlay), var(--auth-notice-shadow)),
+    var(--auth-notice-background);
 }
 
 .auth-notice__eyebrow {
@@ -52,7 +60,7 @@
 
 .auth-notice p {
   margin: 0;
-  color: #f3ede3;
+  color: var(--auth-copy-strong);
   font-size: 0.98rem;
   line-height: 1.6;
 }
@@ -65,7 +73,7 @@
 
 .auth-form__helper {
   margin: 0.2rem 0 0;
-  color: #8d867b;
+  color: var(--auth-copy-muted);
   font-size: 0.98rem;
   line-height: 1.6;
 }
@@ -92,7 +100,7 @@
 
 .account-details h2 {
   margin: 0;
-  color: #fff8ee;
+  color: var(--auth-copy-heading);
   font-family: var(--font-family-serif);
   font-size: clamp(1.6rem, 2.4vw, 2.15rem);
   font-weight: 700;
@@ -112,7 +120,7 @@
 }
 
 .account-details__item span {
-  color: #8d867b;
+  color: var(--auth-copy-muted);
   font-family: var(--font-family-sans);
   font-size: 0.8rem;
   font-weight: 700;
@@ -121,7 +129,7 @@
 }
 
 .account-details__item strong {
-  color: #ffffff;
+  color: var(--auth-copy-inverse);
   font-size: 1.04rem;
   font-weight: 600;
   line-height: 1.5;
@@ -150,7 +158,7 @@
 .account-page__secondary-action:hover {
   border-color: var(--contact-accent);
   background: var(--contact-accent);
-  color: #050506;
+  color: var(--auth-copy-contrast);
 }
 
 @media (max-width: 760px) {
@@ -164,3 +172,4 @@
     min-width: 0;
   }
 }
+

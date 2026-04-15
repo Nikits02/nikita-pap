@@ -14,6 +14,8 @@ import Conta from "./pages/Conta";
 import AdminLogin from "./pages/AdminLogin";
 import AdminVehicles from "./pages/AdminVehicles";
 import AdminVehicleForm from "./pages/AdminVehicleForm";
+import AdminTradeIns from "./pages/AdminTradeIns";
+import AdminUsers from "./pages/AdminUsers";
 import ProtectedAuthRoute from "./components/ProtectedAuthRoute";
 import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
 import AppRouteEffects from "./components/AppRouteEffects";
@@ -49,6 +51,22 @@ function App() {
           element={
             <ProtectedAdminRoute>
               <AdminVehicles />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/admin/retomas"
+          element={
+            <ProtectedAdminRoute>
+              <AdminTradeIns />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/admin/utilizadores"
+          element={
+            <ProtectedAdminRoute>
+              <AdminUsers />
             </ProtectedAdminRoute>
           }
         />

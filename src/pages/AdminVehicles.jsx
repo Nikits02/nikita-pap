@@ -7,6 +7,8 @@ import { formatEuro } from "../utils/format";
 
 const ADMIN_LOGIN_PATH = "/admin/login";
 const ADMIN_NEW_VEHICLE_PATH = "/admin/viaturas/nova";
+const ADMIN_TRADE_INS_PATH = "/admin/retomas";
+const ADMIN_USERS_PATH = "/admin/utilizadores";
 const SOURCE_LABELS = {
   stock: "Catalogo",
   catalog: "Catalogo",
@@ -116,9 +118,17 @@ function AdminVehicles() {
       showLogout
       showBackToSite
       actions={
-        <Link className="admin-button" to={ADMIN_NEW_VEHICLE_PATH}>
-          Nova Viatura
-        </Link>
+        <>
+          <Link className="admin-button admin-button--secondary" to={ADMIN_TRADE_INS_PATH}>
+            Ver Retomas
+          </Link>
+          <Link className="admin-button admin-button--secondary" to={ADMIN_USERS_PATH}>
+            Ver Utilizadores
+          </Link>
+          <Link className="admin-button" to={ADMIN_NEW_VEHICLE_PATH}>
+            Nova Viatura
+          </Link>
+        </>
       }
     >
       {isLoading ? (

@@ -1,4 +1,15 @@
 :root {
+  --type-body-family: var(--font-family-sans);
+  --type-body-size-md: 1rem;
+  --type-body-size-sm: 0.8125rem;
+  --type-body-line-height-md: 1.5;
+  --type-body-weight-semibold: 600;
+
+  --type-heading-family: var(--font-family-sans);
+  --type-heading-size-lg: 2rem;
+  --type-heading-size-md: 1.75rem;
+  --type-heading-weight: 700;
+
   --type-label-family: var(--font-family-sans);
   --type-label-size: 0.74rem;
   --type-label-weight: 700;

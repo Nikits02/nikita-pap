@@ -1,7 +1,6 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import path from "node:path";
 import { pool } from "./db.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -17,6 +16,7 @@ import {
 } from "./lib/vehiclePayload.js";
 import {
   ensureVehicleUploadDirectory,
+  LEGACY_VEHICLE_UPLOADS_ROOT_DIR,
   saveVehicleImageUpload,
   VehicleImageUploadValidationError,
   VEHICLE_UPLOADS_ROOT_DIR,
@@ -28,7 +28,8 @@ const AUTH_TOKEN_DURATION = "1d";
 
 app.use(cors());
 app.use(express.json({ limit: "10mb" }));
-app.use("/uploads", express.static(path.resolve(VEHICLE_UPLOADS_ROOT_DIR)));
+app.use("/uploads", express.static(VEHICLE_UPLOADS_ROOT_DIR));
+app.use("/uploads", express.static(LEGACY_VEHICLE_UPLOADS_ROOT_DIR));
 
 function buildAdminSessionUser(admin) {
   return {
@@ -88,6 +89,60 @@ async function ensureAuthTables() {
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
   `);
+}
+
+async function ensureLeadTables() {
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS test_drives (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      vehicle_slug VARCHAR(190) NOT NULL,
+      data_preferida DATE NOT NULL,
+      hora_preferida VARCHAR(40) NOT NULL,
+      nome VARCHAR(150) NOT NULL,
+      telefone VARCHAR(60) NOT NULL,
+      email VARCHAR(150) NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS contact_messages (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      nome VARCHAR(150) NOT NULL,
+      email VARCHAR(150) NOT NULL,
+      telefone VARCHAR(60) DEFAULT '',
+      assunto VARCHAR(160) NOT NULL,
+      mensagem TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS trade_in_requests (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      marca VARCHAR(120) NOT NULL,
+      modelo VARCHAR(120) NOT NULL,
+      ano INT NOT NULL,
+      quilometragem INT NOT NULL,
+      estado_geral VARCHAR(60) NOT NULL,
+      nome VARCHAR(150) NOT NULL,
+      telefone VARCHAR(60) NOT NULL,
+      email VARCHAR(150) NOT NULL,
+      observacoes TEXT,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
+  const [tradeInViewedColumn] = await pool.query(
+    "SHOW COLUMNS FROM trade_in_requests LIKE 'is_viewed'",
+  );
+
+  if (!tradeInViewedColumn.length) {
+    await pool.query(`
+      ALTER TABLE trade_in_requests
+      ADD COLUMN is_viewed TINYINT(1) NOT NULL DEFAULT 0
+    `);
+  }
 }
 
 app.get("/api/health", (_req, res) => {
@@ -152,6 +207,72 @@ app.post("/api/contact", async (req, res) => {
   } catch (error) {
     console.error("Erro ao guardar contacto:", error.message);
     return res.status(500).json({ message: "Erro ao guardar contacto." });
+  }
+});
+
+app.post("/api/trade-ins", async (req, res) => {
+  try {
+    const marca = req.body.marca?.trim();
+    const modelo = req.body.modelo?.trim();
+    const estadoGeral = req.body.estado?.trim();
+    const nome = req.body.nome?.trim();
+    const telefone = req.body.telefone?.trim();
+    const email = req.body.email?.trim().toLowerCase();
+    const observacoes = req.body.observacoes?.trim() ?? "";
+    const ano = Number(req.body.ano);
+    const quilometragem = Number(req.body.quilometragem);
+    const currentYear = new Date().getFullYear();
+
+    if (
+      !marca ||
+      !modelo ||
+      !estadoGeral ||
+      !nome ||
+      !telefone ||
+      !email ||
+      !Number.isInteger(ano) ||
+      !Number.isInteger(quilometragem)
+    ) {
+      return res.status(400).json({ message: "Campos em falta." });
+    }
+
+    if (ano < 1900 || ano > currentYear) {
+      return res.status(400).json({ message: "Ano invalido." });
+    }
+
+    if (quilometragem < 0) {
+      return res.status(400).json({ message: "Quilometragem invalida." });
+    }
+
+    await pool.query(
+      `INSERT INTO trade_in_requests (
+        marca,
+        modelo,
+        ano,
+        quilometragem,
+        estado_geral,
+        nome,
+        telefone,
+        email,
+        observacoes
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        marca,
+        modelo,
+        ano,
+        quilometragem,
+        estadoGeral,
+        nome,
+        telefone,
+        email,
+        observacoes || null,
+      ],
+    );
+
+    return res.status(201).json({ ok: true });
+  } catch (error) {
+    console.error("Erro ao guardar pedido de retoma:", error.message);
+    return res.status(500).json({ message: "Erro ao guardar pedido de retoma." });
   }
 });
 
@@ -322,6 +443,121 @@ app.get("/api/admin/vehicles", authenticateAdmin, async (_req, res) => {
   }
 });
 
+app.get("/api/admin/trade-ins", authenticateAdmin, async (_req, res) => {
+  try {
+    const [rows] = await pool.query(`
+      SELECT *
+      FROM trade_in_requests
+      ORDER BY created_at DESC, id DESC
+    `);
+
+    return res.json(rows);
+  } catch (error) {
+    console.error("Erro ao buscar pedidos de retoma:", error.message);
+    return res
+      .status(500)
+      .json({ message: "Erro ao buscar pedidos de retoma." });
+  }
+});
+
+app.patch("/api/admin/trade-ins/:id", authenticateAdmin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const isViewed = req.body.isViewed;
+
+    if (typeof isViewed !== "boolean") {
+      return res.status(400).json({ message: "Estado de leitura invalido." });
+    }
+
+    const [existingRows] = await pool.query(
+      "SELECT * FROM trade_in_requests WHERE id = ?",
+      [id],
+    );
+
+    if (!existingRows.length) {
+      return res.status(404).json({ message: "Pedido de retoma nao encontrado." });
+    }
+
+    await pool.query(
+      `UPDATE trade_in_requests
+       SET is_viewed = ?
+       WHERE id = ?`,
+      [Number(isViewed), id],
+    );
+
+    const [updatedRows] = await pool.query(
+      "SELECT * FROM trade_in_requests WHERE id = ?",
+      [id],
+    );
+
+    return res.json(updatedRows[0]);
+  } catch (error) {
+    console.error("Erro ao atualizar pedido de retoma:", error.message);
+    return res
+      .status(500)
+      .json({ message: "Erro ao atualizar pedido de retoma." });
+  }
+});
+
+app.delete("/api/admin/trade-ins/:id", authenticateAdmin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const [existingRows] = await pool.query(
+      "SELECT id FROM trade_in_requests WHERE id = ?",
+      [id],
+    );
+
+    if (!existingRows.length) {
+      return res.status(404).json({ message: "Pedido de retoma nao encontrado." });
+    }
+
+    await pool.query("DELETE FROM trade_in_requests WHERE id = ?", [id]);
+
+    return res.json({ ok: true, message: "Pedido de retoma eliminado com sucesso." });
+  } catch (error) {
+    console.error("Erro ao eliminar pedido de retoma:", error.message);
+    return res
+      .status(500)
+      .json({ message: "Erro ao eliminar pedido de retoma." });
+  }
+});
+
+app.get("/api/admin/users", authenticateAdmin, async (_req, res) => {
+  try {
+    const [rows] = await pool.query(`
+      SELECT id, nome, username, email, created_at
+      FROM users
+      ORDER BY created_at DESC, id DESC
+    `);
+
+    return res.json(rows);
+  } catch (error) {
+    console.error("Erro ao buscar utilizadores:", error.message);
+    return res.status(500).json({ message: "Erro ao buscar utilizadores." });
+  }
+});
+
+app.delete("/api/admin/users/:id", authenticateAdmin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const [existingRows] = await pool.query(
+      "SELECT id, username FROM users WHERE id = ?",
+      [id],
+    );
+
+    if (!existingRows.length) {
+      return res.status(404).json({ message: "Utilizador nao encontrado." });
+    }
+
+    await pool.query("DELETE FROM users WHERE id = ?", [id]);
+
+    return res.json({ ok: true, message: "Utilizador eliminado com sucesso." });
+  } catch (error) {
+    console.error("Erro ao eliminar utilizador:", error.message);
+    return res.status(500).json({ message: "Erro ao eliminar utilizador." });
+  }
+});
+
 app.get("/api/admin/vehicles/:id", authenticateAdmin, async (req, res) => {
   try {
     const { id } = req.params;
@@ -425,7 +661,11 @@ app.delete("/api/admin/vehicles/:id", authenticateAdmin, async (req, res) => {
   }
 });
 
-Promise.all([ensureAuthTables(), ensureVehicleUploadDirectory()])
+Promise.all([
+  ensureAuthTables(),
+  ensureLeadTables(),
+  ensureVehicleUploadDirectory(),
+])
   .then(() => {
     app.listen(port, () => {
       console.log(`API ligada na porta ${port}`);
