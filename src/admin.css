@@ -237,6 +237,16 @@
   gap: 20px;
 }
 
+.admin-filters {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) minmax(220px, 0.8fr);
+  gap: 16px;
+}
+
+.admin-filters--single {
+  grid-template-columns: minmax(0, 520px);
+}
+
 .admin-leads {
   display: grid;
   gap: 20px;
@@ -495,6 +505,10 @@
   }
 
   .admin-vehicle-card {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-filters {
     grid-template-columns: 1fr;
   }
 

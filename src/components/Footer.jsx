@@ -2,11 +2,11 @@ import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import BrandWordmark from "./BrandWordmark";
 import {
-  featuredBrands,
   footerContactItems,
   footerSocialLinks,
   legalLinks,
 } from "../data/footer";
+import useVehicles from "../hooks/useVehicles";
 import { footerQuickLinks } from "../data/navigation";
 import {
   FacebookIcon,
@@ -18,6 +18,7 @@ import {
   YouTubeIcon,
 } from "./icons/CommonIcons";
 import TypedIcon from "./icons/TypedIcon";
+import { getVehicleLabel } from "../utils/vehicle";
 
 const socialIcons = {
   facebook: FacebookIcon,
@@ -33,6 +34,9 @@ const contactIcons = {
 };
 
 function Footer() {
+  const { vehicles, isLoading, error } = useVehicles();
+  const footerVehicles = vehicles.slice(0, 6);
+
   return (
     <footer className="site-footer" id="empresa">
       <div className="site-footer__shell">
@@ -90,13 +94,25 @@ function Footer() {
           </nav>
 
           <section className="site-footer__column">
-            <h3 className="site-footer__column-title">As Nossas Marcas</h3>
+            <h3 className="site-footer__column-title">Viaturas em Catalogo</h3>
             <div className="site-footer__list">
-              {featuredBrands.map((item) => (
-                <span className="site-footer__list-text" key={item}>
-                  {item}
-                </span>
-              ))}
+              {isLoading ? (
+                <span className="site-footer__list-text">A carregar...</span>
+              ) : error || footerVehicles.length === 0 ? (
+                <Link className="site-footer__list-link" to="/catalogo">
+                  Ver catalogo
+                </Link>
+              ) : (
+                footerVehicles.map((vehicle) => (
+                  <Link
+                    className="site-footer__list-link"
+                    key={vehicle.id ?? vehicle.slug ?? getVehicleLabel(vehicle)}
+                    to={vehicle.detailPath}
+                  >
+                    {getVehicleLabel(vehicle)}
+                  </Link>
+                ))
+              )}
             </div>
           </section>
 

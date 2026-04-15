@@ -63,6 +63,12 @@ export function fetchAdminTradeIns() {
   });
 }
 
+export function fetchAdminContactMessages() {
+  return requestAdminJson("/api/admin/contact-messages", {
+    errorMessage: "Nao foi possivel carregar as mensagens de contacto.",
+  });
+}
+
 export function updateAdminTradeInStatus(id, payload) {
   return requestAdminJson(`/api/admin/trade-ins/${id}`, {
     method: "PATCH",
@@ -75,6 +81,13 @@ export function deleteAdminTradeIn(id) {
   return requestAdminJson(`/api/admin/trade-ins/${id}`, {
     method: "DELETE",
     errorMessage: "Nao foi possivel eliminar o pedido de retoma.",
+  });
+}
+
+export function deleteAdminContactMessage(id) {
+  return requestAdminJson(`/api/admin/contact-messages/${id}`, {
+    method: "DELETE",
+    errorMessage: "Nao foi possivel eliminar a mensagem de contacto.",
   });
 }
 

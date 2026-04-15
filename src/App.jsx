@@ -16,6 +16,7 @@ import AdminVehicles from "./pages/AdminVehicles";
 import AdminVehicleForm from "./pages/AdminVehicleForm";
 import AdminTradeIns from "./pages/AdminTradeIns";
 import AdminUsers from "./pages/AdminUsers";
+import AdminContactMessages from "./pages/AdminContactMessages";
 import ProtectedAuthRoute from "./components/ProtectedAuthRoute";
 import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
 import AppRouteEffects from "./components/AppRouteEffects";
@@ -67,6 +68,14 @@ function App() {
           element={
             <ProtectedAdminRoute>
               <AdminUsers />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/admin/contactos"
+          element={
+            <ProtectedAdminRoute>
+              <AdminContactMessages />
             </ProtectedAdminRoute>
           }
         />

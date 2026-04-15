@@ -1,9 +1,11 @@
-export const historyStats = [
-  { value: "2026", label: "Ano de Criacao" },
-  { value: "14", label: "Viaturas em Catalogo" },
-  { value: "4", label: "Areas Principais" },
-  { value: "1", label: "Projeto PAP Completo" },
-];
+export function buildHistoryStats(vehicleCount) {
+  return [
+    { value: "2026", label: "Ano de Criacao" },
+    { value: vehicleCount, label: "Viaturas em Catalogo" },
+    { value: "4", label: "Areas Principais" },
+    { value: "1", label: "Projeto PAP Completo" },
+  ];
+}
 
 export const coreValues = [
   {

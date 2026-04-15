@@ -499,6 +499,46 @@ app.patch("/api/admin/trade-ins/:id", authenticateAdmin, async (req, res) => {
   }
 });
 
+app.get("/api/admin/contact-messages", authenticateAdmin, async (_req, res) => {
+  try {
+    const [rows] = await pool.query(`
+      SELECT *
+      FROM contact_messages
+      ORDER BY created_at DESC, id DESC
+    `);
+
+    return res.json(rows);
+  } catch (error) {
+    console.error("Erro ao buscar mensagens de contacto:", error.message);
+    return res
+      .status(500)
+      .json({ message: "Erro ao buscar mensagens de contacto." });
+  }
+});
+
+app.delete("/api/admin/contact-messages/:id", authenticateAdmin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const [existingRows] = await pool.query(
+      "SELECT id FROM contact_messages WHERE id = ?",
+      [id],
+    );
+
+    if (!existingRows.length) {
+      return res.status(404).json({ message: "Mensagem de contacto nao encontrada." });
+    }
+
+    await pool.query("DELETE FROM contact_messages WHERE id = ?", [id]);
+
+    return res.json({ ok: true, message: "Mensagem eliminada com sucesso." });
+  } catch (error) {
+    console.error("Erro ao eliminar mensagem de contacto:", error.message);
+    return res
+      .status(500)
+      .json({ message: "Erro ao eliminar mensagem de contacto." });
+  }
+});
+
 app.delete("/api/admin/trade-ins/:id", authenticateAdmin, async (req, res) => {
   try {
     const { id } = req.params;

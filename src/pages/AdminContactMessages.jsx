@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AdminPageShell from "../components/admin/AdminPageShell";
 import { FormInputField } from "../components/form/FormField";
-import { deleteAdminUser, fetchAdminUsers } from "../services/adminApi";
+import {
+  deleteAdminContactMessage,
+  fetchAdminContactMessages,
+} from "../services/adminApi";
 import { clearAuthSession } from "../services/authApi";
 
 const ADMIN_LOGIN_PATH = "/admin/login";
 const ADMIN_VEHICLES_PATH = "/admin/viaturas";
 const ADMIN_TRADE_INS_PATH = "/admin/retomas";
-const ADMIN_CONTACT_MESSAGES_PATH = "/admin/contactos";
+const ADMIN_USERS_PATH = "/admin/utilizadores";
 
 const createdAtFormatter = new Intl.DateTimeFormat("pt-PT", {
   day: "2-digit",
@@ -32,24 +35,24 @@ function formatCreatedAt(value) {
   return createdAtFormatter.format(parsedDate);
 }
 
-function AdminUsers() {
+function AdminContactMessages() {
   const navigate = useNavigate();
-  const [users, setUsers] = useState([]);
+  const [messages, setMessages] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [deletingUserId, setDeletingUserId] = useState(null);
+  const [deletingMessageId, setDeletingMessageId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     let isMounted = true;
 
-    async function loadUsers() {
+    async function loadMessages() {
       try {
         setIsLoading(true);
-        const loadedUsers = await fetchAdminUsers();
+        const loadedMessages = await fetchAdminContactMessages();
 
         if (isMounted) {
-          setUsers(loadedUsers);
+          setMessages(loadedMessages);
         }
       } catch (loadError) {
         if (!isMounted) {
@@ -62,7 +65,10 @@ function AdminUsers() {
           return;
         }
 
-        setError(loadError.message ?? "Nao foi possivel carregar os utilizadores.");
+        setError(
+          loadError.message ??
+            "Nao foi possivel carregar as mensagens de contacto.",
+        );
       } finally {
         if (isMounted) {
           setIsLoading(false);
@@ -70,17 +76,17 @@ function AdminUsers() {
       }
     }
 
-    loadUsers();
+    loadMessages();
 
     return () => {
       isMounted = false;
     };
   }, [navigate]);
 
-  async function handleDeleteUser(user) {
-    const userLabel = user.nome?.trim() || user.username || `utilizador #${user.id}`;
+  async function handleDeleteMessage(message) {
+    const messageLabel = message.assunto?.trim() || `mensagem #${message.id}`;
     const shouldDelete = window.confirm(
-      `Tem a certeza que pretende eliminar ${userLabel}?`,
+      `Tem a certeza que pretende eliminar ${messageLabel}?`,
     );
 
     if (!shouldDelete) {
@@ -88,11 +94,11 @@ function AdminUsers() {
     }
 
     try {
-      setDeletingUserId(user.id);
+      setDeletingMessageId(message.id);
       setError("");
-      await deleteAdminUser(user.id);
-      setUsers((currentUsers) =>
-        currentUsers.filter(({ id }) => id !== user.id),
+      await deleteAdminContactMessage(message.id);
+      setMessages((currentMessages) =>
+        currentMessages.filter(({ id }) => id !== message.id),
       );
     } catch (deleteError) {
       if (deleteError.message === "Sessao expirada.") {
@@ -102,20 +108,27 @@ function AdminUsers() {
       }
 
       setError(
-        deleteError.message ?? "Nao foi possivel eliminar o utilizador.",
+        deleteError.message ??
+          "Nao foi possivel eliminar a mensagem de contacto.",
       );
     } finally {
-      setDeletingUserId(null);
+      setDeletingMessageId(null);
     }
   }
 
   const normalizedSearchTerm = searchTerm.trim().toLowerCase();
-  const filteredUsers = users.filter((user) => {
+  const filteredMessages = messages.filter((message) => {
     if (!normalizedSearchTerm) {
       return true;
     }
 
-    const searchableText = [user.nome, user.username, user.email]
+    const searchableText = [
+      message.nome,
+      message.email,
+      message.telefone,
+      message.assunto,
+      message.mensagem,
+    ]
       .filter(Boolean)
       .join(" ")
       .toLowerCase();
@@ -125,34 +138,40 @@ function AdminUsers() {
 
   return (
     <AdminPageShell
-      title="Utilizadores Registados"
+      title="Mensagens de Contacto"
       showLogout
       showBackToSite
       actions={
         <>
-          <Link className="admin-button admin-button--secondary" to={ADMIN_VEHICLES_PATH}>
+          <Link
+            className="admin-button admin-button--secondary"
+            to={ADMIN_VEHICLES_PATH}
+          >
             Ver Viaturas
           </Link>
-          <Link className="admin-button admin-button--secondary" to={ADMIN_TRADE_INS_PATH}>
+          <Link
+            className="admin-button admin-button--secondary"
+            to={ADMIN_TRADE_INS_PATH}
+          >
             Ver Retomas
           </Link>
           <Link
             className="admin-button admin-button--secondary"
-            to={ADMIN_CONTACT_MESSAGES_PATH}
+            to={ADMIN_USERS_PATH}
           >
-            Ver Contactos
+            Ver Utilizadores
           </Link>
         </>
       }
     >
       {isLoading ? (
-        <p className="admin-page__text">A carregar utilizadores...</p>
+        <p className="admin-page__text">A carregar mensagens de contacto...</p>
       ) : error ? (
         <p className="admin-form__error">{error}</p>
-      ) : users.length === 0 ? (
+      ) : messages.length === 0 ? (
         <div className="admin-page__empty-state">
           <p className="admin-page__text">
-            Ainda nao existem utilizadores registados.
+            Ainda nao existem mensagens de contacto registadas.
           </p>
         </div>
       ) : (
@@ -164,66 +183,79 @@ function AdminUsers() {
               type="search"
               value={searchTerm}
               onChange={(event) => setSearchTerm(event.target.value)}
-              placeholder="Nome, username ou email"
+              placeholder="Nome, email, telefone, assunto ou mensagem"
             />
           </div>
 
           <p className="admin-page__text admin-page__text--muted">
-            {filteredUsers.length} de {users.length} utilizador
-            {users.length === 1 ? "" : "es"} visive
-            {filteredUsers.length === 1 ? "l" : "is"}.
+            {filteredMessages.length} de {messages.length} mensagem
+            {messages.length === 1 ? "" : "ens"} de contacto visive
+            {filteredMessages.length === 1 ? "l" : "is"}.
           </p>
 
-          {filteredUsers.length === 0 ? (
+          {filteredMessages.length === 0 ? (
             <div className="admin-page__empty-state">
               <p className="admin-page__text">
-                Nenhum utilizador corresponde aos filtros selecionados.
+                Nenhuma mensagem corresponde aos filtros selecionados.
               </p>
             </div>
           ) : (
             <div className="admin-leads__list">
-              {filteredUsers.map((user) => (
-                <article className="admin-lead-card" key={user.id}>
+              {filteredMessages.map((message) => (
+                <article className="admin-lead-card" key={message.id}>
                   <div className="admin-lead-card__header">
                     <div>
-                      <p className="admin-lead-card__eyebrow">Conta #{user.id}</p>
+                      <p className="admin-lead-card__eyebrow">
+                        Mensagem #{message.id}
+                      </p>
                       <h2 className="admin-lead-card__title">
-                        {user.nome?.trim() || user.username || `Utilizador ${user.id}`}
+                        {message.assunto?.trim() || `Mensagem ${message.id}`}
                       </h2>
                     </div>
 
                     <p className="admin-lead-card__timestamp">
-                      {formatCreatedAt(user.created_at)}
+                      {formatCreatedAt(message.created_at)}
                     </p>
                   </div>
 
                   <dl className="admin-lead-card__meta">
                     <div>
-                      <dt>Username</dt>
-                      <dd>{user.username ?? "-"}</dd>
+                      <dt>Nome</dt>
+                      <dd>{message.nome ?? "-"}</dd>
                     </div>
                     <div>
                       <dt>Email</dt>
-                      <dd>{user.email ?? "-"}</dd>
+                      <dd>{message.email ?? "-"}</dd>
                     </div>
                     <div>
-                      <dt>Nome</dt>
-                      <dd>{user.nome ?? "-"}</dd>
+                      <dt>Telefone</dt>
+                      <dd>{message.telefone || "-"}</dd>
                     </div>
                     <div>
-                      <dt>Registo</dt>
-                      <dd>{formatCreatedAt(user.created_at)}</dd>
+                      <dt>Assunto</dt>
+                      <dd>{message.assunto ?? "-"}</dd>
                     </div>
                   </dl>
+
+                  <div className="admin-lead-card__notes">
+                    <h3>Mensagem</h3>
+                    <p>
+                      {message.mensagem?.trim()
+                        ? message.mensagem
+                        : "Sem mensagem adicional."}
+                    </p>
+                  </div>
 
                   <div className="admin-lead-card__actions">
                     <button
                       className="admin-button admin-button--danger"
                       type="button"
-                      disabled={deletingUserId === user.id}
-                      onClick={() => handleDeleteUser(user)}
+                      disabled={deletingMessageId === message.id}
+                      onClick={() => handleDeleteMessage(message)}
                     >
-                      {deletingUserId === user.id ? "A eliminar..." : "Eliminar"}
+                      {deletingMessageId === message.id
+                        ? "A eliminar..."
+                        : "Eliminar"}
                     </button>
                   </div>
                 </article>
@@ -236,4 +268,4 @@ function AdminUsers() {
   );
 }
 
-export default AdminUsers;
+export default AdminContactMessages;

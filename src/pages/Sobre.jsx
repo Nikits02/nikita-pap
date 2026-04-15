@@ -7,7 +7,8 @@ import {
 import TypedIcon from "../components/icons/TypedIcon";
 import PageHero from "../components/PageHero";
 import SitePage from "../components/SitePage";
-import { coreValues, historyStats } from "../data/about";
+import { buildHistoryStats, coreValues } from "../data/about";
+import useVehicles from "../hooks/useVehicles";
 
 const valueIcons = {
   award: AwardIcon,
@@ -17,6 +18,11 @@ const valueIcons = {
 };
 
 function Sobre() {
+  const { vehicles, isLoading, error } = useVehicles();
+  const historyStats = buildHistoryStats(
+    isLoading ? "..." : error ? "-" : String(vehicles.length),
+  );
+
   return (
     <SitePage mainClassName="page-shell about-page">
       <PageHero

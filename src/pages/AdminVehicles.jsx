@@ -9,6 +9,7 @@ const ADMIN_LOGIN_PATH = "/admin/login";
 const ADMIN_NEW_VEHICLE_PATH = "/admin/viaturas/nova";
 const ADMIN_TRADE_INS_PATH = "/admin/retomas";
 const ADMIN_USERS_PATH = "/admin/utilizadores";
+const ADMIN_CONTACT_MESSAGES_PATH = "/admin/contactos";
 const SOURCE_LABELS = {
   stock: "Catalogo",
   catalog: "Catalogo",
@@ -124,6 +125,12 @@ function AdminVehicles() {
           </Link>
           <Link className="admin-button admin-button--secondary" to={ADMIN_USERS_PATH}>
             Ver Utilizadores
+          </Link>
+          <Link
+            className="admin-button admin-button--secondary"
+            to={ADMIN_CONTACT_MESSAGES_PATH}
+          >
+            Ver Contactos
           </Link>
           <Link className="admin-button" to={ADMIN_NEW_VEHICLE_PATH}>
             Nova Viatura

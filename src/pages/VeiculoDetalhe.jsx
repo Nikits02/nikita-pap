@@ -17,6 +17,7 @@ import TypedIcon from "../components/icons/TypedIcon";
 import { buildVehicleDetailRows } from "../data/vehicleDetail";
 import SitePage from "../components/SitePage";
 import { formatEuro } from "../utils/format";
+import { buildUniqueVehicleText } from "../utils/vehicle";
 import useVehicles from "../hooks/useVehicles";
 import { getRelatedVehicles, getVehicleBySlug } from "../utils/vehicleMeta";
 const detailIcons = {
@@ -29,32 +30,6 @@ const detailIcons = {
   transmissao: TransmissionIcon,
   versao: MessageCardIcon,
 };
-
-function buildUniqueVehicleText(...parts) {
-  return parts
-    .filter(Boolean)
-    .reduce((uniqueParts, part) => {
-      const trimmedPart = String(part).trim();
-      const normalizedPart = trimmedPart.toLowerCase();
-
-      if (
-        uniqueParts.some((existingPart) => {
-          const normalizedExistingPart = existingPart.toLowerCase();
-
-          return (
-            normalizedExistingPart === normalizedPart ||
-            normalizedExistingPart.includes(normalizedPart) ||
-            normalizedPart.includes(normalizedExistingPart)
-          );
-        })
-      ) {
-        return uniqueParts;
-      }
-
-      return [...uniqueParts, trimmedPart];
-    }, [])
-    .join(" ");
-}
 
 function VehicleDetailPage() {
   const { slug } = useParams();
