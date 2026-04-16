@@ -15,10 +15,10 @@ function AdminPageShell({
 
   function handleLogout() {
     clearAuthSession();
-    navigate("/login", {
+    navigate("/admin/login", {
       replace: true,
       state: {
-        notice: "Sessao terminada com sucesso.",
+        notice: "Sessao de administrador terminada com sucesso.",
       },
     });
   }

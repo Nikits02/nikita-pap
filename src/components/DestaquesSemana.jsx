@@ -27,6 +27,7 @@ function DestaquesSemana({ vehicles = [], isLoading = false, error = "" }) {
     goNext,
   } = useCarouselIndex({
     itemCount: slides.length,
+    loop: true,
     autoplayDelay: 5000,
     pauseAutoplay: isDragging,
   });

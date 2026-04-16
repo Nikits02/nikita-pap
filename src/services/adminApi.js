@@ -63,9 +63,21 @@ export function fetchAdminTradeIns() {
   });
 }
 
+export function fetchAdminTestDrives() {
+  return requestAdminJson("/api/admin/test-drives", {
+    errorMessage: "Nao foi possivel carregar os pedidos de test drive.",
+  });
+}
+
 export function fetchAdminContactMessages() {
   return requestAdminJson("/api/admin/contact-messages", {
     errorMessage: "Nao foi possivel carregar as mensagens de contacto.",
+  });
+}
+
+export function fetchAdminFinanceRequests() {
+  return requestAdminJson("/api/admin/finance-requests", {
+    errorMessage: "Nao foi possivel carregar os pedidos de financiamento.",
   });
 }
 
@@ -84,10 +96,24 @@ export function deleteAdminTradeIn(id) {
   });
 }
 
+export function deleteAdminTestDrive(id) {
+  return requestAdminJson(`/api/admin/test-drives/${id}`, {
+    method: "DELETE",
+    errorMessage: "Nao foi possivel eliminar o pedido de test drive.",
+  });
+}
+
 export function deleteAdminContactMessage(id) {
   return requestAdminJson(`/api/admin/contact-messages/${id}`, {
     method: "DELETE",
     errorMessage: "Nao foi possivel eliminar a mensagem de contacto.",
+  });
+}
+
+export function deleteAdminFinanceRequest(id) {
+  return requestAdminJson(`/api/admin/finance-requests/${id}`, {
+    method: "DELETE",
+    errorMessage: "Nao foi possivel eliminar o pedido de financiamento.",
   });
 }
 

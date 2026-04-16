@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { FormError, FormInputField } from "../components/form/FormField";
 import {
@@ -28,6 +28,8 @@ const initialForm = {
 function TestDrive() {
   const [searchParams] = useSearchParams();
   const { vehicles, isLoading, error: vehicleError } = useVehicles();
+  const scheduleSectionRef = useRef(null);
+  const dateFieldRef = useRef(null);
   const requestedVehicle = searchParams.get("veiculo") ?? "";
   const { formData, updateField: updateFormField } = useFormState(() => ({
     ...initialForm,
@@ -58,6 +60,21 @@ function TestDrive() {
     updateFormField(field, value);
   }
 
+  function handleVehicleSelect(vehicleSlug) {
+    updateField("vehicleSlug", vehicleSlug);
+
+    window.requestAnimationFrame(() => {
+      scheduleSectionRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+
+      window.setTimeout(() => {
+        dateFieldRef.current?.focus();
+      }, 250);
+    });
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
 
@@ -73,7 +90,10 @@ function TestDrive() {
 
     try {
       setIsSubmitting(true);
-      await createTestDrive(formData);
+      await createTestDrive({
+        ...formData,
+        vehicleLabel: selectedVehicle ? getVehicleLabel(selectedVehicle) : "",
+      });
       setSubmitted(true);
     } catch (submitError) {
       setFormError(
@@ -138,7 +158,7 @@ function TestDrive() {
                           key={vehicle.slug}
                           className={`test-drive-vehicle-card${isSelected ? " is-selected" : ""}`}
                           type="button"
-                          onClick={() => updateField("vehicleSlug", vehicle.slug)}
+                          onClick={() => handleVehicleSelect(vehicle.slug)}
                         >
                           <div className="test-drive-vehicle-card__media">
                             <img
@@ -161,7 +181,7 @@ function TestDrive() {
               </div>
             </section>
 
-            <section className="test-drive-step">
+            <section className="test-drive-step" ref={scheduleSectionRef}>
               <div className="test-drive-step__heading">
                 <span className="test-drive-step__icon">
                   <CalendarCardIcon />
@@ -176,6 +196,7 @@ function TestDrive() {
                   type="date"
                   min={todayDate}
                   value={formData.dataPreferida}
+                  inputRef={dateFieldRef}
                   onChange={(event) =>
                     updateField("dataPreferida", event.target.value)
                   }

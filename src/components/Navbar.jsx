@@ -1,11 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
 import BrandWordmark from "./BrandWordmark";
-import { primaryNavigationLinks } from "../data/navigation";
+import { getVisibleNavigationLinks } from "../data/navigation";
 import { getCurrentUser, getDefaultRouteForUser } from "../services/authApi";
 
 function Navbar() {
   const location = useLocation();
   const currentUser = getCurrentUser();
+  const navigationLinks = getVisibleNavigationLinks(Boolean(currentUser));
   const accountPath = currentUser ? getDefaultRouteForUser(currentUser) : "";
   const isHomePage = location.pathname === "/";
   const isHome = location.pathname === "/" && location.hash === "";
@@ -35,7 +36,7 @@ function Navbar() {
 
         <div className={`navbar${currentUser ? " navbar--authenticated" : ""}`}>
           <nav className="navbar__menu" aria-label="Navegacao principal">
-            {primaryNavigationLinks.map((link) => {
+            {navigationLinks.map((link) => {
               const targetPath = link.href ?? link.to;
               const isCurrent = isLinkActive(targetPath);
 

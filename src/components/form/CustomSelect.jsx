@@ -14,6 +14,7 @@ function CustomSelect({
   options,
   placeholder,
   onChange,
+  allowDeselect = false,
   disabled = false,
   rootClassName,
   triggerClassName,
@@ -35,7 +36,7 @@ function CustomSelect({
   }
 
   function selectOption(nextValue) {
-    onChange(nextValue);
+    onChange(allowDeselect && value === nextValue ? "" : nextValue);
     setIsOpen(false);
   }
 

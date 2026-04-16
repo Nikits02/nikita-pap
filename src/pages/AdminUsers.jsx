@@ -1,36 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AdminPageShell from "../components/admin/AdminPageShell";
+import AdminSectionLinks from "../components/admin/AdminSectionLinks";
 import { FormInputField } from "../components/form/FormField";
 import { deleteAdminUser, fetchAdminUsers } from "../services/adminApi";
-import { clearAuthSession } from "../services/authApi";
-
-const ADMIN_LOGIN_PATH = "/admin/login";
-const ADMIN_VEHICLES_PATH = "/admin/viaturas";
-const ADMIN_TRADE_INS_PATH = "/admin/retomas";
-const ADMIN_CONTACT_MESSAGES_PATH = "/admin/contactos";
-
-const createdAtFormatter = new Intl.DateTimeFormat("pt-PT", {
-  day: "2-digit",
-  month: "2-digit",
-  year: "numeric",
-  hour: "2-digit",
-  minute: "2-digit",
-});
-
-function formatCreatedAt(value) {
-  if (!value) {
-    return "-";
-  }
-
-  const parsedDate = new Date(value);
-
-  if (Number.isNaN(parsedDate.getTime())) {
-    return String(value);
-  }
-
-  return createdAtFormatter.format(parsedDate);
-}
+import { formatAdminDateTime, handleAdminSessionError } from "../utils/admin";
 
 function AdminUsers() {
   const navigate = useNavigate();
@@ -56,9 +30,7 @@ function AdminUsers() {
           return;
         }
 
-        if (loadError.message === "Sessao expirada.") {
-          clearAuthSession();
-          navigate(ADMIN_LOGIN_PATH, { replace: true });
+        if (handleAdminSessionError(loadError, navigate)) {
           return;
         }
 
@@ -95,9 +67,7 @@ function AdminUsers() {
         currentUsers.filter(({ id }) => id !== user.id),
       );
     } catch (deleteError) {
-      if (deleteError.message === "Sessao expirada.") {
-        clearAuthSession();
-        navigate(ADMIN_LOGIN_PATH, { replace: true });
+      if (handleAdminSessionError(deleteError, navigate)) {
         return;
       }
 
@@ -129,20 +99,7 @@ function AdminUsers() {
       showLogout
       showBackToSite
       actions={
-        <>
-          <Link className="admin-button admin-button--secondary" to={ADMIN_VEHICLES_PATH}>
-            Ver Viaturas
-          </Link>
-          <Link className="admin-button admin-button--secondary" to={ADMIN_TRADE_INS_PATH}>
-            Ver Retomas
-          </Link>
-          <Link
-            className="admin-button admin-button--secondary"
-            to={ADMIN_CONTACT_MESSAGES_PATH}
-          >
-            Ver Contactos
-          </Link>
-        </>
+        <AdminSectionLinks current="users" />
       }
     >
       {isLoading ? (
@@ -193,7 +150,7 @@ function AdminUsers() {
                     </div>
 
                     <p className="admin-lead-card__timestamp">
-                      {formatCreatedAt(user.created_at)}
+                      {formatAdminDateTime(user.created_at)}
                     </p>
                   </div>
 
@@ -212,7 +169,7 @@ function AdminUsers() {
                     </div>
                     <div>
                       <dt>Registo</dt>
-                      <dd>{formatCreatedAt(user.created_at)}</dd>
+                      <dd>{formatAdminDateTime(user.created_at)}</dd>
                     </div>
                   </dl>
 

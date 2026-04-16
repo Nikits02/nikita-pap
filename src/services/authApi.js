@@ -52,6 +52,10 @@ export function getDefaultRouteForUser(user) {
   return "/conta";
 }
 
+export function getPostAuthRoute() {
+  return "/";
+}
+
 export async function login(payload) {
   const data = await requestJson("/api/auth/login", {
     method: "POST",

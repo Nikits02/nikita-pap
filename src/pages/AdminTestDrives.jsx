@@ -4,29 +4,29 @@ import AdminPageShell from "../components/admin/AdminPageShell";
 import AdminSectionLinks from "../components/admin/AdminSectionLinks";
 import { FormInputField } from "../components/form/FormField";
 import {
-  deleteAdminContactMessage,
-  fetchAdminContactMessages,
+  deleteAdminTestDrive,
+  fetchAdminTestDrives,
 } from "../services/adminApi";
 import { formatAdminDateTime, handleAdminSessionError } from "../utils/admin";
 
-function AdminContactMessages() {
+function AdminTestDrives() {
   const navigate = useNavigate();
-  const [messages, setMessages] = useState([]);
+  const [testDrives, setTestDrives] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [deletingMessageId, setDeletingMessageId] = useState(null);
+  const [deletingTestDriveId, setDeletingTestDriveId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     let isMounted = true;
 
-    async function loadMessages() {
+    async function loadTestDrives() {
       try {
         setIsLoading(true);
-        const loadedMessages = await fetchAdminContactMessages();
+        const loadedTestDrives = await fetchAdminTestDrives();
 
         if (isMounted) {
-          setMessages(loadedMessages);
+          setTestDrives(loadedTestDrives);
         }
       } catch (loadError) {
         if (!isMounted) {
@@ -38,8 +38,7 @@ function AdminContactMessages() {
         }
 
         setError(
-          loadError.message ??
-            "Nao foi possivel carregar as mensagens de contacto.",
+          loadError.message ?? "Nao foi possivel carregar os pedidos de test drive.",
         );
       } finally {
         if (isMounted) {
@@ -48,17 +47,20 @@ function AdminContactMessages() {
       }
     }
 
-    loadMessages();
+    loadTestDrives();
 
     return () => {
       isMounted = false;
     };
   }, [navigate]);
 
-  async function handleDeleteMessage(message) {
-    const messageLabel = message.assunto?.trim() || `mensagem #${message.id}`;
+  async function handleDeleteTestDrive(testDrive) {
+    const testDriveLabel =
+      testDrive.vehicle_label?.trim() ||
+      testDrive.nome?.trim() ||
+      `pedido #${testDrive.id}`;
     const shouldDelete = window.confirm(
-      `Tem a certeza que pretende eliminar ${messageLabel}?`,
+      `Tem a certeza que pretende eliminar ${testDriveLabel}?`,
     );
 
     if (!shouldDelete) {
@@ -66,11 +68,11 @@ function AdminContactMessages() {
     }
 
     try {
-      setDeletingMessageId(message.id);
+      setDeletingTestDriveId(testDrive.id);
       setError("");
-      await deleteAdminContactMessage(message.id);
-      setMessages((currentMessages) =>
-        currentMessages.filter(({ id }) => id !== message.id),
+      await deleteAdminTestDrive(testDrive.id);
+      setTestDrives((currentTestDrives) =>
+        currentTestDrives.filter(({ id }) => id !== testDrive.id),
       );
     } catch (deleteError) {
       if (handleAdminSessionError(deleteError, navigate)) {
@@ -78,26 +80,27 @@ function AdminContactMessages() {
       }
 
       setError(
-        deleteError.message ??
-          "Nao foi possivel eliminar a mensagem de contacto.",
+        deleteError.message ?? "Nao foi possivel eliminar o pedido de test drive.",
       );
     } finally {
-      setDeletingMessageId(null);
+      setDeletingTestDriveId(null);
     }
   }
 
   const normalizedSearchTerm = searchTerm.trim().toLowerCase();
-  const filteredMessages = messages.filter((message) => {
+  const filteredTestDrives = testDrives.filter((testDrive) => {
     if (!normalizedSearchTerm) {
       return true;
     }
 
     const searchableText = [
-      message.nome,
-      message.email,
-      message.telefone,
-      message.assunto,
-      message.mensagem,
+      testDrive.vehicle_label,
+      testDrive.vehicle_slug,
+      testDrive.nome,
+      testDrive.email,
+      testDrive.telefone,
+      testDrive.data_preferida,
+      testDrive.hora_preferida,
     ]
       .filter(Boolean)
       .join(" ")
@@ -108,21 +111,21 @@ function AdminContactMessages() {
 
   return (
     <AdminPageShell
-      title="Mensagens de Contacto"
+      title="Pedidos de Test Drive"
       showLogout
       showBackToSite
       actions={
-        <AdminSectionLinks current="contacts" />
+        <AdminSectionLinks current="testDrives" />
       }
     >
       {isLoading ? (
-        <p className="admin-page__text">A carregar mensagens de contacto...</p>
+        <p className="admin-page__text">A carregar pedidos de test drive...</p>
       ) : error ? (
         <p className="admin-form__error">{error}</p>
-      ) : messages.length === 0 ? (
+      ) : testDrives.length === 0 ? (
         <div className="admin-page__empty-state">
           <p className="admin-page__text">
-            Ainda nao existem mensagens de contacto registadas.
+            Ainda nao existem pedidos de test drive registados.
           </p>
         </div>
       ) : (
@@ -134,77 +137,84 @@ function AdminContactMessages() {
               type="search"
               value={searchTerm}
               onChange={(event) => setSearchTerm(event.target.value)}
-              placeholder="Nome, email, telefone, assunto ou mensagem"
+              placeholder="Viatura, nome, email, telefone, data ou hora"
             />
           </div>
 
           <p className="admin-page__text admin-page__text--muted">
-            {filteredMessages.length} de {messages.length} mensagem
-            {messages.length === 1 ? "" : "ens"} de contacto visive
-            {filteredMessages.length === 1 ? "l" : "is"}.
+            {filteredTestDrives.length} de {testDrives.length} pedido
+            {testDrives.length === 1 ? "" : "s"} de test drive visive
+            {filteredTestDrives.length === 1 ? "l" : "is"}.
           </p>
 
-          {filteredMessages.length === 0 ? (
+          {filteredTestDrives.length === 0 ? (
             <div className="admin-page__empty-state">
               <p className="admin-page__text">
-                Nenhuma mensagem corresponde aos filtros selecionados.
+                Nenhum pedido corresponde aos filtros selecionados.
               </p>
             </div>
           ) : (
             <div className="admin-leads__list">
-              {filteredMessages.map((message) => (
-                <article className="admin-lead-card" key={message.id}>
+              {filteredTestDrives.map((testDrive) => (
+                <article className="admin-lead-card" key={testDrive.id}>
                   <div className="admin-lead-card__header">
                     <div>
-                      <p className="admin-lead-card__eyebrow">
-                        Mensagem #{message.id}
-                      </p>
+                      <p className="admin-lead-card__eyebrow">Pedido #{testDrive.id}</p>
                       <h2 className="admin-lead-card__title">
-                        {message.assunto?.trim() || `Mensagem ${message.id}`}
+                        {testDrive.vehicle_label?.trim() ||
+                          testDrive.vehicle_slug ||
+                          `Test Drive ${testDrive.id}`}
                       </h2>
                     </div>
 
                     <p className="admin-lead-card__timestamp">
-                      {formatAdminDateTime(message.created_at)}
+                      {formatAdminDateTime(testDrive.created_at)}
                     </p>
                   </div>
 
                   <dl className="admin-lead-card__meta">
                     <div>
-                      <dt>Nome</dt>
-                      <dd>{message.nome ?? "-"}</dd>
+                      <dt>Viatura</dt>
+                      <dd>{testDrive.vehicle_label || "-"}</dd>
                     </div>
                     <div>
-                      <dt>Email</dt>
-                      <dd>{message.email ?? "-"}</dd>
+                      <dt>Slug</dt>
+                      <dd>{testDrive.vehicle_slug ?? "-"}</dd>
+                    </div>
+                    <div>
+                      <dt>Data</dt>
+                      <dd>{testDrive.data_preferida ?? "-"}</dd>
+                    </div>
+                    <div>
+                      <dt>Hora</dt>
+                      <dd>{testDrive.hora_preferida ?? "-"}</dd>
+                    </div>
+                    <div>
+                      <dt>Nome</dt>
+                      <dd>{testDrive.nome ?? "-"}</dd>
                     </div>
                     <div>
                       <dt>Telefone</dt>
-                      <dd>{message.telefone || "-"}</dd>
+                      <dd>{testDrive.telefone ?? "-"}</dd>
                     </div>
                     <div>
-                      <dt>Assunto</dt>
-                      <dd>{message.assunto ?? "-"}</dd>
+                      <dt>Email</dt>
+                      <dd>{testDrive.email ?? "-"}</dd>
+                    </div>
+                    <div>
+                      <dt>Recebido em</dt>
+                      <dd>{formatAdminDateTime(testDrive.created_at)}</dd>
                     </div>
                   </dl>
-
-                  <div className="admin-lead-card__notes">
-                    <h3>Mensagem</h3>
-                    <p>
-                      {message.mensagem?.trim()
-                        ? message.mensagem
-                        : "Sem mensagem adicional."}
-                    </p>
-                  </div>
 
                   <div className="admin-lead-card__actions">
                     <button
                       className="admin-button admin-button--danger"
                       type="button"
-                      disabled={deletingMessageId === message.id}
-                      onClick={() => handleDeleteMessage(message)}
+                      disabled={deletingTestDriveId === testDrive.id}
+                      onClick={() => handleDeleteTestDrive(testDrive)}
                     >
-                      {deletingMessageId === message.id
+                      {deletingTestDriveId === testDrive.id
                         ? "A eliminar..."
                         : "Eliminar"}
                     </button>
@@ -219,4 +229,4 @@ function AdminContactMessages() {
   );
 }
 
-export default AdminContactMessages;
+export default AdminTestDrives;

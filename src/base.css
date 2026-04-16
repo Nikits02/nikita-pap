@@ -923,6 +923,7 @@ input {
 
 .weekly-highlights__header {
   display: flex;
+  align-items: flex-end;
   justify-content: center;
   gap: 1rem;
   margin-bottom: 0.75rem;

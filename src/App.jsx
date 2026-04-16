@@ -17,6 +17,8 @@ import AdminVehicleForm from "./pages/AdminVehicleForm";
 import AdminTradeIns from "./pages/AdminTradeIns";
 import AdminUsers from "./pages/AdminUsers";
 import AdminContactMessages from "./pages/AdminContactMessages";
+import AdminFinanceRequests from "./pages/AdminFinanceRequests";
+import AdminTestDrives from "./pages/AdminTestDrives";
 import ProtectedAuthRoute from "./components/ProtectedAuthRoute";
 import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
 import AppRouteEffects from "./components/AppRouteEffects";
@@ -27,13 +29,41 @@ function App() {
       <AppRouteEffects />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/catalogo" element={<Catalogo />} />
+        <Route
+          path="/catalogo"
+          element={
+            <ProtectedAuthRoute>
+              <Catalogo />
+            </ProtectedAuthRoute>
+          }
+        />
         <Route path="/contacto" element={<Contacto />} />
-        <Route path="/financiamento" element={<Financiamento />} />
-        <Route path="/retoma" element={<Retoma />} />
+        <Route
+          path="/financiamento"
+          element={
+            <ProtectedAuthRoute>
+              <Financiamento />
+            </ProtectedAuthRoute>
+          }
+        />
+        <Route
+          path="/retoma"
+          element={
+            <ProtectedAuthRoute>
+              <Retoma />
+            </ProtectedAuthRoute>
+          }
+        />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<Blog />} />
-        <Route path="/viaturas/:slug" element={<VeiculoDetalhe />} />
+        <Route
+          path="/viaturas/:slug"
+          element={
+            <ProtectedAuthRoute>
+              <VeiculoDetalhe />
+            </ProtectedAuthRoute>
+          }
+        />
         <Route path="/test-drive" element={<TestDrive />} />
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/registo" element={<Registo />} />
@@ -76,6 +106,22 @@ function App() {
           element={
             <ProtectedAdminRoute>
               <AdminContactMessages />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/admin/financiamentos"
+          element={
+            <ProtectedAdminRoute>
+              <AdminFinanceRequests />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/admin/test-drives"
+          element={
+            <ProtectedAdminRoute>
+              <AdminTestDrives />
             </ProtectedAdminRoute>
           }
         />

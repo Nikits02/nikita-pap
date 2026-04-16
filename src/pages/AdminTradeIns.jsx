@@ -1,45 +1,19 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AdminPageShell from "../components/admin/AdminPageShell";
+import AdminSectionLinks from "../components/admin/AdminSectionLinks";
 import { FormInputField, FormSelectField } from "../components/form/FormField";
 import {
   deleteAdminTradeIn,
   fetchAdminTradeIns,
   updateAdminTradeInStatus,
 } from "../services/adminApi";
-import { clearAuthSession } from "../services/authApi";
-
-const ADMIN_LOGIN_PATH = "/admin/login";
-const ADMIN_VEHICLES_PATH = "/admin/viaturas";
-const ADMIN_USERS_PATH = "/admin/utilizadores";
-const ADMIN_CONTACT_MESSAGES_PATH = "/admin/contactos";
+import { handleAdminSessionError, formatAdminDateTime } from "../utils/admin";
 const TRADE_IN_STATUS_FILTER_OPTIONS = [
   { value: "all", label: "Todos" },
   { value: "unread", label: "Por ver" },
   { value: "viewed", label: "Vistos" },
 ];
-
-const createdAtFormatter = new Intl.DateTimeFormat("pt-PT", {
-  day: "2-digit",
-  month: "2-digit",
-  year: "numeric",
-  hour: "2-digit",
-  minute: "2-digit",
-});
-
-function formatCreatedAt(value) {
-  if (!value) {
-    return "-";
-  }
-
-  const parsedDate = new Date(value);
-
-  if (Number.isNaN(parsedDate.getTime())) {
-    return String(value);
-  }
-
-  return createdAtFormatter.format(parsedDate);
-}
 
 function getTradeInTitle(tradeIn) {
   return [tradeIn.marca, tradeIn.modelo].filter(Boolean).join(" ").trim();
@@ -71,9 +45,7 @@ function AdminTradeIns() {
           return;
         }
 
-        if (loadError.message === "Sessao expirada.") {
-          clearAuthSession();
-          navigate(ADMIN_LOGIN_PATH, { replace: true });
+        if (handleAdminSessionError(loadError, navigate)) {
           return;
         }
 
@@ -109,9 +81,7 @@ function AdminTradeIns() {
         ),
       );
     } catch (updateError) {
-      if (updateError.message === "Sessao expirada.") {
-        clearAuthSession();
-        navigate(ADMIN_LOGIN_PATH, { replace: true });
+      if (handleAdminSessionError(updateError, navigate)) {
         return;
       }
 
@@ -141,9 +111,7 @@ function AdminTradeIns() {
         currentTradeIns.filter(({ id }) => id !== tradeIn.id),
       );
     } catch (deleteError) {
-      if (deleteError.message === "Sessao expirada.") {
-        clearAuthSession();
-        navigate(ADMIN_LOGIN_PATH, { replace: true });
+      if (handleAdminSessionError(deleteError, navigate)) {
         return;
       }
 
@@ -193,20 +161,7 @@ function AdminTradeIns() {
       showLogout
       showBackToSite
       actions={
-        <>
-          <Link className="admin-button admin-button--secondary" to={ADMIN_VEHICLES_PATH}>
-            Ver Viaturas
-          </Link>
-          <Link className="admin-button admin-button--secondary" to={ADMIN_USERS_PATH}>
-            Ver Utilizadores
-          </Link>
-          <Link
-            className="admin-button admin-button--secondary"
-            to={ADMIN_CONTACT_MESSAGES_PATH}
-          >
-            Ver Contactos
-          </Link>
-        </>
+        <AdminSectionLinks current="tradeIns" />
       }
     >
       {isLoading ? (
@@ -276,7 +231,7 @@ function AdminTradeIns() {
                         {tradeIn.is_viewed ? "Visto" : "Por ver"}
                       </span>
                       <p className="admin-lead-card__timestamp">
-                        {formatCreatedAt(tradeIn.created_at)}
+                        {formatAdminDateTime(tradeIn.created_at)}
                       </p>
                     </div>
                   </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import CustomSelect from "./form/CustomSelect";
 import { SearchIcon } from "./icons/CommonIcons";
 
@@ -18,6 +18,7 @@ function SearchSelect({
         options={options}
         placeholder={placeholder}
         onChange={onChange}
+        allowDeselect
         disabled={disabled}
         rootClassName={`vehicle-search__select${disabled ? " is-disabled" : ""}`}
         triggerClassName="vehicle-search__select-trigger"
@@ -29,34 +30,137 @@ function SearchSelect({
 }
 
 function PesquisaViaturas({ cars, initialFilters, onSearch }) {
-  const marcas = [...new Set(cars.map((car) => car.marca))].sort();
-
   const [filtrosLocais, setFiltrosLocais] = useState(initialFilters);
 
-  const baseCars = cars.filter((car) => {
-    if (filtrosLocais.marca && car.marca !== filtrosLocais.marca) {
-      return false;
-    }
+  useEffect(() => {
+    setFiltrosLocais(initialFilters);
+  }, [initialFilters]);
 
-    if (filtrosLocais.modelo && car.modelo !== filtrosLocais.modelo) {
-      return false;
-    }
+  function getFilteredCars(excludedField = "") {
+    return cars.filter((car) => {
+      if (
+        excludedField !== "marca" &&
+        filtrosLocais.marca &&
+        car.marca !== filtrosLocais.marca
+      ) {
+        return false;
+      }
 
-    return true;
-  });
+      if (
+        excludedField !== "modelo" &&
+        filtrosLocais.modelo &&
+        car.modelo !== filtrosLocais.modelo
+      ) {
+        return false;
+      }
 
-  const modelos = [
-    ...new Set(
-      cars
-        .filter((car) =>
-          filtrosLocais.marca ? car.marca === filtrosLocais.marca : true,
-        )
-        .map((car) => car.modelo),
-    ),
-  ].sort();
+      if (
+        excludedField !== "combustivel" &&
+        filtrosLocais.combustivel &&
+        car.combustivel !== filtrosLocais.combustivel
+      ) {
+        return false;
+      }
 
-  const combustiveis = [...new Set(baseCars.map((car) => car.combustivel))].sort();
-  const caixas = [...new Set(baseCars.map((car) => car.caixa))].sort();
+      if (
+        excludedField !== "caixa" &&
+        filtrosLocais.caixa &&
+        car.caixa !== filtrosLocais.caixa
+      ) {
+        return false;
+      }
+
+      return true;
+    });
+  }
+
+  const marcas = useMemo(
+    () => [...new Set(cars.map((car) => car.marca).filter(Boolean))].sort(),
+    [cars],
+  );
+
+  const modelos = useMemo(
+    () =>
+      [...new Set(getFilteredCars("modelo").map((car) => car.modelo).filter(Boolean))].sort(),
+    [cars, filtrosLocais],
+  );
+
+  const combustiveis = useMemo(
+    () =>
+      [
+        ...new Set(
+          getFilteredCars("combustivel")
+            .map((car) => car.combustivel)
+            .filter(Boolean),
+        ),
+      ].sort(),
+    [cars, filtrosLocais],
+  );
+
+  const caixas = useMemo(
+    () =>
+      [...new Set(getFilteredCars("caixa").map((car) => car.caixa).filter(Boolean))].sort(),
+    [cars, filtrosLocais],
+  );
+
+  const marcasCompativeis = useMemo(
+    () =>
+      [...new Set(getFilteredCars("marca").map((car) => car.marca).filter(Boolean))].sort(),
+    [cars, filtrosLocais],
+  );
+
+  useEffect(() => {
+    setFiltrosLocais((atual) => {
+      const nextFilters = { ...atual };
+      let changed = false;
+
+      if (nextFilters.marca && !marcas.includes(nextFilters.marca)) {
+        nextFilters.marca = "";
+        changed = true;
+      }
+
+      if (nextFilters.modelo && !modelos.includes(nextFilters.modelo)) {
+        nextFilters.modelo = "";
+        changed = true;
+      }
+
+      if (
+        nextFilters.combustivel &&
+        !combustiveis.includes(nextFilters.combustivel)
+      ) {
+        nextFilters.combustivel = "";
+        changed = true;
+      }
+
+      if (nextFilters.caixa && !caixas.includes(nextFilters.caixa)) {
+        nextFilters.caixa = "";
+        changed = true;
+      }
+
+      return changed ? nextFilters : atual;
+    });
+  }, [marcas, modelos, combustiveis, caixas]);
+
+  useEffect(() => {
+    setFiltrosLocais((atual) => {
+      if (!atual.modelo) {
+        return atual;
+      }
+
+      if (atual.marca && marcasCompativeis.includes(atual.marca)) {
+        return atual;
+      }
+
+      if (marcasCompativeis.length !== 1) {
+        return atual;
+      }
+
+      return {
+        ...atual,
+        marca: marcasCompativeis[0],
+      };
+    });
+  }, [marcasCompativeis]);
 
   function atualizarCampo(campo, valor) {
     setFiltrosLocais((atual) => ({
@@ -66,21 +170,28 @@ function PesquisaViaturas({ cars, initialFilters, onSearch }) {
   }
 
   function mudarMarca(valor) {
-    setFiltrosLocais((atual) => ({
-      ...atual,
-      marca: valor,
-      modelo: "",
-      combustivel: "",
-      caixa: "",
-    }));
+    setFiltrosLocais((atual) => {
+      if (!valor) {
+        return {
+          ...atual,
+          marca: "",
+          modelo: "",
+          combustivel: "",
+          caixa: "",
+        };
+      }
+
+      return {
+        ...atual,
+        marca: valor,
+      };
+    });
   }
 
   function mudarModelo(valor) {
     setFiltrosLocais((atual) => ({
       ...atual,
       modelo: valor,
-      combustivel: "",
-      caixa: "",
     }));
   }
 

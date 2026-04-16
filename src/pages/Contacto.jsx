@@ -25,7 +25,7 @@ import SitePage from "../components/SitePage";
 import TestDriveHourSelector from "../components/test-drive/TestDriveHourSelector";
 import TestDrivePersonalFields from "../components/test-drive/TestDrivePersonalFields";
 import useFormState from "../hooks/useFormState";
-import { createContactMessage } from "../services/api";
+import { createContactMessage, createTestDrive } from "../services/api";
 import { getTodayDateString } from "../utils/date";
 
 const contactInfoIcons = {
@@ -90,23 +90,37 @@ function Contacto() {
       return;
     }
 
-    if (isTestDriveFlow) {
-      setSubmitted(true);
-      return;
-    }
-
     try {
       setIsSubmitting(true);
-      await createContactMessage({
-        nome: formData.nome,
-        email: formData.email,
-        telefone: formData.telefone,
-        assunto: formData.assunto,
-        mensagem: formData.mensagem,
-      });
+
+      if (isTestDriveFlow) {
+        await createTestDrive({
+          vehicleSlug: veiculoParam || "contacto-test-drive",
+          vehicleLabel: veiculoParam || "Teste Drive",
+          dataPreferida: formData.dataPreferida,
+          horaPreferida: formData.horaPreferida,
+          nome: formData.nome,
+          telefone: formData.telefone,
+          email: formData.email,
+        });
+      } else {
+        await createContactMessage({
+          nome: formData.nome,
+          email: formData.email,
+          telefone: formData.telefone,
+          assunto: formData.assunto,
+          mensagem: formData.mensagem,
+        });
+      }
+
       setSubmitted(true);
     } catch (error) {
-      setSubmitError(error.message ?? "Nao foi possivel enviar a mensagem.");
+      setSubmitError(
+        error.message ??
+          (isTestDriveFlow
+            ? "Nao foi possivel enviar o pedido de teste drive."
+            : "Nao foi possivel enviar a mensagem."),
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -252,9 +266,10 @@ function Contacto() {
               <button
                 className="contact-submit test-drive-submit"
                 type="submit"
+                disabled={isSubmitting}
               >
                 <PaperPlaneIcon />
-                <span>Confirmar Agendamento</span>
+                <span>{isSubmitting ? "A enviar..." : "Confirmar Agendamento"}</span>
               </button>
             </form>
           ) : (

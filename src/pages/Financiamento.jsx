@@ -6,6 +6,7 @@ import {
   GraphTrendIcon,
   ShieldIcon,
 } from "../components/icons/CommonIcons";
+import CustomSelect from "../components/form/CustomSelect";
 import TypedIcon from "../components/icons/TypedIcon";
 import SitePage from "../components/SitePage";
 import {
@@ -15,7 +16,9 @@ import {
 } from "../data/finance";
 import useFormState from "../hooks/useFormState";
 import useVehicles from "../hooks/useVehicles";
+import { createFinanceRequest } from "../services/api";
 import { formatRoundedNumber } from "../utils/format";
+import { getVehicleLabel } from "../utils/vehicle";
 
 const benefitIcons = {
   check: CheckCircleIcon,
@@ -24,13 +27,19 @@ const benefitIcons = {
   shield: ShieldIcon,
 };
 
+const FIXED_INTEREST_RATE = 6.9;
+
 function Financiamento() {
-  const { vehicles } = useVehicles();
+  const {
+    vehicles,
+    isLoading: isLoadingVehicles,
+    error: vehicleError,
+  } = useVehicles();
   const [simulation, setSimulation] = useState({
     preco: 120000,
     entrada: 24000,
     meses: 60,
-    taxa: 6.9,
+    taxa: FIXED_INTEREST_RATE,
   });
   const { formData: requestData, updateField: updateRequest } = useFormState({
     nome: "",
@@ -39,6 +48,8 @@ function Financiamento() {
     viatura: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const priceRange = useMemo(() => {
     const vehiclePrices = vehicles
@@ -57,6 +68,38 @@ function Financiamento() {
       max: Math.max(...vehiclePrices),
     };
   }, [vehicles]);
+
+  const availableVehicles = useMemo(
+    () =>
+      [...vehicles]
+        .sort((firstVehicle, secondVehicle) =>
+          getVehicleLabel(firstVehicle).localeCompare(
+            getVehicleLabel(secondVehicle),
+            "pt",
+            { sensitivity: "base" },
+          ),
+        )
+        .map((vehicle) => {
+          const vehicleLabel = getVehicleLabel(vehicle);
+          const optionLabel = vehicle.ano
+            ? `${vehicleLabel} (${vehicle.ano})`
+            : vehicleLabel;
+
+          return {
+            value: optionLabel,
+            label: optionLabel,
+          };
+        }),
+    [vehicles],
+  );
+
+  const isVehicleSelectDisabled =
+    isLoadingVehicles || availableVehicles.length === 0;
+  const vehicleSelectPlaceholder = isLoadingVehicles
+    ? "A carregar viaturas..."
+    : availableVehicles.length > 0
+      ? "Veiculo de interesse"
+      : "Sem viaturas disponiveis";
 
   useEffect(() => {
     setSimulation((current) => {
@@ -98,9 +141,35 @@ function Financiamento() {
     });
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    setSubmitted(true);
+
+    try {
+      setIsSubmitting(true);
+      setSubmitError("");
+
+      await createFinanceRequest({
+        nome: requestData.nome,
+        email: requestData.email,
+        telefone: requestData.telefone,
+        viatura: requestData.viatura,
+        preco: simulation.preco,
+        entrada: simulation.entrada,
+        meses: simulation.meses,
+        taxa: simulation.taxa,
+        prestacaoMensal: result.prestacaoMensal,
+        montanteTotal: result.montanteTotal,
+        taeg: result.taeg,
+      });
+
+      setSubmitted(true);
+    } catch (error) {
+      setSubmitError(
+        error.message ?? "Nao foi possivel guardar o pedido de financiamento.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   const result = useMemo(() => {
@@ -126,6 +195,25 @@ function Financiamento() {
       taeg,
     };
   }, [simulation]);
+
+  const requestSummaryItems = [
+    {
+      label: "Preco",
+      value: `${formatRoundedNumber(simulation.preco)} EUR`,
+    },
+    {
+      label: "Entrada",
+      value: `${formatRoundedNumber(simulation.entrada)} EUR`,
+    },
+    {
+      label: "Prazo",
+      value: `${simulation.meses} meses`,
+    },
+    {
+      label: "Prestacao",
+      value: `${formatRoundedNumber(result.prestacaoMensal)} EUR`,
+    },
+  ];
 
   return (
     <SitePage mainClassName="page-shell finance-page">
@@ -210,26 +298,14 @@ function Financiamento() {
 
           <div className="finance-control finance-control--last">
             <div className="finance-control__top">
-              <span>Taxa de juro (TAN)</span>
+              <span>Taxa de juro fixa (TAN)</span>
               <strong>{simulation.taxa.toFixed(1)}%</strong>
             </div>
 
-            <input
-              className="finance-range"
-              type="range"
-              min="2"
-              max="15"
-              step="0.1"
-              value={simulation.taxa}
-              onChange={(event) =>
-                updateSimulation("taxa", event.target.value)
-              }
-            />
-
-            <div className="finance-control__limits">
-              <span>2%</span>
-              <span>15%</span>
-            </div>
+            <p className="finance-fixed-rate-note">
+              Esta simulacao utiliza uma TAN fixa de{" "}
+              <strong>{FIXED_INTEREST_RATE.toFixed(1)}%</strong>.
+            </p>
           </div>
 
           <div className="finance-results">
@@ -279,23 +355,59 @@ function Financiamento() {
 
           <section className="finance-card finance-card--request">
             <h2>Pedir Financiamento</h2>
+            <p className="finance-request-copy">
+              Envie o pedido com a simulacao atual e a nossa equipa entra em
+              contacto consigo para apresentar as condicoes finais.
+            </p>
+
+            <div className="finance-request-summary" aria-label="Resumo da simulacao">
+              {requestSummaryItems.map((item) => (
+                <article className="finance-request-summary__item" key={item.label}>
+                  <span>{item.label}</span>
+                  <strong>{item.value}</strong>
+                </article>
+              ))}
+            </div>
 
             <form className="finance-request-form" onSubmit={handleSubmit}>
-              {financeRequestFields.map((field) => (
-                <input
-                  key={field.name}
-                  type={field.type}
-                  placeholder={field.placeholder}
-                  value={requestData[field.name]}
-                  onChange={(event) =>
-                    updateRequest(field.name, event.target.value)
-                  }
-                  required={field.required}
-                />
-              ))}
+              {financeRequestFields.map((field) =>
+                field.name === "viatura" ? (
+                  <CustomSelect
+                    key={field.name}
+                    value={requestData[field.name]}
+                    options={availableVehicles}
+                    placeholder={vehicleSelectPlaceholder}
+                    onChange={(value) => updateRequest(field.name, value)}
+                    disabled={isVehicleSelectDisabled}
+                    rootClassName={`vehicle-search__select${isVehicleSelectDisabled ? " is-disabled" : ""}`}
+                    triggerClassName="vehicle-search__select-trigger"
+                    menuClassName="vehicle-search__select-menu"
+                    optionClassName="vehicle-search__select-option"
+                  />
+                ) : (
+                  <input
+                    key={field.name}
+                    type={field.type}
+                    placeholder={field.placeholder}
+                    value={requestData[field.name]}
+                    onChange={(event) =>
+                      updateRequest(field.name, event.target.value)
+                    }
+                    required={field.required}
+                  />
+                ),
+              )}
 
-              <button className="finance-submit" type="submit">
-                Pedir Financiamento
+              {vehicleError ? (
+                <p className="finance-request-form__hint">{vehicleError}</p>
+              ) : null}
+
+              {submitError ? (
+                <p className="finance-request-form__error">{submitError}</p>
+              ) : null}
+
+              <button className="finance-submit" type="submit" disabled={isSubmitting}>
+                {isSubmitting ? "A enviar..." : "Pedir Financiamento"}
               </button>
             </form>
 

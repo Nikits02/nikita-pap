@@ -6,7 +6,7 @@ import SitePage from "../components/SitePage";
 import useFormState from "../hooks/useFormState";
 import {
   getCurrentUser,
-  getDefaultRouteForUser,
+  getPostAuthRoute,
   login,
 } from "../services/authApi";
 
@@ -24,9 +24,9 @@ function Login() {
     const currentUser = getCurrentUser();
 
     if (currentUser) {
-      navigate(getDefaultRouteForUser(currentUser), { replace: true });
+      navigate(location.state?.redirectTo ?? getPostAuthRoute(), { replace: true });
     }
-  }, [navigate]);
+  }, [location.state?.redirectTo, navigate]);
 
   function updateField(field, value) {
     if (error) {
@@ -47,7 +47,9 @@ function Login() {
         password: formData.password,
       });
 
-      navigate(getDefaultRouteForUser(data.user), { replace: true });
+      navigate(location.state?.redirectTo ?? getPostAuthRoute(data.user), {
+        replace: true,
+      });
     } catch (submitError) {
       setError(submitError.message ?? "Nao foi possivel iniciar sessao.");
     } finally {
@@ -103,7 +105,10 @@ function Login() {
           </div>
 
           <p className="auth-form__helper">
-            Ainda nao tem conta? <Link to="/registo">Criar conta</Link>
+            Ainda nao tem conta?{" "}
+            <Link to="/registo" state={location.state}>
+              Criar conta
+            </Link>
           </p>
         </form>
       </section>

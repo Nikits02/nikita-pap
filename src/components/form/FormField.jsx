@@ -35,6 +35,7 @@ function FormInputField({
   error,
   errorClassName,
   inputClassName,
+  inputRef,
   ...inputProps
 }) {
   return (
@@ -46,7 +47,7 @@ function FormInputField({
       error={error}
       errorClassName={errorClassName}
     >
-      <input className={inputClassName} {...inputProps} />
+      <input className={inputClassName} ref={inputRef} {...inputProps} />
     </FormField>
   );
 }

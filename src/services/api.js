@@ -29,3 +29,11 @@ export function createTradeInRequest(payload) {
     errorMessage: "Erro ao guardar pedido de retoma.",
   });
 }
+
+export function createFinanceRequest(payload) {
+  return requestJson("/api/finance-requests", {
+    method: "POST",
+    body: payload,
+    errorMessage: "Erro ao guardar pedido de financiamento.",
+  });
+}

@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FormError, FormInputField } from "../components/form/FormField";
 import PageHero from "../components/PageHero";
 import SitePage from "../components/SitePage";
 import useFormState from "../hooks/useFormState";
 import {
   getCurrentUser,
-  getDefaultRouteForUser,
+  getPostAuthRoute,
   register,
 } from "../services/authApi";
 
 function Registo() {
+  const location = useLocation();
   const navigate = useNavigate();
   const { formData, updateField: updateFormField } = useFormState({
     nome: "",
@@ -26,7 +27,7 @@ function Registo() {
     const currentUser = getCurrentUser();
 
     if (currentUser) {
-      navigate(getDefaultRouteForUser(currentUser), { replace: true });
+      navigate(getPostAuthRoute(), { replace: true });
     }
   }, [navigate]);
 
@@ -56,7 +57,7 @@ function Registo() {
         password: formData.password,
       });
 
-      navigate(getDefaultRouteForUser(data.user), { replace: true });
+      navigate(getPostAuthRoute(data.user), { replace: true });
     } catch (submitError) {
       setError(submitError.message ?? "Nao foi possivel criar a conta.");
     } finally {
@@ -134,7 +135,10 @@ function Registo() {
           </div>
 
           <p className="auth-form__helper">
-            Ja tem conta? <Link to="/login">Iniciar sessao</Link>
+            Ja tem conta?{" "}
+            <Link to="/login" state={location.state}>
+              Iniciar sessao
+            </Link>
           </p>
         </form>
       </section>

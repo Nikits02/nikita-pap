@@ -1,40 +1,20 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AdminPageShell from "../components/admin/AdminPageShell";
+import AdminSectionLinks from "../components/admin/AdminSectionLinks";
+import {
+  ADMIN_LOGIN_PATH,
+  ADMIN_NEW_VEHICLE_PATH,
+} from "../data/adminNavigation";
 import { deleteAdminVehicle, fetchAdminVehicles } from "../services/adminApi";
-import { clearAuthSession } from "../services/authApi";
 import { formatEuro } from "../utils/format";
+import { formatAdminDate, handleAdminSessionError } from "../utils/admin";
 
-const ADMIN_LOGIN_PATH = "/admin/login";
-const ADMIN_NEW_VEHICLE_PATH = "/admin/viaturas/nova";
-const ADMIN_TRADE_INS_PATH = "/admin/retomas";
-const ADMIN_USERS_PATH = "/admin/utilizadores";
-const ADMIN_CONTACT_MESSAGES_PATH = "/admin/contactos";
 const SOURCE_LABELS = {
   stock: "Catalogo",
   catalog: "Catalogo",
   highlight: "Destaques da Semana",
 };
-
-const insertedAtFormatter = new Intl.DateTimeFormat("pt-PT", {
-  day: "2-digit",
-  month: "2-digit",
-  year: "numeric",
-});
-
-function formatInsertedAt(value) {
-  if (!value) {
-    return "-";
-  }
-
-  const parsedDate = new Date(value);
-
-  if (Number.isNaN(parsedDate.getTime())) {
-    return String(value).slice(0, 10);
-  }
-
-  return insertedAtFormatter.format(parsedDate);
-}
 
 function getVehicleName(vehicle) {
   return [vehicle.marca, vehicle.modelo].filter(Boolean).join(" ").trim();
@@ -63,9 +43,7 @@ function AdminVehicles() {
           return;
         }
 
-        if (loadError.message === "Sessao expirada.") {
-          clearAuthSession();
-          navigate(ADMIN_LOGIN_PATH, { replace: true });
+        if (handleAdminSessionError(loadError, navigate)) {
           return;
         }
 
@@ -101,9 +79,7 @@ function AdminVehicles() {
         currentVehicles.filter(({ id }) => id !== vehicle.id),
       );
     } catch (deleteError) {
-      if (deleteError.message === "Sessao expirada.") {
-        clearAuthSession();
-        navigate(ADMIN_LOGIN_PATH, { replace: true });
+      if (handleAdminSessionError(deleteError, navigate)) {
         return;
       }
 
@@ -119,23 +95,14 @@ function AdminVehicles() {
       showLogout
       showBackToSite
       actions={
-        <>
-          <Link className="admin-button admin-button--secondary" to={ADMIN_TRADE_INS_PATH}>
-            Ver Retomas
-          </Link>
-          <Link className="admin-button admin-button--secondary" to={ADMIN_USERS_PATH}>
-            Ver Utilizadores
-          </Link>
-          <Link
-            className="admin-button admin-button--secondary"
-            to={ADMIN_CONTACT_MESSAGES_PATH}
-          >
-            Ver Contactos
-          </Link>
-          <Link className="admin-button" to={ADMIN_NEW_VEHICLE_PATH}>
-            Nova Viatura
-          </Link>
-        </>
+        <AdminSectionLinks
+          current="vehicles"
+          extraActions={
+            <Link className="admin-button" to={ADMIN_NEW_VEHICLE_PATH}>
+              Nova Viatura
+            </Link>
+          }
+        />
       }
     >
       {isLoading ? (
@@ -204,7 +171,7 @@ function AdminVehicles() {
                       </div>
                       <div>
                         <dt>Inserida</dt>
-                        <dd>{formatInsertedAt(vehicle.inserted_at)}</dd>
+                        <dd>{formatAdminDate(vehicle.inserted_at)}</dd>
                       </div>
                     </dl>
 

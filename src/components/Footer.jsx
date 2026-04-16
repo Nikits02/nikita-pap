@@ -7,7 +7,7 @@ import {
   legalLinks,
 } from "../data/footer";
 import useVehicles from "../hooks/useVehicles";
-import { footerQuickLinks } from "../data/navigation";
+import { getFooterQuickLinks } from "../data/navigation";
 import {
   FacebookIcon,
   InstagramIcon,
@@ -19,6 +19,7 @@ import {
 } from "./icons/CommonIcons";
 import TypedIcon from "./icons/TypedIcon";
 import { getVehicleLabel } from "../utils/vehicle";
+import { getCurrentUser } from "../services/authApi";
 
 const socialIcons = {
   facebook: FacebookIcon,
@@ -34,6 +35,9 @@ const contactIcons = {
 };
 
 function Footer() {
+  const currentUser = getCurrentUser();
+  const isAuthenticated = Boolean(currentUser);
+  const footerQuickLinks = getFooterQuickLinks(isAuthenticated);
   const { vehicles, isLoading, error } = useVehicles();
   const footerVehicles = vehicles.slice(0, 6);
 
@@ -96,7 +100,24 @@ function Footer() {
           <section className="site-footer__column">
             <h3 className="site-footer__column-title">Viaturas em Catalogo</h3>
             <div className="site-footer__list">
-              {isLoading ? (
+              {!isAuthenticated ? (
+                <>
+                  <span className="site-footer__list-text">
+                    Inicie sessao para ver o catalogo.
+                  </span>
+                  <Link
+                    className="site-footer__list-link"
+                    to="/login"
+                    state={{
+                      notice:
+                        "Precisa de iniciar sessao para ver o catalogo, o financiamento e a retoma.",
+                      redirectTo: "/catalogo",
+                    }}
+                  >
+                    Fazer login
+                  </Link>
+                </>
+              ) : isLoading ? (
                 <span className="site-footer__list-text">A carregar...</span>
               ) : error || footerVehicles.length === 0 ? (
                 <Link className="site-footer__list-link" to="/catalogo">
