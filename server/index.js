@@ -23,7 +23,7 @@ import {
 } from "./lib/vehicleImageUpload.js";
 
 const app = express();
-const port = Number(process.env.PORT) || 3001;
+const port = Number(process.env.PORT) || 3002;
 const AUTH_TOKEN_DURATION = "1d";
 
 app.use(cors());
@@ -134,7 +134,9 @@ function registerAdminDeleteRoute(
         return res.status(404).json({ message: notFoundMessage });
       }
 
-      await pool.query(`DELETE FROM ${tableName} WHERE id = ?`, [req.params.id]);
+      await pool.query(`DELETE FROM ${tableName} WHERE id = ?`, [
+        req.params.id,
+      ]);
 
       return res.json({ ok: true, message: successMessage });
     } catch (error) {
@@ -247,7 +249,12 @@ app.get("/api/vehicles", async (_req, res) => {
   try {
     res.json(await fetchRows(VEHICLE_SELECT_ORDER_QUERY));
   } catch (error) {
-    sendServerError(res, "Erro ao buscar viaturas", "Erro ao buscar viaturas.", error);
+    sendServerError(
+      res,
+      "Erro ao buscar viaturas",
+      "Erro ao buscar viaturas.",
+      error,
+    );
   }
 });
 
@@ -385,7 +392,9 @@ app.post("/api/trade-ins", async (req, res) => {
     return res.status(201).json({ ok: true });
   } catch (error) {
     console.error("Erro ao guardar pedido de retoma:", error.message);
-    return res.status(500).json({ message: "Erro ao guardar pedido de retoma." });
+    return res
+      .status(500)
+      .json({ message: "Erro ao guardar pedido de retoma." });
   }
 });
 
@@ -508,7 +517,9 @@ app.post("/api/auth/register", async (req, res) => {
       [result.insertId],
     );
 
-    return res.status(201).json(createAuthResponse(buildRegularSessionUser(user)));
+    return res
+      .status(201)
+      .json(createAuthResponse(buildRegularSessionUser(user)));
   } catch (error) {
     return sendServerError(res, "Erro no registo", "Erro no registo.", error);
   }
@@ -589,20 +600,24 @@ app.post("/api/admin/login", async (req, res) => {
   }
 });
 
-app.post("/api/admin/uploads/vehicle-image", authenticateAdmin, async (req, res) => {
-  try {
-    const uploadedImage = await saveVehicleImageUpload(req.body);
+app.post(
+  "/api/admin/uploads/vehicle-image",
+  authenticateAdmin,
+  async (req, res) => {
+    try {
+      const uploadedImage = await saveVehicleImageUpload(req.body);
 
-    return res.status(201).json(uploadedImage);
-  } catch (error) {
-    if (error instanceof VehicleImageUploadValidationError) {
-      return res.status(400).json({ message: error.message });
+      return res.status(201).json(uploadedImage);
+    } catch (error) {
+      if (error instanceof VehicleImageUploadValidationError) {
+        return res.status(400).json({ message: error.message });
+      }
+
+      console.error("Erro ao carregar imagem da viatura:", error.message);
+      return res.status(500).json({ message: "Erro ao carregar imagem." });
     }
-
-    console.error("Erro ao carregar imagem da viatura:", error.message);
-    return res.status(500).json({ message: "Erro ao carregar imagem." });
-  }
-});
+  },
+);
 
 registerAdminListRoute(
   "/api/admin/vehicles",
@@ -640,7 +655,9 @@ app.patch("/api/admin/trade-ins/:id", authenticateAdmin, async (req, res) => {
     );
 
     if (!existingTradeIn) {
-      return res.status(404).json({ message: "Pedido de retoma nao encontrado." });
+      return res
+        .status(404)
+        .json({ message: "Pedido de retoma nao encontrado." });
     }
 
     await pool.query(
@@ -735,7 +752,9 @@ registerAdminDeleteRoute(
 app.get("/api/admin/vehicles/:id", authenticateAdmin, async (req, res) => {
   try {
     const { id } = req.params;
-    const vehicle = await fetchFirstRow("SELECT * FROM vehicles WHERE id = ?", [id]);
+    const vehicle = await fetchFirstRow("SELECT * FROM vehicles WHERE id = ?", [
+      id,
+    ]);
 
     if (!vehicle) {
       return res.status(404).json({ message: "Viatura nao encontrada." });
@@ -770,14 +789,17 @@ app.post("/api/admin/vehicles", authenticateAdmin, async (req, res) => {
 
     const createdVehicle = await fetchFirstRow(
       "SELECT * FROM vehicles WHERE id = ?",
-      [
-      result.insertId,
-      ],
+      [result.insertId],
     );
 
     return res.status(201).json(createdVehicle);
   } catch (error) {
-    return sendServerError(res, "Erro ao criar viatura", "Erro ao criar viatura.", error);
+    return sendServerError(
+      res,
+      "Erro ao criar viatura",
+      "Erro ao criar viatura.",
+      error,
+    );
   }
 });
 
