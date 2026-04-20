@@ -41,7 +41,7 @@ function UltimasViaturas({ cars }) {
               >
                 <div className="highlight-card__media">
                   <img src={car.imagem} alt={getVehicleLabel(car)} />
-                  {car.novidade ? <span className="highlight-card__badge">Novo</span> : null}
+                  {car.novidade ? <span className="catalog-card__badge">Novo</span> : null}
                 </div>
 
                 <div className="highlight-card__body latest-card__body">

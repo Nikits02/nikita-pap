@@ -34,12 +34,12 @@ function Sobre() {
       <section className="about-story">
         <div className="about-story__content">
           <p>
-            A NikitaMotors foi criada no ambito da Prova de Aptidao
-            Profissional (PAP), com o objetivo de desenvolver um website
-            dedicado ao mercado de automoveis de luxo. O projeto nasceu da
-            vontade de aplicar, num caso pratico e completo, os conhecimentos
-            adquiridos ao longo do curso, com especial foco no desenvolvimento
-            web, na organizacao de conteudo e na experiencia do utilizador.
+            A NikitaMotors foi criada no ambito da Prova de Aptidao Profissional
+            (PAP), com o objetivo de desenvolver um website dedicado ao mercado
+            de automoveis de luxo. O projeto nasceu da vontade de aplicar, num
+            caso pratico e completo, os conhecimentos adquiridos ao longo do
+            curso, com especial foco no desenvolvimento web, na organizacao de
+            conteudo e na experiencia do utilizador.
           </p>
 
           <p>
@@ -53,19 +53,19 @@ function Sobre() {
           </p>
 
           <p>
-            Durante a realizacao do projeto, enfrentei varios desafios
-            tecnicos, que me permitiram aprender e evoluir, tanto ao nivel da
-            programacao como na organizacao do trabalho. Com dedicacao e
-            esforco, fui consolidando competencias em frontend, estruturacao de
-            dados, validacao de formularios, area administrativa e integracao
-            entre interface, servidor e base de dados.
+            Durante a realizacao do projeto, enfrentei varios desafios tecnicos,
+            que me permitiram aprender e evoluir, tanto ao nivel da programacao
+            como na organizacao do trabalho. Com dedicacao e esforco, fui
+            consolidando competencias em frontend, estruturacao de dados,
+            validacao de formularios, area administrativa e integracao entre
+            interface, servidor e base de dados.
           </p>
 
           <p>
-            Este projeto representa, assim, uma etapa importante no meu
-            percurso academico, demonstrando nao apenas as competencias
-            tecnicas que desenvolvi, mas tambem a minha capacidade de planear,
-            executar e melhorar um produto digital de forma progressiva.
+            Este projeto representa, assim, uma etapa importante no meu percurso
+            academico, demonstrando nao apenas as competencias tecnicas que
+            desenvolvi, mas tambem a minha capacidade de planear, executar e
+            melhorar um produto digital de forma progressiva.
           </p>
         </div>
 
@@ -86,7 +86,7 @@ function Sobre() {
           de refletir a exigencia e o detalhe associados ao universo automovel
           premium."
         </blockquote>
-        <p>- Nikita Kazutinas, Autor do Projeto</p>
+        <p>- Nikita Kazutinas, CEO</p>
       </section>
 
       <section className="about-values" aria-labelledby="o-que-nos-define">
