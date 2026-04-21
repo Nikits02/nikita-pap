@@ -3,20 +3,22 @@ import { AuthContext } from "./AuthContextObject";
 import {
   clearAuthSession,
   getAuthSession,
-  hasAdminSession as hasStoredAdminSession,
-  isAuthenticated as hasStoredSession,
   requestLogout,
   validateAuthSession,
 } from "../services/authApi";
 
+function buildAuthState(user) {
+  return {
+    currentUser: user,
+    isAuthenticated: Boolean(user),
+    hasAdminSession: user?.role === "admin",
+  };
+}
+
 function getInitialAuthState() {
   const session = getAuthSession();
 
-  return {
-    currentUser: session?.user ?? null,
-    isAuthenticated: hasStoredSession(),
-    hasAdminSession: hasStoredAdminSession(),
-  };
+  return buildAuthState(session?.user ?? null);
 }
 
 export function AuthProvider({ children }) {
@@ -35,11 +37,7 @@ export function AuthProvider({ children }) {
         return;
       }
 
-      setAuthState({
-        currentUser: user,
-        isAuthenticated: Boolean(user),
-        hasAdminSession: user?.role === "admin",
-      });
+      setAuthState(buildAuthState(user));
       setIsAuthReady(true);
       setIsAuthRefreshing(false);
     }
@@ -74,11 +72,7 @@ export function AuthProvider({ children }) {
     setIsAuthRefreshing(true);
     const user = await validateAuthSession();
 
-    setAuthState({
-      currentUser: user,
-      isAuthenticated: Boolean(user),
-      hasAdminSession: user?.role === "admin",
-    });
+    setAuthState(buildAuthState(user));
     setIsAuthReady(true);
     setIsAuthRefreshing(false);
 
@@ -88,11 +82,7 @@ export function AuthProvider({ children }) {
   async function logout() {
     await requestLogout();
     clearAuthSession();
-    setAuthState({
-      currentUser: null,
-      isAuthenticated: false,
-      hasAdminSession: false,
-    });
+    setAuthState(buildAuthState(null));
     setIsAuthReady(true);
     setIsAuthRefreshing(false);
   }

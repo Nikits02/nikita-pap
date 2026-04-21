@@ -32,33 +32,18 @@ function buildSummary(vehicle, typeLabel) {
 }
 
 function buildHighlights(vehicle, typeLabel) {
-  const items = [];
-
-  if (vehicle.versao) {
-    items.push(`Versao ${vehicle.versao}`);
-  }
-
-  if (vehicle.quilometragem) {
-    items.push(`${vehicle.quilometragem} verificados`);
-  }
-
-  if (vehicle.caixa) {
-    items.push(`Caixa ${vehicle.caixa.toLowerCase()}`);
-  }
-
-  if (vehicle.combustivel) {
-    items.push(`Motor ${vehicle.combustivel.toLowerCase()}`);
-  }
-
-  if (vehicle.potencia) {
-    items.push(`Potencia de ${vehicle.potencia}`);
-  }
-
-  items.push(`${typeLabel} pronta para entrega`);
-  items.push("Possibilidade de financiamento");
-  items.push("Retoma sob avaliacao");
-
-  return items.slice(0, 6);
+  return [
+    vehicle.versao ? `Versao ${vehicle.versao}` : null,
+    vehicle.quilometragem ? `${vehicle.quilometragem} verificados` : null,
+    vehicle.caixa ? `Caixa ${vehicle.caixa.toLowerCase()}` : null,
+    vehicle.combustivel ? `Motor ${vehicle.combustivel.toLowerCase()}` : null,
+    vehicle.potencia ? `Potencia de ${vehicle.potencia}` : null,
+    `${typeLabel} pronta para entrega`,
+    "Possibilidade de financiamento",
+    "Retoma sob avaliacao",
+  ]
+    .filter(Boolean)
+    .slice(0, 6);
 }
 
 function buildSpecs(vehicle, typeLabel) {

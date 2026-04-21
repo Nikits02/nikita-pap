@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
-function useDismissableLayer(initialOpen = false) {
-  const [isOpen, setIsOpen] = useState(initialOpen);
+function useDismissableLayer() {
+  const [isOpen, setIsOpen] = useState(false);
   const rootRef = useRef(null);
 
   useEffect(() => {

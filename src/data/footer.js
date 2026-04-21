@@ -1,12 +1,3 @@
-export const featuredBrands = [
-  "Peugeot",
-  "Citroen",
-  "MINI",
-  "Opel",
-  "Renault",
-  "Fiat",
-];
-
 export const legalLinks = [
   "Politica de Privacidade",
   "Termos e Condicoes",

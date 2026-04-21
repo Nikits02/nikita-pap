@@ -155,72 +155,61 @@ function AdminTestDrives() {
             </div>
           ) : (
             <div className="admin-leads__list">
-              {filteredTestDrives.map((testDrive) => (
-                <article className="admin-lead-card" key={testDrive.id}>
-                  <div className="admin-lead-card__header">
-                    <div>
-                      <p className="admin-lead-card__eyebrow">Pedido #{testDrive.id}</p>
-                      <h2 className="admin-lead-card__title">
-                        {testDrive.vehicle_label?.trim() ||
-                          testDrive.vehicle_slug ||
-                          `Test Drive ${testDrive.id}`}
-                      </h2>
+              {filteredTestDrives.map((testDrive) => {
+                const metaItems = [
+                  ["Viatura", testDrive.vehicle_label || "-"],
+                  ["Slug", testDrive.vehicle_slug ?? "-"],
+                  ["Data", testDrive.data_preferida ?? "-"],
+                  ["Hora", testDrive.hora_preferida ?? "-"],
+                  ["Nome", testDrive.nome ?? "-"],
+                  ["Telefone", testDrive.telefone ?? "-"],
+                  ["Email", testDrive.email ?? "-"],
+                  ["Recebido em", formatAdminDateTime(testDrive.created_at)],
+                ];
+
+                return (
+                  <article className="admin-lead-card" key={testDrive.id}>
+                    <div className="admin-lead-card__header">
+                      <div>
+                        <p className="admin-lead-card__eyebrow">
+                          Pedido #{testDrive.id}
+                        </p>
+                        <h2 className="admin-lead-card__title">
+                          {testDrive.vehicle_label?.trim() ||
+                            testDrive.vehicle_slug ||
+                            `Test Drive ${testDrive.id}`}
+                        </h2>
+                      </div>
+
+                      <p className="admin-lead-card__timestamp">
+                        {formatAdminDateTime(testDrive.created_at)}
+                      </p>
                     </div>
 
-                    <p className="admin-lead-card__timestamp">
-                      {formatAdminDateTime(testDrive.created_at)}
-                    </p>
-                  </div>
+                    <dl className="admin-lead-card__meta">
+                      {metaItems.map(([label, value]) => (
+                        <div key={label}>
+                          <dt>{label}</dt>
+                          <dd>{value}</dd>
+                        </div>
+                      ))}
+                    </dl>
 
-                  <dl className="admin-lead-card__meta">
-                    <div>
-                      <dt>Viatura</dt>
-                      <dd>{testDrive.vehicle_label || "-"}</dd>
+                    <div className="admin-lead-card__actions">
+                      <button
+                        className="admin-button admin-button--danger"
+                        type="button"
+                        disabled={deletingTestDriveId === testDrive.id}
+                        onClick={() => handleDeleteTestDrive(testDrive)}
+                      >
+                        {deletingTestDriveId === testDrive.id
+                          ? "A eliminar..."
+                          : "Eliminar"}
+                      </button>
                     </div>
-                    <div>
-                      <dt>Slug</dt>
-                      <dd>{testDrive.vehicle_slug ?? "-"}</dd>
-                    </div>
-                    <div>
-                      <dt>Data</dt>
-                      <dd>{testDrive.data_preferida ?? "-"}</dd>
-                    </div>
-                    <div>
-                      <dt>Hora</dt>
-                      <dd>{testDrive.hora_preferida ?? "-"}</dd>
-                    </div>
-                    <div>
-                      <dt>Nome</dt>
-                      <dd>{testDrive.nome ?? "-"}</dd>
-                    </div>
-                    <div>
-                      <dt>Telefone</dt>
-                      <dd>{testDrive.telefone ?? "-"}</dd>
-                    </div>
-                    <div>
-                      <dt>Email</dt>
-                      <dd>{testDrive.email ?? "-"}</dd>
-                    </div>
-                    <div>
-                      <dt>Recebido em</dt>
-                      <dd>{formatAdminDateTime(testDrive.created_at)}</dd>
-                    </div>
-                  </dl>
-
-                  <div className="admin-lead-card__actions">
-                    <button
-                      className="admin-button admin-button--danger"
-                      type="button"
-                      disabled={deletingTestDriveId === testDrive.id}
-                      onClick={() => handleDeleteTestDrive(testDrive)}
-                    >
-                      {deletingTestDriveId === testDrive.id
-                        ? "A eliminar..."
-                        : "Eliminar"}
-                    </button>
-                  </div>
-                </article>
-              ))}
+                  </article>
+                );
+              })}
             </div>
           )}
         </div>

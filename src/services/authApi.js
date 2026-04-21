@@ -11,12 +11,6 @@ export function saveAuthSession(data) {
   );
 }
 
-function updateStoredUser(user) {
-  saveAuthSession({
-    user,
-  });
-}
-
 export function getAuthSession() {
   const rawSession = localStorage.getItem(AUTH_SESSION_KEY);
 
@@ -44,22 +38,8 @@ export function getAuthSession() {
   }
 }
 
-export function getCurrentUser() {
-  return getAuthSession()?.user ?? null;
-}
-
 export function clearAuthSession() {
   localStorage.removeItem(AUTH_SESSION_KEY);
-}
-
-export function isAuthenticated() {
-  return Boolean(getAuthSession()?.user);
-}
-
-export function hasAdminSession() {
-  const session = getAuthSession();
-
-  return Boolean(session?.user?.role === "admin");
 }
 
 export async function requestLogout() {
@@ -74,8 +54,6 @@ export async function requestLogout() {
 }
 
 export async function validateAuthSession() {
-  const session = getAuthSession();
-
   try {
     const data = await requestJson("/api/auth/session", {
       errorMessage: "Nao foi possivel validar a sessao.",
@@ -86,12 +64,7 @@ export async function validateAuthSession() {
       return null;
     }
 
-    if (!session) {
-      saveAuthSession({ user: data.user });
-      return data.user;
-    }
-
-    updateStoredUser(data.user);
+    saveAuthSession({ user: data.user });
     return data.user;
   } catch {
     clearAuthSession();

@@ -80,10 +80,6 @@ function useCarouselInteractions({ onPrevious, onNext }) {
     resetDrag(event);
   }
 
-  function cancelDrag(event) {
-    resetDrag(event);
-  }
-
   function handlePointerDown(event) {
     if (event.pointerType === "mouse" && event.button !== 0) {
       return;
@@ -140,7 +136,7 @@ function useCarouselInteractions({ onPrevious, onNext }) {
       onPointerDown: handlePointerDown,
       onPointerMove: handlePointerMove,
       onPointerUp: finishDrag,
-      onPointerCancel: cancelDrag,
+      onPointerCancel: resetDrag,
     },
   };
 }

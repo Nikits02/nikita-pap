@@ -133,25 +133,23 @@ function Contacto() {
       <section className="contact-page__layout">
         <aside className="contact-info-panel">
           <div className="contact-info-list">
-            {contactInfoItems.map((item) => {
-              return (
-                <article className="contact-info-item" key={item.title}>
-                  <div className="contact-info-item__icon">
-                    <TypedIcon
-                      type={item.icon}
-                      icons={contactInfoIcons}
-                      fallback={ClockCircleIcon}
-                    />
-                  </div>
-                  <div>
-                    <span>{item.title}</span>
-                    {item.lines.map((line) => (
-                      <p key={line}>{line}</p>
-                    ))}
-                  </div>
-                </article>
-              );
-            })}
+            {contactInfoItems.map((item) => (
+              <article className="contact-info-item" key={item.title}>
+                <div className="contact-info-item__icon">
+                  <TypedIcon
+                    type={item.icon}
+                    icons={contactInfoIcons}
+                    fallback={ClockCircleIcon}
+                  />
+                </div>
+                <div>
+                  <span>{item.title}</span>
+                  {item.lines.map((line) => (
+                    <p key={line}>{line}</p>
+                  ))}
+                </div>
+              </article>
+            ))}
           </div>
 
           <div className="contact-map-card">

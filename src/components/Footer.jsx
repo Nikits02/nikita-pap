@@ -63,22 +63,20 @@ function Footer() {
             </p>
 
             <div className="site-footer__socials" aria-label="Redes sociais">
-              {footerSocialLinks.map((item) => {
-                return (
-                  <a
-                    className="site-footer__social-link"
-                    href={item.href}
-                    aria-label={item.label}
-                    key={item.label}
-                  >
-                    <TypedIcon
-                      type={item.icon}
-                      icons={socialIcons}
-                      fallback={InstagramIcon}
-                    />
-                  </a>
-                );
-              })}
+              {footerSocialLinks.map((item) => (
+                <a
+                  className="site-footer__social-link"
+                  href={item.href}
+                  aria-label={item.label}
+                  key={item.label}
+                >
+                  <TypedIcon
+                    type={item.icon}
+                    icons={socialIcons}
+                    fallback={InstagramIcon}
+                  />
+                </a>
+              ))}
             </div>
           </section>
 

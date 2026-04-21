@@ -31,6 +31,16 @@ function DestaquesSemana({ vehicles = [], isLoading = false, error = "" }) {
     autoplayDelay: 5000,
     pauseAutoplay: isDragging,
   });
+  const statusContent = isLoading ? (
+    <h3>A carregar destaques...</h3>
+  ) : error ? (
+    <>
+      <h3>Nao foi possivel carregar os destaques.</h3>
+      <p>{error}</p>
+    </>
+  ) : slides.length === 0 ? (
+    <h3>Sem destaques disponiveis de momento.</h3>
+  ) : null;
 
   return (
     <section className="weekly-highlights" aria-labelledby="destaques-semana">
@@ -47,26 +57,11 @@ function DestaquesSemana({ vehicles = [], isLoading = false, error = "" }) {
         </div>
       </div>
 
-      {isLoading ? (
-        <div className="latest-vehicles__empty">
-          <h3>A carregar destaques...</h3>
-        </div>
+      {statusContent ? (
+        <div className="latest-vehicles__empty">{statusContent}</div>
       ) : null}
 
-      {!isLoading && error ? (
-        <div className="latest-vehicles__empty">
-          <h3>Nao foi possivel carregar os destaques.</h3>
-          <p>{error}</p>
-        </div>
-      ) : null}
-
-      {!isLoading && !error && slides.length === 0 ? (
-        <div className="latest-vehicles__empty">
-          <h3>Sem destaques disponiveis de momento.</h3>
-        </div>
-      ) : null}
-
-      {!isLoading && !error && slides.length > 0 ? (
+      {!statusContent ? (
         <>
           <div
             className={`weekly-highlights__frame${isDragging ? " is-dragging" : ""}`}

@@ -336,20 +336,18 @@ function Financiamento() {
             <h2>Vantagens do Nosso Financiamento</h2>
 
             <div className="finance-benefits__list">
-              {financeBenefits.map((benefit) => {
-                return (
-                  <article className="finance-benefit" key={benefit.text}>
-                    <div className="finance-benefit__icon">
-                      <TypedIcon
-                        type={benefit.icon}
-                        icons={benefitIcons}
-                        fallback={ShieldIcon}
-                      />
-                    </div>
-                    <span>{benefit.text}</span>
-                  </article>
-                );
-              })}
+              {financeBenefits.map((benefit) => (
+                <article className="finance-benefit" key={benefit.text}>
+                  <div className="finance-benefit__icon">
+                    <TypedIcon
+                      type={benefit.icon}
+                      icons={benefitIcons}
+                      fallback={ShieldIcon}
+                    />
+                  </div>
+                  <span>{benefit.text}</span>
+                </article>
+              ))}
             </div>
           </section>
 

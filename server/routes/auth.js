@@ -20,6 +20,17 @@ import {
 
 const router = express.Router();
 
+function rejectAuthRequest(req, res, status, message) {
+  registerAuthAttempt(req);
+  return res.status(status).json({ message });
+}
+
+function sendAuthSuccess(req, res, user, status) {
+  const response = createAuthSuccess(res, user);
+  clearAuthAttempts(req);
+  return status ? res.status(status).json(response) : res.json(response);
+}
+
 router.get("/auth/session", authenticateRequest, async (req, res) => {
   try {
     if (req.auth.role === "admin") {
@@ -71,20 +82,20 @@ router.post("/auth/register", authRateLimit, async (req, res) => {
     const normalizedEmail = email?.trim().toLowerCase();
 
     if (!nome || !normalizedUsername || !normalizedEmail || !password) {
-      registerAuthAttempt(req);
-      return res.status(400).json({ message: "Campos em falta." });
+      return rejectAuthRequest(req, res, 400, "Campos em falta.");
     }
 
     if (password.length < 6) {
-      registerAuthAttempt(req);
-      return res
-        .status(400)
-        .json({ message: "A password deve ter pelo menos 6 caracteres." });
+      return rejectAuthRequest(
+        req,
+        res,
+        400,
+        "A password deve ter pelo menos 6 caracteres.",
+      );
     }
 
     if (!isValidEmail(normalizedEmail)) {
-      registerAuthAttempt(req);
-      return res.status(400).json({ message: "Email invalido." });
+      return rejectAuthRequest(req, res, 400, "Email invalido.");
     }
 
     const existingUser = await fetchFirstRow(
@@ -93,10 +104,12 @@ router.post("/auth/register", authRateLimit, async (req, res) => {
     );
 
     if (existingUser) {
-      registerAuthAttempt(req);
-      return res
-        .status(409)
-        .json({ message: "Ja existe uma conta com esses dados." });
+      return rejectAuthRequest(
+        req,
+        res,
+        409,
+        "Ja existe uma conta com esses dados.",
+      );
     }
 
     const existingAdmin = await fetchFirstRow(
@@ -105,10 +118,12 @@ router.post("/auth/register", authRateLimit, async (req, res) => {
     );
 
     if (existingAdmin) {
-      registerAuthAttempt(req);
-      return res
-        .status(409)
-        .json({ message: "Esse username nao esta disponivel." });
+      return rejectAuthRequest(
+        req,
+        res,
+        409,
+        "Esse username nao esta disponivel.",
+      );
     }
 
     const passwordHash = await bcrypt.hash(password, 10);
@@ -124,9 +139,7 @@ router.post("/auth/register", authRateLimit, async (req, res) => {
       [result.insertId],
     );
 
-    const response = createAuthSuccess(res, buildRegularSessionUser(user));
-    clearAuthAttempts(req);
-    return res.status(201).json(response);
+    return sendAuthSuccess(req, res, buildRegularSessionUser(user), 201);
   } catch (error) {
     return sendServerError(res, "Erro no registo", "Erro no registo.", error);
   }
@@ -139,8 +152,7 @@ router.post("/auth/login", authRateLimit, async (req, res) => {
     const normalizedEmailIdentifier = identifier?.toLowerCase();
 
     if (!identifier || !password) {
-      registerAuthAttempt(req);
-      return res.status(400).json({ message: "Credenciais em falta." });
+      return rejectAuthRequest(req, res, 400, "Credenciais em falta.");
     }
 
     const admin = await fetchFirstRow(
@@ -152,13 +164,10 @@ router.post("/auth/login", authRateLimit, async (req, res) => {
       const passwordMatch = await bcrypt.compare(password, admin.password_hash);
 
       if (!passwordMatch) {
-        registerAuthAttempt(req);
-        return res.status(401).json({ message: "Credenciais invalidas." });
+        return rejectAuthRequest(req, res, 401, "Credenciais invalidas.");
       }
 
-      const response = createAuthSuccess(res, buildAdminSessionUser(admin));
-      clearAuthAttempts(req);
-      return res.json(response);
+      return sendAuthSuccess(req, res, buildAdminSessionUser(admin));
     }
 
     const user = await fetchFirstRow(
@@ -167,20 +176,16 @@ router.post("/auth/login", authRateLimit, async (req, res) => {
     );
 
     if (!user) {
-      registerAuthAttempt(req);
-      return res.status(401).json({ message: "Credenciais invalidas." });
+      return rejectAuthRequest(req, res, 401, "Credenciais invalidas.");
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password_hash);
 
     if (!passwordMatch) {
-      registerAuthAttempt(req);
-      return res.status(401).json({ message: "Credenciais invalidas." });
+      return rejectAuthRequest(req, res, 401, "Credenciais invalidas.");
     }
 
-    const response = createAuthSuccess(res, buildRegularSessionUser(user));
-    clearAuthAttempts(req);
-    return res.json(response);
+    return sendAuthSuccess(req, res, buildRegularSessionUser(user));
   } catch (error) {
     return sendServerError(res, "Erro no login", "Erro no login.", error);
   }
@@ -191,8 +196,7 @@ router.post("/admin/login", authRateLimit, async (req, res) => {
     const { username, password } = req.body;
 
     if (!username || !password) {
-      registerAuthAttempt(req);
-      return res.status(400).json({ message: "Credenciais em falta." });
+      return rejectAuthRequest(req, res, 400, "Credenciais em falta.");
     }
 
     const admin = await fetchFirstRow(
@@ -201,20 +205,16 @@ router.post("/admin/login", authRateLimit, async (req, res) => {
     );
 
     if (!admin) {
-      registerAuthAttempt(req);
-      return res.status(401).json({ message: "Credenciais invalidas." });
+      return rejectAuthRequest(req, res, 401, "Credenciais invalidas.");
     }
 
     const passwordMatch = await bcrypt.compare(password, admin.password_hash);
 
     if (!passwordMatch) {
-      registerAuthAttempt(req);
-      return res.status(401).json({ message: "Credenciais invalidas." });
+      return rejectAuthRequest(req, res, 401, "Credenciais invalidas.");
     }
 
-    const response = createAuthSuccess(res, buildAdminSessionUser(admin));
-    clearAuthAttempts(req);
-    return res.json(response);
+    return sendAuthSuccess(req, res, buildAdminSessionUser(admin));
   } catch (error) {
     return sendServerError(res, "Erro no login admin", "Erro no login.", error);
   }

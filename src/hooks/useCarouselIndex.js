@@ -9,8 +9,7 @@ function useCarouselIndex({
 }) {
   const [storedIndex, setStoredIndex] = useState(0);
   const maxIndex = Math.max(0, itemCount - visibleCount);
-  const activeIndex = Math.min(storedIndex, maxIndex);
-  const visibleIndex = Math.min(activeIndex, maxIndex);
+  const visibleIndex = Math.min(storedIndex, maxIndex);
   const setActiveIndex = useCallback(
     (nextIndex) => {
       setStoredIndex((currentIndex) => {
@@ -58,7 +57,6 @@ function useCarouselIndex({
   }, [autoplayDelay, goNext, maxIndex, pauseAutoplay]);
 
   return {
-    activeIndex,
     maxIndex,
     setActiveIndex,
     visibleIndex,

@@ -1,4 +1,4 @@
-export const vehicleDetailFields = [
+const vehicleDetailFields = [
   {
     type: "registo",
     label: "Registo",

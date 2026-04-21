@@ -10,12 +10,11 @@ import {
   uploadAdminVehicleImage,
   updateAdminVehicle,
 } from "../../services/adminApi";
-import { clearAuthSession } from "../../services/authApi";
+import { handleAdminSessionError } from "../../utils/admin";
 import { formatDateForInput, getTodayDateString } from "../../utils/date";
 import { formatFileSize, readFileAsDataUrl } from "../../utils/file";
 
 const ADMIN_VEHICLES_PATH = "/admin/viaturas";
-const ADMIN_LOGIN_PATH = "/admin/login";
 const VEHICLE_IMAGE_FIELD = adminVehicleFields.find(
   ({ name }) => name === "imagem",
 );
@@ -305,14 +304,7 @@ function AdminVehicleForm() {
           return;
         }
 
-        if (loadError.message === "Sessao expirada.") {
-          clearAuthSession();
-          navigate(ADMIN_LOGIN_PATH, {
-            replace: true,
-            state: {
-              notice: "Sessao expirada. Inicie sessao novamente para continuar.",
-            },
-          });
+        if (handleAdminSessionError(loadError, navigate)) {
           return;
         }
 
@@ -354,14 +346,7 @@ function AdminVehicleForm() {
 
       navigate(ADMIN_VEHICLES_PATH);
     } catch (submitError) {
-      if (submitError.message === "Sessao expirada.") {
-        clearAuthSession();
-        navigate(ADMIN_LOGIN_PATH, {
-          replace: true,
-          state: {
-            notice: "Sessao expirada. Inicie sessao novamente para continuar.",
-          },
-        });
+      if (handleAdminSessionError(submitError, navigate)) {
         return;
       }
 

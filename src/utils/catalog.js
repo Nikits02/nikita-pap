@@ -26,24 +26,11 @@ export function updateCatalogFilters(current, field, value) {
 }
 
 export function filterAndSortVehicles(vehicles, filters) {
+  const filterFields = ["marca", "modelo", "combustivel", "caixa"];
   const filtered = vehicles.filter((vehicle) => {
-    if (filters.marca && vehicle.marca !== filters.marca) {
-      return false;
-    }
-
-    if (filters.modelo && vehicle.modelo !== filters.modelo) {
-      return false;
-    }
-
-    if (filters.combustivel && vehicle.combustivel !== filters.combustivel) {
-      return false;
-    }
-
-    if (filters.caixa && vehicle.caixa !== filters.caixa) {
-      return false;
-    }
-
-    return true;
+    return filterFields.every((field) => {
+      return !filters[field] || vehicle[field] === filters[field];
+    });
   });
 
   return filtered.sort((firstVehicle, secondVehicle) => {

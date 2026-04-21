@@ -3,6 +3,8 @@ import { resumoTestemunhos, testemunhos } from "../data/testemunhos";
 import useCarouselIndex from "../hooks/useCarouselIndex";
 import useCarouselInteractions from "../hooks/useCarouselInteractions";
 
+const STAR_COUNT = 5;
+
 function getCardsPerView() {
   if (typeof window === "undefined") {
     return 4;
@@ -113,12 +115,10 @@ function Testemunhos() {
 
                     <h3>{testemunho.nome}</h3>
 
-                    <div className="testimonial-card__stars" aria-label="5 estrelas">
-                      <span>&#9733;</span>
-                      <span>&#9733;</span>
-                      <span>&#9733;</span>
-                      <span>&#9733;</span>
-                      <span>&#9733;</span>
+                    <div className="testimonial-card__stars" aria-label={`${STAR_COUNT} estrelas`}>
+                      {Array.from({ length: STAR_COUNT }, (_, index) => (
+                        <span key={index}>&#9733;</span>
+                      ))}
                     </div>
 
                     <p className="testimonial-card__date">{testemunho.data}</p>

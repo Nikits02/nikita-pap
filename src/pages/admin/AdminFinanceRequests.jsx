@@ -155,90 +155,74 @@ function AdminFinanceRequests() {
             </div>
           ) : (
             <div className="admin-leads__list">
-              {filteredFinanceRequests.map((financeRequest) => (
-                <article className="admin-lead-card" key={financeRequest.id}>
-                  <div className="admin-lead-card__header">
-                    <div>
-                      <p className="admin-lead-card__eyebrow">
-                        Pedido #{financeRequest.id}
+              {filteredFinanceRequests.map((financeRequest) => {
+                const metaItems = [
+                  ["Nome", financeRequest.nome ?? "-"],
+                  ["Email", financeRequest.email ?? "-"],
+                  ["Telefone", financeRequest.telefone ?? "-"],
+                  ["Viatura", financeRequest.viatura || "-"],
+                  ["Preco", `${formatEuro(financeRequest.preco)} EUR`],
+                  ["Entrada", `${formatEuro(financeRequest.entrada)} EUR`],
+                  ["Prazo", `${financeRequest.meses ?? "-"} meses`],
+                  ["TAN", `${financeRequest.taxa ?? "-"}%`],
+                  [
+                    "Prestacao",
+                    `${formatEuro(financeRequest.prestacao_mensal)} EUR`,
+                  ],
+                  [
+                    "Montante Total",
+                    `${formatEuro(financeRequest.montante_total)} EUR`,
+                  ],
+                  ["TAEG", `${financeRequest.taeg ?? "-"}%`],
+                  [
+                    "Recebido em",
+                    formatAdminDateTime(financeRequest.created_at),
+                  ],
+                ];
+
+                return (
+                  <article className="admin-lead-card" key={financeRequest.id}>
+                    <div className="admin-lead-card__header">
+                      <div>
+                        <p className="admin-lead-card__eyebrow">
+                          Pedido #{financeRequest.id}
+                        </p>
+                        <h2 className="admin-lead-card__title">
+                          {financeRequest.viatura?.trim() ||
+                            financeRequest.nome?.trim() ||
+                            `Financiamento ${financeRequest.id}`}
+                        </h2>
+                      </div>
+
+                      <p className="admin-lead-card__timestamp">
+                        {formatAdminDateTime(financeRequest.created_at)}
                       </p>
-                      <h2 className="admin-lead-card__title">
-                        {financeRequest.viatura?.trim() ||
-                          financeRequest.nome?.trim() ||
-                          `Financiamento ${financeRequest.id}`}
-                      </h2>
                     </div>
 
-                    <p className="admin-lead-card__timestamp">
-                      {formatAdminDateTime(financeRequest.created_at)}
-                    </p>
-                  </div>
+                    <dl className="admin-lead-card__meta">
+                      {metaItems.map(([label, value]) => (
+                        <div key={label}>
+                          <dt>{label}</dt>
+                          <dd>{value}</dd>
+                        </div>
+                      ))}
+                    </dl>
 
-                  <dl className="admin-lead-card__meta">
-                    <div>
-                      <dt>Nome</dt>
-                      <dd>{financeRequest.nome ?? "-"}</dd>
+                    <div className="admin-lead-card__actions">
+                      <button
+                        className="admin-button admin-button--danger"
+                        type="button"
+                        disabled={deletingFinanceRequestId === financeRequest.id}
+                        onClick={() => handleDeleteFinanceRequest(financeRequest)}
+                      >
+                        {deletingFinanceRequestId === financeRequest.id
+                          ? "A eliminar..."
+                          : "Eliminar"}
+                      </button>
                     </div>
-                    <div>
-                      <dt>Email</dt>
-                      <dd>{financeRequest.email ?? "-"}</dd>
-                    </div>
-                    <div>
-                      <dt>Telefone</dt>
-                      <dd>{financeRequest.telefone ?? "-"}</dd>
-                    </div>
-                    <div>
-                      <dt>Viatura</dt>
-                      <dd>{financeRequest.viatura || "-"}</dd>
-                    </div>
-                    <div>
-                      <dt>Preco</dt>
-                      <dd>{formatEuro(financeRequest.preco)} EUR</dd>
-                    </div>
-                    <div>
-                      <dt>Entrada</dt>
-                      <dd>{formatEuro(financeRequest.entrada)} EUR</dd>
-                    </div>
-                    <div>
-                      <dt>Prazo</dt>
-                      <dd>{financeRequest.meses ?? "-"} meses</dd>
-                    </div>
-                    <div>
-                      <dt>TAN</dt>
-                      <dd>{financeRequest.taxa ?? "-"}%</dd>
-                    </div>
-                    <div>
-                      <dt>Prestacao</dt>
-                      <dd>{formatEuro(financeRequest.prestacao_mensal)} EUR</dd>
-                    </div>
-                    <div>
-                      <dt>Montante Total</dt>
-                      <dd>{formatEuro(financeRequest.montante_total)} EUR</dd>
-                    </div>
-                    <div>
-                      <dt>TAEG</dt>
-                      <dd>{financeRequest.taeg ?? "-"}%</dd>
-                    </div>
-                    <div>
-                      <dt>Recebido em</dt>
-                      <dd>{formatAdminDateTime(financeRequest.created_at)}</dd>
-                    </div>
-                  </dl>
-
-                  <div className="admin-lead-card__actions">
-                    <button
-                      className="admin-button admin-button--danger"
-                      type="button"
-                      disabled={deletingFinanceRequestId === financeRequest.id}
-                      onClick={() => handleDeleteFinanceRequest(financeRequest)}
-                    >
-                      {deletingFinanceRequestId === financeRequest.id
-                        ? "A eliminar..."
-                        : "Eliminar"}
-                    </button>
-                  </div>
-                </article>
-              ))}
+                  </article>
+                );
+              })}
             </div>
           )}
         </div>

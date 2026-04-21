@@ -29,6 +29,10 @@ function SearchSelect({
   );
 }
 
+function getUniqueOptions(cars, field) {
+  return [...new Set(cars.map((car) => car[field]).filter(Boolean))].sort();
+}
+
 function PesquisaViaturas({ cars, initialFilters, onSearch }) {
   const [filtrosLocais, setFiltrosLocais] = useState(initialFilters);
 
@@ -76,38 +80,25 @@ function PesquisaViaturas({ cars, initialFilters, onSearch }) {
     [cars, filtrosLocais],
   );
 
-  const marcas = useMemo(
-    () => [...new Set(cars.map((car) => car.marca).filter(Boolean))].sort(),
-    [cars],
-  );
+  const marcas = useMemo(() => getUniqueOptions(cars, "marca"), [cars]);
 
   const modelos = useMemo(
-    () =>
-      [...new Set(getFilteredCars("modelo").map((car) => car.modelo).filter(Boolean))].sort(),
+    () => getUniqueOptions(getFilteredCars("modelo"), "modelo"),
     [getFilteredCars],
   );
 
   const combustiveis = useMemo(
-    () =>
-      [
-        ...new Set(
-          getFilteredCars("combustivel")
-            .map((car) => car.combustivel)
-            .filter(Boolean),
-        ),
-      ].sort(),
+    () => getUniqueOptions(getFilteredCars("combustivel"), "combustivel"),
     [getFilteredCars],
   );
 
   const caixas = useMemo(
-    () =>
-      [...new Set(getFilteredCars("caixa").map((car) => car.caixa).filter(Boolean))].sort(),
+    () => getUniqueOptions(getFilteredCars("caixa"), "caixa"),
     [getFilteredCars],
   );
 
   const marcasCompativeis = useMemo(
-    () =>
-      [...new Set(getFilteredCars("marca").map((car) => car.marca).filter(Boolean))].sort(),
+    () => getUniqueOptions(getFilteredCars("marca"), "marca"),
     [getFilteredCars],
   );
 

@@ -1,4 +1,4 @@
-export const primaryNavigationLinks = [
+const primaryNavigationLinks = [
   { label: "Home", href: "/" },
   { label: "Sobre Nos", to: "/sobre" },
   { label: "Catalogo", to: "/catalogo", requiresAuth: true },

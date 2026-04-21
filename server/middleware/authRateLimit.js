@@ -27,11 +27,7 @@ export function authRateLimit(req, res, next) {
 
   const currentEntry = authAttemptStore.get(key);
 
-  if (
-    currentEntry &&
-    now - currentEntry.firstAttemptAt < AUTH_RATE_LIMIT_WINDOW_MS &&
-    currentEntry.count >= AUTH_RATE_LIMIT_MAX_ATTEMPTS
-  ) {
+  if (currentEntry?.count >= AUTH_RATE_LIMIT_MAX_ATTEMPTS) {
     return res.status(429).json({
       message: "Demasiadas tentativas. Tente novamente dentro de alguns minutos.",
     });

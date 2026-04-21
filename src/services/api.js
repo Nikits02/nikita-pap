@@ -1,5 +1,13 @@
 import { requestJson } from "./http";
 
+function postJson(url, payload, errorMessage) {
+  return requestJson(url, {
+    method: "POST",
+    body: payload,
+    errorMessage,
+  });
+}
+
 export function fetchVehicles() {
   return requestJson("/api/vehicles", {
     errorMessage: "Erro ao carregar viaturas.",
@@ -7,33 +15,25 @@ export function fetchVehicles() {
 }
 
 export function createTestDrive(payload) {
-  return requestJson("/api/test-drives", {
-    method: "POST",
-    body: payload,
-    errorMessage: "Erro ao guardar teste drive.",
-  });
+  return postJson("/api/test-drives", payload, "Erro ao guardar teste drive.");
 }
 
 export function createContactMessage(payload) {
-  return requestJson("/api/contact", {
-    method: "POST",
-    body: payload,
-    errorMessage: "Erro ao enviar contacto.",
-  });
+  return postJson("/api/contact", payload, "Erro ao enviar contacto.");
 }
 
 export function createTradeInRequest(payload) {
-  return requestJson("/api/trade-ins", {
-    method: "POST",
-    body: payload,
-    errorMessage: "Erro ao guardar pedido de retoma.",
-  });
+  return postJson(
+    "/api/trade-ins",
+    payload,
+    "Erro ao guardar pedido de retoma.",
+  );
 }
 
 export function createFinanceRequest(payload) {
-  return requestJson("/api/finance-requests", {
-    method: "POST",
-    body: payload,
-    errorMessage: "Erro ao guardar pedido de financiamento.",
-  });
+  return postJson(
+    "/api/finance-requests",
+    payload,
+    "Erro ao guardar pedido de financiamento.",
+  );
 }

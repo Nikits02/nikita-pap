@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { ADMIN_SECTIONS } from "../../data/adminNavigation";
 
@@ -14,7 +13,7 @@ function AdminSectionLinks({ current, extraActions = null }) {
           {section.label}
         </Link>
       ))}
-      {extraActions ? <Fragment>{extraActions}</Fragment> : null}
+      {extraActions}
     </>
   );
 }

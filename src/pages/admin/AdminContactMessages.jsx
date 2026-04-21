@@ -152,65 +152,64 @@ function AdminContactMessages() {
             </div>
           ) : (
             <div className="admin-leads__list">
-              {filteredMessages.map((message) => (
-                <article className="admin-lead-card" key={message.id}>
-                  <div className="admin-lead-card__header">
-                    <div>
-                      <p className="admin-lead-card__eyebrow">
-                        Mensagem #{message.id}
+              {filteredMessages.map((message) => {
+                const metaItems = [
+                  ["Nome", message.nome ?? "-"],
+                  ["Email", message.email ?? "-"],
+                  ["Telefone", message.telefone || "-"],
+                  ["Assunto", message.assunto ?? "-"],
+                ];
+
+                return (
+                  <article className="admin-lead-card" key={message.id}>
+                    <div className="admin-lead-card__header">
+                      <div>
+                        <p className="admin-lead-card__eyebrow">
+                          Mensagem #{message.id}
+                        </p>
+                        <h2 className="admin-lead-card__title">
+                          {message.assunto?.trim() || `Mensagem ${message.id}`}
+                        </h2>
+                      </div>
+
+                      <p className="admin-lead-card__timestamp">
+                        {formatAdminDateTime(message.created_at)}
                       </p>
-                      <h2 className="admin-lead-card__title">
-                        {message.assunto?.trim() || `Mensagem ${message.id}`}
-                      </h2>
                     </div>
 
-                    <p className="admin-lead-card__timestamp">
-                      {formatAdminDateTime(message.created_at)}
-                    </p>
-                  </div>
+                    <dl className="admin-lead-card__meta">
+                      {metaItems.map(([label, value]) => (
+                        <div key={label}>
+                          <dt>{label}</dt>
+                          <dd>{value}</dd>
+                        </div>
+                      ))}
+                    </dl>
 
-                  <dl className="admin-lead-card__meta">
-                    <div>
-                      <dt>Nome</dt>
-                      <dd>{message.nome ?? "-"}</dd>
+                    <div className="admin-lead-card__notes">
+                      <h3>Mensagem</h3>
+                      <p>
+                        {message.mensagem?.trim()
+                          ? message.mensagem
+                          : "Sem mensagem adicional."}
+                      </p>
                     </div>
-                    <div>
-                      <dt>Email</dt>
-                      <dd>{message.email ?? "-"}</dd>
-                    </div>
-                    <div>
-                      <dt>Telefone</dt>
-                      <dd>{message.telefone || "-"}</dd>
-                    </div>
-                    <div>
-                      <dt>Assunto</dt>
-                      <dd>{message.assunto ?? "-"}</dd>
-                    </div>
-                  </dl>
 
-                  <div className="admin-lead-card__notes">
-                    <h3>Mensagem</h3>
-                    <p>
-                      {message.mensagem?.trim()
-                        ? message.mensagem
-                        : "Sem mensagem adicional."}
-                    </p>
-                  </div>
-
-                  <div className="admin-lead-card__actions">
-                    <button
-                      className="admin-button admin-button--danger"
-                      type="button"
-                      disabled={deletingMessageId === message.id}
-                      onClick={() => handleDeleteMessage(message)}
-                    >
-                      {deletingMessageId === message.id
-                        ? "A eliminar..."
-                        : "Eliminar"}
-                    </button>
-                  </div>
-                </article>
-              ))}
+                    <div className="admin-lead-card__actions">
+                      <button
+                        className="admin-button admin-button--danger"
+                        type="button"
+                        disabled={deletingMessageId === message.id}
+                        onClick={() => handleDeleteMessage(message)}
+                      >
+                        {deletingMessageId === message.id
+                          ? "A eliminar..."
+                          : "Eliminar"}
+                      </button>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           )}
         </div>

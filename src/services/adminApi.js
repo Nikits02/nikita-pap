@@ -18,9 +18,9 @@ function mapAdminError(error) {
   throw error;
 }
 
-async function requestAdminJson(url, options = {}) {
+async function requestAdminJson(url, errorMessage, method = "GET", body) {
   try {
-    return await requestJson(url, options);
+    return await requestJson(url, { method, body, errorMessage });
   } catch (error) {
     mapAdminError(error);
   }
@@ -35,117 +35,134 @@ export function loginAdmin(payload) {
 }
 
 export function fetchAdminVehicles() {
-  return requestAdminJson("/api/admin/vehicles", {
-    errorMessage: "Nao foi possivel carregar as viaturas.",
-  });
+  return requestAdminJson(
+    "/api/admin/vehicles",
+    "Nao foi possivel carregar as viaturas.",
+  );
 }
 
 export function fetchAdminTradeIns() {
-  return requestAdminJson("/api/admin/trade-ins", {
-    errorMessage: "Nao foi possivel carregar os pedidos de retoma.",
-  });
+  return requestAdminJson(
+    "/api/admin/trade-ins",
+    "Nao foi possivel carregar os pedidos de retoma.",
+  );
 }
 
 export function fetchAdminTestDrives() {
-  return requestAdminJson("/api/admin/test-drives", {
-    errorMessage: "Nao foi possivel carregar os pedidos de test drive.",
-  });
+  return requestAdminJson(
+    "/api/admin/test-drives",
+    "Nao foi possivel carregar os pedidos de test drive.",
+  );
 }
 
 export function fetchAdminContactMessages() {
-  return requestAdminJson("/api/admin/contact-messages", {
-    errorMessage: "Nao foi possivel carregar as mensagens de contacto.",
-  });
+  return requestAdminJson(
+    "/api/admin/contact-messages",
+    "Nao foi possivel carregar as mensagens de contacto.",
+  );
 }
 
 export function fetchAdminFinanceRequests() {
-  return requestAdminJson("/api/admin/finance-requests", {
-    errorMessage: "Nao foi possivel carregar os pedidos de financiamento.",
-  });
+  return requestAdminJson(
+    "/api/admin/finance-requests",
+    "Nao foi possivel carregar os pedidos de financiamento.",
+  );
 }
 
 export function updateAdminTradeInStatus(id, payload) {
-  return requestAdminJson(`/api/admin/trade-ins/${id}`, {
-    method: "PATCH",
-    body: payload,
-    errorMessage: "Nao foi possivel atualizar o pedido de retoma.",
-  });
+  return requestAdminJson(
+    `/api/admin/trade-ins/${id}`,
+    "Nao foi possivel atualizar o pedido de retoma.",
+    "PATCH",
+    payload,
+  );
 }
 
 export function deleteAdminTradeIn(id) {
-  return requestAdminJson(`/api/admin/trade-ins/${id}`, {
-    method: "DELETE",
-    errorMessage: "Nao foi possivel eliminar o pedido de retoma.",
-  });
+  return requestAdminJson(
+    `/api/admin/trade-ins/${id}`,
+    "Nao foi possivel eliminar o pedido de retoma.",
+    "DELETE",
+  );
 }
 
 export function deleteAdminTestDrive(id) {
-  return requestAdminJson(`/api/admin/test-drives/${id}`, {
-    method: "DELETE",
-    errorMessage: "Nao foi possivel eliminar o pedido de test drive.",
-  });
+  return requestAdminJson(
+    `/api/admin/test-drives/${id}`,
+    "Nao foi possivel eliminar o pedido de test drive.",
+    "DELETE",
+  );
 }
 
 export function deleteAdminContactMessage(id) {
-  return requestAdminJson(`/api/admin/contact-messages/${id}`, {
-    method: "DELETE",
-    errorMessage: "Nao foi possivel eliminar a mensagem de contacto.",
-  });
+  return requestAdminJson(
+    `/api/admin/contact-messages/${id}`,
+    "Nao foi possivel eliminar a mensagem de contacto.",
+    "DELETE",
+  );
 }
 
 export function deleteAdminFinanceRequest(id) {
-  return requestAdminJson(`/api/admin/finance-requests/${id}`, {
-    method: "DELETE",
-    errorMessage: "Nao foi possivel eliminar o pedido de financiamento.",
-  });
+  return requestAdminJson(
+    `/api/admin/finance-requests/${id}`,
+    "Nao foi possivel eliminar o pedido de financiamento.",
+    "DELETE",
+  );
 }
 
 export function fetchAdminUsers() {
-  return requestAdminJson("/api/admin/users", {
-    errorMessage: "Nao foi possivel carregar os utilizadores.",
-  });
+  return requestAdminJson(
+    "/api/admin/users",
+    "Nao foi possivel carregar os utilizadores.",
+  );
 }
 
 export function deleteAdminUser(id) {
-  return requestAdminJson(`/api/admin/users/${id}`, {
-    method: "DELETE",
-    errorMessage: "Nao foi possivel eliminar o utilizador.",
-  });
+  return requestAdminJson(
+    `/api/admin/users/${id}`,
+    "Nao foi possivel eliminar o utilizador.",
+    "DELETE",
+  );
 }
 
 export function fetchAdminVehicle(id) {
-  return requestAdminJson(`/api/admin/vehicles/${id}`, {
-    errorMessage: "Nao foi possivel carregar a viatura.",
-  });
+  return requestAdminJson(
+    `/api/admin/vehicles/${id}`,
+    "Nao foi possivel carregar a viatura.",
+  );
 }
 
 export function createAdminVehicle(payload) {
-  return requestAdminJson("/api/admin/vehicles", {
-    method: "POST",
-    body: payload,
-    errorMessage: "Nao foi possivel criar a viatura.",
-  });
+  return requestAdminJson(
+    "/api/admin/vehicles",
+    "Nao foi possivel criar a viatura.",
+    "POST",
+    payload,
+  );
 }
 
 export function uploadAdminVehicleImage(payload) {
-  return requestAdminJson("/api/admin/uploads/vehicle-image", {
-    method: "POST",
-    body: payload,
-    errorMessage: "Nao foi possivel carregar a imagem.",
-  });
+  return requestAdminJson(
+    "/api/admin/uploads/vehicle-image",
+    "Nao foi possivel carregar a imagem.",
+    "POST",
+    payload,
+  );
 }
 
 export function updateAdminVehicle(id, payload) {
-  return requestAdminJson(`/api/admin/vehicles/${id}`, {
-    method: "PUT",
-    body: payload,
-    errorMessage: "Nao foi possivel atualizar a viatura.",
-  });
+  return requestAdminJson(
+    `/api/admin/vehicles/${id}`,
+    "Nao foi possivel atualizar a viatura.",
+    "PUT",
+    payload,
+  );
 }
 
 export function deleteAdminVehicle(id) {
-  return requestAdminJson(`/api/admin/vehicles/${id}`, {
-    method: "DELETE",
-    errorMessage: "Nao foi possivel eliminar a viatura.",
-  });
+  return requestAdminJson(
+    `/api/admin/vehicles/${id}`,
+    "Nao foi possivel eliminar a viatura.",
+    "DELETE",
+  );
 }
