@@ -8,7 +8,6 @@
   --color-neutral-250: #dde6f2;
   --color-neutral-300: #dbe5f3;
   --color-neutral-400: #c9d4e5;
-  --color-line-soft: #ecdcdc;
   --color-neutral-900: #111111;
   --color-neutral-925: #0f172a;
   --color-neutral-950: #000000;
@@ -25,7 +24,6 @@
   --color-black-920: var(--color-black-940);
   --color-black-930: var(--color-black-940);
   --color-black-940: #0a0a0d;
-  --color-night-850: var(--color-night-860);
   --color-night-860: #151517;
   --color-night-870: #17171a;
   --color-night-880: var(--color-night-890);
@@ -60,11 +58,9 @@
   --color-stone-370: var(--color-stone-400);
   --color-stone-360: #6f6a60;
   --color-stone-365: var(--color-stone-360);
-  --color-stone-430: var(--color-stone-400);
   --color-stone-440: #9d9588;
   --color-brown-380: #756d62;
   --color-brown-420: #5f5a52;
-  --color-brown-460: #4a4547;
   --color-brown-450: #4d4a45;
 
   /* Warm editorial copy */
@@ -91,7 +87,6 @@
   --color-brand-red-500: #ef2424;
   --color-brand-red-490: var(--color-brand-red-500);
   --color-brand-red-480: var(--color-brand-red-500);
-  --color-brand-red-470: #ff3d3d;
   --color-brand-red-460: #ff4444;
   --color-brand-red-450: #ff4a4a;
   --color-brand-red-440: #ff4a58;
@@ -119,7 +114,6 @@
   --color-admin-notice-ink: var(--color-neutral-925);
 
   /* Detail and test-drive accents */
-  --color-vehicle-accent-soft: var(--color-accent-rose-muted);
   --color-detail-copy: var(--color-ivory-200);
   --color-detail-copy-soft: #a79d92;
   --color-detail-line: rgba(181, 58, 63, 0.2);
@@ -148,22 +142,14 @@
   --color-rose-220: #f1e2e2;
   --color-rose-230: #efb8b8;
   --color-rose-240: #f1dddd;
-  --color-rose-250: #e4d0d0;
-  --color-rose-260: #f0d4d4;
   --color-neutral-225: #d7d1d1;
   --color-neutral-230: #d7cfd0;
-  --color-neutral-240: #dedede;
-  --color-neutral-75: #f5f5f5;
 
   /* Legacy aliases kept to avoid visual regressions */
   --site-black: var(--color-neutral-950);
   --brand-red: var(--color-brand-red-500);
-  --brand-red-deep: var(--color-brand-red-600);
-  --brand-red-soft: var(--color-brand-red-50);
   --home-accent-red: var(--color-brand-accent);
-  --ink: var(--color-ink-900);
   --ink-soft: var(--color-ink-600);
-  --surface-strong: var(--color-neutral-0);
 
   --lux-gold: var(--color-lux-gold);
   --lux-copy: var(--color-lux-copy);

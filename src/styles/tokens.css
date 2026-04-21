@@ -3,16 +3,6 @@
   --font-family-sans: "IBM Plex Sans", "Segoe UI", sans-serif;
   --font-family-serif: "Libre Baskerville", Georgia, serif;
 
-  /* Shared surfaces */
-  --color-surface-primary: rgba(255, 255, 255, 0.94);
-  --shadow-soft: 0 16px 34px rgba(119, 42, 42, 0.12);
-  --shadow-strong: 0 20px 40px rgba(166, 34, 34, 0.24);
-  --radius-xl: 34px;
-  --radius-lg: 24px;
   --site-width: 1320px;
   --color-detail-shadow: 0 24px 48px rgba(0, 0, 0, 0.34);
-
-  /* Legacy aliases kept to avoid visual regressions */
-  --surface: var(--color-surface-primary);
-  --line: var(--color-line-soft);
 }
