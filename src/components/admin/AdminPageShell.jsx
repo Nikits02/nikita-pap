@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { clearAuthSession } from "../../services/authApi";
+import { useAuth } from "../../hooks/useAuth";
 
 function AdminPageShell({
   title,
@@ -11,10 +11,11 @@ function AdminPageShell({
   showBackToSite = false,
 }) {
   const navigate = useNavigate();
+  const { logout } = useAuth();
   const hasHeaderActions = actions || showLogout || showBackToSite;
 
-  function handleLogout() {
-    clearAuthSession();
+  async function handleLogout() {
+    await logout();
     navigate("/admin/login", {
       replace: true,
       state: {

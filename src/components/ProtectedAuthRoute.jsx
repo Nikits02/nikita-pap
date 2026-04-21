@@ -1,11 +1,21 @@
 import { Navigate, useLocation } from "react-router-dom";
-import { getCurrentUser } from "../services/authApi";
+import SessionStatus from "./SessionStatus";
+import { useAuth } from "../hooks/useAuth";
 
 function ProtectedAuthRoute({ children }) {
-  const user = getCurrentUser();
+  const { currentUser, isAuthReady } = useAuth();
   const location = useLocation();
 
-  if (!user) {
+  if (!isAuthReady) {
+    return (
+      <SessionStatus
+        title="A validar sessao..."
+        message="Estamos a confirmar o seu acesso aos conteudos privados."
+      />
+    );
+  }
+
+  if (!currentUser) {
     return (
       <Navigate
         to="/login"

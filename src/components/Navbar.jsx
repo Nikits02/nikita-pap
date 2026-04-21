@@ -1,11 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
 import BrandWordmark from "./BrandWordmark";
 import { getVisibleNavigationLinks } from "../data/navigation";
-import { getCurrentUser, getDefaultRouteForUser } from "../services/authApi";
+import { useAuth } from "../hooks/useAuth";
+import { getDefaultRouteForUser } from "../services/authApi";
 
 function Navbar() {
   const location = useLocation();
-  const currentUser = getCurrentUser();
+  const { currentUser } = useAuth();
   const navigationLinks = getVisibleNavigationLinks(Boolean(currentUser));
   const accountPath = currentUser ? getDefaultRouteForUser(currentUser) : "";
   const isHomePage = location.pathname === "/";

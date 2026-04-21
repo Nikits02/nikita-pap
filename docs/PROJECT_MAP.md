@@ -25,7 +25,7 @@ Se estiveres perdido, segue sempre esta ordem:
    Mostra todas as rotas.
 
 2. [src/pages](../src/pages)
-   Cada pagina representa uma area do site.
+   As paginas estao separadas por area: publicas, autenticacao e admin.
 
 3. [src/components](../src/components)
    Componentes reutilizados dentro das paginas.
@@ -33,29 +33,40 @@ Se estiveres perdido, segue sempre esta ordem:
 4. [src/services](../src/services)
    Faz a ponte entre frontend e backend.
 
-5. [server/index.js](../server/index.js)
-   Mostra todos os endpoints e o que cada um faz.
+5. [server/routes](../server/routes)
+   Mostra os endpoints separados por area.
 
-6. [server/db.js](../server/db.js)
+6. [server/index.js](../server/index.js)
+   Mostra o arranque do servidor e a ligacao das rotas.
+
+7. [server/db.js](../server/db.js)
    Ligacao ao MySQL.
 
 ## 3. O Que Esta Em Cada Pasta
 
 ### `src/pages`
 
-Aqui estao as paginas principais.
+Aqui estao as paginas principais, separadas por contexto.
+
+Subpastas:
+- `public/` -> paginas abertas do site
+- `auth/` -> login, registo e area de conta
+- `admin/` -> painel de administracao
 
 Exemplos:
-- `Home.jsx` -> pagina inicial
-- `Catalogo.jsx` -> lista de viaturas
-- `VeiculoDetalhe.jsx` -> detalhe de uma viatura
-- `Contacto.jsx` -> formulario de contacto
-- `Retoma.jsx` -> formulario de retoma
-- `TestDrive.jsx` -> pedido de test drive
-- `Sobre.jsx` -> pagina institucional
-- `AdminVehicles.jsx` -> painel admin de viaturas
-- `AdminTradeIns.jsx` -> painel admin de retomas
-- `AdminUsers.jsx` -> painel admin de utilizadores
+- `public/Home.jsx` -> pagina inicial
+- `public/Catalogo.jsx` -> lista de viaturas
+- `public/VeiculoDetalhe.jsx` -> detalhe de uma viatura
+- `public/Contacto.jsx` -> formulario de contacto
+- `public/Retoma.jsx` -> formulario de retoma
+- `public/TestDrive.jsx` -> pedido de test drive
+- `public/Sobre.jsx` -> pagina institucional
+- `auth/Login.jsx` -> login
+- `auth/Registo.jsx` -> registo
+- `auth/Conta.jsx` -> area privada do utilizador
+- `admin/AdminVehicles.jsx` -> painel admin de viaturas
+- `admin/AdminTradeIns.jsx` -> painel admin de retomas
+- `admin/AdminUsers.jsx` -> painel admin de utilizadores
 
 ### `src/components`
 
@@ -121,6 +132,14 @@ Exemplos:
 
 - `authenticateAdmin.js` -> protege rotas admin com JWT
 
+### `server/routes`
+
+Rotas Express separadas por responsabilidade.
+
+- `public.js` -> viaturas, contacto, test drive, retoma e financiamento
+- `auth.js` -> login, registo, logout e validacao de sessao
+- `admin.js` -> endpoints protegidos do painel de administracao
+
 ## 4. Fluxo de Dados Mais Importante
 
 Exemplo: Catalogo
@@ -148,6 +167,7 @@ Publicas:
 - `/sobre`
 - `/registo`
 - `/login`
+- `*` pagina 404 para rotas inexistentes
 
 Protegidas:
 - `/conta`
@@ -206,16 +226,16 @@ Se te perguntarem...
 - abre `src/services`
 
 "Onde e feito o login?"
-- abre `src/pages/Login.jsx`, `src/pages/AdminLogin.jsx`, `src/services/authApi.js`, `src/services/adminApi.js`
+- abre `src/pages/auth/Login.jsx`, `src/pages/admin/AdminLogin.jsx`, `src/services/authApi.js`, `src/services/adminApi.js`
 
 "Onde e protegido o admin?"
 - abre `src/components/ProtectedAdminRoute.jsx` e `server/middleware/authenticateAdmin.js`
 
 "Onde sao guardadas as retomas?"
-- abre `src/pages/Retoma.jsx`, `src/services/api.js` e `server/index.js`
+- abre `src/pages/public/Retoma.jsx`, `src/services/api.js` e `server/routes/public.js`
 
 "Onde se gerem viaturas?"
-- abre `src/pages/AdminVehicles.jsx`, `src/pages/AdminVehicleForm.jsx` e `server/index.js`
+- abre `src/pages/admin/AdminVehicles.jsx`, `src/pages/admin/AdminVehicleForm.jsx` e `server/routes/admin.js`
 
 ## 9. O Que Eu Mudaria Mais Tarde
 
@@ -224,6 +244,6 @@ Se um dia quiseres refatorar com calma, os proximos passos de organizacao seriam
 1. criar uma pasta `features/` com modulos por area
 2. juntar CSS por feature
 3. separar melhor a logica admin da logica publica
-4. dividir `server/index.js` em rotas separadas
+4. extrair componentes menores das paginas admin mais longas
 
-Mas, para ja, a forma mais segura de organizar era documentar bem o projeto sem partir a base que ja tens a funcionar.
+Mas, para ja, a forma mais segura de organizar e manter a estrutura atual simples, com paginas por area, services centralizados e rotas do backend separadas.

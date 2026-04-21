@@ -1,3 +1,5 @@
+import { createElement } from "react";
+
 function FormError({ className, message }) {
   if (!message) {
     return null;
@@ -7,7 +9,7 @@ function FormError({ className, message }) {
 }
 
 function FormField({
-  as: Component = "label",
+  as = "label",
   className,
   label,
   hint,
@@ -17,13 +19,15 @@ function FormField({
   children,
   ...props
 }) {
-  return (
-    <Component className={className} {...props}>
+  return createElement(
+    as,
+    { className, ...props },
+    <>
       {label != null ? <span>{label}</span> : null}
       {children}
       {hint ? <small className={hintClassName}>{hint}</small> : null}
       <FormError className={errorClassName} message={error} />
-    </Component>
+    </>,
   );
 }
 

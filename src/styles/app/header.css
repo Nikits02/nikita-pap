@@ -1,0 +1,184 @@
+.site-header {
+  position: relative;
+  overflow: hidden;
+}
+
+.site-header--home {
+  margin: 0 calc(50% - 50vw);
+  min-height: max(760px, 100svh);
+  padding: 2rem 1.2rem 7.4rem;
+  color: var(--color-neutral-0);
+  background: var(--site-black);
+  isolation: isolate;
+}
+
+.site-header--home::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/sportscar-hero.jpg") center 42% / cover no-repeat;
+  opacity: 0.82;
+  filter: grayscale(1) contrast(1.08) brightness(0.44);
+  z-index: -2;
+}
+
+.site-header--home::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--surface-black-56);
+  z-index: -1;
+}
+
+.site-header--inner {
+  padding: 1.5rem 1rem 1.35rem;
+  color: var(--color-neutral-0);
+  background: var(--site-black);
+}
+
+.header-shell {
+  position: relative;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.site-header--home .topbar {
+  padding: 4.8rem 0 3.1rem;
+}
+
+.site-header--inner .topbar {
+  padding: 0.1rem 0 1.4rem;
+}
+
+.brand-mark {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.brand-mark--hero {
+  padding: 1rem 1rem 1.15rem;
+}
+
+.brand-mark__text {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.08rem;
+  line-height: 0.9;
+  text-transform: none;
+}
+
+.site-header--home .brand-mark__text,
+.site-header--inner .brand-mark__text {
+  font-family: var(--font-family-sans);
+  font-size: clamp(3rem, 8vw, 6.2rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  text-shadow: 0 10px 24px var(--surface-black-34);
+}
+
+.site-header--home .navbar {
+  margin-top: 0.8rem;
+}
+
+.site-header--home .navbar.navbar--authenticated {
+  width: min(100%, 1080px);
+}
+
+.brand-mark__nikita {
+  color: var(--home-accent-red);
+}
+
+.brand-mark__motors {
+  color: var(--color-neutral-0);
+}
+
+.navbar {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 920px);
+  margin: 0 auto;
+  padding: 0.85rem 1.35rem;
+  border: var(--surface-divider);
+  border-radius: 999px;
+  background: var(--surface-panel-dark-soft);
+  color: var(--color-neutral-0);
+  box-shadow: 0 22px 54px var(--surface-black-28);
+  backdrop-filter: blur(10px);
+}
+
+.site-header--inner .navbar {
+  width: min(100%, 1180px);
+}
+
+.navbar__menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.45rem 1.2rem;
+}
+
+.navbar__session {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0.45rem 1.2rem;
+  white-space: nowrap;
+}
+
+.navbar__link {
+  position: relative;
+  padding: 0.5rem 0.25rem;
+  color: var(--color-neutral-0);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.navbar__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.16rem;
+  height: 0.16rem;
+  border-radius: 999px;
+  background: var(--home-accent-red);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.22s ease;
+}
+
+.navbar__link:hover,
+.navbar__link.is-active {
+  color: var(--color-neutral-0);
+  transform: translateY(-1px);
+}
+
+.navbar__link:hover::after,
+.navbar__link.is-active::after {
+  transform: scaleX(1);
+}
+
+.navbar__button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  appearance: none;
+}

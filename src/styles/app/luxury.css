@@ -1,0 +1,95 @@
+:root {
+  --lux-panel: linear-gradient(
+    180deg,
+    var(--surface-panel-lux),
+    var(--surface-panel-lux-deep)
+  );
+  --lux-panel-strong: linear-gradient(
+    180deg,
+    var(--surface-panel-lux-strong),
+    var(--surface-panel-lux-deeper)
+  );
+  --lux-line: var(--surface-white-08);
+  --lux-shadow: 0 24px 48px var(--surface-black-26);
+}
+
+.section-kicker {
+  color: var(--lux-gold);
+}
+
+.why-choose h2,
+.why-choose__card h3,
+.about-story__content h1,
+.about-quote blockquote,
+.about-values__heading h2,
+.about-values__card h3 {
+  color: var(--color-ivory-50);
+  font-family: var(--font-family-serif);
+}
+
+.why-choose__card p,
+.about-story__content p,
+.about-values__card p {
+  color: var(--lux-copy-soft);
+}
+
+.about-quote p,
+.about-values__heading p {
+  color: var(--home-accent-red);
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.primary-button,
+.secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.2rem;
+  padding: 0.85rem 1.4rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.primary-button {
+  background: linear-gradient(
+    90deg,
+    var(--color-brand-red-625) 0%,
+    var(--color-brand-red-320) 100%
+  );
+  color: var(--color-neutral-0);
+  box-shadow: 0 14px 30px var(--rose-shadow-20);
+}
+
+.secondary-button {
+  border-color: var(--gold-surface-25);
+  background: var(--gold-surface-08);
+  color: var(--color-ivory-90);
+}
+
+.primary-button:hover,
+.secondary-button:hover {
+  transform: translateY(-1px);
+}
+
+.not-found-page {
+  min-height: 46vh;
+}
+
+.not-found-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.4rem;
+}
+

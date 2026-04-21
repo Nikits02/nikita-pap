@@ -1,6 +1,6 @@
 import { requestJson } from "./http";
+import { clearAuthSession } from "./authApi";
 
-const ADMIN_TOKEN_KEY = "admin_token";
 const ADMIN_SESSION_EXPIRED_MESSAGE = "Sessao expirada.";
 const ADMIN_SESSION_ERROR_MESSAGES = new Set([
   "Token em falta.",
@@ -9,20 +9,9 @@ const ADMIN_SESSION_ERROR_MESSAGES = new Set([
   "Acesso reservado a administradores.",
 ]);
 
-export function getAdminToken() {
-  return localStorage.getItem(ADMIN_TOKEN_KEY);
-}
-
-export function setAdminToken(token) {
-  localStorage.setItem(ADMIN_TOKEN_KEY, token);
-}
-
-export function removeAdminToken() {
-  localStorage.removeItem(ADMIN_TOKEN_KEY);
-}
-
 function mapAdminError(error) {
   if (ADMIN_SESSION_ERROR_MESSAGES.has(error.message)) {
+    clearAuthSession();
     throw new Error(ADMIN_SESSION_EXPIRED_MESSAGE);
   }
 
@@ -30,14 +19,8 @@ function mapAdminError(error) {
 }
 
 async function requestAdminJson(url, options = {}) {
-  const token = getAdminToken();
-
-  if (!token) {
-    throw new Error(ADMIN_SESSION_EXPIRED_MESSAGE);
-  }
-
   try {
-    return await requestJson(url, { ...options, token });
+    return await requestJson(url, options);
   } catch (error) {
     mapAdminError(error);
   }

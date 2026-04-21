@@ -45,6 +45,11 @@ export function handleAdminSessionError(error, navigate) {
   }
 
   clearAuthSession();
-  navigate(ADMIN_LOGIN_PATH, { replace: true });
+  navigate(ADMIN_LOGIN_PATH, {
+    replace: true,
+    state: {
+      notice: "Sessao expirada. Inicie sessao novamente para continuar.",
+    },
+  });
   return true;
 }

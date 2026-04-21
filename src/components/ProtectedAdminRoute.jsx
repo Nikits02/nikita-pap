@@ -1,22 +1,35 @@
-import { Navigate } from "react-router-dom";
-import { getAdminToken, setAdminToken } from "../services/adminApi";
-import { getAuthSession } from "../services/authApi";
+import { Navigate, useLocation } from "react-router-dom";
+import SessionStatus from "./SessionStatus";
+import { useAuth } from "../hooks/useAuth";
 
 function ProtectedAdminRoute({ children }) {
-  const token = getAdminToken();
+  const { hasAdminSession, isAuthReady } = useAuth();
+  const location = useLocation();
 
-  if (token) {
+  if (!isAuthReady) {
+    return (
+      <SessionStatus
+        variant="admin"
+        title="A validar sessao..."
+        message="Estamos a confirmar o acesso ao painel de administracao."
+      />
+    );
+  }
+
+  if (hasAdminSession) {
     return children;
   }
 
-  const authSession = getAuthSession();
-
-  if (authSession?.user?.role === "admin" && authSession.token) {
-    setAdminToken(authSession.token);
-    return children;
-  }
-
-  return <Navigate to="/admin/login" replace />;
+  return (
+    <Navigate
+      to="/admin/login"
+      replace
+      state={{
+        notice: "Precisa de iniciar sessao como administrador para aceder ao painel.",
+        redirectTo: `${location.pathname}${location.search}${location.hash}`,
+      }}
+    />
+  );
 }
 
 export default ProtectedAdminRoute;

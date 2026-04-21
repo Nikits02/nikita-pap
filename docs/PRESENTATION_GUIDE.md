@@ -57,8 +57,8 @@ Forma pratica:
 - `src/services`
   ligacao frontend -> backend
 
-- `server/index.js`
-  API principal
+- `server/routes`
+  endpoints da API separados por area
 
 - `server/db.js`
   ligacao MySQL
@@ -87,7 +87,7 @@ Forma pratica:
 
 ### Login e registo
 
-"Foi implementado um sistema de autenticacao com registo de utilizadores e sessao local."
+"Foi implementado um sistema de autenticacao com registo de utilizadores. O backend cria uma sessao por cookie HttpOnly e o frontend guarda apenas os dados basicos do utilizador para mostrar a interface."
 
 ### Admin
 
@@ -109,16 +109,16 @@ Se te pedirem para mostrar o codigo:
 2. abre [src/services/api.js](../src/services/api.js)
    para mostrar como o frontend chama a API
 
-3. abre [server/index.js](../server/index.js)
-   para mostrar os endpoints
+3. abre [server/routes](../server/routes)
+   para mostrar os endpoints separados por publicos, autenticacao e admin
 
 4. abre [server/db.js](../server/db.js)
    para mostrar a ligacao MySQL
 
 5. abre uma pagina concreta como:
-   - [src/pages/Retoma.jsx](../src/pages/Retoma.jsx)
-   - [src/pages/AdminVehicles.jsx](../src/pages/AdminVehicles.jsx)
-   - [src/pages/AdminTradeIns.jsx](../src/pages/AdminTradeIns.jsx)
+   - [src/pages/public/Retoma.jsx](../src/pages/public/Retoma.jsx)
+   - [src/pages/admin/AdminVehicles.jsx](../src/pages/admin/AdminVehicles.jsx)
+   - [src/pages/admin/AdminTradeIns.jsx](../src/pages/admin/AdminTradeIns.jsx)
 
 ## 8. Perguntas Que Te Podem Fazer
 
@@ -138,7 +138,7 @@ Resposta:
 
 Resposta:
 
-"A area admin usa JWT. Quando o admin faz login, recebe um token. Esse token e enviado nos pedidos protegidos e validado no middleware do backend."
+"A area admin usa JWT guardado num cookie HttpOnly. Quando o admin faz login, o backend cria a sessao e os pedidos protegidos sao validados no middleware do backend."
 
 ### "Como guardas passwords?"
 
@@ -169,6 +169,7 @@ Se quiseres falar de dificuldades, estas sao crediveis e boas:
 - ligar React ao backend
 - trabalhar com MySQL
 - proteger rotas com JWT
+- usar cookies HttpOnly para sessoes
 - gerir formularios e validacoes
 - organizar melhor o codigo e a documentacao
 

@@ -41,8 +41,22 @@ npm install
 npm run dev
 ```
 
+Variaveis de ambiente minimas no backend:
+- `DB_HOST`
+- `DB_PORT`
+- `DB_USER`
+- `DB_PASSWORD`
+- `DB_NAME`
+- `JWT_SECRET`
+
+Opcional:
+- `PORT`
+- `CORS_ORIGIN`
+  Pode receber uma ou varias origens separadas por virgulas, por exemplo:
+  `http://localhost:5174,http://127.0.0.1:5174`
+
 Frontend:
-- `http://localhost:5173`
+- `http://localhost:5174`
 
 Backend:
 - `http://localhost:3002`
@@ -57,16 +71,22 @@ src/
   components/   componentes reutilizaveis
   data/         dados estaticos e configuracoes simples
   hooks/        hooks reutilizaveis
-  pages/        paginas principais da aplicacao
+  pages/        paginas organizadas por area
+    admin/      paginas do painel de administracao
+    auth/       login, registo e conta
+    public/     paginas publicas do site
   services/     chamadas HTTP para a API
-  styles/       tokens base de design
+  styles/       tokens, estilos globais e estilos por pagina
+    app/        estilos globais da interface
+    pages/      estilos especificos de areas/paginas
   utils/        funcoes auxiliares
 
 server/
-  index.js      servidor Express e endpoints
+  index.js      arranque do servidor Express
   db.js         ligacao a base de dados
   lib/          logica auxiliar do backend
   middleware/   middleware de autenticacao
+  routes/       endpoints publicos, autenticacao e admin
   uploads/      imagens carregadas
 ```
 
@@ -83,7 +103,7 @@ Se quiseres perceber o projeto depressa, abre por esta ordem:
 3. [src/services](src/services)
    Aqui ves como o frontend comunica com o backend.
 
-4. [server/index.js](server/index.js)
+4. [server/routes](server/routes)
    Aqui estao os endpoints, validacoes principais e operacoes na base de dados.
 
 5. [src/components](src/components)
@@ -103,6 +123,7 @@ Publicas:
 - `/sobre`
 - `/registo`
 - `/login`
+- `*` pagina 404 para rotas inexistentes
 
 Privadas:
 - `/conta`
@@ -128,7 +149,7 @@ Admin:
 
 - a rota usa o `slug`
 - o hook `useVehicles()` carrega as viaturas
-- a pagina [src/pages/VeiculoDetalhe.jsx](src/pages/VeiculoDetalhe.jsx) encontra a viatura correta e mostra os detalhes
+- a pagina [src/pages/public/VeiculoDetalhe.jsx](src/pages/public/VeiculoDetalhe.jsx) encontra a viatura correta e mostra os detalhes
 
 ### 3. Formulario de contacto
 
@@ -149,13 +170,14 @@ Admin:
 
 - registo: `POST /api/auth/register`
 - login: `POST /api/auth/login`
-- os dados da sessao ficam guardados no browser
+- o backend cria uma sessao autenticada por cookie `HttpOnly`
+- o frontend guarda localmente apenas os dados do utilizador para a interface
 
 ### 7. Painel admin
 
 - login admin: `POST /api/admin/login`
 - rotas protegidas por JWT
-- o token admin fica guardado e e usado em [src/services/adminApi.js](src/services/adminApi.js)
+- as rotas admin funcionam por sessao autenticada via cookie
 
 ## Base de Dados
 
@@ -178,18 +200,24 @@ Base:
 - [src/styles/surfaces.css](src/styles/surfaces.css)
 - [src/styles/layout.css](src/styles/layout.css)
 
-Por area/pagina:
-- `base.css`
-- `catalog.css`
-- `contact.css`
-- `tradein.css`
-- `vehicle-detail.css`
-- `admin.css`
-- `auth.css`
-- `blog.css`
-- `footer.css`
-- `test-drive.css`
-- `finance.css`
+App e blocos partilhados:
+- [src/styles/app/base.css](src/styles/app/base.css)
+- [src/styles/app/header.css](src/styles/app/header.css)
+- [src/styles/app/luxury.css](src/styles/app/luxury.css)
+- [src/styles/app/footer.css](src/styles/app/footer.css)
+
+Por pagina/area:
+- [src/styles/pages/admin.css](src/styles/pages/admin.css)
+- [src/styles/pages/about.css](src/styles/pages/about.css)
+- [src/styles/pages/auth.css](src/styles/pages/auth.css)
+- [src/styles/pages/blog.css](src/styles/pages/blog.css)
+- [src/styles/pages/catalog.css](src/styles/pages/catalog.css)
+- [src/styles/pages/contact.css](src/styles/pages/contact.css)
+- [src/styles/pages/finance.css](src/styles/pages/finance.css)
+- [src/styles/pages/home.css](src/styles/pages/home.css)
+- [src/styles/pages/test-drive.css](src/styles/pages/test-drive.css)
+- [src/styles/pages/tradein.css](src/styles/pages/tradein.css)
+- [src/styles/pages/vehicle-detail.css](src/styles/pages/vehicle-detail.css)
 
 Tudo e importado a partir de [src/index.css](src/index.css).
 

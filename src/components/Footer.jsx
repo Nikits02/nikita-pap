@@ -18,8 +18,8 @@ import {
   YouTubeIcon,
 } from "./icons/CommonIcons";
 import TypedIcon from "./icons/TypedIcon";
+import { useAuth } from "../hooks/useAuth";
 import { getVehicleLabel } from "../utils/vehicle";
-import { getCurrentUser } from "../services/authApi";
 
 const socialIcons = {
   facebook: FacebookIcon,
@@ -35,7 +35,7 @@ const contactIcons = {
 };
 
 function Footer() {
-  const currentUser = getCurrentUser();
+  const { currentUser } = useAuth();
   const isAuthenticated = Boolean(currentUser);
   const footerQuickLinks = getFooterQuickLinks(isAuthenticated);
   const { vehicles, isLoading, error } = useVehicles();

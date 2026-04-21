@@ -7,16 +7,24 @@ function useCarouselIndex({
   autoplayDelay = null,
   pauseAutoplay = false,
 }) {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [storedIndex, setStoredIndex] = useState(0);
   const maxIndex = Math.max(0, itemCount - visibleCount);
+  const activeIndex = Math.min(storedIndex, maxIndex);
   const visibleIndex = Math.min(activeIndex, maxIndex);
+  const setActiveIndex = useCallback(
+    (nextIndex) => {
+      setStoredIndex((currentIndex) => {
+        const resolvedIndex =
+          typeof nextIndex === "function" ? nextIndex(currentIndex) : nextIndex;
 
-  useEffect(() => {
-    setActiveIndex((currentIndex) => Math.min(currentIndex, maxIndex));
-  }, [maxIndex]);
+        return Math.max(0, Math.min(resolvedIndex, maxIndex));
+      });
+    },
+    [maxIndex],
+  );
 
   const goPrevious = useCallback(() => {
-    setActiveIndex((currentIndex) => {
+    setStoredIndex((currentIndex) => {
       const safeIndex = Math.min(currentIndex, maxIndex);
 
       if (safeIndex === 0) {
@@ -28,7 +36,7 @@ function useCarouselIndex({
   }, [loop, maxIndex]);
 
   const goNext = useCallback(() => {
-    setActiveIndex((currentIndex) => {
+    setStoredIndex((currentIndex) => {
       const safeIndex = Math.min(currentIndex, maxIndex);
 
       if (safeIndex >= maxIndex) {

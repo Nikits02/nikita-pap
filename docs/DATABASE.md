@@ -133,7 +133,7 @@ Notas:
 No projeto, varias tabelas sao criadas automaticamente no arranque do backend.
 
 Isto acontece em:
-- [server/index.js](../server/index.js)
+- [server/lib/bootstrap.js](../server/lib/bootstrap.js)
 
 Funcoes principais:
 - `ensureAuthTables()`
@@ -161,19 +161,19 @@ Isto significa que o servidor:
 
 - tabela: `contact_messages`
 - frontend:
-  `Contacto.jsx` -> `createContactMessage()`
+  `src/pages/public/Contacto.jsx` -> `createContactMessage()`
 
 ### Test Drive
 
 - tabela: `test_drives`
 - frontend:
-  `TestDrive.jsx` -> `createTestDrive()`
+  `src/pages/public/TestDrive.jsx` -> `createTestDrive()`
 
 ### Retoma
 
 - tabela: `trade_in_requests`
 - frontend:
-  `Retoma.jsx` -> `createTradeInRequest()`
+  `src/pages/public/Retoma.jsx` -> `createTradeInRequest()`
 
 ### Painel Admin
 

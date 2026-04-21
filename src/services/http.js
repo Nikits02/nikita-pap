@@ -4,7 +4,7 @@ async function getResponseData(response) {
 
 export async function requestJson(
   url,
-  { method = "GET", body, headers = {}, token, errorMessage } = {},
+  { method = "GET", body, headers = {}, errorMessage } = {},
 ) {
   const requestHeaders = new Headers(headers);
 
@@ -12,12 +12,9 @@ export async function requestJson(
     requestHeaders.set("Content-Type", "application/json");
   }
 
-  if (token) {
-    requestHeaders.set("Authorization", `Bearer ${token}`);
-  }
-
   const response = await fetch(url, {
     method,
+    credentials: "include",
     headers: requestHeaders,
     body: body !== undefined ? JSON.stringify(body) : undefined,
   });

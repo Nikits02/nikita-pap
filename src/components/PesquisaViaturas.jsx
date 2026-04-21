@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import CustomSelect from "./form/CustomSelect";
 import { SearchIcon } from "./icons/CommonIcons";
 
@@ -36,43 +36,45 @@ function PesquisaViaturas({ cars, initialFilters, onSearch }) {
     setFiltrosLocais(initialFilters);
   }, [initialFilters]);
 
-  function getFilteredCars(excludedField = "") {
-    return cars.filter((car) => {
-      if (
-        excludedField !== "marca" &&
-        filtrosLocais.marca &&
-        car.marca !== filtrosLocais.marca
-      ) {
-        return false;
-      }
+  const getFilteredCars = useCallback(
+    (excludedField = "") =>
+      cars.filter((car) => {
+        if (
+          excludedField !== "marca" &&
+          filtrosLocais.marca &&
+          car.marca !== filtrosLocais.marca
+        ) {
+          return false;
+        }
 
-      if (
-        excludedField !== "modelo" &&
-        filtrosLocais.modelo &&
-        car.modelo !== filtrosLocais.modelo
-      ) {
-        return false;
-      }
+        if (
+          excludedField !== "modelo" &&
+          filtrosLocais.modelo &&
+          car.modelo !== filtrosLocais.modelo
+        ) {
+          return false;
+        }
 
-      if (
-        excludedField !== "combustivel" &&
-        filtrosLocais.combustivel &&
-        car.combustivel !== filtrosLocais.combustivel
-      ) {
-        return false;
-      }
+        if (
+          excludedField !== "combustivel" &&
+          filtrosLocais.combustivel &&
+          car.combustivel !== filtrosLocais.combustivel
+        ) {
+          return false;
+        }
 
-      if (
-        excludedField !== "caixa" &&
-        filtrosLocais.caixa &&
-        car.caixa !== filtrosLocais.caixa
-      ) {
-        return false;
-      }
+        if (
+          excludedField !== "caixa" &&
+          filtrosLocais.caixa &&
+          car.caixa !== filtrosLocais.caixa
+        ) {
+          return false;
+        }
 
-      return true;
-    });
-  }
+        return true;
+      }),
+    [cars, filtrosLocais],
+  );
 
   const marcas = useMemo(
     () => [...new Set(cars.map((car) => car.marca).filter(Boolean))].sort(),
@@ -82,7 +84,7 @@ function PesquisaViaturas({ cars, initialFilters, onSearch }) {
   const modelos = useMemo(
     () =>
       [...new Set(getFilteredCars("modelo").map((car) => car.modelo).filter(Boolean))].sort(),
-    [cars, filtrosLocais],
+    [getFilteredCars],
   );
 
   const combustiveis = useMemo(
@@ -94,19 +96,19 @@ function PesquisaViaturas({ cars, initialFilters, onSearch }) {
             .filter(Boolean),
         ),
       ].sort(),
-    [cars, filtrosLocais],
+    [getFilteredCars],
   );
 
   const caixas = useMemo(
     () =>
       [...new Set(getFilteredCars("caixa").map((car) => car.caixa).filter(Boolean))].sort(),
-    [cars, filtrosLocais],
+    [getFilteredCars],
   );
 
   const marcasCompativeis = useMemo(
     () =>
       [...new Set(getFilteredCars("marca").map((car) => car.marca).filter(Boolean))].sort(),
-    [cars, filtrosLocais],
+    [getFilteredCars],
   );
 
   useEffect(() => {

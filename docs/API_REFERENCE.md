@@ -158,7 +158,6 @@ Resposta de sucesso:
 ```json
 {
   "ok": true,
-  "token": "jwt",
   "user": {
     "id": 1,
     "nome": "Nome",
@@ -186,7 +185,7 @@ Nota:
 - o backend aceita `identifier` ou `username`
 
 Resposta:
-- devolve token JWT e dados do utilizador
+- devolve os dados do utilizador e cria uma sessao autenticada por cookie `HttpOnly`
 
 ### `POST /api/admin/login`
 
@@ -202,18 +201,44 @@ Body esperado:
 ```
 
 Resposta:
-- devolve token JWT com `role: "admin"`
+- devolve os dados do admin e cria uma sessao autenticada por cookie `HttpOnly`
+
+### `GET /api/auth/session`
+
+Objetivo:
+- validar a sessao atual com base no cookie autenticado
+
+Resposta de sucesso:
+```json
+{
+  "ok": true,
+  "user": {
+    "id": 1,
+    "nome": "Nome",
+    "username": "username",
+    "email": "email@email.pt",
+    "role": "user"
+  }
+}
+```
+
+### `POST /api/auth/logout`
+
+Objetivo:
+- terminar a sessao atual e limpar o cookie autenticado
+
+Resposta de sucesso:
+```json
+{ "ok": true }
+```
 
 ## 2. Endpoints Protegidos de Admin
 
-Todos estes endpoints exigem:
+Todos estes endpoints exigem uma sessao autenticada de administrador.
 
-Header:
-```http
-Authorization: Bearer <token>
-```
+A validacao principal e feita por cookie de sessao `HttpOnly`.
 
-O token e validado em:
+O acesso e validado em:
 - [server/middleware/authenticateAdmin.js](../server/middleware/authenticateAdmin.js)
 
 ### `POST /api/admin/uploads/vehicle-image`
@@ -318,18 +343,27 @@ Camadas:
    Endpoints publicos.
 
 3. `src/services/authApi.js`
-   Login, registo e sessao local.
+   Login, registo, validacao da sessao e persistencia local do utilizador.
 
 4. `src/services/adminApi.js`
-   Endpoints protegidos do admin com token JWT.
+   Endpoints protegidos do admin suportados por sessao via cookie.
 
 ## 4. Erros e Mensagens
 
 O backend tenta sempre devolver mensagens simples em portugues, por exemplo:
 - `Campos em falta.`
 - `Credenciais invalidas.`
+- `Email invalido.`
 - `Token em falta.`
 - `Utilizador nao encontrado.`
 - `Pedido de retoma nao encontrado.`
+- `Demasiadas tentativas. Tente novamente dentro de alguns minutos.`
 
 O frontend usa essas mensagens para mostrar erros diretamente ao utilizador.
+
+## 5. Notas de Seguranca
+
+- o backend valida `JWT_SECRET` no arranque
+- o CORS passa a aceitar apenas as origens configuradas
+- a autenticacao usa cookie `HttpOnly` para reduzir dependencia de token no browser
+- os endpoints de `login` e `register` têm limitacao basica de tentativas por IP

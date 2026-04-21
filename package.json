@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:server": "npm --prefix server test"
   },
   "dependencies": {
     "normalize.css": "^8.0.1",
