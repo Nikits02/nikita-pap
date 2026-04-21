@@ -28,6 +28,22 @@ const benefitIcons = {
 };
 
 const FIXED_INTEREST_RATE = 6.9;
+const FALLBACK_PRICE_RANGE = {
+  min: 30000,
+  max: 300000,
+};
+
+function formatEuroAmount(value) {
+  return `${formatRoundedNumber(value)} EUR`;
+}
+
+function getClosestPrice(price, priceOptions) {
+  return priceOptions.reduce((closestPrice, optionPrice) =>
+    Math.abs(optionPrice - price) < Math.abs(closestPrice - price)
+      ? optionPrice
+      : closestPrice,
+  );
+}
 
 function Financiamento() {
   const {
@@ -39,7 +55,6 @@ function Financiamento() {
     preco: 120000,
     entrada: 24000,
     meses: 60,
-    taxa: FIXED_INTEREST_RATE,
   });
   const { formData: requestData, updateField: updateRequest } = useFormState({
     nome: "",
@@ -51,23 +66,26 @@ function Financiamento() {
   const [submitError, setSubmitError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const priceRange = useMemo(() => {
-    const vehiclePrices = vehicles
-      .map((vehicle) => Number(vehicle.preco))
-      .filter((price) => Number.isFinite(price) && price > 0);
+  const vehiclePriceOptions = useMemo(() => {
+    const vehiclePrices = vehicles.map((vehicle) => Number(vehicle.preco));
 
-    if (vehiclePrices.length === 0) {
-      return {
-        min: 30000,
-        max: 300000,
-      };
-    }
-
-    return {
-      min: Math.min(...vehiclePrices),
-      max: Math.max(...vehiclePrices),
-    };
+    return [...new Set(vehiclePrices)]
+      .filter((price) => Number.isFinite(price) && price > 0)
+      .sort((firstPrice, secondPrice) => firstPrice - secondPrice);
   }, [vehicles]);
+
+  const hasVehiclePriceOptions = vehiclePriceOptions.length > 0;
+
+  const priceRange = hasVehiclePriceOptions
+    ? {
+        min: vehiclePriceOptions[0],
+        max: vehiclePriceOptions.at(-1),
+      }
+    : FALLBACK_PRICE_RANGE;
+
+  const selectedPriceIndex = hasVehiclePriceOptions
+    ? vehiclePriceOptions.indexOf(simulation.preco)
+    : 0;
 
   const availableVehicles = useMemo(
     () =>
@@ -85,10 +103,7 @@ function Financiamento() {
             ? `${vehicleLabel} (${vehicle.ano})`
             : vehicleLabel;
 
-          return {
-            value: optionLabel,
-            label: optionLabel,
-          };
+          return { value: optionLabel, label: optionLabel, price: Number(vehicle.preco) };
         }),
     [vehicles],
   );
@@ -103,10 +118,9 @@ function Financiamento() {
 
   useEffect(() => {
     setSimulation((current) => {
-      const nextPrice = Math.min(
-        Math.max(current.preco, priceRange.min),
-        priceRange.max,
-      );
+      const nextPrice = hasVehiclePriceOptions
+        ? getClosestPrice(current.preco, vehiclePriceOptions)
+        : Math.min(Math.max(current.preco, priceRange.min), priceRange.max);
       const nextEntryMax = Math.round(nextPrice * 0.5);
 
       return {
@@ -115,7 +129,7 @@ function Financiamento() {
         entrada: Math.min(current.entrada, nextEntryMax),
       };
     });
-  }, [priceRange.max, priceRange.min]);
+  }, [hasVehiclePriceOptions, priceRange.max, priceRange.min, vehiclePriceOptions]);
 
   const entryPercent = Math.round(
     (simulation.entrada / simulation.preco) * 100,
@@ -141,6 +155,24 @@ function Financiamento() {
     });
   }
 
+  function handleVehicleSelect(value) {
+    updateRequest("viatura", value);
+
+    const selectedVehicle = availableVehicles.find((vehicle) => vehicle.value === value);
+
+    if (Number.isFinite(selectedVehicle?.price)) {
+      updateSimulation("preco", selectedVehicle.price);
+    }
+  }
+
+  function handlePriceIndexChange(value) {
+    const nextPrice = vehiclePriceOptions[Number(value)];
+
+    if (nextPrice) {
+      updateSimulation("preco", nextPrice);
+    }
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
 
@@ -156,7 +188,7 @@ function Financiamento() {
         preco: simulation.preco,
         entrada: simulation.entrada,
         meses: simulation.meses,
-        taxa: simulation.taxa,
+        taxa: FIXED_INTEREST_RATE,
         prestacaoMensal: result.prestacaoMensal,
         montanteTotal: result.montanteTotal,
         taeg: result.taeg,
@@ -177,7 +209,7 @@ function Financiamento() {
       0,
       simulation.preco - simulation.entrada,
     );
-    const taxaMensal = simulation.taxa / 100 / 12;
+    const taxaMensal = FIXED_INTEREST_RATE / 100 / 12;
 
     const prestacaoMensal =
       taxaMensal === 0
@@ -185,34 +217,24 @@ function Financiamento() {
         : montanteFinanciado *
           (taxaMensal / (1 - Math.pow(1 + taxaMensal, -simulation.meses)));
 
-    const montanteTotal = prestacaoMensal * simulation.meses;
-    const taeg = simulation.taxa + 1;
-
     return {
-      montanteFinanciado,
       prestacaoMensal,
-      montanteTotal,
-      taeg,
+      montanteTotal: prestacaoMensal * simulation.meses,
+      taeg: FIXED_INTEREST_RATE + 1,
     };
   }, [simulation]);
 
   const requestSummaryItems = [
-    {
-      label: "Preco",
-      value: `${formatRoundedNumber(simulation.preco)} EUR`,
-    },
-    {
-      label: "Entrada",
-      value: `${formatRoundedNumber(simulation.entrada)} EUR`,
-    },
-    {
-      label: "Prazo",
-      value: `${simulation.meses} meses`,
-    },
-    {
-      label: "Prestacao",
-      value: `${formatRoundedNumber(result.prestacaoMensal)} EUR`,
-    },
+    ["Preco", formatEuroAmount(simulation.preco)],
+    ["Entrada", formatEuroAmount(simulation.entrada)],
+    ["Prazo", `${simulation.meses} meses`],
+    ["Prestacao", formatEuroAmount(result.prestacaoMensal)],
+  ];
+
+  const resultItems = [
+    ["Prestacao mensal", formatEuroAmount(result.prestacaoMensal)],
+    ["Montante total", formatEuroAmount(result.montanteTotal)],
+    ["TAEG", `${result.taeg.toFixed(1)}%`],
   ];
 
   return (
@@ -231,31 +253,30 @@ function Financiamento() {
           <div className="finance-control">
             <div className="finance-control__top">
               <span>Preco do veiculo</span>
-              <strong>{formatRoundedNumber(simulation.preco)} EUR</strong>
+              <strong>{formatEuroAmount(simulation.preco)}</strong>
             </div>
 
             <input
               className="finance-range"
               type="range"
-              min={priceRange.min}
-              max={priceRange.max}
-              step="1000"
-              value={simulation.preco}
-              onChange={(event) =>
-                updateSimulation("preco", event.target.value)
-              }
+              min="0"
+              max={Math.max(vehiclePriceOptions.length - 1, 0)}
+              step="1"
+              value={Math.max(selectedPriceIndex, 0)}
+              onChange={(event) => handlePriceIndexChange(event.target.value)}
+              disabled={!hasVehiclePriceOptions}
             />
 
             <div className="finance-control__limits">
-              <span>{formatRoundedNumber(priceRange.min)} EUR</span>
-              <span>{formatRoundedNumber(priceRange.max)} EUR</span>
+              <span>{formatEuroAmount(priceRange.min)}</span>
+              <span>{formatEuroAmount(priceRange.max)}</span>
             </div>
           </div>
 
           <div className="finance-control">
             <div className="finance-control__top">
               <span>Entrada ({entryPercent}%)</span>
-              <strong>{formatRoundedNumber(simulation.entrada)} EUR</strong>
+              <strong>{formatEuroAmount(simulation.entrada)}</strong>
             </div>
 
             <input
@@ -272,7 +293,7 @@ function Financiamento() {
 
             <div className="finance-control__limits">
               <span>EUR0</span>
-              <span>{formatRoundedNumber(entryMax)} EUR</span>
+              <span>{formatEuroAmount(entryMax)}</span>
             </div>
           </div>
 
@@ -299,7 +320,7 @@ function Financiamento() {
           <div className="finance-control finance-control--last">
             <div className="finance-control__top">
               <span>Taxa de juro fixa (TAN)</span>
-              <strong>{simulation.taxa.toFixed(1)}%</strong>
+              <strong>{FIXED_INTEREST_RATE.toFixed(1)}%</strong>
             </div>
 
             <p className="finance-fixed-rate-note">
@@ -309,20 +330,12 @@ function Financiamento() {
           </div>
 
           <div className="finance-results">
-            <div className="finance-result">
-              <span>Prestacao mensal</span>
-              <strong>{formatRoundedNumber(result.prestacaoMensal)} EUR</strong>
-            </div>
-
-            <div className="finance-result">
-              <span>Montante total</span>
-              <strong>{formatRoundedNumber(result.montanteTotal)} EUR</strong>
-            </div>
-
-            <div className="finance-result">
-              <span>TAEG</span>
-              <strong>{result.taeg.toFixed(1)}%</strong>
-            </div>
+            {resultItems.map(([label, value]) => (
+              <div className="finance-result" key={label}>
+                <span>{label}</span>
+                <strong>{value}</strong>
+              </div>
+            ))}
           </div>
 
           <p className="finance-disclaimer">
@@ -359,10 +372,10 @@ function Financiamento() {
             </p>
 
             <div className="finance-request-summary" aria-label="Resumo da simulacao">
-              {requestSummaryItems.map((item) => (
-                <article className="finance-request-summary__item" key={item.label}>
-                  <span>{item.label}</span>
-                  <strong>{item.value}</strong>
+              {requestSummaryItems.map(([label, value]) => (
+                <article className="finance-request-summary__item" key={label}>
+                  <span>{label}</span>
+                  <strong>{value}</strong>
                 </article>
               ))}
             </div>
@@ -375,7 +388,7 @@ function Financiamento() {
                     value={requestData[field.name]}
                     options={availableVehicles}
                     placeholder={vehicleSelectPlaceholder}
-                    onChange={(value) => updateRequest(field.name, value)}
+                    onChange={handleVehicleSelect}
                     disabled={isVehicleSelectDisabled}
                     rootClassName={`vehicle-search__select${isVehicleSelectDisabled ? " is-disabled" : ""}`}
                     triggerClassName="vehicle-search__select-trigger"
