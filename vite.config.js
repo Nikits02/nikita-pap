@@ -7,7 +7,9 @@ const backendTarget = "http://localhost:3002";
 export default defineConfig({
   plugins: [react()],
   server: {
+    host: "127.0.0.1",
     port: 5174,
+    allowedHosts: ["nikitamotors"],
     proxy: {
       "/api": backendTarget,
       "/uploads": backendTarget,
