@@ -16,6 +16,7 @@ dist-ssr
 server/.env
 !server/.env.example
 server/uploads
+server/db-backups
 
 # Editor directories and files
 .vscode/*

@@ -17,7 +17,68 @@ function normalizeVehicle(vehicle) {
   };
 }
 
+const premiumVehicleCopy = {
+  "lamborghini aventador svj": {
+    summary:
+      "Um superdesportivo de coleção, pensado para causar impacto logo no primeiro olhar. O Aventador SVJ combina presença extrema, motor V12 e uma condução visceral para clientes que procuram uma peça realmente especial.",
+    highlights: [
+      "Motor V12 atmosférico com 770 cv",
+      "Configuração SVJ de produção limitada",
+      "Quilometragem baixa para o segmento",
+      "Design aerodinâmico de alto impacto",
+      "Viatura ideal para montra premium",
+      "Possibilidade de financiamento personalizado",
+    ],
+  },
+  "aston martin dbx707": {
+    summary:
+      "Um SUV de luxo com postura desportiva e acabamento de topo. O DBX707 junta conforto, exclusividade e performance elevada, sendo uma escolha forte para demonstrar a gama premium do stand.",
+    highlights: [
+      "707 cv com resposta desportiva",
+      "Interior premium e muito equipado",
+      "SUV exclusivo de alta performance",
+      "Baixa quilometragem",
+      "Destaque ideal para clientes empresariais",
+      "Retoma sob avaliação",
+    ],
+  },
+  "ferrari roma": {
+    summary:
+      "Um grand tourer elegante, equilibrado e muito fotogénico. A Ferrari Roma transmite sofisticação sem perder carácter desportivo, funcionando muito bem como viatura de destaque na apresentação.",
+    highlights: [
+      "Motor V8 com 620 cv",
+      "Design Ferrari moderno e elegante",
+      "Excelente presença em catálogo",
+      "Caixa automática desportiva",
+      "Viatura premium pronta para visita",
+      "Possibilidade de test drive mediante marcação",
+    ],
+  },
+  "mercedes-amg sl 63": {
+    summary:
+      "Um roadster de luxo com assinatura AMG, ideal para mostrar variedade no catálogo. Junta potência, conforto e imagem emocional, criando uma opção forte para clientes que procuram exclusividade descapotável.",
+    highlights: [
+      "585 cv e tração 4MATIC+",
+      "Roadster premium de última geração",
+      "Interior luxuoso e tecnológico",
+      "Baixa quilometragem",
+      "Excelente opção para demonstração visual",
+      "Financiamento disponível sob consulta",
+    ],
+  },
+};
+
+function getVehicleCopyKey(vehicle) {
+  return `${vehicle.marca} ${vehicle.modelo}`.toLowerCase();
+}
+
 function buildSummary(vehicle, typeLabel) {
+  const premiumCopy = premiumVehicleCopy[getVehicleCopyKey(vehicle)];
+
+  if (premiumCopy) {
+    return premiumCopy.summary;
+  }
+
   const versionText = vehicle.versao ? `na versao ${vehicle.versao}` : "";
   const yearText = vehicle.ano ? ` de ${vehicle.ano}` : "";
   const mileageText = vehicle.quilometragem ? ` com ${vehicle.quilometragem}` : "";
@@ -32,6 +93,12 @@ function buildSummary(vehicle, typeLabel) {
 }
 
 function buildHighlights(vehicle, typeLabel) {
+  const premiumCopy = premiumVehicleCopy[getVehicleCopyKey(vehicle)];
+
+  if (premiumCopy) {
+    return premiumCopy.highlights;
+  }
+
   return [
     vehicle.versao ? `Versao ${vehicle.versao}` : null,
     vehicle.quilometragem ? `${vehicle.quilometragem} verificados` : null,

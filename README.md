@@ -271,6 +271,12 @@ Se quiseres uma explicação mais detalhada da arquitetura, abre:
 - [docs/PRESENTATION_GUIDE.md](docs/PRESENTATION_GUIDE.md)
   Guia de apresentação oral para explicares o projeto com segurança.
 
+- [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md)
+  Roteiro prático da demo: ordem de cliques, frases-chave, tempos e plano B.
+
+- [docs/DEMO_VEHICLES.md](docs/DEMO_VEHICLES.md)
+  Lista das viaturas estrela preparadas para causar melhor primeira impressão.
+
 - [docs/PRESENTATION_SETUP.md](docs/PRESENTATION_SETUP.md)
   Checklist técnica para preparar MySQL, variáveis de ambiente, admin e arranque da demo.
 

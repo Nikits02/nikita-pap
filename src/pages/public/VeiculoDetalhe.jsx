@@ -139,6 +139,21 @@ function VehicleDetailPage() {
         </section>
       </section>
 
+      <section className="vehicle-detail__notes-card">
+        <div>
+          <p className="vehicle-detail__section-kicker">Resumo comercial</p>
+          <h2>Porque esta viatura se destaca</h2>
+        </div>
+
+        <p className="vehicle-detail__summary">{vehicle.summary}</p>
+
+        <ul className="vehicle-detail__highlights">
+          {vehicle.detailHighlights.map((highlight) => (
+            <li key={highlight}>{highlight}</li>
+          ))}
+        </ul>
+      </section>
+
       {relatedVehicles.length > 0 ? (
         <section className="vehicle-detail__related">
           <div className="vehicle-detail__related-heading">
