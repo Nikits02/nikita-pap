@@ -26,7 +26,24 @@ function Home() {
   const navigate = useNavigate();
   const { vehicles, isLoading, error } = useVehicles();
   const highlightVehicles = useMemo(
-    () => vehicles.filter((vehicle) => vehicle.source === "highlight"),
+    () =>
+      vehicles
+        .filter((vehicle) => vehicle.source === "highlight")
+        .sort((firstVehicle, secondVehicle) => {
+          const firstInsertedAt = firstVehicle.insertedAt
+            ? new Date(firstVehicle.insertedAt).getTime()
+            : 0;
+          const secondInsertedAt = secondVehicle.insertedAt
+            ? new Date(secondVehicle.insertedAt).getTime()
+            : 0;
+
+          if (secondInsertedAt !== firstInsertedAt) {
+            return secondInsertedAt - firstInsertedAt;
+          }
+
+          return Number(secondVehicle.id ?? 0) - Number(firstVehicle.id ?? 0);
+        })
+        .slice(0, 6),
     [vehicles],
   );
 

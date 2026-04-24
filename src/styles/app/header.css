@@ -1,6 +1,10 @@
 .site-header {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+}
+
+.site-header.has-pinned-navbar {
+  z-index: 2000;
 }
 
 .site-header--home {
@@ -95,6 +99,15 @@
   width: min(100%, 1080px);
 }
 
+.navbar-slot {
+  position: relative;
+  min-height: 4.2rem;
+}
+
+.navbar-slot.is-navbar-pinned {
+  z-index: 2001;
+}
+
 .brand-mark__nikita {
   color: var(--home-accent-red);
 }
@@ -115,6 +128,27 @@
   color: var(--color-neutral-0);
   box-shadow: 0 22px 54px var(--surface-black-28);
   backdrop-filter: blur(10px);
+}
+
+.navbar-slot.is-navbar-pinned .navbar {
+  position: fixed;
+  top: 0.85rem;
+  left: 50%;
+  z-index: 2002;
+  width: min(calc(100% - 2rem), 920px);
+  margin-top: 0;
+  transform: translateX(-50%);
+  border-color: var(--surface-white-18);
+  background: var(--surface-panel-dark-soft);
+  box-shadow: 0 18px 44px var(--surface-black-34);
+}
+
+.site-header--home .navbar-slot.is-navbar-pinned .navbar.navbar--authenticated {
+  width: min(calc(100% - 2rem), 1080px);
+}
+
+.site-header--inner .navbar-slot.is-navbar-pinned .navbar {
+  width: min(calc(100% - 2rem), 1180px);
 }
 
 .site-header--inner .navbar {
