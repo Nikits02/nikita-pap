@@ -14,7 +14,7 @@ export const blogPosts = [
       {
         titulo: "Presenca que domina qualquer sala",
         paragrafos: [
-          "O Aventador SVJ nao precisa de apresentações longas. A silhueta baixa, as entradas de ar profundas e a largura visual criam um impacto imediato, mesmo antes de o motor acordar.",
+          "O Aventador SVJ não precisa de apresentações longas. A silhueta baixa, as entradas de ar profundas e a largura visual criam um impacto imediato, mesmo antes de o motor acordar.",
           "No nosso catálogo, este modelo representa bem a ideia de superdesportivo puro: um automóvel feito para emocionar à primeira vista e para marcar presença onde quer que passe.",
         ],
       },
@@ -59,7 +59,7 @@ export const blogPosts = [
     id: 3,
     slug: "porsche-macan-o-suv-que-nao-esquece-a-marca",
     categoria: "Porsche Macan",
-    titulo: "Porsche Macan: o SUV que nao esquece a marca",
+    titulo: "Porsche Macan: o SUV que não esquece a marca",
     excerto:
       "Mesmo num formato familiar e mais versátil, o Macan continua a transmitir precisão, postura e identidade Porsche em cada detalhe.",
     data: "25 Mar 2026",

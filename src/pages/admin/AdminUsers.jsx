@@ -34,7 +34,7 @@ function AdminUsers() {
           return;
         }
 
-        setError(loadError.message ?? "Nao foi possivel carregar os utilizadores.");
+        setError(loadError.message ?? "Não foi possível carregar os utilizadores.");
       } finally {
         if (isMounted) {
           setIsLoading(false);
@@ -72,7 +72,7 @@ function AdminUsers() {
       }
 
       setError(
-        deleteError.message ?? "Nao foi possivel eliminar o utilizador.",
+        deleteError.message ?? "Não foi possível eliminar o utilizador.",
       );
     } finally {
       setDeletingUserId(null);
@@ -109,7 +109,7 @@ function AdminUsers() {
       ) : users.length === 0 ? (
         <div className="admin-page__empty-state">
           <p className="admin-page__text">
-            Ainda nao existem utilizadores registados.
+            Ainda não existem utilizadores registados.
           </p>
         </div>
       ) : (

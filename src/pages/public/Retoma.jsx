@@ -88,7 +88,7 @@ function Retoma() {
       setSubmitted(true);
     } catch (error) {
       setSubmitError(
-        error.message ?? "Nao foi possivel enviar o pedido de retoma.",
+        error.message ?? "Não foi possível enviar o pedido de retoma.",
       );
     } finally {
       setIsSubmitting(false);
@@ -99,8 +99,8 @@ function Retoma() {
     <SitePage mainClassName="page-shell tradein-page">
       <PageHero
         className="tradein-hero"
-        title="Avaliacao de Retoma"
-        description="Avalie o seu veiculo atual e receba uma proposta justa"
+        title="Avaliação de Retoma"
+        description="Avalie o seu veículo atual e receba uma proposta justa"
       />
 
       <section className="tradein-process">
@@ -134,14 +134,14 @@ function Retoma() {
             </div>
             <h2>Pedido Recebido!</h2>
             <p>
-              A nossa equipa ira analisar os dados do seu veiculo e entrar em
-              contacto em breve com uma estimativa de avaliacao.
+              A nossa equipa irá analisar os dados do seu veículo e entrar em
+              contacto em breve com uma estimativa de avaliação.
             </p>
           </div>
         ) : (
           <form className="tradein-form-card" onSubmit={handleSubmit}>
             <div className="tradein-section-heading">
-              <h2>Dados do Veiculo</h2>
+              <h2>Dados do Veículo</h2>
             </div>
 
             <div className="tradein-form-grid tradein-form-grid--vehicle">
@@ -178,7 +178,7 @@ function Retoma() {
 
               <FormInputField
                 className="tradein-field"
-                label="Quilometros *"
+                label="Quilómetros *"
                 type="number"
                 min="0"
                 value={formData.quilometragem}
@@ -243,20 +243,20 @@ function Retoma() {
 
               <FormTextareaField
                 className="tradein-field tradein-field--full"
-                label="Observacoes"
+                label="Observações"
                 rows="5"
                 value={formData.observacoes}
                 onChange={(event) =>
                   updateField("observacoes", event.target.value)
                 }
-                placeholder="Informacoes adicionais sobre o veiculo..."
+                placeholder="Informações adicionais sobre o veículo..."
               />
             </div>
 
             <FormError className="tradein-form-error" message={submitError} />
 
             <button className="tradein-submit" type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "A enviar..." : "Solicitar Avaliacao"}
+              {isSubmitting ? "A enviar..." : "Solicitar Avaliação"}
             </button>
           </form>
         )}

@@ -229,7 +229,7 @@ function PesquisaViaturas({ cars, initialFilters, onSearch }) {
             <SearchSelect
               label="Caixa"
               value={filtrosLocais.caixa}
-              placeholder="Manual / Automatica"
+              placeholder="Manual / Automática"
               options={caixas}
               onChange={(valor) => atualizarCampo("caixa", valor)}
               disabled={caixas.length === 0}

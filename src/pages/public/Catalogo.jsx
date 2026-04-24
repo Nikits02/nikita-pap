@@ -42,8 +42,8 @@ function Catalogo() {
     <SitePage mainClassName="page-shell catalog-page">
       <PageHero
         className="catalog-page__hero"
-        title="Catalogo"
-        description="Explore a nossa selecao exclusiva de veiculos premium"
+        title="Catálogo"
+        description="Explore a nossa seleção exclusiva de veículos premium"
       />
 
       <div className="catalog-page__divider" />
@@ -92,7 +92,7 @@ function Catalogo() {
       <p className="catalog-page__count">
         {isLoading
           ? "A carregar viaturas..."
-          : `${filteredCars.length} veiculos encontrados`}
+          : `${filteredCars.length} veículos encontrados`}
       </p>
 
       <section className="catalog-grid">
@@ -102,7 +102,7 @@ function Catalogo() {
           </div>
         ) : error ? (
           <div className="empty-results">
-            <h3>Nao foi possivel carregar o catalogo.</h3>
+            <h3>Não foi possível carregar o catálogo.</h3>
             <p>{error}</p>
           </div>
         ) : filteredCars.length > 0 ? (
@@ -115,7 +115,7 @@ function Catalogo() {
         ) : (
           <div className="empty-results">
             <h3>Sem resultados para os filtros aplicados.</h3>
-            <p>Tente mudar os criterios para ver mais opcoes no catalogo.</p>
+            <p>Tente mudar os critérios para ver mais opções no catálogo.</p>
           </div>
         )}
       </section>

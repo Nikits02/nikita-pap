@@ -40,6 +40,60 @@ export async function ensureAuthTables() {
   `);
 }
 
+export async function ensureCatalogTables() {
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS vehicles (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      source VARCHAR(40) NOT NULL DEFAULT 'catalog',
+      marca VARCHAR(120) NOT NULL,
+      modelo VARCHAR(120) NOT NULL,
+      tipo VARCHAR(120) DEFAULT NULL,
+      versao VARCHAR(160) DEFAULT NULL,
+      preco DECIMAL(12, 2) NOT NULL,
+      ano INT DEFAULT NULL,
+      potencia VARCHAR(80) DEFAULT NULL,
+      quilometragem VARCHAR(80) NOT NULL,
+      combustivel VARCHAR(80) NOT NULL,
+      caixa VARCHAR(80) NOT NULL,
+      inserted_at DATE NOT NULL,
+      novidade TINYINT(1) NOT NULL DEFAULT 0,
+      imagem VARCHAR(500) NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
+  await ensureTableColumn(
+    "vehicles",
+    "source",
+    "source VARCHAR(40) NOT NULL DEFAULT 'catalog' AFTER id",
+  );
+  await ensureTableColumn(
+    "vehicles",
+    "tipo",
+    "tipo VARCHAR(120) DEFAULT NULL AFTER modelo",
+  );
+  await ensureTableColumn(
+    "vehicles",
+    "versao",
+    "versao VARCHAR(160) DEFAULT NULL AFTER tipo",
+  );
+  await ensureTableColumn(
+    "vehicles",
+    "inserted_at",
+    "inserted_at DATE NOT NULL AFTER caixa",
+  );
+  await ensureTableColumn(
+    "vehicles",
+    "novidade",
+    "novidade TINYINT(1) NOT NULL DEFAULT 0 AFTER inserted_at",
+  );
+  await ensureTableColumn(
+    "vehicles",
+    "created_at",
+    "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
+  );
+}
+
 export async function ensureLeadTables() {
   await pool.query(`
     CREATE TABLE IF NOT EXISTS test_drives (

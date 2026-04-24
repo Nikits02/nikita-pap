@@ -62,7 +62,7 @@ const ADMIN_DELETE_ROUTES = [
   [
     "/admin/contact-messages/:id",
     "contact_messages",
-    "Mensagem de contacto nao encontrada.",
+    "Mensagem de contacto não encontrada.",
     "Mensagem eliminada com sucesso.",
     "Erro ao eliminar mensagem de contacto",
     "Erro ao eliminar mensagem de contacto.",
@@ -70,7 +70,7 @@ const ADMIN_DELETE_ROUTES = [
   [
     "/admin/finance-requests/:id",
     "finance_requests",
-    "Pedido de financiamento nao encontrado.",
+    "Pedido de financiamento não encontrado.",
     "Pedido de financiamento eliminado com sucesso.",
     "Erro ao eliminar pedido de financiamento",
     "Erro ao eliminar pedido de financiamento.",
@@ -78,7 +78,7 @@ const ADMIN_DELETE_ROUTES = [
   [
     "/admin/trade-ins/:id",
     "trade_in_requests",
-    "Pedido de retoma nao encontrado.",
+    "Pedido de retoma não encontrado.",
     "Pedido de retoma eliminado com sucesso.",
     "Erro ao eliminar pedido de retoma",
     "Erro ao eliminar pedido de retoma.",
@@ -86,7 +86,7 @@ const ADMIN_DELETE_ROUTES = [
   [
     "/admin/test-drives/:id",
     "test_drives",
-    "Pedido de test drive nao encontrado.",
+    "Pedido de test drive não encontrado.",
     "Pedido de test drive eliminado com sucesso.",
     "Erro ao eliminar pedido de test drive",
     "Erro ao eliminar pedido de test drive.",
@@ -94,7 +94,7 @@ const ADMIN_DELETE_ROUTES = [
   [
     "/admin/users/:id",
     "users",
-    "Utilizador nao encontrado.",
+    "Utilizador não encontrado.",
     "Utilizador eliminado com sucesso.",
     "Erro ao eliminar utilizador",
     "Erro ao eliminar utilizador.",
@@ -102,7 +102,7 @@ const ADMIN_DELETE_ROUTES = [
   [
     "/admin/vehicles/:id",
     "vehicles",
-    "Viatura nao encontrada.",
+    "Viatura não encontrada.",
     "Viatura eliminada com sucesso.",
     "Erro ao eliminar viatura",
     "Erro ao eliminar viatura.",
@@ -173,7 +173,7 @@ router.patch("/admin/trade-ins/:id", authenticateAdmin, async (req, res) => {
     const isViewed = req.body.isViewed;
 
     if (typeof isViewed !== "boolean") {
-      return res.status(400).json({ message: "Estado de leitura invalido." });
+      return res.status(400).json({ message: "Estado de leitura inválido." });
     }
 
     const existingTradeIn = await fetchFirstRow(
@@ -184,7 +184,7 @@ router.patch("/admin/trade-ins/:id", authenticateAdmin, async (req, res) => {
     if (!existingTradeIn) {
       return res
         .status(404)
-        .json({ message: "Pedido de retoma nao encontrado." });
+        .json({ message: "Pedido de retoma não encontrado." });
     }
 
     await pool.query(
@@ -216,7 +216,7 @@ router.get("/admin/vehicles/:id", authenticateAdmin, async (req, res) => {
     const vehicle = await fetchFirstRow("SELECT * FROM vehicles WHERE id = ?", [id]);
 
     if (!vehicle) {
-      return res.status(404).json({ message: "Viatura nao encontrada." });
+      return res.status(404).json({ message: "Viatura não encontrada." });
     }
 
     return res.json(vehicle);
@@ -278,7 +278,7 @@ router.put("/admin/vehicles/:id", authenticateAdmin, async (req, res) => {
     );
 
     if (!existingVehicle) {
-      return res.status(404).json({ message: "Viatura nao encontrada." });
+      return res.status(404).json({ message: "Viatura não encontrada." });
     }
 
     await pool.query(

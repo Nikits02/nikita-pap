@@ -63,7 +63,7 @@ function Sobre() {
 
           <p>
             Este projeto representa, assim, uma etapa importante no meu percurso
-            academico, demonstrando nao apenas as competencias tecnicas que
+            académico, demonstrando não apenas as competências técnicas que
             desenvolvi, mas tambem a minha capacidade de planear, executar e
             melhorar um produto digital de forma progressiva.
           </p>

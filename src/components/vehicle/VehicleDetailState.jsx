@@ -11,7 +11,7 @@ function VehicleDetailState({ title, description, error }) {
         {error ? <p>{error}</p> : null}
         {title !== "A carregar viatura..." ? (
           <Link className="vehicle-detail__cta" to="/catalogo">
-            Voltar ao Catalogo
+            Voltar ao Catálogo
           </Link>
         ) : null}
       </section>

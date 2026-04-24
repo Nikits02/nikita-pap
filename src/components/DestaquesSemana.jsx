@@ -35,11 +35,11 @@ function DestaquesSemana({ vehicles = [], isLoading = false, error = "" }) {
     <h3>A carregar destaques...</h3>
   ) : error ? (
     <>
-      <h3>Nao foi possivel carregar os destaques.</h3>
+      <h3>Não foi possível carregar os destaques.</h3>
       <p>{error}</p>
     </>
   ) : slides.length === 0 ? (
-    <h3>Sem destaques disponiveis de momento.</h3>
+    <h3>Sem destaques disponíveis de momento.</h3>
   ) : null;
 
   return (
@@ -137,7 +137,7 @@ function DestaquesSemana({ vehicles = [], isLoading = false, error = "" }) {
 
           <div
             className="weekly-highlights__dots"
-            aria-label="Paginas dos destaques"
+            aria-label="Páginas dos destaques"
           >
             {slides.map((_, index) => (
               <button

@@ -12,7 +12,7 @@ function Conta() {
     navigate("/login", {
       replace: true,
       state: {
-        notice: "Sessao terminada com sucesso.",
+        notice: "Sessão terminada com sucesso.",
       },
     });
   }
@@ -26,12 +26,12 @@ function Conta() {
       <PageHero
         className="auth-hero"
         title="Minha Conta"
-        description="Sessao iniciada com sucesso. Aqui podes ver os teus dados e, se fores admin, entrar no painel privado quando quiseres."
+        description="Sessão iniciada com sucesso. Aqui podes ver os teus dados e, se fores admin, entrar no painel privado quando quiseres."
       />
 
       <section className="auth-page__content account-page__content">
         <div className="account-details">
-          <h2>Dados da Sessao</h2>
+          <h2>Dados da Sessão</h2>
 
           <div className="account-details__grid">
             <article className="account-details__item">
@@ -73,7 +73,7 @@ function Conta() {
               type="button"
               onClick={handleLogout}
             >
-              Terminar Sessao
+              Terminar Sessão
             </button>
           </div>
         </div>

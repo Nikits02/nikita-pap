@@ -40,7 +40,7 @@ function AdminFinanceRequests() {
 
         setError(
           loadError.message ??
-            "Nao foi possivel carregar os pedidos de financiamento.",
+            "Não foi possível carregar os pedidos de financiamento.",
         );
       } finally {
         if (isMounted) {
@@ -83,7 +83,7 @@ function AdminFinanceRequests() {
 
       setError(
         deleteError.message ??
-          "Nao foi possivel eliminar o pedido de financiamento.",
+          "Não foi possível eliminar o pedido de financiamento.",
       );
     } finally {
       setDeletingFinanceRequestId(null);
@@ -125,7 +125,7 @@ function AdminFinanceRequests() {
       ) : financeRequests.length === 0 ? (
         <div className="admin-page__empty-state">
           <p className="admin-page__text">
-            Ainda nao existem pedidos de financiamento registados.
+            Ainda não existem pedidos de financiamento registados.
           </p>
         </div>
       ) : (
@@ -161,12 +161,12 @@ function AdminFinanceRequests() {
                   ["Email", financeRequest.email ?? "-"],
                   ["Telefone", financeRequest.telefone ?? "-"],
                   ["Viatura", financeRequest.viatura || "-"],
-                  ["Preco", `${formatEuro(financeRequest.preco)} EUR`],
+                  ["Preço", `${formatEuro(financeRequest.preco)} EUR`],
                   ["Entrada", `${formatEuro(financeRequest.entrada)} EUR`],
                   ["Prazo", `${financeRequest.meses ?? "-"} meses`],
                   ["TAN", `${financeRequest.taxa ?? "-"}%`],
                   [
-                    "Prestacao",
+                    "Prestação",
                     `${formatEuro(financeRequest.prestacao_mensal)} EUR`,
                   ],
                   [

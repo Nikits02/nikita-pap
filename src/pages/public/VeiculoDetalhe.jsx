@@ -56,8 +56,8 @@ function VehicleDetailPage() {
   if (!vehicle) {
     return (
       <VehicleDetailState
-        title="Viatura nao encontrada"
-        description="A viatura que procurou pode ja nao estar disponivel ou o link nao estar correto."
+        title="Viatura não encontrada"
+        description="A viatura que procurou pode já não estar disponível ou o link não estar correto."
       />
     );
   }
@@ -83,7 +83,7 @@ function VehicleDetailPage() {
       <nav className="vehicle-detail__breadcrumbs" aria-label="Breadcrumb">
         <Link to="/">Inicio</Link>
         <span>/</span>
-        <Link to="/catalogo">Catalogo</Link>
+        <Link to="/catalogo">Catálogo</Link>
         <span>/</span>
         <span>{vehicle.title}</span>
       </nav>
@@ -142,7 +142,7 @@ function VehicleDetailPage() {
       {relatedVehicles.length > 0 ? (
         <section className="vehicle-detail__related">
           <div className="vehicle-detail__related-heading">
-            <p className="vehicle-detail__section-kicker">Mais opcoes</p>
+            <p className="vehicle-detail__section-kicker">Mais opções</p>
             <h2>Outras viaturas que podem interessar</h2>
           </div>
 

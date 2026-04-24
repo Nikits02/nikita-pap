@@ -18,7 +18,7 @@ export const testemunhos = [
     iniciais: "S",
     cor: "#145da0",
     texto:
-      "Fantastico. Equipa muito profissional, prestavel e sempre disponivel para ajudar. O processo foi rapido e senti confianca do inicio ao fim.",
+      "Fantastico. Equipa muito profissional, prestavel e sempre disponível para ajudar. O processo foi rapido e senti confianca do inicio ao fim.",
   },
   {
     nome: "Abel Gouveia",
@@ -26,7 +26,7 @@ export const testemunhos = [
     iniciais: "A",
     cor: "#1f8dd6",
     texto:
-      "Excelente experiencia. Deram-me varias opcoes, explicaram tudo com clareza e encontrei exatamente a viatura que procurava.",
+      "Excelente experiencia. Deram-me varias opções, explicaram tudo com clareza e encontrei exatamente a viatura que procurava.",
   },
   {
     nome: "Bruno Fernandes",

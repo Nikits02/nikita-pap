@@ -50,7 +50,7 @@ function AdminTradeIns() {
         }
 
         setError(
-          loadError.message ?? "Nao foi possivel carregar os pedidos de retoma.",
+          loadError.message ?? "Não foi possível carregar os pedidos de retoma.",
         );
       } finally {
         if (isMounted) {
@@ -86,7 +86,7 @@ function AdminTradeIns() {
       }
 
       setError(
-        updateError.message ?? "Nao foi possivel atualizar o pedido de retoma.",
+        updateError.message ?? "Não foi possível atualizar o pedido de retoma.",
       );
     } finally {
       setUpdatingTradeInId(null);
@@ -116,7 +116,7 @@ function AdminTradeIns() {
       }
 
       setError(
-        deleteError.message ?? "Nao foi possivel eliminar o pedido de retoma.",
+        deleteError.message ?? "Não foi possível eliminar o pedido de retoma.",
       );
     } finally {
       setDeletingTradeInId(null);
@@ -171,7 +171,7 @@ function AdminTradeIns() {
       ) : tradeIns.length === 0 ? (
         <div className="admin-page__empty-state">
           <p className="admin-page__text">
-            Ainda nao existem pedidos de retoma registados.
+            Ainda não existem pedidos de retoma registados.
           </p>
         </div>
       ) : (
@@ -242,7 +242,7 @@ function AdminTradeIns() {
                       <dd>{tradeIn.ano ?? "-"}</dd>
                     </div>
                     <div>
-                      <dt>Quilometros</dt>
+                      <dt>Quilómetros</dt>
                       <dd>{tradeIn.quilometragem ?? "-"}</dd>
                     </div>
                     <div>
@@ -264,7 +264,7 @@ function AdminTradeIns() {
                   </dl>
 
                   <div className="admin-lead-card__notes">
-                    <h3>Observacoes</h3>
+                    <h3>Observações</h3>
                     <p>
                       {tradeIn.observacoes?.trim()
                         ? tradeIn.observacoes

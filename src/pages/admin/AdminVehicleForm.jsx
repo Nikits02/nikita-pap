@@ -92,11 +92,11 @@ function getVehicleImageSelectionError(file) {
   }
 
   if (!SUPPORTED_VEHICLE_IMAGE_TYPES.has(file.type)) {
-    return "Formato invalido. Usa JPG, PNG ou WEBP.";
+    return "Formato inválido. Usa JPG, PNG ou WEBP.";
   }
 
   if (file.size > VEHICLE_IMAGE_MAX_BYTES) {
-    return "A imagem nao pode ter mais de 5 MB.";
+    return "A imagem não pode ter mais de 5 MB.";
   }
 
   return "";
@@ -200,11 +200,11 @@ function AdminVehicleImageField({
 
       {previewUrl ? (
         <div className="admin-form__preview">
-          <p className="admin-form__preview-label">Pre-visualizacao</p>
+          <p className="admin-form__preview-label">Pré-visualização</p>
           <img
             className="admin-form__preview-image"
             src={previewUrl}
-            alt="Pre-visualizacao da viatura"
+            alt="Pré-visualização da viatura"
           />
         </div>
       ) : null}
@@ -274,7 +274,7 @@ function AdminVehicleForm() {
       setSelectedImageLabel(`Imagem carregada: ${file.name}`);
     } catch (uploadError) {
       setImageUploadError(
-        uploadError.message ?? "Nao foi possivel carregar a imagem.",
+        uploadError.message ?? "Não foi possível carregar a imagem.",
       );
     } finally {
       setIsUploadingImage(false);
@@ -308,7 +308,7 @@ function AdminVehicleForm() {
           return;
         }
 
-        setError(loadError.message ?? "Nao foi possivel carregar a viatura.");
+        setError(loadError.message ?? "Não foi possível carregar a viatura.");
       } finally {
         if (isMounted) {
           setIsLoading(false);
@@ -350,7 +350,7 @@ function AdminVehicleForm() {
         return;
       }
 
-      setError(submitError.message ?? "Nao foi possivel guardar a viatura.");
+      setError(submitError.message ?? "Não foi possível guardar a viatura.");
     } finally {
       setIsSubmitting(false);
     }
@@ -376,7 +376,7 @@ function AdminVehicleForm() {
       ) : (
         <form className="admin-form" onSubmit={handleSubmit}>
           <p className="admin-page__text admin-page__text--muted">
-            Preenche os campos com os dados da viatura. Os obrigatorios estao
+            Preenche os campos com os dados da viatura. Os obrigatórios estao
             assinalados com * e os exemplos dentro dos campos mostram o formato
             esperado.
           </p>
@@ -412,7 +412,7 @@ function AdminVehicleForm() {
           </label>
 
           <p className="admin-form__hint">
-            Ativa esta opcao se quiseres mostrar a badge "Novo" na viatura.
+            Ativa está opção se quiseres mostrar a badge "Novo" na viatura.
           </p>
 
           <FormError className="admin-form__error" message={error} />

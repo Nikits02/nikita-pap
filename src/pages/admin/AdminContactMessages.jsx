@@ -39,7 +39,7 @@ function AdminContactMessages() {
 
         setError(
           loadError.message ??
-            "Nao foi possivel carregar as mensagens de contacto.",
+            "Não foi possível carregar as mensagens de contacto.",
         );
       } finally {
         if (isMounted) {
@@ -79,7 +79,7 @@ function AdminContactMessages() {
 
       setError(
         deleteError.message ??
-          "Nao foi possivel eliminar a mensagem de contacto.",
+          "Não foi possível eliminar a mensagem de contacto.",
       );
     } finally {
       setDeletingMessageId(null);
@@ -122,7 +122,7 @@ function AdminContactMessages() {
       ) : messages.length === 0 ? (
         <div className="admin-page__empty-state">
           <p className="admin-page__text">
-            Ainda nao existem mensagens de contacto registadas.
+            Ainda não existem mensagens de contacto registadas.
           </p>
         </div>
       ) : (

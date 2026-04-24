@@ -3,7 +3,7 @@ export function readFileAsDataUrl(file) {
     const reader = new FileReader();
 
     reader.onload = () => resolve(String(reader.result ?? ""));
-    reader.onerror = () => reject(new Error("Nao foi possivel ler a imagem."));
+    reader.onerror = () => reject(new Error("Não foi possível ler a imagem."));
     reader.readAsDataURL(file);
   });
 }

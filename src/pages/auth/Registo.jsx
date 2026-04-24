@@ -42,7 +42,7 @@ function Registo() {
     event.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      setError("As passwords nao coincidem.");
+      setError("As passwords não coincidem.");
       return;
     }
 
@@ -59,7 +59,7 @@ function Registo() {
       await refreshSession();
       navigate(getPostAuthRoute(data.user), { replace: true });
     } catch (submitError) {
-      setError(submitError.message ?? "Nao foi possivel criar a conta.");
+      setError(submitError.message ?? "Não foi possível criar a conta.");
     } finally {
       setIsSubmitting(false);
     }
@@ -70,7 +70,7 @@ function Registo() {
       <PageHero
         className="auth-hero"
         title="Registo"
-        description="Crie uma conta para aceder a uma area privada. Se a conta for admin, o painel continua disponivel a partir da area de conta."
+        description="Crie uma conta para aceder a uma area privada. Se a conta for admin, o painel continua disponível a partir da area de conta."
       />
 
       <section className="auth-page__content">
@@ -135,9 +135,9 @@ function Registo() {
           </div>
 
           <p className="auth-form__helper">
-            Ja tem conta?{" "}
+            Já tem conta?{" "}
             <Link to="/login" state={location.state}>
-              Iniciar sessao
+              Iniciar sessão
             </Link>
           </p>
         </form>

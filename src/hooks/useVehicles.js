@@ -26,7 +26,7 @@ function useVehicles() {
           return;
         }
 
-        setError(loadError.message ?? "Nao foi possivel carregar as viaturas.");
+        setError(loadError.message ?? "Não foi possível carregar as viaturas.");
       } finally {
         if (!isCancelled) {
           setIsLoading(false);

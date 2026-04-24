@@ -38,7 +38,7 @@ export function getBearerTokenFromRequest(req) {
   const [type, token] = authHeader.split(" ");
 
   if (type !== "Bearer" || !token) {
-    return { error: "Token invalido." };
+    return { error: "Token inválido." };
   }
 
   return { token };
@@ -58,6 +58,6 @@ export function authenticateRequest(req, res, next) {
     req.auth = decoded;
     return next();
   } catch {
-    return res.status(401).json({ message: "Nao autorizado." });
+    return res.status(401).json({ message: "Não autorizado." });
   }
 }

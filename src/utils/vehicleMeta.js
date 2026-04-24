@@ -25,7 +25,7 @@ function buildSummary(vehicle, typeLabel) {
     ? ` e motorizacao ${vehicle.combustivel.toLowerCase()}`
     : "";
 
-  return `${vehicle.marca} ${vehicle.modelo}${yearText}, ${typeLabel.toLowerCase()} ${versionText}${mileageText}${fuelText}. Uma opcao equilibrada para quem procura conforto, presenca e acompanhamento profissional na compra.`
+  return `${vehicle.marca} ${vehicle.modelo}${yearText}, ${typeLabel.toLowerCase()} ${versionText}${mileageText}${fuelText}. Uma opção equilibrada para quem procura conforto, presenca e acompanhamento profissional na compra.`
     .replace(/\s+/g, " ")
     .replace(" ,", ",")
     .trim();
@@ -40,7 +40,7 @@ function buildHighlights(vehicle, typeLabel) {
     vehicle.potencia ? `Potencia de ${vehicle.potencia}` : null,
     `${typeLabel} pronta para entrega`,
     "Possibilidade de financiamento",
-    "Retoma sob avaliacao",
+    "Retoma sob avaliação",
   ]
     .filter(Boolean)
     .slice(0, 6);
@@ -79,7 +79,7 @@ export function withVehicleMeta(vehicle) {
   const sourceLabel =
     normalizedVehicle.source === "highlight"
       ? "Destaque da Semana"
-      : "Catalogo";
+      : "Catálogo";
   const typeLabel =
     normalizedVehicle.tipo ??
     (normalizedVehicle.source === "highlight"

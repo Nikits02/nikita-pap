@@ -1,7 +1,11 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import { ensureAuthTables, ensureLeadTables } from "./lib/bootstrap.js";
+import {
+  ensureAuthTables,
+  ensureCatalogTables,
+  ensureLeadTables,
+} from "./lib/bootstrap.js";
 import { getRequiredEnv } from "./lib/env.js";
 import {
   ensureVehicleUploadDirectory,
@@ -52,7 +56,7 @@ function buildCorsOptions() {
         return;
       }
 
-      callback(new Error("Origem nao permitida pelo CORS."));
+      callback(new Error("Origem não permitida pelo CORS."));
     },
   };
 }
@@ -70,6 +74,7 @@ app.use("/api", adminRoutes);
 
 Promise.all([
   ensureAuthTables(),
+  ensureCatalogTables(),
   ensureLeadTables(),
   ensureVehicleUploadDirectory(),
 ])
@@ -79,6 +84,6 @@ Promise.all([
     });
   })
   .catch((error) => {
-    console.error("Erro ao preparar a autenticacao:", error.message);
+    console.error("Erro ao preparar a autenticação:", error.message);
     process.exit(1);
   });

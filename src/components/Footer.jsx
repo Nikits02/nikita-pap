@@ -96,30 +96,13 @@ function Footer() {
           </nav>
 
           <section className="site-footer__column">
-            <h3 className="site-footer__column-title">Viaturas em Catalogo</h3>
+            <h3 className="site-footer__column-title">Viaturas em Catálogo</h3>
             <div className="site-footer__list">
-              {!isAuthenticated ? (
-                <>
-                  <span className="site-footer__list-text">
-                    Inicie sessao para ver o catalogo.
-                  </span>
-                  <Link
-                    className="site-footer__list-link"
-                    to="/login"
-                    state={{
-                      notice:
-                        "Precisa de iniciar sessao para ver o catalogo, o financiamento e a retoma.",
-                      redirectTo: "/catalogo",
-                    }}
-                  >
-                    Fazer login
-                  </Link>
-                </>
-              ) : isLoading ? (
+              {isLoading ? (
                 <span className="site-footer__list-text">A carregar...</span>
               ) : error || footerVehicles.length === 0 ? (
                 <Link className="site-footer__list-link" to="/catalogo">
-                  Ver catalogo
+                  Ver catálogo
                 </Link>
               ) : (
                 footerVehicles.map((vehicle) => (

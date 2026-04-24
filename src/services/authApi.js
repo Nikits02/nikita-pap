@@ -46,7 +46,7 @@ export async function requestLogout() {
   try {
     await requestJson("/api/auth/logout", {
       method: "POST",
-      errorMessage: "Nao foi possivel terminar a sessao.",
+      errorMessage: "Não foi possível terminar a sessão.",
     });
   } catch {
     // O cleanup local continua a ser feito mesmo se o pedido falhar.
@@ -56,7 +56,7 @@ export async function requestLogout() {
 export async function validateAuthSession() {
   try {
     const data = await requestJson("/api/auth/session", {
-      errorMessage: "Nao foi possivel validar a sessao.",
+      errorMessage: "Não foi possível validar a sessão.",
     });
 
     if (!data?.user) {
@@ -84,7 +84,7 @@ export async function login(payload) {
   const data = await requestJson("/api/auth/login", {
     method: "POST",
     body: payload,
-    errorMessage: "Nao foi possivel iniciar sessao.",
+    errorMessage: "Não foi possível iniciar sessão.",
   });
 
   saveAuthSession({ user: data.user });
@@ -95,7 +95,7 @@ export async function register(payload) {
   const data = await requestJson("/api/auth/register", {
     method: "POST",
     body: payload,
-    errorMessage: "Nao foi possivel criar a conta.",
+    errorMessage: "Não foi possível criar a conta.",
   });
 
   saveAuthSession({ user: data.user });

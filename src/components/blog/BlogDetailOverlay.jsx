@@ -45,8 +45,8 @@ function BlogDetailOverlay({ post }) {
           </>
         ) : (
           <div className="blog-detail-empty">
-            <h2>Artigo nao encontrado</h2>
-            <p>Este artigo nao esta disponivel de momento.</p>
+            <h2>Artigo não encontrado</h2>
+            <p>Este artigo não está disponível de momento.</p>
             <Link className="blog-detail-back" to="/blog">
               Voltar ao Blog
             </Link>

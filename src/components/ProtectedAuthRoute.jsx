@@ -9,8 +9,8 @@ function ProtectedAuthRoute({ children }) {
   if (!isAuthReady) {
     return (
       <SessionStatus
-        title="A validar sessao..."
-        message="Estamos a confirmar o seu acesso aos conteudos privados."
+        title="A validar sessão..."
+        message="Estamos a confirmar o seu acesso aos conteúdos privados."
       />
     );
   }
@@ -22,7 +22,7 @@ function ProtectedAuthRoute({ children }) {
         replace
         state={{
           notice:
-            "Precisa de iniciar sessao para ver o catalogo, o financiamento e a retoma.",
+            "Precisa de iniciar sessão para ver o financiamento, a retoma e o test drive.",
           redirectTo: `${location.pathname}${location.search}${location.hash}`,
         }}
       />

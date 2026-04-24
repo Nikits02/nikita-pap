@@ -135,7 +135,7 @@ function Testemunhos() {
         </div>
 
         {maxIndex > 0 && (
-          <div className="testimonials-section__dots" aria-label="Paginas de testemunhos">
+          <div className="testimonials-section__dots" aria-label="Páginas de testemunhos">
             {Array.from({ length: maxIndex + 1 }, (_, index) => (
               <button
                 type="button"

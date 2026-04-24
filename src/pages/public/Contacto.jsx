@@ -118,8 +118,8 @@ function Contacto() {
       setSubmitError(
         error.message ??
           (isTestDriveFlow
-            ? "Nao foi possivel enviar o pedido de teste drive."
-            : "Nao foi possivel enviar a mensagem."),
+            ? "Não foi possível enviar o pedido de teste drive."
+            : "Não foi possível enviar a mensagem."),
       );
     } finally {
       setIsSubmitting(false);

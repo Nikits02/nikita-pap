@@ -48,7 +48,7 @@ function parseImageDataUrl(dataUrl) {
   const match = typeof dataUrl === "string" ? dataUrl.match(DATA_URL_PATTERN) : null;
 
   if (!match?.groups?.mimeType || !match.groups.content) {
-    throw buildValidationError("A imagem enviada nao tem um formato valido.");
+    throw buildValidationError("A imagem enviada não tem um formato valido.");
   }
 
   return {
@@ -113,17 +113,17 @@ export async function saveVehicleImageUpload(payload = {}) {
   const extension = ALLOWED_VEHICLE_IMAGE_TYPES.get(parsedDataUrl.mimeType);
 
   if (!extension) {
-    throw buildValidationError("Formato invalido. Usa JPG, PNG ou WEBP.");
+    throw buildValidationError("Formato inválido. Usa JPG, PNG ou WEBP.");
   }
 
   const buffer = Buffer.from(parsedDataUrl.content, "base64");
 
   if (!buffer.length) {
-    throw buildValidationError("A imagem enviada esta vazia.");
+    throw buildValidationError("A imagem enviada está vazia.");
   }
 
   if (buffer.length > VEHICLE_IMAGE_UPLOAD_MAX_BYTES) {
-    throw buildValidationError("A imagem nao pode ter mais de 5 MB.");
+    throw buildValidationError("A imagem não pode ter mais de 5 MB.");
   }
 
   const storedFileName = getUploadFileName(fileName, extension);

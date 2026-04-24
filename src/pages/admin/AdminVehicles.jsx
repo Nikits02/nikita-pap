@@ -11,8 +11,8 @@ import { formatEuro } from "../../utils/format";
 import { formatAdminDate, handleAdminSessionError } from "../../utils/admin";
 
 const SOURCE_LABELS = {
-  stock: "Catalogo",
-  catalog: "Catalogo",
+  stock: "Catálogo",
+  catalog: "Catálogo",
   highlight: "Destaques da Semana",
 };
 
@@ -47,7 +47,7 @@ function AdminVehicles() {
           return;
         }
 
-        setError(loadError.message ?? "Nao foi possivel carregar as viaturas.");
+        setError(loadError.message ?? "Não foi possível carregar as viaturas.");
       } finally {
         if (isMounted) {
           setIsLoading(false);
@@ -83,7 +83,7 @@ function AdminVehicles() {
         return;
       }
 
-      setError(deleteError.message ?? "Nao foi possivel eliminar a viatura.");
+      setError(deleteError.message ?? "Não foi possível eliminar a viatura.");
     } finally {
       setDeletingVehicleId(null);
     }
@@ -112,7 +112,7 @@ function AdminVehicles() {
       ) : vehicles.length === 0 ? (
         <div className="admin-page__empty-state">
           <p className="admin-page__text">
-            Ainda nao existem viaturas registadas no painel.
+            Ainda não existem viaturas registadas no painel.
           </p>
 
           <Link className="admin-button" to={ADMIN_NEW_VEHICLE_PATH}>
@@ -158,7 +158,7 @@ function AdminVehicles() {
 
                     <dl className="admin-vehicle-card__meta">
                       <div>
-                        <dt>Preco</dt>
+                        <dt>Preço</dt>
                         <dd>{formatEuro(vehicle.preco)} EUR</dd>
                       </div>
                       <div>

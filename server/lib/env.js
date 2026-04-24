@@ -12,7 +12,7 @@ export function getRequiredNumberEnv(name) {
   const value = Number(getRequiredEnv(name));
 
   if (!Number.isFinite(value)) {
-    throw new Error(`Variavel de ambiente invalida: ${name}`);
+    throw new Error(`Variavel de ambiente inválida: ${name}`);
   }
 
   return value;

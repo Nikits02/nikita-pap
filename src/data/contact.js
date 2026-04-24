@@ -1,5 +1,5 @@
 export const contactSubjectOptions = [
-  { value: "Pedido de Informacao", label: "Pedido de Informacao" },
+  { value: "Pedido de Informação", label: "Pedido de Informação" },
   { value: "Pedido de Test Drive", label: "Pedido de Test Drive" },
   { value: "Financiamento", label: "Financiamento" },
   { value: "Retoma", label: "Retoma" },

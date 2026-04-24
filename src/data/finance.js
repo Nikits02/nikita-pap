@@ -26,7 +26,7 @@ export const financeRequestFields = [
   {
     name: "viatura",
     type: "text",
-    placeholder: "Veiculo de interesse",
+    placeholder: "Veículo de interesse",
     required: false,
   },
 ];

@@ -1,7 +1,7 @@
 export function buildHistoryStats(vehicleCount) {
   return [
     { value: "2026", label: "Ano de Criacao" },
-    { value: vehicleCount, label: "Viaturas em Catalogo" },
+    { value: vehicleCount, label: "Viaturas em Catálogo" },
     { value: "4", label: "Areas Principais" },
     { value: "1", label: "Projeto PAP Completo" },
   ];
@@ -15,17 +15,17 @@ export const coreValues = [
   },
   {
     title: "Confianca",
-    text: "A estrutura do website foi desenvolvida para comunicar informacao de forma clara, organizada e fiavel.",
+    text: "A estrutura do website foi desenvolvida para comunicar informação de forma clara, organizada e fiável.",
     icon: "people",
   },
   {
     title: "Paixao",
-    text: "O interesse pelo universo automovel esteve presente em todas as decisoes criativas e funcionais.",
+    text: "O interesse pelo universo automóvel esteve presente em todas as decisões criativas e funcionais.",
     icon: "spark",
   },
   {
     title: "Inovacao",
-    text: "Foram aplicadas ferramentas e abordagens atuais para construir uma experiencia moderna e evolutiva.",
+    text: "Foram aplicadas ferramentas e abordagens atuais para construir uma experiência moderna e evolutiva.",
     icon: "target",
   },
 ];

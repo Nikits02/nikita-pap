@@ -1,36 +1,44 @@
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import AdminContactMessages from "./pages/admin/AdminContactMessages";
-import AdminFinanceRequests from "./pages/admin/AdminFinanceRequests";
-import AdminLogin from "./pages/admin/AdminLogin";
-import AdminTestDrives from "./pages/admin/AdminTestDrives";
-import AdminTradeIns from "./pages/admin/AdminTradeIns";
-import AdminUsers from "./pages/admin/AdminUsers";
-import AdminVehicleForm from "./pages/admin/AdminVehicleForm";
-import AdminVehicles from "./pages/admin/AdminVehicles";
-import Conta from "./pages/auth/Conta";
-import Login from "./pages/auth/Login";
-import Registo from "./pages/auth/Registo";
-import Blog from "./pages/public/Blog";
-import Catalogo from "./pages/public/Catalogo";
-import Contacto from "./pages/public/Contacto";
-import Financiamento from "./pages/public/Financiamento";
-import Home from "./pages/public/Home";
-import NotFound from "./pages/public/NotFound";
-import Retoma from "./pages/public/Retoma";
-import Sobre from "./pages/public/Sobre";
-import TestDrive from "./pages/public/TestDrive";
-import VeiculoDetalhe from "./pages/public/VeiculoDetalhe";
 import ProtectedAuthRoute from "./components/ProtectedAuthRoute";
 import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
 import AppRouteEffects from "./components/AppRouteEffects";
+import SessionStatus from "./components/SessionStatus";
 import { AuthProvider } from "./context/AuthContext";
+
+const AdminContactMessages = lazy(
+  () => import("./pages/admin/AdminContactMessages"),
+);
+const AdminFinanceRequests = lazy(
+  () => import("./pages/admin/AdminFinanceRequests"),
+);
+const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
+const AdminTestDrives = lazy(() => import("./pages/admin/AdminTestDrives"));
+const AdminTradeIns = lazy(() => import("./pages/admin/AdminTradeIns"));
+const AdminUsers = lazy(() => import("./pages/admin/AdminUsers"));
+const AdminVehicleForm = lazy(() => import("./pages/admin/AdminVehicleForm"));
+const AdminVehicles = lazy(() => import("./pages/admin/AdminVehicles"));
+const Blog = lazy(() => import("./pages/public/Blog"));
+const Catalogo = lazy(() => import("./pages/public/Catalogo"));
+const Contacto = lazy(() => import("./pages/public/Contacto"));
+const Conta = lazy(() => import("./pages/auth/Conta"));
+const Financiamento = lazy(() => import("./pages/public/Financiamento"));
+const Home = lazy(() => import("./pages/public/Home"));
+const Login = lazy(() => import("./pages/auth/Login"));
+const NotFound = lazy(() => import("./pages/public/NotFound"));
+const Registo = lazy(() => import("./pages/auth/Registo"));
+const Retoma = lazy(() => import("./pages/public/Retoma"));
+const Sobre = lazy(() => import("./pages/public/Sobre"));
+const TestDrive = lazy(() => import("./pages/public/TestDrive"));
+const VeiculoDetalhe = lazy(() => import("./pages/public/VeiculoDetalhe"));
 
 const publicRoutes = [
   { path: "/", element: <Home /> },
+  { path: "/catalogo", element: <Catalogo /> },
+  { path: "/viaturas/:slug", element: <VeiculoDetalhe /> },
   { path: "/contacto", element: <Contacto /> },
   { path: "/blog", element: <Blog /> },
   { path: "/blog/:slug", element: <Blog /> },
-  { path: "/test-drive", element: <TestDrive /> },
   { path: "/sobre", element: <Sobre /> },
   { path: "/registo", element: <Registo /> },
   { path: "/login", element: <Login /> },
@@ -39,10 +47,9 @@ const publicRoutes = [
 ];
 
 const authRoutes = [
-  { path: "/catalogo", element: <Catalogo /> },
   { path: "/financiamento", element: <Financiamento /> },
   { path: "/retoma", element: <Retoma /> },
-  { path: "/viaturas/:slug", element: <VeiculoDetalhe /> },
+  { path: "/test-drive", element: <TestDrive /> },
   { path: "/conta", element: <Conta /> },
 ];
 
@@ -57,9 +64,31 @@ const adminRoutes = [
   { path: "/admin/viaturas/:id/editar", element: <AdminVehicleForm /> },
 ];
 
-function renderRoutes(routes, wrapElement = (element) => element) {
+function getRouteLoadingFallback(variant = "public") {
+  return (
+    <SessionStatus
+      variant={variant}
+      title="A carregar página..."
+      message="Estamos a preparar o conteúdo."
+    />
+  );
+}
+
+function renderRoutes(
+  routes,
+  wrapElement = (element) => element,
+  loadingVariant = "public",
+) {
   return routes.map(({ path, element }) => (
-    <Route key={path} path={path} element={wrapElement(element)} />
+    <Route
+      key={path}
+      path={path}
+      element={
+        <Suspense fallback={getRouteLoadingFallback(loadingVariant)}>
+          {wrapElement(element)}
+        </Suspense>
+      }
+    />
   ));
 }
 
@@ -77,6 +106,7 @@ function App() {
           {renderRoutes(
             adminRoutes,
             (element) => <ProtectedAdminRoute>{element}</ProtectedAdminRoute>,
+            "admin",
           )}
         </Routes>
       </AuthProvider>

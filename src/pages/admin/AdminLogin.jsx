@@ -24,21 +24,16 @@ function AdminLogin() {
       navigate(redirectTo, { replace: true });
     }
   }, [hasAdminSession, isAuthReady, navigate, redirectTo]);
-
   function updateField(field, value) {
     if (error) {
       setError("");
     }
-
     updateFormField(field, value);
   }
-
   async function handleSubmit(event) {
     event.preventDefault();
-
     try {
       setIsSubmitting(true);
-
       const data = await loginAdmin({
         username: formData.username,
         password: formData.password,
@@ -48,12 +43,11 @@ function AdminLogin() {
       await refreshSession();
       navigate(redirectTo, { replace: true });
     } catch (submitError) {
-      setError(submitError.message ?? "Nao foi possivel iniciar sessao.");
+      setError(submitError.message ?? "Não foi possível iniciar sessão.");
     } finally {
       setIsSubmitting(false);
     }
   }
-
   return (
     <AdminPageShell title="Login Admin" narrow>
       <form className="admin-form" onSubmit={handleSubmit}>
@@ -96,5 +90,4 @@ function AdminLogin() {
     </AdminPageShell>
   );
 }
-
 export default AdminLogin;

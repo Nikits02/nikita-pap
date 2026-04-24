@@ -1,14 +1,50 @@
 import express from "express";
 import { pool } from "../db.js";
+import { fetchFirstRow, fetchRows } from "../lib/dbQueries.js";
 import { sendServerError } from "../lib/http.js";
-import { fetchRows } from "../lib/dbQueries.js";
-import { isValidEmail } from "../lib/validation.js";
+import {
+  getFinanceSimulationError,
+  getVehicleLookupFromSlug,
+  isDateTodayOrFuture,
+  isValidEmail,
+  isValidPhone,
+  isValidTestDriveHour,
+} from "../lib/validation.js";
 import { VEHICLE_SELECT_ORDER_QUERY } from "../lib/vehiclePayload.js";
 
 const router = express.Router();
 
+const REQUIRED_FIELDS_MESSAGE = "Campos em falta.";
+
+function normalizeText(value) {
+  return typeof value === "string" ? value.trim() : "";
+}
+
+function normalizeEmail(value) {
+  return normalizeText(value).toLowerCase();
+}
+
+function hasMissingFields(fields) {
+  return fields.some((field) => !field);
+}
+
+function validateContactIdentity(
+  res,
+  { email, telefone, telefoneObrigatorio = true },
+) {
+  if (!isValidEmail(email)) {
+    return res.status(400).json({ message: "Email inválido." });
+  }
+
+  if ((telefoneObrigatorio || telefone) && !isValidPhone(telefone)) {
+    return res.status(400).json({ message: "Telefone inválido." });
+  }
+
+  return null;
+}
+
 router.get("/health", (_req, res) => {
-  res.json({ ok: true });
+  return res.json({ ok: true });
 });
 
 router.get("/vehicles", async (_req, res) => {
@@ -26,31 +62,54 @@ router.get("/vehicles", async (_req, res) => {
 
 router.post("/test-drives", async (req, res) => {
   try {
-    const {
-      vehicleSlug,
-      vehicleLabel,
-      dataPreferida,
-      horaPreferida,
-      nome,
-      telefone,
-      email,
-    } = req.body;
+    const vehicleSlug = normalizeText(req.body.vehicleSlug);
+    const vehicleLabel = normalizeText(req.body.vehicleLabel);
+    const dataPreferida = normalizeText(req.body.dataPreferida);
+    const horaPreferida = normalizeText(req.body.horaPreferida);
+    const nome = normalizeText(req.body.nome);
+    const telefone = normalizeText(req.body.telefone);
+    const email = normalizeEmail(req.body.email);
 
     if (
-      !vehicleSlug ||
-      !dataPreferida ||
-      !horaPreferida ||
-      !nome ||
-      !telefone ||
-      !email
+      hasMissingFields([
+        vehicleSlug,
+        dataPreferida,
+        horaPreferida,
+        nome,
+        telefone,
+        email,
+      ])
     ) {
-      return res.status(400).json({ message: "Campos em falta." });
+      return res.status(400).json({ message: REQUIRED_FIELDS_MESSAGE });
     }
 
-    const normalizedEmail = email.trim().toLowerCase();
+    const identityError = validateContactIdentity(res, { email, telefone });
 
-    if (!isValidEmail(normalizedEmail)) {
-      return res.status(400).json({ message: "Email invalido." });
+    if (identityError) {
+      return identityError;
+    }
+
+    if (!isDateTodayOrFuture(dataPreferida)) {
+      return res.status(400).json({ message: "Data inválida." });
+    }
+
+    if (!isValidTestDriveHour(horaPreferida)) {
+      return res.status(400).json({ message: "Hora inválida." });
+    }
+
+    const vehicleLookup = getVehicleLookupFromSlug(vehicleSlug);
+
+    if (!vehicleLookup) {
+      return res.status(400).json({ message: "Viatura inválida." });
+    }
+
+    const vehicle = await fetchFirstRow(
+      "SELECT id FROM vehicles WHERE id = ? AND source = ? LIMIT 1",
+      [vehicleLookup.id, vehicleLookup.source],
+    );
+
+    if (!vehicle) {
+      return res.status(404).json({ message: "Viatura não encontrada." });
     }
 
     await pool.query(
@@ -65,12 +124,12 @@ router.post("/test-drives", async (req, res) => {
       ) VALUES (?, ?, ?, ?, ?, ?, ?)`,
       [
         vehicleSlug,
-        vehicleLabel?.trim() || null,
+        vehicleLabel || null,
         dataPreferida,
         horaPreferida,
         nome,
         telefone,
-        normalizedEmail,
+        email,
       ],
     );
 
@@ -87,18 +146,24 @@ router.post("/test-drives", async (req, res) => {
 
 router.post("/contact", async (req, res) => {
   try {
-    const nome = req.body.nome?.trim();
-    const email = req.body.email?.trim().toLowerCase();
-    const telefone = req.body.telefone?.trim() ?? "";
-    const assunto = req.body.assunto?.trim();
-    const mensagem = req.body.mensagem?.trim();
+    const nome = normalizeText(req.body.nome);
+    const email = normalizeEmail(req.body.email);
+    const telefone = normalizeText(req.body.telefone);
+    const assunto = normalizeText(req.body.assunto);
+    const mensagem = normalizeText(req.body.mensagem);
 
-    if (!nome || !email || !assunto || !mensagem) {
-      return res.status(400).json({ message: "Campos em falta." });
+    if (hasMissingFields([nome, email, assunto, mensagem])) {
+      return res.status(400).json({ message: REQUIRED_FIELDS_MESSAGE });
     }
 
-    if (!isValidEmail(email)) {
-      return res.status(400).json({ message: "Email invalido." });
+    const identityError = validateContactIdentity(res, {
+      email,
+      telefone,
+      telefoneObrigatorio: false,
+    });
+
+    if (identityError) {
+      return identityError;
     }
 
     await pool.query(
@@ -120,40 +185,37 @@ router.post("/contact", async (req, res) => {
 
 router.post("/trade-ins", async (req, res) => {
   try {
-    const marca = req.body.marca?.trim();
-    const modelo = req.body.modelo?.trim();
-    const estadoGeral = req.body.estado?.trim();
-    const nome = req.body.nome?.trim();
-    const telefone = req.body.telefone?.trim();
-    const email = req.body.email?.trim().toLowerCase();
-    const observacoes = req.body.observacoes?.trim() ?? "";
+    const marca = normalizeText(req.body.marca);
+    const modelo = normalizeText(req.body.modelo);
+    const estadoGeral = normalizeText(req.body.estado);
+    const nome = normalizeText(req.body.nome);
+    const telefone = normalizeText(req.body.telefone);
+    const email = normalizeEmail(req.body.email);
+    const observacoes = normalizeText(req.body.observacoes);
     const ano = Number(req.body.ano);
     const quilometragem = Number(req.body.quilometragem);
     const currentYear = new Date().getFullYear();
 
     if (
-      !marca ||
-      !modelo ||
-      !estadoGeral ||
-      !nome ||
-      !telefone ||
-      !email ||
+      hasMissingFields([marca, modelo, estadoGeral, nome, telefone, email]) ||
       !Number.isInteger(ano) ||
       !Number.isInteger(quilometragem)
     ) {
-      return res.status(400).json({ message: "Campos em falta." });
+      return res.status(400).json({ message: REQUIRED_FIELDS_MESSAGE });
     }
 
-    if (!isValidEmail(email)) {
-      return res.status(400).json({ message: "Email invalido." });
+    const identityError = validateContactIdentity(res, { email, telefone });
+
+    if (identityError) {
+      return identityError;
     }
 
     if (ano < 1900 || ano > currentYear) {
-      return res.status(400).json({ message: "Ano invalido." });
+      return res.status(400).json({ message: "Ano inválido." });
     }
 
     if (quilometragem < 0) {
-      return res.status(400).json({ message: "Quilometragem invalida." });
+      return res.status(400).json({ message: "Quilometragem inválida." });
     }
 
     await pool.query(
@@ -194,10 +256,10 @@ router.post("/trade-ins", async (req, res) => {
 
 router.post("/finance-requests", async (req, res) => {
   try {
-    const nome = req.body.nome?.trim();
-    const email = req.body.email?.trim().toLowerCase();
-    const telefone = req.body.telefone?.trim();
-    const viatura = req.body.viatura?.trim() ?? "";
+    const nome = normalizeText(req.body.nome);
+    const email = normalizeEmail(req.body.email);
+    const telefone = normalizeText(req.body.telefone);
+    const viatura = normalizeText(req.body.viatura);
     const preco = Number(req.body.preco);
     const entrada = Number(req.body.entrada);
     const meses = Number(req.body.meses);
@@ -206,24 +268,28 @@ router.post("/finance-requests", async (req, res) => {
     const montanteTotal = Number(req.body.montanteTotal);
     const taeg = Number(req.body.taeg);
 
-    if (!nome || !email || !telefone) {
-      return res.status(400).json({ message: "Campos em falta." });
+    if (hasMissingFields([nome, email, telefone])) {
+      return res.status(400).json({ message: REQUIRED_FIELDS_MESSAGE });
     }
 
-    if (!isValidEmail(email)) {
-      return res.status(400).json({ message: "Email invalido." });
+    const identityError = validateContactIdentity(res, { email, telefone });
+
+    if (identityError) {
+      return identityError;
     }
 
-    if (
-      !Number.isFinite(preco) ||
-      !Number.isFinite(entrada) ||
-      !Number.isInteger(meses) ||
-      !Number.isFinite(taxa) ||
-      !Number.isFinite(prestacaoMensal) ||
-      !Number.isFinite(montanteTotal) ||
-      !Number.isFinite(taeg)
-    ) {
-      return res.status(400).json({ message: "Dados de simulacao invalidos." });
+    const financeSimulationError = getFinanceSimulationError({
+      preco,
+      entrada,
+      meses,
+      taxa,
+      prestacaoMensal,
+      montanteTotal,
+      taeg,
+    });
+
+    if (financeSimulationError) {
+      return res.status(400).json({ message: financeSimulationError });
     }
 
     await pool.query(

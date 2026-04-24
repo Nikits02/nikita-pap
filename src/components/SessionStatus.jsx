@@ -4,7 +4,7 @@ import SitePage from "./SitePage";
 
 function SessionStatus({
   variant = "public",
-  title = "A validar sessao...",
+  title = "A validar sessão...",
   message = "Estamos a confirmar o seu acesso.",
 }) {
   if (variant === "admin") {
@@ -28,7 +28,7 @@ function SessionStatus({
 
       <section className="auth-page__content">
         <div className="auth-notice" role="status" aria-live="polite">
-          <span className="auth-notice__eyebrow">Sessao</span>
+          <span className="auth-notice__eyebrow">Sessão</span>
           <span className="auth-notice__loading-indicator" aria-hidden="true" />
           <p>{message}</p>
         </div>

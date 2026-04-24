@@ -1,11 +1,11 @@
 import { requestJson } from "./http";
 import { clearAuthSession } from "./authApi";
 
-const ADMIN_SESSION_EXPIRED_MESSAGE = "Sessao expirada.";
+const ADMIN_SESSION_EXPIRED_MESSAGE = "Sessão expirada.";
 const ADMIN_SESSION_ERROR_MESSAGES = new Set([
   "Token em falta.",
-  "Token invalido.",
-  "Nao autorizado.",
+  "Token inválido.",
+  "Não autorizado.",
   "Acesso reservado a administradores.",
 ]);
 
@@ -37,42 +37,42 @@ export function loginAdmin(payload) {
 export function fetchAdminVehicles() {
   return requestAdminJson(
     "/api/admin/vehicles",
-    "Nao foi possivel carregar as viaturas.",
+    "Não foi possível carregar as viaturas.",
   );
 }
 
 export function fetchAdminTradeIns() {
   return requestAdminJson(
     "/api/admin/trade-ins",
-    "Nao foi possivel carregar os pedidos de retoma.",
+    "Não foi possível carregar os pedidos de retoma.",
   );
 }
 
 export function fetchAdminTestDrives() {
   return requestAdminJson(
     "/api/admin/test-drives",
-    "Nao foi possivel carregar os pedidos de test drive.",
+    "Não foi possível carregar os pedidos de test drive.",
   );
 }
 
 export function fetchAdminContactMessages() {
   return requestAdminJson(
     "/api/admin/contact-messages",
-    "Nao foi possivel carregar as mensagens de contacto.",
+    "Não foi possível carregar as mensagens de contacto.",
   );
 }
 
 export function fetchAdminFinanceRequests() {
   return requestAdminJson(
     "/api/admin/finance-requests",
-    "Nao foi possivel carregar os pedidos de financiamento.",
+    "Não foi possível carregar os pedidos de financiamento.",
   );
 }
 
 export function updateAdminTradeInStatus(id, payload) {
   return requestAdminJson(
     `/api/admin/trade-ins/${id}`,
-    "Nao foi possivel atualizar o pedido de retoma.",
+    "Não foi possível atualizar o pedido de retoma.",
     "PATCH",
     payload,
   );
@@ -81,7 +81,7 @@ export function updateAdminTradeInStatus(id, payload) {
 export function deleteAdminTradeIn(id) {
   return requestAdminJson(
     `/api/admin/trade-ins/${id}`,
-    "Nao foi possivel eliminar o pedido de retoma.",
+    "Não foi possível eliminar o pedido de retoma.",
     "DELETE",
   );
 }
@@ -89,7 +89,7 @@ export function deleteAdminTradeIn(id) {
 export function deleteAdminTestDrive(id) {
   return requestAdminJson(
     `/api/admin/test-drives/${id}`,
-    "Nao foi possivel eliminar o pedido de test drive.",
+    "Não foi possível eliminar o pedido de test drive.",
     "DELETE",
   );
 }
@@ -97,7 +97,7 @@ export function deleteAdminTestDrive(id) {
 export function deleteAdminContactMessage(id) {
   return requestAdminJson(
     `/api/admin/contact-messages/${id}`,
-    "Nao foi possivel eliminar a mensagem de contacto.",
+    "Não foi possível eliminar a mensagem de contacto.",
     "DELETE",
   );
 }
@@ -105,7 +105,7 @@ export function deleteAdminContactMessage(id) {
 export function deleteAdminFinanceRequest(id) {
   return requestAdminJson(
     `/api/admin/finance-requests/${id}`,
-    "Nao foi possivel eliminar o pedido de financiamento.",
+    "Não foi possível eliminar o pedido de financiamento.",
     "DELETE",
   );
 }
@@ -113,14 +113,14 @@ export function deleteAdminFinanceRequest(id) {
 export function fetchAdminUsers() {
   return requestAdminJson(
     "/api/admin/users",
-    "Nao foi possivel carregar os utilizadores.",
+    "Não foi possível carregar os utilizadores.",
   );
 }
 
 export function deleteAdminUser(id) {
   return requestAdminJson(
     `/api/admin/users/${id}`,
-    "Nao foi possivel eliminar o utilizador.",
+    "Não foi possível eliminar o utilizador.",
     "DELETE",
   );
 }
@@ -128,14 +128,14 @@ export function deleteAdminUser(id) {
 export function fetchAdminVehicle(id) {
   return requestAdminJson(
     `/api/admin/vehicles/${id}`,
-    "Nao foi possivel carregar a viatura.",
+    "Não foi possível carregar a viatura.",
   );
 }
 
 export function createAdminVehicle(payload) {
   return requestAdminJson(
     "/api/admin/vehicles",
-    "Nao foi possivel criar a viatura.",
+    "Não foi possível criar a viatura.",
     "POST",
     payload,
   );
@@ -144,7 +144,7 @@ export function createAdminVehicle(payload) {
 export function uploadAdminVehicleImage(payload) {
   return requestAdminJson(
     "/api/admin/uploads/vehicle-image",
-    "Nao foi possivel carregar a imagem.",
+    "Não foi possível carregar a imagem.",
     "POST",
     payload,
   );
@@ -153,7 +153,7 @@ export function uploadAdminVehicleImage(payload) {
 export function updateAdminVehicle(id, payload) {
   return requestAdminJson(
     `/api/admin/vehicles/${id}`,
-    "Nao foi possivel atualizar a viatura.",
+    "Não foi possível atualizar a viatura.",
     "PUT",
     payload,
   );
@@ -162,7 +162,7 @@ export function updateAdminVehicle(id, payload) {
 export function deleteAdminVehicle(id) {
   return requestAdminJson(
     `/api/admin/vehicles/${id}`,
-    "Nao foi possivel eliminar a viatura.",
+    "Não foi possível eliminar a viatura.",
     "DELETE",
   );
 }

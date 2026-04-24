@@ -40,7 +40,7 @@ export function formatAdminDate(value) {
 }
 
 export function handleAdminSessionError(error, navigate) {
-  if (error.message !== "Sessao expirada.") {
+  if (error.message !== "Sessão expirada.") {
     return false;
   }
 
@@ -48,7 +48,7 @@ export function handleAdminSessionError(error, navigate) {
   navigate(ADMIN_LOGIN_PATH, {
     replace: true,
     state: {
-      notice: "Sessao expirada. Inicie sessao novamente para continuar.",
+      notice: "Sessão expirada. Inicie sessão novamente para continuar.",
     },
   });
   return true;

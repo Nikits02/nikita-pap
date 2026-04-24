@@ -51,7 +51,7 @@ function Login() {
         replace: true,
       });
     } catch (submitError) {
-      setError(submitError.message ?? "Nao foi possivel iniciar sessao.");
+      setError(submitError.message ?? "Não foi possível iniciar sessão.");
     } finally {
       setIsSubmitting(false);
     }
@@ -62,14 +62,14 @@ function Login() {
       <PageHero
         className="auth-hero"
         title="Login"
-        description="Entre com o seu username ou email. Se a conta for de administrador, o acesso fica na area de conta e o painel privado continua disponivel separadamente."
+        description="Entre com o seu username ou email. Se a conta for de administrador, o acesso fica na area de conta e o painel privado continua disponível separadamente."
       />
 
       <section className="auth-page__content">
         <form className="auth-form" onSubmit={handleSubmit}>
           {location.state?.notice ? (
             <div className="auth-notice" role="status" aria-live="polite">
-              <span className="auth-notice__eyebrow">Sessao</span>
+              <span className="auth-notice__eyebrow">Sessão</span>
               <p>{location.state.notice}</p>
             </div>
           ) : null}
@@ -105,7 +105,7 @@ function Login() {
           </div>
 
           <p className="auth-form__helper">
-            Ainda nao tem conta?{" "}
+            Ainda não tem conta?{" "}
             <Link to="/registo" state={location.state}>
               Criar conta
             </Link>

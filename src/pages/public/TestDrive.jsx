@@ -97,7 +97,7 @@ function TestDrive() {
       setSubmitted(true);
     } catch (submitError) {
       setFormError(
-        submitError.message ?? "Nao foi possivel guardar o agendamento.",
+        submitError.message ?? "Não foi possível guardar o agendamento.",
       );
     } finally {
       setIsSubmitting(false);
@@ -143,7 +143,7 @@ function TestDrive() {
                 <span className="test-drive-step__icon">
                   <CarSilhouetteIcon />
                 </span>
-                <h2>1. Escolha o Veiculo</h2>
+                <h2>1. Escolha o Veículo</h2>
               </div>
 
               <div className="test-drive-vehicle-grid">

@@ -10,8 +10,8 @@ function ProtectedAdminRoute({ children }) {
     return (
       <SessionStatus
         variant="admin"
-        title="A validar sessao..."
-        message="Estamos a confirmar o acesso ao painel de administracao."
+        title="A validar sessão..."
+        message="Estamos a confirmar o acesso ao painel de administração."
       />
     );
   }
@@ -25,7 +25,7 @@ function ProtectedAdminRoute({ children }) {
       to="/admin/login"
       replace
       state={{
-        notice: "Precisa de iniciar sessao como administrador para aceder ao painel.",
+        notice: "Precisa de iniciar sessão como administrador para aceder ao painel.",
         redirectTo: `${location.pathname}${location.search}${location.hash}`,
       }}
     />

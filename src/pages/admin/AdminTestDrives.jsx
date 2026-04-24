@@ -38,7 +38,7 @@ function AdminTestDrives() {
         }
 
         setError(
-          loadError.message ?? "Nao foi possivel carregar os pedidos de test drive.",
+          loadError.message ?? "Não foi possível carregar os pedidos de test drive.",
         );
       } finally {
         if (isMounted) {
@@ -80,7 +80,7 @@ function AdminTestDrives() {
       }
 
       setError(
-        deleteError.message ?? "Nao foi possivel eliminar o pedido de test drive.",
+        deleteError.message ?? "Não foi possível eliminar o pedido de test drive.",
       );
     } finally {
       setDeletingTestDriveId(null);
@@ -125,7 +125,7 @@ function AdminTestDrives() {
       ) : testDrives.length === 0 ? (
         <div className="admin-page__empty-state">
           <p className="admin-page__text">
-            Ainda nao existem pedidos de test drive registados.
+            Ainda não existem pedidos de test drive registados.
           </p>
         </div>
       ) : (

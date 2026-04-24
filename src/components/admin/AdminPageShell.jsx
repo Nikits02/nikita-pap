@@ -19,7 +19,7 @@ function AdminPageShell({
     navigate("/admin/login", {
       replace: true,
       state: {
-        notice: "Sessao de administrador terminada com sucesso.",
+        notice: "Sessão de administrador terminada com sucesso.",
       },
     });
   }
@@ -49,7 +49,7 @@ function AdminPageShell({
                   type="button"
                   onClick={handleLogout}
                 >
-                  Terminar Sessao
+                  Terminar Sessão
                 </button>
               ) : null}
             </div>

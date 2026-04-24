@@ -40,7 +40,7 @@ router.get("/auth/session", authenticateRequest, async (req, res) => {
       );
 
       if (!admin) {
-        return res.status(401).json({ message: "Nao autorizado." });
+        return res.status(401).json({ message: "Não autorizado." });
       }
 
       return res.json({
@@ -54,7 +54,7 @@ router.get("/auth/session", authenticateRequest, async (req, res) => {
     );
 
     if (!user) {
-      return res.status(401).json({ message: "Nao autorizado." });
+      return res.status(401).json({ message: "Não autorizado." });
     }
 
     return res.json({
@@ -63,8 +63,8 @@ router.get("/auth/session", authenticateRequest, async (req, res) => {
   } catch (error) {
     return sendServerError(
       res,
-      "Erro ao validar sessao",
-      "Erro ao validar sessao.",
+      "Erro ao validar sessão",
+      "Erro ao validar sessão.",
       error,
     );
   }
@@ -95,7 +95,7 @@ router.post("/auth/register", authRateLimit, async (req, res) => {
     }
 
     if (!isValidEmail(normalizedEmail)) {
-      return rejectAuthRequest(req, res, 400, "Email invalido.");
+      return rejectAuthRequest(req, res, 400, "Email inválido.");
     }
 
     const existingUser = await fetchFirstRow(
@@ -108,7 +108,7 @@ router.post("/auth/register", authRateLimit, async (req, res) => {
         req,
         res,
         409,
-        "Ja existe uma conta com esses dados.",
+        "Já existe uma conta com esses dados.",
       );
     }
 
@@ -122,7 +122,7 @@ router.post("/auth/register", authRateLimit, async (req, res) => {
         req,
         res,
         409,
-        "Esse username nao esta disponivel.",
+        "Esse username não está disponível.",
       );
     }
 
@@ -164,7 +164,7 @@ router.post("/auth/login", authRateLimit, async (req, res) => {
       const passwordMatch = await bcrypt.compare(password, admin.password_hash);
 
       if (!passwordMatch) {
-        return rejectAuthRequest(req, res, 401, "Credenciais invalidas.");
+        return rejectAuthRequest(req, res, 401, "Credenciais inválidas.");
       }
 
       return sendAuthSuccess(req, res, buildAdminSessionUser(admin));
@@ -176,13 +176,13 @@ router.post("/auth/login", authRateLimit, async (req, res) => {
     );
 
     if (!user) {
-      return rejectAuthRequest(req, res, 401, "Credenciais invalidas.");
+      return rejectAuthRequest(req, res, 401, "Credenciais inválidas.");
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password_hash);
 
     if (!passwordMatch) {
-      return rejectAuthRequest(req, res, 401, "Credenciais invalidas.");
+      return rejectAuthRequest(req, res, 401, "Credenciais inválidas.");
     }
 
     return sendAuthSuccess(req, res, buildRegularSessionUser(user));
@@ -205,13 +205,13 @@ router.post("/admin/login", authRateLimit, async (req, res) => {
     );
 
     if (!admin) {
-      return rejectAuthRequest(req, res, 401, "Credenciais invalidas.");
+      return rejectAuthRequest(req, res, 401, "Credenciais inválidas.");
     }
 
     const passwordMatch = await bcrypt.compare(password, admin.password_hash);
 
     if (!passwordMatch) {
-      return rejectAuthRequest(req, res, 401, "Credenciais invalidas.");
+      return rejectAuthRequest(req, res, 401, "Credenciais inválidas.");
     }
 
     return sendAuthSuccess(req, res, buildAdminSessionUser(admin));
