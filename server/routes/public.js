@@ -60,6 +60,36 @@ router.get("/vehicles", async (_req, res) => {
   }
 });
 
+router.get("/test-drives/availability", async (req, res) => {
+  try {
+    const date = normalizeText(req.query.date);
+
+    if (!isDateTodayOrFuture(date)) {
+      return res.status(400).json({ message: "Data invalida." });
+    }
+
+    const bookedSlots = await fetchRows(
+      `SELECT DISTINCT LEFT(hora_preferida, 5) AS hour
+       FROM test_drives
+       WHERE data_preferida = ?
+       ORDER BY hour ASC`,
+      [date],
+    );
+
+    return res.json({
+      date,
+      bookedHours: bookedSlots.map((slot) => slot.hour),
+    });
+  } catch (error) {
+    return sendServerError(
+      res,
+      "Erro ao buscar disponibilidade de test drive",
+      "Erro ao buscar disponibilidade.",
+      error,
+    );
+  }
+});
+
 router.post("/test-drives", async (req, res) => {
   try {
     const vehicleSlug = normalizeText(req.body.vehicleSlug);
@@ -112,6 +142,20 @@ router.post("/test-drives", async (req, res) => {
       return res.status(404).json({ message: "Viatura não encontrada." });
     }
 
+    const existingTestDrive = await fetchFirstRow(
+      `SELECT id
+       FROM test_drives
+       WHERE data_preferida = ? AND LEFT(hora_preferida, 5) = ?
+       LIMIT 1`,
+      [dataPreferida, horaPreferida],
+    );
+
+    if (existingTestDrive) {
+      return res.status(409).json({
+        message: "Esta hora ja nao esta disponivel.",
+      });
+    }
+
     await pool.query(
       `INSERT INTO test_drives (
         vehicle_slug,
@@ -135,6 +179,12 @@ router.post("/test-drives", async (req, res) => {
 
     return res.status(201).json({ ok: true });
   } catch (error) {
+    if (error?.code === "ER_DUP_ENTRY") {
+      return res.status(409).json({
+        message: "Esta hora ja nao esta disponivel.",
+      });
+    }
+
     return sendServerError(
       res,
       "Erro ao guardar teste drive",

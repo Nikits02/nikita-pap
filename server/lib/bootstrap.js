@@ -18,6 +18,16 @@ async function ensureTableColumn(tableName, columnName, columnDefinitionSql) {
   }
 }
 
+async function ensureTableIndex(tableName, indexName, indexDefinitionSql) {
+  const indexes = await fetchRows(`SHOW INDEX FROM ${tableName} WHERE Key_name = ?`, [
+    indexName,
+  ]);
+
+  if (!indexes.length) {
+    await pool.query(`ALTER TABLE ${tableName} ADD ${indexDefinitionSql}`);
+  }
+}
+
 export async function ensureAuthTables() {
   await pool.query(`
     CREATE TABLE IF NOT EXISTS admins (
@@ -113,6 +123,16 @@ export async function ensureLeadTables() {
     "test_drives",
     "vehicle_label",
     "vehicle_label VARCHAR(200) DEFAULT NULL AFTER vehicle_slug",
+  );
+  await pool.query(`
+    UPDATE test_drives
+    SET hora_preferida = LEFT(hora_preferida, 5)
+    WHERE LENGTH(hora_preferida) > 5
+  `);
+  await ensureTableIndex(
+    "test_drives",
+    "unique_test_drive_slot",
+    "UNIQUE INDEX unique_test_drive_slot (data_preferida, hora_preferida)",
   );
 
   await pool.query(`

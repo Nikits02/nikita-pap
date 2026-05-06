@@ -224,6 +224,9 @@
 }
 
 .test-drive-hours__button {
+  display: grid;
+  place-items: center;
+  gap: 0.12rem;
   min-height: 3rem;
   border: var(--surface-divider-strong);
   background: transparent;
@@ -237,12 +240,39 @@
     transform 0.22s ease;
 }
 
+.test-drive-hours__button small {
+  color: currentColor;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+  opacity: 0.75;
+}
+
 .test-drive-hours__button:hover,
 .test-drive-hours__button.is-active {
   border-color: var(--test-drive-accent);
   background: var(--test-drive-accent);
   color: var(--color-black-900);
   transform: translateY(-1px);
+}
+
+.test-drive-hours__button.is-disabled,
+.test-drive-hours__button:disabled {
+  border-color: var(--surface-white-10);
+  background: var(--surface-input-dark-alt);
+  color: var(--color-stone-360);
+  cursor: not-allowed;
+  opacity: 0.72;
+  transform: none;
+}
+
+.test-drive-hours__button.is-disabled:hover,
+.test-drive-hours__button:disabled:hover {
+  border-color: var(--surface-white-10);
+  background: var(--surface-input-dark-alt);
+  color: var(--color-stone-360);
+  transform: none;
 }
 
 .test-drive-personal-grid {
@@ -259,6 +289,13 @@
   font-size: 0.95rem;
   line-height: 1.5;
   text-align: center;
+}
+
+.test-drive-hours__error {
+  margin: 0.65rem 0 0;
+  color: var(--color-rose-400);
+  font-size: 0.88rem;
+  line-height: 1.4;
 }
 
 .test-drive-submit {

@@ -14,6 +14,15 @@ export function fetchVehicles() {
   });
 }
 
+export function fetchTestDriveAvailability(date) {
+  return requestJson(
+    `/api/test-drives/availability?date=${encodeURIComponent(date)}`,
+    {
+      errorMessage: "Erro ao carregar disponibilidade.",
+    },
+  );
+}
+
 export function createTestDrive(payload) {
   return postJson("/api/test-drives", payload, "Erro ao guardar teste drive.");
 }

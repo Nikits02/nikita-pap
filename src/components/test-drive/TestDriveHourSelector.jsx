@@ -7,22 +7,33 @@ function TestDriveHourSelector({
   value,
   onChange,
   buttonClassName,
+  disabledHours = [],
   error,
   errorClassName,
 }) {
+  const disabledHoursSet = new Set(disabledHours);
+
   return (
     <FormField className={fieldClassName} as="div" label={label}>
       <div className="test-drive-hours">
-        {TEST_DRIVE_HOURS.map((hour) => (
-          <button
-            key={hour}
-            className={`${buttonClassName}${value === hour ? " is-active" : ""}`}
-            type="button"
-            onClick={() => onChange(hour)}
-          >
-            {hour}
-          </button>
-        ))}
+        {TEST_DRIVE_HOURS.map((hour) => {
+          const isDisabled = disabledHoursSet.has(hour);
+
+          return (
+            <button
+              key={hour}
+              className={`${buttonClassName}${value === hour ? " is-active" : ""}${isDisabled ? " is-disabled" : ""}`}
+              type="button"
+              onClick={() => onChange(hour)}
+              disabled={isDisabled}
+              aria-label={isDisabled ? `${hour} indisponivel` : hour}
+              title={isDisabled ? "Indisponivel" : undefined}
+            >
+              <span>{hour}</span>
+              {isDisabled ? <small>Indisponivel</small> : null}
+            </button>
+          );
+        })}
       </div>
 
       <FormError className={errorClassName} message={error} />

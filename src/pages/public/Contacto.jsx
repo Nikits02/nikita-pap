@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import CustomSelect from "../../components/form/CustomSelect";
 import {
@@ -25,6 +25,7 @@ import SitePage from "../../components/SitePage";
 import TestDriveHourSelector from "../../components/test-drive/TestDriveHourSelector";
 import TestDrivePersonalFields from "../../components/test-drive/TestDrivePersonalFields";
 import useFormState from "../../hooks/useFormState";
+import useTestDriveAvailability from "../../hooks/useTestDriveAvailability";
 import { createContactMessage, createTestDrive } from "../../services/api";
 import { getTodayDateString } from "../../utils/date";
 
@@ -60,6 +61,11 @@ function Contacto() {
   const [submitError, setSubmitError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [todayDate] = useState(() => getTodayDateString());
+  const {
+    bookedHours,
+    error: availabilityError,
+    isLoading: isLoadingAvailability,
+  } = useTestDriveAvailability(isTestDriveFlow ? formData.dataPreferida : "");
 
   function updateField(field, value) {
     if (field === "horaPreferida") {
@@ -77,11 +83,22 @@ function Contacto() {
     updateFormField(field, value);
   }
 
+  useEffect(() => {
+    if (formData.horaPreferida && bookedHours.includes(formData.horaPreferida)) {
+      updateFormField("horaPreferida", "");
+    }
+  }, [bookedHours, formData.horaPreferida, updateFormField]);
+
   async function handleSubmit(event) {
     event.preventDefault();
 
     if (isTestDriveFlow && !formData.horaPreferida) {
       setTestDriveError("Selecione uma hora preferida para o teste drive.");
+      return;
+    }
+
+    if (isTestDriveFlow && bookedHours.includes(formData.horaPreferida)) {
+      setTestDriveError("Esta hora ja nao esta disponivel.");
       return;
     }
 
@@ -238,7 +255,14 @@ function Contacto() {
                     value={formData.horaPreferida}
                     onChange={(hour) => updateField("horaPreferida", hour)}
                     buttonClassName="test-drive-hours__option"
-                    error={testDriveError}
+                    disabledHours={bookedHours}
+                    error={
+                      testDriveError ||
+                      availabilityError ||
+                      (isLoadingAvailability
+                        ? "A verificar disponibilidade..."
+                        : "")
+                    }
                     errorClassName="test-drive-hours__error"
                   />
                 </div>
