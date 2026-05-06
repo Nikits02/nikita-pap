@@ -1,6 +1,7 @@
 import express from "express";
 import { pool } from "../db.js";
 import { fetchFirstRow, fetchRows, buildOrderedTableQuery } from "../lib/dbQueries.js";
+import { sendTestDriveStatusEmail } from "../lib/email.js";
 import { sendServerError } from "../lib/http.js";
 import { authenticateAdmin } from "../middleware/authenticateAdmin.js";
 import {
@@ -18,6 +19,13 @@ import {
 } from "../lib/vehicleImageUpload.js";
 
 const router = express.Router();
+const ADMIN_LEAD_STATUSES = new Set([
+  "new",
+  "in_contact",
+  "scheduled",
+  "completed",
+  "cancelled",
+]);
 
 const ADMIN_LIST_ROUTES = [
   [
@@ -147,6 +155,78 @@ function registerAdminDeleteRoute(
   });
 }
 
+function normalizeAdminText(value) {
+  return typeof value === "string" ? value.trim() : "";
+}
+
+async function updateAdminLeadRecord({
+  req,
+  res,
+  tableName,
+  notFoundMessage,
+  logMessage,
+  clientMessage,
+}) {
+  try {
+    const { id } = req.params;
+    const status = normalizeAdminText(req.body.status);
+    const internalNotes = normalizeAdminText(req.body.internalNotes);
+
+    if (!ADMIN_LEAD_STATUSES.has(status)) {
+      return res.status(400).json({ message: "Estado invalido." });
+    }
+
+    const existingRecord = await fetchFirstRow(
+      `SELECT * FROM ${tableName} WHERE id = ?`,
+      [id],
+    );
+
+    if (!existingRecord) {
+      return res.status(404).json({ message: notFoundMessage });
+    }
+
+    await pool.query(
+      `UPDATE ${tableName}
+       SET status = ?, internal_notes = ?
+       WHERE id = ?`,
+      [status, internalNotes || null, id],
+    );
+
+    const updatedRecord = await fetchFirstRow(
+      `SELECT * FROM ${tableName} WHERE id = ?`,
+      [id],
+    );
+
+    if (
+      tableName === "test_drives" &&
+      existingRecord.status !== status &&
+      ["scheduled", "cancelled"].includes(status)
+    ) {
+      try {
+        const emailResult = await sendTestDriveStatusEmail(updatedRecord, status);
+
+        return res.json({
+          ...updatedRecord,
+          notification_email_sent: !emailResult.skipped,
+          notification_email_skipped_reason: emailResult.reason ?? null,
+        });
+      } catch (emailError) {
+        console.error("Erro ao enviar email de test drive:", emailError.message);
+
+        return res.json({
+          ...updatedRecord,
+          notification_email_sent: false,
+          notification_email_error: true,
+        });
+      }
+    }
+
+    return res.json(updatedRecord);
+  } catch (error) {
+    return sendServerError(res, logMessage, clientMessage, error);
+  }
+}
+
 router.post("/admin/uploads/vehicle-image", authenticateAdmin, async (req, res) => {
   try {
     const uploadedImage = await saveVehicleImageUpload(req.body);
@@ -209,6 +289,28 @@ router.patch("/admin/trade-ins/:id", authenticateAdmin, async (req, res) => {
     );
   }
 });
+
+router.patch("/admin/test-drives/:id", authenticateAdmin, async (req, res) =>
+  updateAdminLeadRecord({
+    req,
+    res,
+    tableName: "test_drives",
+    notFoundMessage: "Pedido de test drive nao encontrado.",
+    logMessage: "Erro ao atualizar pedido de test drive",
+    clientMessage: "Erro ao atualizar pedido de test drive.",
+  }),
+);
+
+router.patch("/admin/contact-messages/:id", authenticateAdmin, async (req, res) =>
+  updateAdminLeadRecord({
+    req,
+    res,
+    tableName: "contact_messages",
+    notFoundMessage: "Mensagem de contacto nao encontrada.",
+    logMessage: "Erro ao atualizar mensagem de contacto",
+    clientMessage: "Erro ao atualizar mensagem de contacto.",
+  }),
+);
 
 router.get("/admin/vehicles/:id", authenticateAdmin, async (req, res) => {
   try {

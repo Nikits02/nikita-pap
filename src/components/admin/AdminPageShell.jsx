@@ -12,7 +12,7 @@ function AdminPageShell({
 }) {
   const navigate = useNavigate();
   const { logout } = useAuth();
-  const hasHeaderActions = actions || showLogout || showBackToSite;
+  const hasSessionActions = showLogout || showBackToSite;
 
   async function handleLogout() {
     await logout();
@@ -35,14 +35,13 @@ function AdminPageShell({
             <h1 className="admin-page__title">{title}</h1>
           </div>
 
-          {hasHeaderActions ? (
-            <div className="admin-page__header-actions">
+          {hasSessionActions ? (
+            <div className="admin-page__session-actions">
               {showBackToSite ? (
                 <Link className="admin-button admin-button--secondary" to="/">
                   Voltar ao site
                 </Link>
               ) : null}
-              {actions}
               {showLogout ? (
                 <button
                   className="admin-button admin-button--secondary"
@@ -55,6 +54,8 @@ function AdminPageShell({
             </div>
           ) : null}
         </header>
+
+        {actions ? <div className="admin-page__toolbar">{actions}</div> : null}
 
         <section className="admin-page__panel">{children}</section>
       </div>

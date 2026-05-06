@@ -2,12 +2,26 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminPageShell from "../../components/admin/AdminPageShell";
 import AdminSectionLinks from "../../components/admin/AdminSectionLinks";
-import { FormInputField } from "../../components/form/FormField";
+import {
+  FormInputField,
+  FormSelectField,
+  FormTextareaField,
+} from "../../components/form/FormField";
+import {
+  ADMIN_LEAD_STATUS_FILTER_OPTIONS,
+  ADMIN_LEAD_STATUS_OPTIONS,
+  getAdminLeadStatusLabel,
+} from "../../data/adminLeadStatus";
 import {
   deleteAdminContactMessage,
   fetchAdminContactMessages,
+  updateAdminContactMessage,
 } from "../../services/adminApi";
 import { formatAdminDateTime, handleAdminSessionError } from "../../utils/admin";
+
+function getLeadStatus(value) {
+  return value || "new";
+}
 
 function AdminContactMessages() {
   const navigate = useNavigate();
@@ -15,7 +29,10 @@ function AdminContactMessages() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [deletingMessageId, setDeletingMessageId] = useState(null);
+  const [updatingMessageId, setUpdatingMessageId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [draftNotes, setDraftNotes] = useState({});
 
   useEffect(() => {
     let isMounted = true;
@@ -86,8 +103,48 @@ function AdminContactMessages() {
     }
   }
 
+  async function handleUpdateMessage(message, nextValues = {}) {
+    try {
+      setUpdatingMessageId(message.id);
+      setError("");
+
+      const updatedMessage = await updateAdminContactMessage(message.id, {
+        status: nextValues.status ?? getLeadStatus(message.status),
+        internalNotes:
+          nextValues.internalNotes ??
+          draftNotes[message.id] ??
+          message.internal_notes ??
+          "",
+      });
+
+      setMessages((currentMessages) =>
+        currentMessages.map((currentMessage) =>
+          currentMessage.id === message.id ? updatedMessage : currentMessage,
+        ),
+      );
+      setDraftNotes((currentNotes) => ({
+        ...currentNotes,
+        [message.id]: updatedMessage.internal_notes ?? "",
+      }));
+    } catch (updateError) {
+      if (handleAdminSessionError(updateError, navigate)) {
+        return;
+      }
+
+      setError(
+        updateError.message ?? "NÃ£o foi possÃ­vel atualizar a mensagem.",
+      );
+    } finally {
+      setUpdatingMessageId(null);
+    }
+  }
+
   const normalizedSearchTerm = searchTerm.trim().toLowerCase();
   const filteredMessages = messages.filter((message) => {
+    if (statusFilter !== "all" && getLeadStatus(message.status) !== statusFilter) {
+      return false;
+    }
+
     if (!normalizedSearchTerm) {
       return true;
     }
@@ -98,6 +155,8 @@ function AdminContactMessages() {
       message.telefone,
       message.assunto,
       message.mensagem,
+      getAdminLeadStatusLabel(getLeadStatus(message.status)),
+      message.internal_notes,
     ]
       .filter(Boolean)
       .join(" ")
@@ -127,7 +186,7 @@ function AdminContactMessages() {
         </div>
       ) : (
         <div className="admin-leads">
-          <div className="admin-filters admin-filters--single">
+          <div className="admin-filters">
             <FormInputField
               className="admin-form__field"
               label="Pesquisar"
@@ -136,6 +195,19 @@ function AdminContactMessages() {
               onChange={(event) => setSearchTerm(event.target.value)}
               placeholder="Nome, email, telefone, assunto ou mensagem"
             />
+
+            <FormSelectField
+              className="admin-form__field"
+              label="Estado"
+              value={statusFilter}
+              onChange={(event) => setStatusFilter(event.target.value)}
+            >
+              {ADMIN_LEAD_STATUS_FILTER_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </FormSelectField>
           </div>
 
           <p className="admin-page__text admin-page__text--muted">
@@ -153,6 +225,9 @@ function AdminContactMessages() {
           ) : (
             <div className="admin-leads__list">
               {filteredMessages.map((message) => {
+                const messageStatus = getLeadStatus(message.status);
+                const noteDraft =
+                  draftNotes[message.id] ?? message.internal_notes ?? "";
                 const metaItems = [
                   ["Nome", message.nome ?? "-"],
                   ["Email", message.email ?? "-"],
@@ -172,9 +247,16 @@ function AdminContactMessages() {
                         </h2>
                       </div>
 
-                      <p className="admin-lead-card__timestamp">
-                        {formatAdminDateTime(message.created_at)}
-                      </p>
+                      <div className="admin-lead-card__header-side">
+                        <span
+                          className={`admin-lead-card__status admin-lead-card__status--${messageStatus}`}
+                        >
+                          {getAdminLeadStatusLabel(messageStatus)}
+                        </span>
+                        <p className="admin-lead-card__timestamp">
+                          {formatAdminDateTime(message.created_at)}
+                        </p>
+                      </div>
                     </div>
 
                     <dl className="admin-lead-card__meta">
@@ -195,7 +277,51 @@ function AdminContactMessages() {
                       </p>
                     </div>
 
+                    <div className="admin-lead-card__manage">
+                      <FormSelectField
+                        className="admin-form__field"
+                        label="Estado"
+                        value={messageStatus}
+                        disabled={updatingMessageId === message.id}
+                        onChange={(event) =>
+                          handleUpdateMessage(message, {
+                            status: event.target.value,
+                          })
+                        }
+                      >
+                        {ADMIN_LEAD_STATUS_OPTIONS.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </FormSelectField>
+
+                      <FormTextareaField
+                        className="admin-form__field admin-form__field--full"
+                        label="Notas internas"
+                        rows="3"
+                        value={noteDraft}
+                        placeholder="Notas apenas visiveis no painel admin"
+                        onChange={(event) =>
+                          setDraftNotes((currentNotes) => ({
+                            ...currentNotes,
+                            [message.id]: event.target.value,
+                          }))
+                        }
+                      />
+                    </div>
+
                     <div className="admin-lead-card__actions">
+                      <button
+                        className="admin-button admin-button--secondary"
+                        type="button"
+                        disabled={updatingMessageId === message.id}
+                        onClick={() => handleUpdateMessage(message)}
+                      >
+                        {updatingMessageId === message.id
+                          ? "A guardar..."
+                          : "Guardar notas"}
+                      </button>
                       <button
                         className="admin-button admin-button--danger"
                         type="button"

@@ -3,18 +3,20 @@ import { ADMIN_SECTIONS } from "../../data/adminNavigation";
 
 function AdminSectionLinks({ current, extraActions = null }) {
   return (
-    <>
-      {ADMIN_SECTIONS.filter((section) => section.key !== current).map((section) => (
+    <nav className="admin-section-nav" aria-label="Secções do painel admin">
+      {ADMIN_SECTIONS.map((section) => (
         <Link
-          className="admin-button admin-button--secondary"
+          className={`admin-section-nav__link${section.key === current ? " is-active" : ""}`}
           key={section.key}
           to={section.path}
         >
           {section.label}
         </Link>
       ))}
-      {extraActions}
-    </>
+      {extraActions ? (
+        <div className="admin-section-nav__actions">{extraActions}</div>
+      ) : null}
+    </nav>
   );
 }
 

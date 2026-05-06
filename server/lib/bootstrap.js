@@ -124,6 +124,16 @@ export async function ensureLeadTables() {
     "vehicle_label",
     "vehicle_label VARCHAR(200) DEFAULT NULL AFTER vehicle_slug",
   );
+  await ensureTableColumn(
+    "test_drives",
+    "status",
+    "status VARCHAR(40) NOT NULL DEFAULT 'new' AFTER email",
+  );
+  await ensureTableColumn(
+    "test_drives",
+    "internal_notes",
+    "internal_notes TEXT DEFAULT NULL AFTER status",
+  );
   await pool.query(`
     UPDATE test_drives
     SET hora_preferida = LEFT(hora_preferida, 5)
@@ -143,9 +153,21 @@ export async function ensureLeadTables() {
       telefone VARCHAR(60) DEFAULT '',
       assunto VARCHAR(160) NOT NULL,
       mensagem TEXT NOT NULL,
+      status VARCHAR(40) NOT NULL DEFAULT 'new',
+      internal_notes TEXT DEFAULT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
   `);
+  await ensureTableColumn(
+    "contact_messages",
+    "status",
+    "status VARCHAR(40) NOT NULL DEFAULT 'new' AFTER mensagem",
+  );
+  await ensureTableColumn(
+    "contact_messages",
+    "internal_notes",
+    "internal_notes TEXT DEFAULT NULL AFTER status",
+  );
 
   await pool.query(`
     CREATE TABLE IF NOT EXISTS trade_in_requests (

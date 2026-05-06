@@ -21,6 +21,30 @@ const VEHICLE_IMAGE_FIELD = adminVehicleFields.find(
 const ADMIN_VEHICLE_MAIN_FIELDS = adminVehicleFields.filter(
   ({ name }) => name !== "imagem",
 );
+const VEHICLE_FIELD_SECTIONS = [
+  {
+    title: "Identificacao",
+    description: "Dados principais que identificam a viatura no catalogo.",
+    fields: ["source", "marca", "modelo", "tipo", "versao"],
+  },
+  {
+    title: "Detalhes tecnicos",
+    description: "Caracteristicas usadas nos cards e na pagina de detalhe.",
+    fields: [
+      "preco",
+      "ano",
+      "potencia",
+      "quilometragem",
+      "combustivel",
+      "caixa",
+    ],
+  },
+  {
+    title: "Publicacao",
+    description: "Controla a ordem nas listas e os destaques visuais.",
+    fields: ["inserted_at"],
+  },
+];
 const VEHICLE_IMAGE_ACCEPT =
   "image/jpeg,image/png,image/webp";
 const VEHICLE_IMAGE_MAX_BYTES = 5 * 1024 * 1024;
@@ -29,6 +53,9 @@ const SUPPORTED_VEHICLE_IMAGE_TYPES = new Set([
   "image/png",
   "image/webp",
 ]);
+const ADMIN_VEHICLE_FIELDS_BY_NAME = new Map(
+  ADMIN_VEHICLE_MAIN_FIELDS.map((field) => [field.name, field]),
+);
 
 const initialForm = {
   source: "catalog",
@@ -212,6 +239,42 @@ function AdminVehicleImageField({
   );
 }
 
+function AdminVehicleFormSection({
+  title,
+  description,
+  fields,
+  formData,
+  onChange,
+}) {
+  return (
+    <section className="admin-form-section">
+      <div className="admin-form-section__heading">
+        <h2>{title}</h2>
+        <p>{description}</p>
+      </div>
+
+      <div className="admin-form__grid admin-form__grid--vehicle">
+        {fields.map((fieldName) => {
+          const field = ADMIN_VEHICLE_FIELDS_BY_NAME.get(fieldName);
+
+          if (!field) {
+            return null;
+          }
+
+          return (
+            <AdminVehicleInput
+              key={field.name}
+              field={field}
+              value={formData[field.name]}
+              onChange={onChange}
+            />
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 function AdminVehicleForm() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -374,46 +437,58 @@ function AdminVehicleForm() {
       {isLoading ? (
         <p className="admin-page__text">A carregar dados da viatura...</p>
       ) : (
-        <form className="admin-form" onSubmit={handleSubmit}>
+        <form className="admin-form admin-vehicle-form" onSubmit={handleSubmit}>
           <p className="admin-page__text admin-page__text--muted">
             Preenche os campos com os dados da viatura. Os obrigatórios estao
             assinalados com * e os exemplos dentro dos campos mostram o formato
             esperado.
           </p>
 
-          <div className="admin-form__grid">
-            {ADMIN_VEHICLE_MAIN_FIELDS.map((field) => (
-              <AdminVehicleInput
-                key={field.name}
-                field={field}
-                value={formData[field.name]}
-                onChange={updateField}
-              />
-            ))}
-          </div>
-
-          <AdminVehicleImageField
-            value={formData.imagem}
-            onChange={updateField}
-            previewUrl={imagePreviewUrl || formData.imagem}
-            uploadError={imageUploadError}
-            isUploading={isUploadingImage}
-            onFileChange={handleImageFileChange}
-            selectedImageLabel={selectedImageLabel}
-          />
-
-          <label className="admin-form__checkbox">
-            <input
-              type="checkbox"
-              checked={formData.novidade}
-              onChange={(event) => updateField("novidade", event.target.checked)}
+          {VEHICLE_FIELD_SECTIONS.map((section) => (
+            <AdminVehicleFormSection
+              key={section.title}
+              title={section.title}
+              description={section.description}
+              fields={section.fields}
+              formData={formData}
+              onChange={updateField}
             />
-            Marcar como novidade
-          </label>
+          ))}
 
-          <p className="admin-form__hint">
+          <section className="admin-form-section">
+            <div className="admin-form-section__heading">
+              <h2>Imagem</h2>
+              <p>Carrega uma imagem nova ou confirma o caminho atual.</p>
+            </div>
+
+            <AdminVehicleImageField
+              value={formData.imagem}
+              onChange={updateField}
+              previewUrl={imagePreviewUrl || formData.imagem}
+              uploadError={imageUploadError}
+              isUploading={isUploadingImage}
+              onFileChange={handleImageFileChange}
+              selectedImageLabel={selectedImageLabel}
+            />
+          </section>
+
+          <div className="admin-form__notice">
+            <label className="admin-form__checkbox">
+              <input
+                type="checkbox"
+                checked={formData.novidade}
+                onChange={(event) =>
+                  updateField("novidade", event.target.checked)
+                }
+              />
+              Marcar como novidade
+            </label>
+
+            <p className="admin-form__hint">
             Ativa está opção se quiseres mostrar a badge "Novo" na viatura.
-          </p>
+            </p>
+
+          </div>
 
           <FormError className="admin-form__error" message={error} />
 

@@ -78,6 +78,24 @@ export function updateAdminTradeInStatus(id, payload) {
   );
 }
 
+export function updateAdminTestDrive(id, payload) {
+  return requestAdminJson(
+    `/api/admin/test-drives/${id}`,
+    "NÃ£o foi possÃ­vel atualizar o pedido de test drive.",
+    "PATCH",
+    payload,
+  );
+}
+
+export function updateAdminContactMessage(id, payload) {
+  return requestAdminJson(
+    `/api/admin/contact-messages/${id}`,
+    "NÃ£o foi possÃ­vel atualizar a mensagem de contacto.",
+    "PATCH",
+    payload,
+  );
+}
+
 export function deleteAdminTradeIn(id) {
   return requestAdminJson(
     `/api/admin/trade-ins/${id}`,
