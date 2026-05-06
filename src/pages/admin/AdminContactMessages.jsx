@@ -17,11 +17,12 @@ import {
   fetchAdminContactMessages,
   updateAdminContactMessage,
 } from "../../services/adminApi";
-import { formatAdminDateTime, handleAdminSessionError } from "../../utils/admin";
-
-function getLeadStatus(value) {
-  return value || "new";
-}
+import {
+  formatAdminDateTime,
+  getAdminLeadStatus,
+  handleAdminSessionError,
+  matchesAdminSearch,
+} from "../../utils/admin";
 
 function AdminContactMessages() {
   const navigate = useNavigate();
@@ -109,7 +110,7 @@ function AdminContactMessages() {
       setError("");
 
       const updatedMessage = await updateAdminContactMessage(message.id, {
-        status: nextValues.status ?? getLeadStatus(message.status),
+        status: nextValues.status ?? getAdminLeadStatus(message.status),
         internalNotes:
           nextValues.internalNotes ??
           draftNotes[message.id] ??
@@ -132,37 +133,32 @@ function AdminContactMessages() {
       }
 
       setError(
-        updateError.message ?? "NÃ£o foi possÃ­vel atualizar a mensagem.",
+        updateError.message ?? "Não foi possível atualizar a mensagem.",
       );
     } finally {
       setUpdatingMessageId(null);
     }
   }
 
-  const normalizedSearchTerm = searchTerm.trim().toLowerCase();
   const filteredMessages = messages.filter((message) => {
-    if (statusFilter !== "all" && getLeadStatus(message.status) !== statusFilter) {
+    const messageStatus = getAdminLeadStatus(message.status);
+
+    if (statusFilter !== "all" && messageStatus !== statusFilter) {
       return false;
     }
 
-    if (!normalizedSearchTerm) {
-      return true;
-    }
-
-    const searchableText = [
-      message.nome,
-      message.email,
-      message.telefone,
-      message.assunto,
-      message.mensagem,
-      getAdminLeadStatusLabel(getLeadStatus(message.status)),
-      message.internal_notes,
-    ]
-      .filter(Boolean)
-      .join(" ")
-      .toLowerCase();
-
-    return searchableText.includes(normalizedSearchTerm);
+    return matchesAdminSearch(
+      [
+        message.nome,
+        message.email,
+        message.telefone,
+        message.assunto,
+        message.mensagem,
+        getAdminLeadStatusLabel(messageStatus),
+        message.internal_notes,
+      ],
+      searchTerm,
+    );
   });
 
   return (
@@ -225,7 +221,7 @@ function AdminContactMessages() {
           ) : (
             <div className="admin-leads__list">
               {filteredMessages.map((message) => {
-                const messageStatus = getLeadStatus(message.status);
+                const messageStatus = getAdminLeadStatus(message.status);
                 const noteDraft =
                   draftNotes[message.id] ?? message.internal_notes ?? "";
                 const metaItems = [

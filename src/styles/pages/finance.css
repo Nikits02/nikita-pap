@@ -1,6 +1,15 @@
 .finance-page {
-  margin-top: 2.2rem;
-  margin-bottom: 3.4rem;
+  margin-top: var(--page-section-margin-top);
+  margin-bottom: var(--page-section-margin-bottom);
+}
+
+.finance-hero,
+.finance-grid {
+  border-top: var(--surface-divider);
+}
+
+.finance-hero {
+  padding: var(--page-hero-padding-block) 0;
 }
 
 .finance-grid {
@@ -8,6 +17,7 @@
   grid-template-columns: minmax(0, 1fr) minmax(360px, 0.92fr);
   gap: 2.8rem;
   align-items: start;
+  padding-top: 3.2rem;
 }
 
 .finance-card {
@@ -47,7 +57,7 @@
   stroke-linejoin: round;
 }
 
-.finance-heading h1,
+.finance-heading h2,
 .finance-benefits h2,
 .finance-card--request h2 {
   margin: 0;

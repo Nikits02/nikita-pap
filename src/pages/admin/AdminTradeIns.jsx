@@ -8,7 +8,12 @@ import {
   fetchAdminTradeIns,
   updateAdminTradeInStatus,
 } from "../../services/adminApi";
-import { handleAdminSessionError, formatAdminDateTime } from "../../utils/admin";
+import {
+  formatAdminDateTime,
+  handleAdminSessionError,
+  matchesAdminSearch,
+} from "../../utils/admin";
+
 const TRADE_IN_STATUS_FILTER_OPTIONS = [
   { value: "all", label: "Todos" },
   { value: "unread", label: "Por ver" },
@@ -123,7 +128,6 @@ function AdminTradeIns() {
     }
   }
 
-  const normalizedSearchTerm = searchTerm.trim().toLowerCase();
   const filteredTradeIns = tradeIns.filter((tradeIn) => {
     const matchesStatus =
       statusFilter === "all"
@@ -136,23 +140,17 @@ function AdminTradeIns() {
       return false;
     }
 
-    if (!normalizedSearchTerm) {
-      return true;
-    }
-
-    const searchableText = [
-      tradeIn.nome,
-      tradeIn.email,
-      tradeIn.telefone,
-      tradeIn.marca,
-      tradeIn.modelo,
-      tradeIn.estado_geral,
-    ]
-      .filter(Boolean)
-      .join(" ")
-      .toLowerCase();
-
-    return searchableText.includes(normalizedSearchTerm);
+    return matchesAdminSearch(
+      [
+        tradeIn.nome,
+        tradeIn.email,
+        tradeIn.telefone,
+        tradeIn.marca,
+        tradeIn.modelo,
+        tradeIn.estado_geral,
+      ],
+      searchTerm,
+    );
   });
 
   return (

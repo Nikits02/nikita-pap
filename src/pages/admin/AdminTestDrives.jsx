@@ -20,15 +20,13 @@ import {
 import {
   formatAdminDate,
   formatAdminDateTime,
+  getAdminLeadStatus,
   handleAdminSessionError,
+  matchesAdminSearch,
 } from "../../utils/admin";
 
 function formatTestDriveHour(value) {
   return value ? String(value).slice(0, 5) : "-";
-}
-
-function getLeadStatus(value) {
-  return value || "new";
 }
 
 function AdminTestDrives() {
@@ -120,7 +118,7 @@ function AdminTestDrives() {
       setNotice("");
 
       const updatedTestDrive = await updateAdminTestDrive(testDrive.id, {
-        status: nextValues.status ?? getLeadStatus(testDrive.status),
+        status: nextValues.status ?? getAdminLeadStatus(testDrive.status),
         internalNotes:
           nextValues.internalNotes ??
           draftNotes[testDrive.id] ??
@@ -160,44 +158,39 @@ function AdminTestDrives() {
       }
 
       setError(
-        updateError.message ?? "NÃ£o foi possÃ­vel atualizar o pedido.",
+        updateError.message ?? "Não foi possível atualizar o pedido.",
       );
     } finally {
       setUpdatingTestDriveId(null);
     }
   }
 
-  const normalizedSearchTerm = searchTerm.trim().toLowerCase();
   const filteredTestDrives = testDrives.filter((testDrive) => {
+    const testDriveStatus = getAdminLeadStatus(testDrive.status);
+
     if (
       statusFilter !== "all" &&
-      getLeadStatus(testDrive.status) !== statusFilter
+      testDriveStatus !== statusFilter
     ) {
       return false;
     }
 
-    if (!normalizedSearchTerm) {
-      return true;
-    }
-
-    const searchableText = [
-      testDrive.vehicle_label,
-      testDrive.vehicle_slug,
-      testDrive.nome,
-      testDrive.email,
-      testDrive.telefone,
-      testDrive.data_preferida,
-      formatAdminDate(testDrive.data_preferida),
-      testDrive.hora_preferida,
-      formatTestDriveHour(testDrive.hora_preferida),
-      getAdminLeadStatusLabel(getLeadStatus(testDrive.status)),
-      testDrive.internal_notes,
-    ]
-      .filter(Boolean)
-      .join(" ")
-      .toLowerCase();
-
-    return searchableText.includes(normalizedSearchTerm);
+    return matchesAdminSearch(
+      [
+        testDrive.vehicle_label,
+        testDrive.vehicle_slug,
+        testDrive.nome,
+        testDrive.email,
+        testDrive.telefone,
+        testDrive.data_preferida,
+        formatAdminDate(testDrive.data_preferida),
+        testDrive.hora_preferida,
+        formatTestDriveHour(testDrive.hora_preferida),
+        getAdminLeadStatusLabel(testDriveStatus),
+        testDrive.internal_notes,
+      ],
+      searchTerm,
+    );
   });
 
   return (
@@ -266,7 +259,7 @@ function AdminTestDrives() {
                 const preferredHour = formatTestDriveHour(
                   testDrive.hora_preferida,
                 );
-                const testDriveStatus = getLeadStatus(testDrive.status);
+                const testDriveStatus = getAdminLeadStatus(testDrive.status);
                 const noteDraft =
                   draftNotes[testDrive.id] ?? testDrive.internal_notes ?? "";
                 const metaItems = [

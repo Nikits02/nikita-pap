@@ -6,7 +6,9 @@ function PageHero({
   baseClassName = "contact-hero",
   kickerClassName = "",
 }) {
-  const sectionClassName = [baseClassName, className].filter(Boolean).join(" ");
+  const sectionClassName = ["page-hero", baseClassName, className]
+    .filter(Boolean)
+    .join(" ");
   const resolvedKickerClassName = kickerClassName || undefined;
 
   return (

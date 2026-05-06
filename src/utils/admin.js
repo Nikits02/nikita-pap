@@ -39,6 +39,26 @@ export function formatAdminDate(value) {
   return formattedValue === String(value) ? String(value).slice(0, 10) : formattedValue;
 }
 
+export function getAdminLeadStatus(value) {
+  return value || "new";
+}
+
+export function matchesAdminSearch(values, searchTerm) {
+  const normalizedSearchTerm = searchTerm.trim().toLowerCase();
+
+  if (!normalizedSearchTerm) {
+    return true;
+  }
+
+  const searchableText = values
+    .filter((value) => value !== null && value !== undefined && value !== "")
+    .map(String)
+    .join(" ")
+    .toLowerCase();
+
+  return searchableText.includes(normalizedSearchTerm);
+}
+
 export function handleAdminSessionError(error, navigate) {
   if (error.message !== "Sessão expirada.") {
     return false;

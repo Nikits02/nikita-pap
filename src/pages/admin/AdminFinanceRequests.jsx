@@ -7,7 +7,11 @@ import {
   deleteAdminFinanceRequest,
   fetchAdminFinanceRequests,
 } from "../../services/adminApi";
-import { formatAdminDateTime, handleAdminSessionError } from "../../utils/admin";
+import {
+  formatAdminDateTime,
+  handleAdminSessionError,
+  matchesAdminSearch,
+} from "../../utils/admin";
 import { formatEuro } from "../../utils/format";
 
 function AdminFinanceRequests() {
@@ -90,23 +94,16 @@ function AdminFinanceRequests() {
     }
   }
 
-  const normalizedSearchTerm = searchTerm.trim().toLowerCase();
   const filteredFinanceRequests = financeRequests.filter((financeRequest) => {
-    if (!normalizedSearchTerm) {
-      return true;
-    }
-
-    const searchableText = [
-      financeRequest.nome,
-      financeRequest.email,
-      financeRequest.telefone,
-      financeRequest.viatura,
-    ]
-      .filter(Boolean)
-      .join(" ")
-      .toLowerCase();
-
-    return searchableText.includes(normalizedSearchTerm);
+    return matchesAdminSearch(
+      [
+        financeRequest.nome,
+        financeRequest.email,
+        financeRequest.telefone,
+        financeRequest.viatura,
+      ],
+      searchTerm,
+    );
   });
 
   return (

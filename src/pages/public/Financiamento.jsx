@@ -8,6 +8,7 @@ import {
 } from "../../components/icons/CommonIcons";
 import CustomSelect from "../../components/form/CustomSelect";
 import TypedIcon from "../../components/icons/TypedIcon";
+import PageHero from "../../components/PageHero";
 import SitePage from "../../components/SitePage";
 import {
   financeBenefits,
@@ -219,6 +220,12 @@ function Financiamento() {
   ];
   return (
     <SitePage mainClassName="page-shell finance-page">
+      <PageHero
+        className="finance-hero"
+        title="Financiamento"
+        description="Simule o crédito da sua próxima viatura e envie o pedido à nossa equipa"
+      />
+
       <section className="finance-grid">
         <section className="finance-card finance-card--simulator">
           <div className="finance-heading">
@@ -226,7 +233,7 @@ function Financiamento() {
               <CalculatorIcon />
             </div>
             <div>
-              <h1>Simulador de Crédito</h1>
+              <h2>Simulador de Crédito</h2>
             </div>
           </div>
           <div className="finance-control">

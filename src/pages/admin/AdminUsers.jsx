@@ -4,7 +4,11 @@ import AdminPageShell from "../../components/admin/AdminPageShell";
 import AdminSectionLinks from "../../components/admin/AdminSectionLinks";
 import { FormInputField } from "../../components/form/FormField";
 import { deleteAdminUser, fetchAdminUsers } from "../../services/adminApi";
-import { formatAdminDateTime, handleAdminSessionError } from "../../utils/admin";
+import {
+  formatAdminDateTime,
+  handleAdminSessionError,
+  matchesAdminSearch,
+} from "../../utils/admin";
 
 function AdminUsers() {
   const navigate = useNavigate();
@@ -79,18 +83,11 @@ function AdminUsers() {
     }
   }
 
-  const normalizedSearchTerm = searchTerm.trim().toLowerCase();
   const filteredUsers = users.filter((user) => {
-    if (!normalizedSearchTerm) {
-      return true;
-    }
-
-    const searchableText = [user.nome, user.username, user.email]
-      .filter(Boolean)
-      .join(" ")
-      .toLowerCase();
-
-    return searchableText.includes(normalizedSearchTerm);
+    return matchesAdminSearch(
+      [user.nome, user.username, user.email],
+      searchTerm,
+    );
   });
 
   return (
