@@ -218,33 +218,33 @@ Tabelas principais usadas no projeto:
 
 ## Estilos
 
-Os estilos estÃ£o divididos em dois nÃ­veis:
+Os estilos estao divididos por responsabilidade:
 
 Base:
 - [src/styles/colors.css](src/styles/colors.css)
 - [src/styles/tokens.css](src/styles/tokens.css)
 - [src/styles/typography.css](src/styles/typography.css)
 - [src/styles/surfaces.css](src/styles/surfaces.css)
-- [src/styles/layout.css](src/styles/layout.css)
 
-App e blocos partilhados:
-- [src/styles/app/base.css](src/styles/app/base.css)
-- [src/styles/app/header.css](src/styles/app/header.css)
-- [src/styles/app/luxury.css](src/styles/app/luxury.css)
-- [src/styles/app/footer.css](src/styles/app/footer.css)
+Componentes partilhados:
+- [src/styles/components/SitePage.css](src/styles/components/SitePage.css)
+- [src/styles/components/PageHero.css](src/styles/components/PageHero.css)
+- [src/styles/components/Navbar.css](src/styles/components/Navbar.css)
+- [src/styles/components/Footer.css](src/styles/components/Footer.css)
+- [src/styles/components/PublicShared.css](src/styles/components/PublicShared.css)
 
-Por pÃ¡gina/Ã¡rea:
-- [src/styles/pages/admin.css](src/styles/pages/admin.css)
-- [src/styles/pages/about.css](src/styles/pages/about.css)
-- [src/styles/pages/auth.css](src/styles/pages/auth.css)
-- [src/styles/pages/blog.css](src/styles/pages/blog.css)
-- [src/styles/pages/catalog.css](src/styles/pages/catalog.css)
-- [src/styles/pages/contact.css](src/styles/pages/contact.css)
-- [src/styles/pages/finance.css](src/styles/pages/finance.css)
-- [src/styles/pages/home.css](src/styles/pages/home.css)
-- [src/styles/pages/test-drive.css](src/styles/pages/test-drive.css)
-- [src/styles/pages/tradein.css](src/styles/pages/tradein.css)
-- [src/styles/pages/vehicle-detail.css](src/styles/pages/vehicle-detail.css)
+Por pagina/area:
+- [src/styles/pages/AdminPageShell.css](src/styles/pages/AdminPageShell.css)
+- [src/styles/pages/AuthPages.css](src/styles/pages/AuthPages.css)
+- [src/styles/pages/Blog.css](src/styles/pages/Blog.css)
+- [src/styles/pages/Catalogo.css](src/styles/pages/Catalogo.css)
+- [src/styles/pages/Contacto.css](src/styles/pages/Contacto.css)
+- [src/styles/pages/Financiamento.css](src/styles/pages/Financiamento.css)
+- [src/styles/pages/Home.css](src/styles/pages/Home.css)
+- [src/styles/pages/Retoma.css](src/styles/pages/Retoma.css)
+- [src/styles/pages/Sobre.css](src/styles/pages/Sobre.css)
+- [src/styles/pages/TestDrive.css](src/styles/pages/TestDrive.css)
+- [src/styles/pages/VeiculoDetalhe.css](src/styles/pages/VeiculoDetalhe.css)
 
 Tudo Ã© importado a partir de [src/index.css](src/index.css).
 
