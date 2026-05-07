@@ -1,7 +1,7 @@
 import express from "express";
-import { pool } from "../db.js";
-import { fetchFirstRow, fetchRows } from "../lib/dbQueries.js";
-import { sendServerError } from "../lib/http.js";
+import { pool } from "../databaseConnection.js";
+import { fetchFirstRow, fetchRows } from "../lib/databaseQueries.js";
+import { sendServerError } from "../lib/httpResponses.js";
 import {
   getFinanceSimulationError,
   getVehicleLookupFromSlug,
@@ -9,8 +9,8 @@ import {
   isValidEmail,
   isValidPhone,
   isValidTestDriveHour,
-} from "../lib/validation.js";
-import { VEHICLE_SELECT_ORDER_QUERY } from "../lib/vehiclePayload.js";
+} from "../lib/formValidation.js";
+import { VEHICLE_SELECT_ORDER_QUERY } from "../lib/vehicleFormPayload.js";
 
 const router = express.Router();
 

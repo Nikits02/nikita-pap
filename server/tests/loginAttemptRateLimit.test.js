@@ -1,10 +1,10 @@
-﻿import assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import test from "node:test";
 import {
   authRateLimit,
   clearAuthAttempts,
   registerAuthAttempt,
-} from "../middleware/authRateLimit.js";
+} from "../middleware/loginAttemptRateLimit.js";
 
 function createRequest(ip) {
   return {

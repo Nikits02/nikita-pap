@@ -1,4 +1,4 @@
-﻿import assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import test from "node:test";
 import {
   getFinanceSimulationError,
@@ -8,7 +8,7 @@ import {
   isValidIsoDate,
   isValidPhone,
   isValidTestDriveHour,
-} from "../lib/validation.js";
+} from "../lib/formValidation.js";
 
 test("isValidEmail accepts common valid email addresses", () => {
   assert.equal(isValidEmail("cliente@email.pt"), true);

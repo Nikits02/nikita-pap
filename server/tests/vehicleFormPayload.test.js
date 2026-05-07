@@ -1,11 +1,11 @@
-﻿import assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import test from "node:test";
 import {
   getVehiclePayloadError,
   getVehicleValues,
   normalizeVehiclePayload,
   VEHICLE_FIELDS,
-} from "../lib/vehiclePayload.js";
+} from "../lib/vehicleFormPayload.js";
 
 const validVehiclePayload = {
   source: "catalog",

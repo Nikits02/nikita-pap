@@ -1,16 +1,16 @@
-# NikitaMotors
+﻿# NikitaMotors
 
 Projeto PAP desenvolvido com React + Vite no frontend e Node.js + Express + MySQL no backend.
 
-O objetivo do projeto é apresentar um stand automóvel premium com:
-- catálogo de viaturas
-- página de detalhe por viatura
+O objetivo do projeto Ã© apresentar um stand automÃ³vel premium com:
+- catÃ¡logo de viaturas
+- pÃ¡gina de detalhe por viatura
 - pedidos de contacto
 - pedidos de test drive
 - pedidos de retoma
 - pedidos de financiamento
-- autenticação de utilizadores
-- painel de administração para gerir viaturas, pedidos e utilizadores
+- autenticaÃ§Ã£o de utilizadores
+- painel de administraÃ§Ã£o para gerir viaturas, pedidos e utilizadores
 
 ## Stack
 
@@ -18,7 +18,7 @@ Frontend:
 - React
 - React Router
 - Vite
-- CSS dividido por áreas/páginas
+- CSS dividido por Ã¡reas/pÃ¡ginas
 
 Backend:
 - Node.js
@@ -52,7 +52,7 @@ cd server
 npm run create-admin -- admin Admin123
 ```
 
-Variáveis de ambiente mínimas no backend:
+VariÃ¡veis de ambiente mÃ­nimas no backend:
 - `DB_HOST`
 - `DB_PORT`
 - `DB_USER`
@@ -63,7 +63,7 @@ Variáveis de ambiente mínimas no backend:
 Opcional:
 - `PORT`
 - `CORS_ORIGIN`
-  Pode receber uma ou várias origens separadas por vírgulas, por exemplo:
+  Pode receber uma ou vÃ¡rias origens separadas por vÃ­rgulas, por exemplo:
   `http://localhost:5174,http://127.0.0.1:5174`
 
 Frontend:
@@ -75,31 +75,31 @@ Backend:
 Nota:
 - o frontend usa proxy no `vite.config.js` para encaminhar `/api` e `/uploads` para o backend
 - o backend cria automaticamente as tabelas principais no arranque, incluindo a tabela `vehicles`
-- guia completo de preparação: [docs/PRESENTATION_SETUP.md](docs/PRESENTATION_SETUP.md)
+- guia completo de preparaÃ§Ã£o: [docs/PRESENTATION_SETUP.md](docs/PRESENTATION_SETUP.md)
 
 ## Estrutura Geral
 
 ```text
 src/
-  components/   componentes reutilizáveis
-  data/         dados estáticos e configurações simples
-  hooks/        hooks reutilizáveis
-  pages/        páginas organizadas por área
-    admin/      páginas do painel de administração
+  components/   componentes reutilizÃ¡veis
+  data/         dados estÃ¡ticos e configuraÃ§Ãµes simples
+  hooks/        hooks reutilizÃ¡veis
+  pages/        pÃ¡ginas organizadas por Ã¡rea
+    admin/      pÃ¡ginas do painel de administraÃ§Ã£o
     auth/       login, registo e conta
-    public/     páginas públicas do site
+    public/     pÃ¡ginas pÃºblicas do site
   services/     chamadas HTTP para a API
-  styles/       tokens, estilos globais e estilos por página
+  styles/       tokens, estilos globais e estilos por pÃ¡gina
     app/        estilos globais da interface
-    pages/      estilos específicos de áreas/páginas
-  utils/        funções auxiliares
+    pages/      estilos especÃ­ficos de Ã¡reas/pÃ¡ginas
+  utils/        funÃ§Ãµes auxiliares
 
 server/
   index.js      arranque do servidor Express
-  db.js         ligação à base de dados
-  lib/          lógica auxiliar do backend
-  middleware/   middleware de autenticação
-  routes/       endpoints públicos, autenticação e admin
+  databaseConnection.js  ligacao a base de dados
+  lib/          lÃ³gica auxiliar do backend
+  middleware/   middleware de autenticaÃ§Ã£o
+  routes/       endpoints pÃºblicos, autenticaÃ§Ã£o e admin
   uploads/      imagens carregadas
 ```
 
@@ -108,23 +108,23 @@ server/
 Se quiseres perceber o projeto depressa, abre por esta ordem:
 
 1. [src/App.jsx](src/App.jsx)
-   Aqui estão todas as rotas do site e do admin.
+   Aqui estÃ£o todas as rotas do site e do admin.
 
 2. [src/pages](src/pages)
-   Cada ficheiro corresponde a uma página.
+   Cada ficheiro corresponde a uma pÃ¡gina.
 
 3. [src/services](src/services)
-   Aqui vês como o frontend comunica com o backend.
+   Aqui vÃªs como o frontend comunica com o backend.
 
 4. [server/routes](server/routes)
-   Aqui estão os endpoints, validações principais e operações na base de dados.
+   Aqui estÃ£o os endpoints, validaÃ§Ãµes principais e operaÃ§Ãµes na base de dados.
 
 5. [src/components](src/components)
-   Componentes reutilizáveis usados pelas páginas.
+   Componentes reutilizÃ¡veis usados pelas pÃ¡ginas.
 
-## Páginas do Frontend
+## PÃ¡ginas do Frontend
 
-Públicas:
+PÃºblicas:
 - `/` Home
 - `/catalogo`
 - `/viaturas/:slug`
@@ -133,7 +133,7 @@ Públicas:
 - `/sobre`
 - `/registo`
 - `/login`
-- `*` página 404 para rotas inexistentes
+- `*` pÃ¡gina 404 para rotas inexistentes
 
 Privadas:
 - `/financiamento`
@@ -154,39 +154,39 @@ Admin:
 
 ## Fluxos Principais
 
-### 1. Catálogo de viaturas
+### 1. CatÃ¡logo de viaturas
 
 - o frontend chama `fetchVehicles()` em [src/services/api.js](src/services/api.js)
 - essa chamada vai para `GET /api/vehicles`
 - o backend responde com as viaturas da base de dados
-- no frontend, o hook [src/hooks/useVehicles.js](src/hooks/useVehicles.js) normaliza os dados e acrescenta meta-informação
+- no frontend, o hook [src/hooks/useVehicles.js](src/hooks/useVehicles.js) normaliza os dados e acrescenta meta-informaÃ§Ã£o
 
 ### 2. Detalhe da viatura
 
 - a rota usa o `slug`
 - o hook `useVehicles()` carrega as viaturas
-- a página [src/pages/public/VeiculoDetalhe.jsx](src/pages/public/VeiculoDetalhe.jsx) encontra a viatura correta e mostra os detalhes
+- a pÃ¡gina [src/pages/public/VeiculoDetalhe.jsx](src/pages/public/VeiculoDetalhe.jsx) encontra a viatura correta e mostra os detalhes
 
-### 3. Formulário de contacto
+### 3. FormulÃ¡rio de contacto
 
 - frontend envia para `POST /api/contact`
 - backend guarda em `contact_messages`
 
-### 4. Formulário de test drive
+### 4. FormulÃ¡rio de test drive
 
-- a página `/test-drive` exige sessão iniciada
+- a pÃ¡gina `/test-drive` exige sessÃ£o iniciada
 - frontend envia para `POST /api/test-drives`
 - backend guarda em `test_drives`
 
-### 5. Formulário de retoma
+### 5. FormulÃ¡rio de retoma
 
-- a página `/retoma` exige sessão iniciada
+- a pÃ¡gina `/retoma` exige sessÃ£o iniciada
 - frontend envia para `POST /api/trade-ins`
 - backend guarda em `trade_in_requests`
 
 ### 6. Simulador e pedido de financiamento
 
-- a página `/financiamento` exige sessão iniciada
+- a pÃ¡gina `/financiamento` exige sessÃ£o iniciada
 - o utilizador simula valores de financiamento e envia o pedido
 - frontend envia para `POST /api/finance-requests`
 - backend guarda em `finance_requests`
@@ -195,14 +195,14 @@ Admin:
 
 - registo: `POST /api/auth/register`
 - login: `POST /api/auth/login`
-- o backend cria uma sessão autenticada por cookie `HttpOnly`
+- o backend cria uma sessÃ£o autenticada por cookie `HttpOnly`
 - o frontend guarda localmente apenas os dados do utilizador para a interface
 
 ### 8. Painel admin
 
 - login admin: `POST /api/admin/login`
 - rotas protegidas por JWT
-- as rotas admin funcionam por sessão autenticada via cookie
+- as rotas admin funcionam por sessÃ£o autenticada via cookie
 - permite gerir viaturas, retomas, utilizadores, contactos, financiamentos e test drives
 
 ## Base de Dados
@@ -218,7 +218,7 @@ Tabelas principais usadas no projeto:
 
 ## Estilos
 
-Os estilos estão divididos em dois níveis:
+Os estilos estÃ£o divididos em dois nÃ­veis:
 
 Base:
 - [src/styles/colors.css](src/styles/colors.css)
@@ -233,7 +233,7 @@ App e blocos partilhados:
 - [src/styles/app/luxury.css](src/styles/app/luxury.css)
 - [src/styles/app/footer.css](src/styles/app/footer.css)
 
-Por página/área:
+Por pÃ¡gina/Ã¡rea:
 - [src/styles/pages/admin.css](src/styles/pages/admin.css)
 - [src/styles/pages/about.css](src/styles/pages/about.css)
 - [src/styles/pages/auth.css](src/styles/pages/auth.css)
@@ -246,41 +246,41 @@ Por página/área:
 - [src/styles/pages/tradein.css](src/styles/pages/tradein.css)
 - [src/styles/pages/vehicle-detail.css](src/styles/pages/vehicle-detail.css)
 
-Tudo é importado a partir de [src/index.css](src/index.css).
+Tudo Ã© importado a partir de [src/index.css](src/index.css).
 
 ## Como Explicar o Projeto
 
 Resumo simples:
 
-"O projeto está dividido em duas partes: frontend em React e backend em Express. O frontend trata da interface, páginas, componentes e formulários. O backend trata da autenticação, CRUD de viaturas, gestão de retomas, utilizadores e ligação à base de dados MySQL. A comunicação entre ambos é feita por API REST."
+"O projeto estÃ¡ dividido em duas partes: frontend em React e backend em Express. O frontend trata da interface, pÃ¡ginas, componentes e formulÃ¡rios. O backend trata da autenticaÃ§Ã£o, CRUD de viaturas, gestÃ£o de retomas, utilizadores e ligacao a base de dados MySQL. A comunicaÃ§Ã£o entre ambos Ã© feita por API REST."
 
-Se quiseres uma explicação mais detalhada da arquitetura, abre:
+Se quiseres uma explicaÃ§Ã£o mais detalhada da arquitetura, abre:
 - [docs/PROJECT_MAP.md](docs/PROJECT_MAP.md)
 
-## Documentação Disponível
+## DocumentaÃ§Ã£o DisponÃ­vel
 
 - [docs/PROJECT_MAP.md](docs/PROJECT_MAP.md)
-  Mapa geral do projeto: pastas, ficheiros importantes, rotas e forma certa de ler o código.
+  Mapa geral do projeto: pastas, ficheiros importantes, rotas e forma certa de ler o cÃ³digo.
 
 - [docs/API_REFERENCE.md](docs/API_REFERENCE.md)
   Lista dos endpoints do backend, o que recebem e o que devolvem.
 
 - [docs/DATABASE.md](docs/DATABASE.md)
-  Explicação simples das tabelas principais da base de dados e da sua função no projeto.
+  ExplicaÃ§Ã£o simples das tabelas principais da base de dados e da sua funÃ§Ã£o no projeto.
 
 - [docs/PRESENTATION_GUIDE.md](docs/PRESENTATION_GUIDE.md)
-  Guia de apresentação oral para explicares o projeto com segurança.
+  Guia de apresentaÃ§Ã£o oral para explicares o projeto com seguranÃ§a.
 
 - [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md)
-  Roteiro prático da demo: ordem de cliques, frases-chave, tempos e plano B.
+  Roteiro prÃ¡tico da demo: ordem de cliques, frases-chave, tempos e plano B.
 
 - [docs/DEMO_VEHICLES.md](docs/DEMO_VEHICLES.md)
-  Lista das viaturas estrela preparadas para causar melhor primeira impressão.
+  Lista das viaturas estrela preparadas para causar melhor primeira impressÃ£o.
 
 - [docs/PRESENTATION_SETUP.md](docs/PRESENTATION_SETUP.md)
-  Checklist técnica para preparar MySQL, variáveis de ambiente, admin e arranque da demo.
+  Checklist tÃ©cnica para preparar MySQL, variÃ¡veis de ambiente, admin e arranque da demo.
 
-## Comandos Úteis
+## Comandos Ãšteis
 
 Frontend:
 ```powershell
@@ -297,8 +297,8 @@ npm run create-admin -- admin Admin123
 
 ## Estado Atual do Projeto
 
-Já implementado:
-- catálogo dinâmico
+JÃ¡ implementado:
+- catÃ¡logo dinÃ¢mico
 - detalhe de viaturas
 - retoma funcional
 - contacto funcional
@@ -312,11 +312,11 @@ Já implementado:
 - admin de financiamentos
 - admin de test drives
 - upload de imagens de viaturas no admin
-- rotas protegidas para financiamento, retoma, test drive e área de conta
+- rotas protegidas para financiamento, retoma, test drive e Ã¡rea de conta
 
-## Sugestão de Próximos Passos
+## SugestÃ£o de PrÃ³ximos Passos
 
-- revisão final de UX e mobile
+- revisÃ£o final de UX e mobile
 - reforcar testes dos endpoints principais
-- rever textos, acentos e consistência visual
-- preparar base de dados e credenciais para a apresentação
+- rever textos, acentos e consistÃªncia visual
+- preparar base de dados e credenciais para a apresentaÃ§Ã£o

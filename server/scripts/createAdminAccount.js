@@ -1,8 +1,8 @@
-﻿import "dotenv/config";
+import "dotenv/config";
 import bcrypt from "bcryptjs";
-import { pool } from "../db.js";
-import { ensureAuthTables } from "../lib/bootstrap.js";
-import { fetchFirstRow } from "../lib/dbQueries.js";
+import { pool } from "../databaseConnection.js";
+import { ensureAuthTables } from "../lib/createDatabaseTables.js";
+import { fetchFirstRow } from "../lib/databaseQueries.js";
 
 const [, , username, password] = process.argv;
 

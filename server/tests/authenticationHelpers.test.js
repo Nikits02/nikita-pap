@@ -5,7 +5,7 @@ import {
   buildAuthResponseBody,
   clearAuthCookie,
   createAuthSuccess,
-} from "../lib/auth.js";
+} from "../lib/authenticationHelpers.js";
 
 function createResponseMock() {
   return {

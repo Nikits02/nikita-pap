@@ -1,18 +1,18 @@
-# API Reference
+﻿# API Reference
 
-Este ficheiro documenta a API do backend de forma simples e prática.
+Este ficheiro documenta a API do backend de forma simples e prÃ¡tica.
 
 Base URL em desenvolvimento:
 - `http://localhost:3002`
 
-No frontend, os pedidos são feitos para `/api/...` e o Vite encaminha para o backend via proxy.
+No frontend, os pedidos sÃ£o feitos para `/api/...` e o Vite encaminha para o backend via proxy.
 
-## 1. Endpoints Públicos
+## 1. Endpoints PÃºblicos
 
 ### `GET /api/health`
 
 Objetivo:
-- verificar se a API está ativa
+- verificar se a API estÃ¡ ativa
 
 Resposta esperada:
 ```json
@@ -22,7 +22,7 @@ Resposta esperada:
 ### `GET /api/vehicles`
 
 Objetivo:
-- devolver todas as viaturas para o catálogo, homepage, footer, detalhe e outras zonas do site
+- devolver todas as viaturas para o catÃ¡logo, homepage, footer, detalhe e outras zonas do site
 
 Usado por:
 - `src/hooks/useVehicles.js`
@@ -63,12 +63,12 @@ Body esperado:
 }
 ```
 
-Validações:
-- todos os campos são obrigatórios
-- a data não pode estar no passado
-- a hora tem de estar dentro dos horários disponíveis
-- o telefone tem de ter formato válido
-- a viatura tem de existir no catálogo
+ValidaÃ§Ãµes:
+- todos os campos sÃ£o obrigatÃ³rios
+- a data nÃ£o pode estar no passado
+- a hora tem de estar dentro dos horÃ¡rios disponÃ­veis
+- o telefone tem de ter formato vÃ¡lido
+- a viatura tem de existir no catÃ¡logo
 
 Resposta de sucesso:
 ```json
@@ -78,7 +78,7 @@ Resposta de sucesso:
 ### `POST /api/contact`
 
 Objetivo:
-- guardar uma mensagem enviada no formulário de contacto
+- guardar uma mensagem enviada no formulÃ¡rio de contacto
 
 Body esperado:
 ```json
@@ -86,14 +86,14 @@ Body esperado:
   "nome": "Nome do cliente",
   "email": "cliente@email.pt",
   "telefone": "912345678",
-  "assunto": "Pedido de Informação",
+  "assunto": "Pedido de InformaÃ§Ã£o",
   "mensagem": "Texto da mensagem"
 }
 ```
 
-Validações:
-- `nome`, `email`, `assunto` e `mensagem` são obrigatórios
-- se o telefone for preenchido, tem de ter formato válido
+ValidaÃ§Ãµes:
+- `nome`, `email`, `assunto` e `mensagem` sÃ£o obrigatÃ³rios
+- se o telefone for preenchido, tem de ter formato vÃ¡lido
 
 Resposta de sucesso:
 ```json
@@ -120,7 +120,7 @@ Body esperado:
 }
 ```
 
-Validações:
+ValidaÃ§Ãµes:
 - `marca`
 - `modelo`
 - `ano`
@@ -131,9 +131,9 @@ Validações:
 - `email`
 
 Regras adicionais:
-- `ano` tem de ser inteiro válido
-- `quilometragem` não pode ser negativa
-- `telefone` tem de ter formato válido
+- `ano` tem de ser inteiro vÃ¡lido
+- `quilometragem` nÃ£o pode ser negativa
+- `telefone` tem de ter formato vÃ¡lido
 
 Resposta de sucesso:
 ```json
@@ -155,10 +155,10 @@ Body esperado:
 }
 ```
 
-Validações:
-- todos os campos obrigatórios
+ValidaÃ§Ãµes:
+- todos os campos obrigatÃ³rios
 - password com pelo menos 6 caracteres
-- `username` e `email` únicos
+- `username` e `email` Ãºnicos
 
 Resposta de sucesso:
 ```json
@@ -177,7 +177,7 @@ Resposta de sucesso:
 ### `POST /api/auth/login`
 
 Objetivo:
-- iniciar sessão como utilizador normal ou admin
+- iniciar sessÃ£o como utilizador normal ou admin
 
 Body esperado:
 ```json
@@ -191,12 +191,12 @@ Nota:
 - o backend aceita `identifier` ou `username`
 
 Resposta:
-- devolve os dados do utilizador e cria uma sessão autenticada por cookie `HttpOnly`
+- devolve os dados do utilizador e cria uma sessÃ£o autenticada por cookie `HttpOnly`
 
 ### `POST /api/admin/login`
 
 Objetivo:
-- iniciar sessão diretamente na área admin
+- iniciar sessÃ£o diretamente na Ã¡rea admin
 
 Body esperado:
 ```json
@@ -207,12 +207,12 @@ Body esperado:
 ```
 
 Resposta:
-- devolve os dados do admin e cria uma sessão autenticada por cookie `HttpOnly`
+- devolve os dados do admin e cria uma sessÃ£o autenticada por cookie `HttpOnly`
 
 ### `GET /api/auth/session`
 
 Objetivo:
-- validar a sessão atual com base no cookie autenticado
+- validar a sessÃ£o atual com base no cookie autenticado
 
 Resposta de sucesso:
 ```json
@@ -231,7 +231,7 @@ Resposta de sucesso:
 ### `POST /api/auth/logout`
 
 Objetivo:
-- terminar a sessão atual e limpar o cookie autenticado
+- terminar a sessÃ£o atual e limpar o cookie autenticado
 
 Resposta de sucesso:
 ```json
@@ -240,12 +240,12 @@ Resposta de sucesso:
 
 ## 2. Endpoints Protegidos de Admin
 
-Todos estes endpoints exigem uma sessão autenticada de administrador.
+Todos estes endpoints exigem uma sessÃ£o autenticada de administrador.
 
-A validação principal é feita por cookie de sessão `HttpOnly`.
+A validaÃ§Ã£o principal Ã© feita por cookie de sessÃ£o `HttpOnly`.
 
-O acesso é validado em:
-- [server/middleware/authenticateAdmin.js](../server/middleware/authenticateAdmin.js)
+O acesso Ã© validado em:
+- [server/middleware/requireAdminLogin.js](../server/middleware/requireAdminLogin.js)
 
 ### `POST /api/admin/uploads/vehicle-image`
 
@@ -275,7 +275,7 @@ Objetivo:
 ### `GET /api/admin/vehicles/:id`
 
 Objetivo:
-- obter uma viatura específica para editar no painel admin
+- obter uma viatura especÃ­fica para editar no painel admin
 
 ### `POST /api/admin/vehicles`
 
@@ -346,30 +346,30 @@ Camadas:
    Faz o pedido HTTP base.
 
 2. `src/services/api.js`
-   Endpoints públicos.
+   Endpoints pÃºblicos.
 
 3. `src/services/authApi.js`
-   Login, registo, validação da sessão e persistência local do utilizador.
+   Login, registo, validaÃ§Ã£o da sessÃ£o e persistÃªncia local do utilizador.
 
 4. `src/services/adminApi.js`
-   Endpoints protegidos do admin suportados por sessão via cookie.
+   Endpoints protegidos do admin suportados por sessÃ£o via cookie.
 
 ## 4. Erros e Mensagens
 
-O backend tenta sempre devolver mensagens simples em português, por exemplo:
+O backend tenta sempre devolver mensagens simples em portuguÃªs, por exemplo:
 - `Campos em falta.`
-- `Credenciais inválidas.`
-- `Email inválido.`
+- `Credenciais invÃ¡lidas.`
+- `Email invÃ¡lido.`
 - `Token em falta.`
-- `Utilizador não encontrado.`
-- `Pedido de retoma não encontrado.`
+- `Utilizador nÃ£o encontrado.`
+- `Pedido de retoma nÃ£o encontrado.`
 - `Demasiadas tentativas. Tente novamente dentro de alguns minutos.`
 
 O frontend usa essas mensagens para mostrar erros diretamente ao utilizador.
 
-## 5. Notas de Segurança
+## 5. Notas de SeguranÃ§a
 
 - o backend valida `JWT_SECRET` no arranque
 - o CORS passa a aceitar apenas as origens configuradas
-- a autenticação usa cookie `HttpOnly` para reduzir dependência de token no browser
-- os endpoints de `login` e `register` têm limitação básica de tentativas por IP
+- a autenticaÃ§Ã£o usa cookie `HttpOnly` para reduzir dependÃªncia de token no browser
+- os endpoints de `login` e `register` tÃªm limitaÃ§Ã£o bÃ¡sica de tentativas por IP

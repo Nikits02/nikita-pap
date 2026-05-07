@@ -1,13 +1,13 @@
 import express from "express";
-import { pool } from "../db.js";
-import { fetchFirstRow, fetchRows, buildOrderedTableQuery } from "../lib/dbQueries.js";
+import { pool } from "../databaseConnection.js";
+import { fetchFirstRow, fetchRows, buildOrderedTableQuery } from "../lib/databaseQueries.js";
 import {
   sendFinanceStatusEmail,
   sendTestDriveStatusEmail,
   sendTradeInStatusEmail,
-} from "../lib/email.js";
-import { sendServerError } from "../lib/http.js";
-import { authenticateAdmin } from "../middleware/authenticateAdmin.js";
+} from "../lib/emailNotifications.js";
+import { sendServerError } from "../lib/httpResponses.js";
+import { authenticateAdmin } from "../middleware/requireAdminLogin.js";
 import {
   getVehiclePayloadError,
   getVehicleValues,
@@ -16,11 +16,11 @@ import {
   VEHICLE_INSERT_PLACEHOLDERS_SQL,
   VEHICLE_SELECT_ORDER_QUERY,
   VEHICLE_UPDATE_ASSIGNMENTS_SQL,
-} from "../lib/vehiclePayload.js";
+} from "../lib/vehicleFormPayload.js";
 import {
   saveVehicleImageUpload,
   VehicleImageUploadValidationError,
-} from "../lib/vehicleImageUpload.js";
+} from "../lib/vehicleImageUploadHandler.js";
 
 const router = express.Router();
 const ADMIN_LEAD_STATUSES = new Set([

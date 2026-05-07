@@ -1,24 +1,24 @@
-# Base de Dados
+﻿# Base de Dados
 
 Este ficheiro explica a base de dados do projeto de forma simples.
 
 Base de dados usada:
 - `nikita_stand`
 
-Ligação configurada em:
-- [server/db.js](../server/db.js)
+LigaÃ§Ã£o configurada em:
+- [server/databaseConnection.js](../server/databaseConnection.js)
 
 ## 1. Ideia Geral
 
-A base de dados guarda 3 tipos principais de informação:
+A base de dados guarda 3 tipos principais de informaÃ§Ã£o:
 
 1. Contas
    Utilizadores normais e administradores.
 
-2. Conteúdo principal do site
+2. ConteÃºdo principal do site
    Viaturas.
 
-3. Pedidos feitos por formulários
+3. Pedidos feitos por formulÃ¡rios
    Contactos, test drives, retomas e financiamentos.
 
 ## 2. Tabelas Principais
@@ -35,7 +35,7 @@ Campos principais:
 - `created_at`
 
 Notas:
-- a password não fica guardada em texto simples
+- a password nÃ£o fica guardada em texto simples
 - usa bcrypt
 
 ### `users`
@@ -54,7 +54,7 @@ Campos principais:
 ### `vehicles`
 
 Serve para:
-- guardar as viaturas mostradas no catálogo e no admin
+- guardar as viaturas mostradas no catÃ¡logo e no admin
 
 Campos usados no projeto:
 - `id`
@@ -74,7 +74,7 @@ Campos usados no projeto:
 - `novidade`
 
 Notas:
-- esta é a tabela central do catálogo
+- esta Ã© a tabela central do catÃ¡logo
 - o frontend transforma estes dados com `vehicleMeta.js`
 
 ### `test_drives`
@@ -95,7 +95,7 @@ Campos principais:
 ### `contact_messages`
 
 Serve para:
-- guardar mensagens enviadas no formulário de contacto
+- guardar mensagens enviadas no formulÃ¡rio de contacto
 
 Campos principais:
 - `id`
@@ -128,26 +128,26 @@ Campos principais:
 Notas:
 - `is_viewed` permite marcar pedidos como vistos ou por ver no admin
 
-## 3. Onde as Tabelas São Criadas
+## 3. Onde as Tabelas SÃ£o Criadas
 
-No projeto, várias tabelas são criadas automaticamente no arranque do backend.
+No projeto, vÃ¡rias tabelas sÃ£o criadas automaticamente no arranque do backend.
 
 Isto acontece em:
-- [server/lib/bootstrap.js](../server/lib/bootstrap.js)
+- [server/lib/createDatabaseTables.js](../server/lib/createDatabaseTables.js)
 
-Funções principais:
+FunÃ§Ãµes principais:
 - `ensureAuthTables()`
 - `ensureCatalogTables()`
 - `ensureLeadTables()`
 
 Isto significa que o servidor:
 - cria tabelas em falta
-- prepara a tabela `vehicles` usada pelo catálogo
-- adiciona a coluna `is_viewed` nas retomas, se ainda não existir
+- prepara a tabela `vehicles` usada pelo catÃ¡logo
+- adiciona a coluna `is_viewed` nas retomas, se ainda nÃ£o existir
 
 ## 4. Relacao Entre Tabelas e Funcionalidades
 
-### Catálogo
+### CatÃ¡logo
 
 - tabela: `vehicles`
 - frontend:
@@ -207,7 +207,7 @@ Isto significa que o servidor:
 
 Forma simples:
 
-"A base de dados foi organizada para separar conteúdo do site e pedidos dos utilizadores. A tabela `vehicles` guarda as viaturas do catálogo. As tabelas `users` e `admins` tratam da autenticação. As tabelas `contact_messages`, `test_drives`, `trade_in_requests` e `finance_requests` guardam os dados enviados pelos formulários."
+"A base de dados foi organizada para separar conteÃºdo do site e pedidos dos utilizadores. A tabela `vehicles` guarda as viaturas do catÃ¡logo. As tabelas `users` e `admins` tratam da autenticaÃ§Ã£o. As tabelas `contact_messages`, `test_drives`, `trade_in_requests` e `finance_requests` guardam os dados enviados pelos formulÃ¡rios."
 
 ## 6. Como Ver os Dados no MySQL
 
@@ -251,7 +251,7 @@ ORDER BY id DESC;
 
 Ver financiamentos:
 ```sql
-SELECT id, nome, email, telefone, viatura, prestácao_mensal, created_at
+SELECT id, nome, email, telefone, viatura, prestÃ¡cao_mensal, created_at
 FROM finance_requests
 ORDER BY id DESC;
 ```

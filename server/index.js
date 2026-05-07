@@ -5,16 +5,16 @@ import {
   ensureAuthTables,
   ensureCatalogTables,
   ensureLeadTables,
-} from "./lib/bootstrap.js";
-import { getRequiredEnv } from "./lib/env.js";
+} from "./lib/createDatabaseTables.js";
+import { getRequiredEnv } from "./lib/requiredEnvironmentVariables.js";
 import {
   ensureVehicleUploadDirectory,
   LEGACY_VEHICLE_UPLOADS_ROOT_DIR,
   VEHICLE_UPLOADS_ROOT_DIR,
-} from "./lib/vehicleImageUpload.js";
-import publicRoutes from "./routes/public.js";
-import authRoutes from "./routes/auth.js";
-import adminRoutes from "./routes/admin.js";
+} from "./lib/vehicleImageUploadHandler.js";
+import publicRoutes from "./routes/publicRoutes.js";
+import authRoutes from "./routes/authenticationRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
 
 const app = express();
 const port = Number(process.env.PORT) || 3002;

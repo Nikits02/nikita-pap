@@ -1,22 +1,22 @@
 import express from "express";
 import bcrypt from "bcryptjs";
-import { pool } from "../db.js";
+import { pool } from "../databaseConnection.js";
 import {
   buildAdminSessionUser,
   buildAuthResponseBody,
   buildRegularSessionUser,
   clearAuthCookie,
   createAuthSuccess,
-} from "../lib/auth.js";
-import { fetchFirstRow } from "../lib/dbQueries.js";
-import { sendServerError } from "../lib/http.js";
-import { isValidEmail } from "../lib/validation.js";
-import { authenticateRequest } from "../middleware/authenticateRequest.js";
+} from "../lib/authenticationHelpers.js";
+import { fetchFirstRow } from "../lib/databaseQueries.js";
+import { sendServerError } from "../lib/httpResponses.js";
+import { isValidEmail } from "../lib/formValidation.js";
+import { authenticateRequest } from "../middleware/requireUserLogin.js";
 import {
   authRateLimit,
   clearAuthAttempts,
   registerAuthAttempt,
-} from "../middleware/authRateLimit.js";
+} from "../middleware/loginAttemptRateLimit.js";
 
 const router = express.Router();
 

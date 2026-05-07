@@ -1,4 +1,4 @@
-import { pool } from "../db.js";
+import { pool } from "../databaseConnection.js";
 
 async function fetchRows(query, params = []) {
   const [rows] = await pool.query(query, params);
