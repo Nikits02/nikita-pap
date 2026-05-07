@@ -78,6 +78,15 @@ export function updateAdminTradeInStatus(id, payload) {
   );
 }
 
+export function updateAdminFinanceRequest(id, payload) {
+  return requestAdminJson(
+    `/api/admin/finance-requests/${id}`,
+    "Não foi possível atualizar o pedido de financiamento.",
+    "PATCH",
+    payload,
+  );
+}
+
 export function updateAdminTestDrive(id, payload) {
   return requestAdminJson(
     `/api/admin/test-drives/${id}`,

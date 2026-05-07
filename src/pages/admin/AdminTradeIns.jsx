@@ -2,7 +2,15 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminPageShell from "../../components/admin/AdminPageShell";
 import AdminSectionLinks from "../../components/admin/AdminSectionLinks";
-import { FormInputField, FormSelectField } from "../../components/form/FormField";
+import {
+  FormInputField,
+  FormSelectField,
+} from "../../components/form/FormField";
+import {
+  ADMIN_DECISION_STATUS_ACTION_OPTIONS,
+  ADMIN_DECISION_STATUS_FILTER_OPTIONS,
+  getAdminDecisionStatusLabel,
+} from "../../data/adminLeadStatus";
 import {
   deleteAdminTradeIn,
   fetchAdminTradeIns,
@@ -10,24 +18,26 @@ import {
 } from "../../services/adminApi";
 import {
   formatAdminDateTime,
+  getAdminLeadStatus,
   handleAdminSessionError,
   matchesAdminSearch,
 } from "../../utils/admin";
 
-const TRADE_IN_STATUS_FILTER_OPTIONS = [
-  { value: "all", label: "Todos" },
-  { value: "unread", label: "Por ver" },
-  { value: "viewed", label: "Vistos" },
-];
-
 function getTradeInTitle(tradeIn) {
   return [tradeIn.marca, tradeIn.modelo].filter(Boolean).join(" ").trim();
+}
+
+function hasDecisionStatus(status) {
+  return ADMIN_DECISION_STATUS_ACTION_OPTIONS.some(
+    (option) => option.value === status,
+  );
 }
 
 function AdminTradeIns() {
   const navigate = useNavigate();
   const [tradeIns, setTradeIns] = useState([]);
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [updatingTradeInId, setUpdatingTradeInId] = useState(null);
   const [deletingTradeInId, setDeletingTradeInId] = useState(null);
@@ -55,7 +65,7 @@ function AdminTradeIns() {
         }
 
         setError(
-          loadError.message ?? "Não foi possível carregar os pedidos de retoma.",
+          loadError.message ?? "Nao foi possivel carregar os pedidos de retoma.",
         );
       } finally {
         if (isMounted) {
@@ -71,13 +81,14 @@ function AdminTradeIns() {
     };
   }, [navigate]);
 
-  async function handleToggleViewed(tradeIn) {
+  async function handleUpdateTradeIn(tradeIn, nextValues = {}) {
     try {
       setUpdatingTradeInId(tradeIn.id);
       setError("");
+      setNotice("");
 
       const updatedTradeIn = await updateAdminTradeInStatus(tradeIn.id, {
-        isViewed: !tradeIn.is_viewed,
+        status: nextValues.status ?? getAdminLeadStatus(tradeIn.status),
       });
 
       setTradeIns((currentTradeIns) =>
@@ -85,13 +96,27 @@ function AdminTradeIns() {
           currentTradeIn.id === tradeIn.id ? updatedTradeIn : currentTradeIn,
         ),
       );
+      if (["accepted", "rejected"].includes(updatedTradeIn.status)) {
+        if (updatedTradeIn.notification_email_sent) {
+          setNotice("Estado atualizado e email enviado ao cliente.");
+        } else if (
+          updatedTradeIn.notification_email_skipped_reason ===
+          "email-not-configured"
+        ) {
+          setNotice(
+            "Estado atualizado. O email nao foi enviado porque o SMTP ainda nao esta configurado.",
+          );
+        } else if (updatedTradeIn.notification_email_error) {
+          setNotice("Estado atualizado, mas houve erro ao enviar o email.");
+        }
+      }
     } catch (updateError) {
       if (handleAdminSessionError(updateError, navigate)) {
         return;
       }
 
       setError(
-        updateError.message ?? "Não foi possível atualizar o pedido de retoma.",
+        updateError.message ?? "Nao foi possivel atualizar o pedido de retoma.",
       );
     } finally {
       setUpdatingTradeInId(null);
@@ -121,7 +146,7 @@ function AdminTradeIns() {
       }
 
       setError(
-        deleteError.message ?? "Não foi possível eliminar o pedido de retoma.",
+        deleteError.message ?? "Nao foi possivel eliminar o pedido de retoma.",
       );
     } finally {
       setDeletingTradeInId(null);
@@ -129,14 +154,9 @@ function AdminTradeIns() {
   }
 
   const filteredTradeIns = tradeIns.filter((tradeIn) => {
-    const matchesStatus =
-      statusFilter === "all"
-        ? true
-        : statusFilter === "viewed"
-          ? Boolean(tradeIn.is_viewed)
-          : !tradeIn.is_viewed;
+    const tradeInStatus = getAdminLeadStatus(tradeIn.status);
 
-    if (!matchesStatus) {
+    if (statusFilter !== "all" && tradeInStatus !== statusFilter) {
       return false;
     }
 
@@ -148,6 +168,7 @@ function AdminTradeIns() {
         tradeIn.marca,
         tradeIn.modelo,
         tradeIn.estado_geral,
+        getAdminDecisionStatusLabel(tradeInStatus),
       ],
       searchTerm,
     );
@@ -158,9 +179,7 @@ function AdminTradeIns() {
       title="Pedidos de Retoma"
       showLogout
       showBackToSite
-      actions={
-        <AdminSectionLinks current="tradeIns" />
-      }
+      actions={<AdminSectionLinks current="tradeIns" />}
     >
       {isLoading ? (
         <p className="admin-page__text">A carregar pedidos de retoma...</p>
@@ -169,11 +188,13 @@ function AdminTradeIns() {
       ) : tradeIns.length === 0 ? (
         <div className="admin-page__empty-state">
           <p className="admin-page__text">
-            Ainda não existem pedidos de retoma registados.
+            Ainda nao existem pedidos de retoma registados.
           </p>
         </div>
       ) : (
         <div className="admin-leads">
+          {notice ? <p className="admin-page__notice">{notice}</p> : null}
+
           <div className="admin-filters">
             <FormInputField
               className="admin-form__field"
@@ -190,7 +211,7 @@ function AdminTradeIns() {
               value={statusFilter}
               onChange={(event) => setStatusFilter(event.target.value)}
             >
-              {TRADE_IN_STATUS_FILTER_OPTIONS.map((option) => (
+              {ADMIN_DECISION_STATUS_FILTER_OPTIONS.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
                 </option>
@@ -212,96 +233,107 @@ function AdminTradeIns() {
             </div>
           ) : (
             <div className="admin-leads__list">
-              {filteredTradeIns.map((tradeIn) => (
-                <article className="admin-lead-card" key={tradeIn.id}>
-                  <div className="admin-lead-card__header">
-                    <div>
-                      <p className="admin-lead-card__eyebrow">Pedido #{tradeIn.id}</p>
-                      <h2 className="admin-lead-card__title">
-                        {getTradeInTitle(tradeIn) || `Retoma ${tradeIn.id}`}
-                      </h2>
+              {filteredTradeIns.map((tradeIn) => {
+                const tradeInStatus = getAdminLeadStatus(tradeIn.status);
+
+                return (
+                  <article className="admin-lead-card" key={tradeIn.id}>
+                    <div className="admin-lead-card__header">
+                      <div>
+                        <p className="admin-lead-card__eyebrow">
+                          Pedido #{tradeIn.id}
+                        </p>
+                        <h2 className="admin-lead-card__title">
+                          {getTradeInTitle(tradeIn) || `Retoma ${tradeIn.id}`}
+                        </h2>
+                      </div>
+
+                      <div className="admin-lead-card__header-side">
+                        <span
+                          className={`admin-lead-card__status admin-lead-card__status--${tradeInStatus}`}
+                        >
+                          {getAdminDecisionStatusLabel(tradeInStatus)}
+                        </span>
+                        <p className="admin-lead-card__timestamp">
+                          {formatAdminDateTime(tradeIn.created_at)}
+                        </p>
+                      </div>
                     </div>
 
-                    <div className="admin-lead-card__header-side">
-                      <span
-                        className={`admin-lead-card__status${tradeIn.is_viewed ? " is-viewed" : ""}`}
-                      >
-                        {tradeIn.is_viewed ? "Visto" : "Por ver"}
-                      </span>
-                      <p className="admin-lead-card__timestamp">
-                        {formatAdminDateTime(tradeIn.created_at)}
+                    <dl className="admin-lead-card__meta">
+                      <div>
+                        <dt>Ano</dt>
+                        <dd>{tradeIn.ano ?? "-"}</dd>
+                      </div>
+                      <div>
+                        <dt>Quilometros</dt>
+                        <dd>{tradeIn.quilometragem ?? "-"}</dd>
+                      </div>
+                      <div>
+                        <dt>Estado Geral</dt>
+                        <dd>{tradeIn.estado_geral ?? "-"}</dd>
+                      </div>
+                      <div>
+                        <dt>Nome</dt>
+                        <dd>{tradeIn.nome ?? "-"}</dd>
+                      </div>
+                      <div>
+                        <dt>Telefone</dt>
+                        <dd>{tradeIn.telefone ?? "-"}</dd>
+                      </div>
+                      <div>
+                        <dt>Email</dt>
+                        <dd>{tradeIn.email ?? "-"}</dd>
+                      </div>
+                    </dl>
+
+                    <div className="admin-lead-card__notes">
+                      <h3>Observacoes</h3>
+                      <p>
+                        {tradeIn.observacoes?.trim()
+                          ? tradeIn.observacoes
+                          : "Sem observacoes adicionais."}
                       </p>
                     </div>
-                  </div>
 
-                  <dl className="admin-lead-card__meta">
-                    <div>
-                      <dt>Ano</dt>
-                      <dd>{tradeIn.ano ?? "-"}</dd>
+                    <div className="admin-lead-card__manage">
+                      <FormSelectField
+                        className="admin-form__field"
+                        label="Decisao"
+                        value={hasDecisionStatus(tradeInStatus) ? tradeInStatus : ""}
+                        disabled={updatingTradeInId === tradeIn.id}
+                        onChange={(event) =>
+                          handleUpdateTradeIn(tradeIn, {
+                            status: event.target.value,
+                          })
+                        }
+                      >
+                        <option value="" disabled>
+                          Escolher decisao
+                        </option>
+                        {ADMIN_DECISION_STATUS_ACTION_OPTIONS.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </FormSelectField>
                     </div>
-                    <div>
-                      <dt>Quilómetros</dt>
-                      <dd>{tradeIn.quilometragem ?? "-"}</dd>
-                    </div>
-                    <div>
-                      <dt>Estado Geral</dt>
-                      <dd>{tradeIn.estado_geral ?? "-"}</dd>
-                    </div>
-                    <div>
-                      <dt>Nome</dt>
-                      <dd>{tradeIn.nome ?? "-"}</dd>
-                    </div>
-                    <div>
-                      <dt>Telefone</dt>
-                      <dd>{tradeIn.telefone ?? "-"}</dd>
-                    </div>
-                    <div>
-                      <dt>Email</dt>
-                      <dd>{tradeIn.email ?? "-"}</dd>
-                    </div>
-                  </dl>
 
-                  <div className="admin-lead-card__notes">
-                    <h3>Observações</h3>
-                    <p>
-                      {tradeIn.observacoes?.trim()
-                        ? tradeIn.observacoes
-                        : "Sem observacoes adicionais."}
-                    </p>
-                  </div>
-
-                  <div className="admin-lead-card__actions">
-                    <button
-                      className="admin-button admin-button--secondary"
-                      type="button"
-                      disabled={
-                        updatingTradeInId === tradeIn.id ||
-                        deletingTradeInId === tradeIn.id
-                      }
-                      onClick={() => handleToggleViewed(tradeIn)}
-                    >
-                      {updatingTradeInId === tradeIn.id
-                        ? "A atualizar..."
-                        : tradeIn.is_viewed
-                          ? "Marcar Como Por Ver"
-                          : "Marcar Como Visto"}
-                    </button>
-                    <button
-                      className="admin-button admin-button--danger"
-                      type="button"
-                      disabled={
-                        deletingTradeInId === tradeIn.id ||
-                        updatingTradeInId === tradeIn.id
-                      }
-                      onClick={() => handleDeleteTradeIn(tradeIn)}
-                    >
-                      {deletingTradeInId === tradeIn.id
-                        ? "A eliminar..."
-                        : "Eliminar"}
-                    </button>
-                  </div>
-                </article>
-              ))}
+                    <div className="admin-lead-card__actions">
+                      <button
+                        className="admin-button admin-button--danger"
+                        type="button"
+                        disabled={deletingTradeInId === tradeIn.id}
+                        onClick={() => handleDeleteTradeIn(tradeIn)}
+                      >
+                        {deletingTradeInId === tradeIn.id
+                          ? "A eliminar..."
+                          : "Eliminar"}
+                      </button>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           )}
         </div>

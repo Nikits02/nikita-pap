@@ -129,11 +129,6 @@ export async function ensureLeadTables() {
     "status",
     "status VARCHAR(40) NOT NULL DEFAULT 'new' AFTER email",
   );
-  await ensureTableColumn(
-    "test_drives",
-    "internal_notes",
-    "internal_notes TEXT DEFAULT NULL AFTER status",
-  );
   await pool.query(`
     UPDATE test_drives
     SET hora_preferida = LEFT(hora_preferida, 5)
@@ -154,7 +149,6 @@ export async function ensureLeadTables() {
       assunto VARCHAR(160) NOT NULL,
       mensagem TEXT NOT NULL,
       status VARCHAR(40) NOT NULL DEFAULT 'new',
-      internal_notes TEXT DEFAULT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
   `);
@@ -162,11 +156,6 @@ export async function ensureLeadTables() {
     "contact_messages",
     "status",
     "status VARCHAR(40) NOT NULL DEFAULT 'new' AFTER mensagem",
-  );
-  await ensureTableColumn(
-    "contact_messages",
-    "internal_notes",
-    "internal_notes TEXT DEFAULT NULL AFTER status",
   );
 
   await pool.query(`
@@ -190,6 +179,11 @@ export async function ensureLeadTables() {
     "is_viewed",
     "is_viewed TINYINT(1) NOT NULL DEFAULT 0",
   );
+  await ensureTableColumn(
+    "trade_in_requests",
+    "status",
+    "status VARCHAR(40) NOT NULL DEFAULT 'new' AFTER is_viewed",
+  );
 
   await pool.query(`
     CREATE TABLE IF NOT EXISTS finance_requests (
@@ -208,4 +202,9 @@ export async function ensureLeadTables() {
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
   `);
+  await ensureTableColumn(
+    "finance_requests",
+    "status",
+    "status VARCHAR(40) NOT NULL DEFAULT 'new' AFTER taeg",
+  );
 }

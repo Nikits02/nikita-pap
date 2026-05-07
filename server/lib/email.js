@@ -82,6 +82,93 @@ function getTestDriveEmailContent(testDrive, status) {
   };
 }
 
+function getTradeInEmailContent(tradeIn, status) {
+  const vehicle = [tradeIn.marca, tradeIn.modelo].filter(Boolean).join(" ");
+
+  if (status === "accepted") {
+    return {
+      subject: "Pedido de retoma aceite",
+      text: [
+        `Ola ${tradeIn.nome},`,
+        "",
+        `O seu pedido de retoma para ${vehicle || "a sua viatura"} foi aceite para avancarmos com a avaliacao final.`,
+        "",
+        "A nossa equipa vai entrar em contacto para confirmar os proximos passos.",
+        "",
+        "Nikita Motors",
+      ].join("\n"),
+    };
+  }
+
+  return {
+    subject: "Pedido de retoma recusado",
+    text: [
+      `Ola ${tradeIn.nome},`,
+      "",
+      `Apos analise, nao conseguimos aceitar o pedido de retoma para ${vehicle || "a sua viatura"} neste momento.`,
+      "",
+      "Caso pretenda esclarecer algum detalhe, responda a este email ou contacte-nos.",
+      "",
+      "Nikita Motors",
+    ].join("\n"),
+  };
+}
+
+function getFinanceEmailContent(financeRequest, status) {
+  const vehicle = financeRequest.viatura || "a viatura pretendida";
+
+  if (status === "accepted") {
+    return {
+      subject: "Pedido de financiamento aceite",
+      text: [
+        `Ola ${financeRequest.nome},`,
+        "",
+        `O seu pedido de financiamento para ${vehicle} foi aceite para avancarmos com o processo.`,
+        "",
+        "A nossa equipa vai entrar em contacto para confirmar os documentos e proximos passos.",
+        "",
+        "Nikita Motors",
+      ].join("\n"),
+    };
+  }
+
+  return {
+    subject: "Pedido de financiamento recusado",
+    text: [
+      `Ola ${financeRequest.nome},`,
+      "",
+      `Apos analise, o seu pedido de financiamento para ${vehicle} nao foi aprovado neste momento.`,
+      "",
+      "Caso pretenda esclarecer algum detalhe, responda a este email ou contacte-nos.",
+      "",
+      "Nikita Motors",
+    ].join("\n"),
+  };
+}
+
+async function sendStatusEmail({ recipient, status, getContent }) {
+  if (!["accepted", "rejected"].includes(status)) {
+    return { skipped: true, reason: "unsupported-status" };
+  }
+
+  const mailTransporter = getTransporter();
+
+  if (!mailTransporter) {
+    return { skipped: true, reason: "email-not-configured" };
+  }
+
+  const { subject, text } = getContent(recipient, status);
+
+  await mailTransporter.sendMail({
+    from: process.env.SMTP_FROM,
+    to: recipient.email,
+    subject,
+    text,
+  });
+
+  return { skipped: false };
+}
+
 export async function sendTestDriveStatusEmail(testDrive, status) {
   if (!["scheduled", "cancelled"].includes(status)) {
     return { skipped: true, reason: "unsupported-status" };
@@ -103,4 +190,20 @@ export async function sendTestDriveStatusEmail(testDrive, status) {
   });
 
   return { skipped: false };
+}
+
+export function sendTradeInStatusEmail(tradeIn, status) {
+  return sendStatusEmail({
+    recipient: tradeIn,
+    status,
+    getContent: getTradeInEmailContent,
+  });
+}
+
+export function sendFinanceStatusEmail(financeRequest, status) {
+  return sendStatusEmail({
+    recipient: financeRequest,
+    status,
+    getContent: getFinanceEmailContent,
+  });
 }

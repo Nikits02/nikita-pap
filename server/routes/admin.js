@@ -1,7 +1,11 @@
 import express from "express";
 import { pool } from "../db.js";
 import { fetchFirstRow, fetchRows, buildOrderedTableQuery } from "../lib/dbQueries.js";
-import { sendTestDriveStatusEmail } from "../lib/email.js";
+import {
+  sendFinanceStatusEmail,
+  sendTestDriveStatusEmail,
+  sendTradeInStatusEmail,
+} from "../lib/email.js";
 import { sendServerError } from "../lib/http.js";
 import { authenticateAdmin } from "../middleware/authenticateAdmin.js";
 import {
@@ -25,6 +29,15 @@ const ADMIN_LEAD_STATUSES = new Set([
   "scheduled",
   "completed",
   "cancelled",
+]);
+const ADMIN_CONTACT_STATUSES = new Set([
+  "new",
+  "responded",
+]);
+const ADMIN_DECISION_STATUSES = new Set([
+  "new",
+  "accepted",
+  "rejected",
 ]);
 
 const ADMIN_LIST_ROUTES = [
@@ -166,13 +179,17 @@ async function updateAdminLeadRecord({
   notFoundMessage,
   logMessage,
   clientMessage,
+  allowedStatuses = ADMIN_LEAD_STATUSES,
+  notificationStatuses = new Set(),
+  sendStatusEmail = null,
+  emailLogMessage = "Erro ao enviar email:",
+  updateIsViewed = false,
 }) {
   try {
     const { id } = req.params;
     const status = normalizeAdminText(req.body.status);
-    const internalNotes = normalizeAdminText(req.body.internalNotes);
 
-    if (!ADMIN_LEAD_STATUSES.has(status)) {
+    if (!allowedStatuses.has(status)) {
       return res.status(400).json({ message: "Estado invalido." });
     }
 
@@ -185,11 +202,19 @@ async function updateAdminLeadRecord({
       return res.status(404).json({ message: notFoundMessage });
     }
 
+    const updateAssignments = ["status = ?"];
+    const updateParams = [status];
+
+    if (updateIsViewed) {
+      updateAssignments.push("is_viewed = ?");
+      updateParams.push(Number(status !== "new"));
+    }
+
     await pool.query(
       `UPDATE ${tableName}
-       SET status = ?, internal_notes = ?
+       SET ${updateAssignments.join(", ")}
        WHERE id = ?`,
-      [status, internalNotes || null, id],
+      [...updateParams, id],
     );
 
     const updatedRecord = await fetchFirstRow(
@@ -198,12 +223,12 @@ async function updateAdminLeadRecord({
     );
 
     if (
-      tableName === "test_drives" &&
+      sendStatusEmail &&
       existingRecord.status !== status &&
-      ["scheduled", "cancelled"].includes(status)
+      notificationStatuses.has(status)
     ) {
       try {
-        const emailResult = await sendTestDriveStatusEmail(updatedRecord, status);
+        const emailResult = await sendStatusEmail(updatedRecord, status);
 
         return res.json({
           ...updatedRecord,
@@ -211,7 +236,7 @@ async function updateAdminLeadRecord({
           notification_email_skipped_reason: emailResult.reason ?? null,
         });
       } catch (emailError) {
-        console.error("Erro ao enviar email de test drive:", emailError.message);
+        console.error(emailLogMessage, emailError.message);
 
         return res.json({
           ...updatedRecord,
@@ -247,48 +272,36 @@ router.post("/admin/uploads/vehicle-image", authenticateAdmin, async (req, res) 
 
 ADMIN_LIST_ROUTES.forEach((routeConfig) => registerAdminListRoute(...routeConfig));
 
-router.patch("/admin/trade-ins/:id", authenticateAdmin, async (req, res) => {
-  try {
-    const { id } = req.params;
-    const isViewed = req.body.isViewed;
+router.patch("/admin/trade-ins/:id", authenticateAdmin, async (req, res) =>
+  updateAdminLeadRecord({
+    req,
+    res,
+    tableName: "trade_in_requests",
+    notFoundMessage: "Pedido de retoma nao encontrado.",
+    logMessage: "Erro ao atualizar pedido de retoma",
+    clientMessage: "Erro ao atualizar pedido de retoma.",
+    allowedStatuses: ADMIN_DECISION_STATUSES,
+    notificationStatuses: new Set(["accepted", "rejected"]),
+    sendStatusEmail: sendTradeInStatusEmail,
+    emailLogMessage: "Erro ao enviar email de retoma:",
+    updateIsViewed: true,
+  }),
+);
 
-    if (typeof isViewed !== "boolean") {
-      return res.status(400).json({ message: "Estado de leitura inválido." });
-    }
-
-    const existingTradeIn = await fetchFirstRow(
-      "SELECT * FROM trade_in_requests WHERE id = ?",
-      [id],
-    );
-
-    if (!existingTradeIn) {
-      return res
-        .status(404)
-        .json({ message: "Pedido de retoma não encontrado." });
-    }
-
-    await pool.query(
-      `UPDATE trade_in_requests
-       SET is_viewed = ?
-       WHERE id = ?`,
-      [Number(isViewed), id],
-    );
-
-    const updatedTradeIn = await fetchFirstRow(
-      "SELECT * FROM trade_in_requests WHERE id = ?",
-      [id],
-    );
-
-    return res.json(updatedTradeIn);
-  } catch (error) {
-    return sendServerError(
-      res,
-      "Erro ao atualizar pedido de retoma",
-      "Erro ao atualizar pedido de retoma.",
-      error,
-    );
-  }
-});
+router.patch("/admin/finance-requests/:id", authenticateAdmin, async (req, res) =>
+  updateAdminLeadRecord({
+    req,
+    res,
+    tableName: "finance_requests",
+    notFoundMessage: "Pedido de financiamento nao encontrado.",
+    logMessage: "Erro ao atualizar pedido de financiamento",
+    clientMessage: "Erro ao atualizar pedido de financiamento.",
+    allowedStatuses: ADMIN_DECISION_STATUSES,
+    notificationStatuses: new Set(["accepted", "rejected"]),
+    sendStatusEmail: sendFinanceStatusEmail,
+    emailLogMessage: "Erro ao enviar email de financiamento:",
+  }),
+);
 
 router.patch("/admin/test-drives/:id", authenticateAdmin, async (req, res) =>
   updateAdminLeadRecord({
@@ -298,6 +311,9 @@ router.patch("/admin/test-drives/:id", authenticateAdmin, async (req, res) =>
     notFoundMessage: "Pedido de test drive nao encontrado.",
     logMessage: "Erro ao atualizar pedido de test drive",
     clientMessage: "Erro ao atualizar pedido de test drive.",
+    notificationStatuses: new Set(["scheduled", "cancelled"]),
+    sendStatusEmail: sendTestDriveStatusEmail,
+    emailLogMessage: "Erro ao enviar email de test drive:",
   }),
 );
 
@@ -309,6 +325,7 @@ router.patch("/admin/contact-messages/:id", authenticateAdmin, async (req, res) 
     notFoundMessage: "Mensagem de contacto nao encontrada.",
     logMessage: "Erro ao atualizar mensagem de contacto",
     clientMessage: "Erro ao atualizar mensagem de contacto.",
+    allowedStatuses: ADMIN_CONTACT_STATUSES,
   }),
 );
 

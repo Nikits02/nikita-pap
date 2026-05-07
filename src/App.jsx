@@ -12,6 +12,7 @@ const AdminContactMessages = lazy(
 const AdminFinanceRequests = lazy(
   () => import("./pages/admin/AdminFinanceRequests"),
 );
+const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
 const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
 const AdminTestDrives = lazy(() => import("./pages/admin/AdminTestDrives"));
 const AdminTradeIns = lazy(() => import("./pages/admin/AdminTradeIns"));
@@ -54,6 +55,7 @@ const authRoutes = [
 ];
 
 const adminRoutes = [
+  { path: "/admin", element: <AdminDashboard /> },
   { path: "/admin/viaturas", element: <AdminVehicles /> },
   { path: "/admin/retomas", element: <AdminTradeIns /> },
   { path: "/admin/utilizadores", element: <AdminUsers /> },

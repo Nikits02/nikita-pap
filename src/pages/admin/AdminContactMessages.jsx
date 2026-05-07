@@ -5,12 +5,11 @@ import AdminSectionLinks from "../../components/admin/AdminSectionLinks";
 import {
   FormInputField,
   FormSelectField,
-  FormTextareaField,
 } from "../../components/form/FormField";
 import {
-  ADMIN_LEAD_STATUS_FILTER_OPTIONS,
-  ADMIN_LEAD_STATUS_OPTIONS,
-  getAdminLeadStatusLabel,
+  ADMIN_CONTACT_STATUS_ACTION_OPTIONS,
+  ADMIN_CONTACT_STATUS_FILTER_OPTIONS,
+  getAdminContactStatusLabel,
 } from "../../data/adminLeadStatus";
 import {
   deleteAdminContactMessage,
@@ -33,7 +32,6 @@ function AdminContactMessages() {
   const [updatingMessageId, setUpdatingMessageId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
-  const [draftNotes, setDraftNotes] = useState({});
 
   useEffect(() => {
     let isMounted = true;
@@ -111,11 +109,6 @@ function AdminContactMessages() {
 
       const updatedMessage = await updateAdminContactMessage(message.id, {
         status: nextValues.status ?? getAdminLeadStatus(message.status),
-        internalNotes:
-          nextValues.internalNotes ??
-          draftNotes[message.id] ??
-          message.internal_notes ??
-          "",
       });
 
       setMessages((currentMessages) =>
@@ -123,10 +116,6 @@ function AdminContactMessages() {
           currentMessage.id === message.id ? updatedMessage : currentMessage,
         ),
       );
-      setDraftNotes((currentNotes) => ({
-        ...currentNotes,
-        [message.id]: updatedMessage.internal_notes ?? "",
-      }));
     } catch (updateError) {
       if (handleAdminSessionError(updateError, navigate)) {
         return;
@@ -154,8 +143,7 @@ function AdminContactMessages() {
         message.telefone,
         message.assunto,
         message.mensagem,
-        getAdminLeadStatusLabel(messageStatus),
-        message.internal_notes,
+        getAdminContactStatusLabel(messageStatus),
       ],
       searchTerm,
     );
@@ -198,7 +186,7 @@ function AdminContactMessages() {
               value={statusFilter}
               onChange={(event) => setStatusFilter(event.target.value)}
             >
-              {ADMIN_LEAD_STATUS_FILTER_OPTIONS.map((option) => (
+              {ADMIN_CONTACT_STATUS_FILTER_OPTIONS.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
                 </option>
@@ -222,8 +210,6 @@ function AdminContactMessages() {
             <div className="admin-leads__list">
               {filteredMessages.map((message) => {
                 const messageStatus = getAdminLeadStatus(message.status);
-                const noteDraft =
-                  draftNotes[message.id] ?? message.internal_notes ?? "";
                 const metaItems = [
                   ["Nome", message.nome ?? "-"],
                   ["Email", message.email ?? "-"],
@@ -247,7 +233,7 @@ function AdminContactMessages() {
                         <span
                           className={`admin-lead-card__status admin-lead-card__status--${messageStatus}`}
                         >
-                          {getAdminLeadStatusLabel(messageStatus)}
+                          {getAdminContactStatusLabel(messageStatus)}
                         </span>
                         <p className="admin-lead-card__timestamp">
                           {formatAdminDateTime(message.created_at)}
@@ -276,8 +262,14 @@ function AdminContactMessages() {
                     <div className="admin-lead-card__manage">
                       <FormSelectField
                         className="admin-form__field"
-                        label="Estado"
-                        value={messageStatus}
+                        label="Decisão"
+                        value={
+                          ADMIN_CONTACT_STATUS_ACTION_OPTIONS.some(
+                            (option) => option.value === messageStatus,
+                          )
+                            ? messageStatus
+                            : ""
+                        }
                         disabled={updatingMessageId === message.id}
                         onChange={(event) =>
                           handleUpdateMessage(message, {
@@ -285,39 +277,18 @@ function AdminContactMessages() {
                           })
                         }
                       >
-                        {ADMIN_LEAD_STATUS_OPTIONS.map((option) => (
+                        <option value="" disabled>
+                          Escolher decisão
+                        </option>
+                        {ADMIN_CONTACT_STATUS_ACTION_OPTIONS.map((option) => (
                           <option key={option.value} value={option.value}>
                             {option.label}
                           </option>
                         ))}
                       </FormSelectField>
-
-                      <FormTextareaField
-                        className="admin-form__field admin-form__field--full"
-                        label="Notas internas"
-                        rows="3"
-                        value={noteDraft}
-                        placeholder="Notas apenas visiveis no painel admin"
-                        onChange={(event) =>
-                          setDraftNotes((currentNotes) => ({
-                            ...currentNotes,
-                            [message.id]: event.target.value,
-                          }))
-                        }
-                      />
                     </div>
 
                     <div className="admin-lead-card__actions">
-                      <button
-                        className="admin-button admin-button--secondary"
-                        type="button"
-                        disabled={updatingMessageId === message.id}
-                        onClick={() => handleUpdateMessage(message)}
-                      >
-                        {updatingMessageId === message.id
-                          ? "A guardar..."
-                          : "Guardar notas"}
-                      </button>
                       <button
                         className="admin-button admin-button--danger"
                         type="button"

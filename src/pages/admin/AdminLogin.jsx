@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import AdminPageShell from "../../components/admin/AdminPageShell";
 import { FormError, FormInputField } from "../../components/form/FormField";
+import { ADMIN_HOME_PATH } from "../../data/adminNavigation";
 import { useAuth } from "../../hooks/useAuth";
 import useFormState from "../../hooks/useFormState";
 import { loginAdmin } from "../../services/adminApi";
@@ -17,7 +18,7 @@ function AdminLogin() {
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { hasAdminSession, isAuthReady, refreshSession } = useAuth();
-  const redirectTo = location.state?.redirectTo ?? "/admin/viaturas";
+  const redirectTo = location.state?.redirectTo ?? ADMIN_HOME_PATH;
 
   useEffect(() => {
     if (isAuthReady && hasAdminSession) {

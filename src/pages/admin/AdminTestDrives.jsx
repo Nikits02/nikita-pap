@@ -5,11 +5,10 @@ import AdminSectionLinks from "../../components/admin/AdminSectionLinks";
 import {
   FormInputField,
   FormSelectField,
-  FormTextareaField,
 } from "../../components/form/FormField";
 import {
+  ADMIN_LEAD_STATUS_ACTION_OPTIONS,
   ADMIN_LEAD_STATUS_FILTER_OPTIONS,
-  ADMIN_LEAD_STATUS_OPTIONS,
   getAdminLeadStatusLabel,
 } from "../../data/adminLeadStatus";
 import {
@@ -39,7 +38,6 @@ function AdminTestDrives() {
   const [updatingTestDriveId, setUpdatingTestDriveId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
-  const [draftNotes, setDraftNotes] = useState({});
 
   useEffect(() => {
     let isMounted = true;
@@ -119,11 +117,6 @@ function AdminTestDrives() {
 
       const updatedTestDrive = await updateAdminTestDrive(testDrive.id, {
         status: nextValues.status ?? getAdminLeadStatus(testDrive.status),
-        internalNotes:
-          nextValues.internalNotes ??
-          draftNotes[testDrive.id] ??
-          testDrive.internal_notes ??
-          "",
       });
 
       setTestDrives((currentTestDrives) =>
@@ -133,11 +126,6 @@ function AdminTestDrives() {
             : currentTestDrive,
         ),
       );
-      setDraftNotes((currentNotes) => ({
-        ...currentNotes,
-        [testDrive.id]: updatedTestDrive.internal_notes ?? "",
-      }));
-
       if (["scheduled", "cancelled"].includes(updatedTestDrive.status)) {
         if (updatedTestDrive.notification_email_sent) {
           setNotice("Estado atualizado e email enviado ao cliente.");
@@ -187,7 +175,6 @@ function AdminTestDrives() {
         testDrive.hora_preferida,
         formatTestDriveHour(testDrive.hora_preferida),
         getAdminLeadStatusLabel(testDriveStatus),
-        testDrive.internal_notes,
       ],
       searchTerm,
     );
@@ -260,8 +247,6 @@ function AdminTestDrives() {
                   testDrive.hora_preferida,
                 );
                 const testDriveStatus = getAdminLeadStatus(testDrive.status);
-                const noteDraft =
-                  draftNotes[testDrive.id] ?? testDrive.internal_notes ?? "";
                 const metaItems = [
                   ["Viatura", testDrive.vehicle_label || "-"],
                   ["Slug", testDrive.vehicle_slug ?? "-"],
@@ -311,8 +296,14 @@ function AdminTestDrives() {
                     <div className="admin-lead-card__manage">
                       <FormSelectField
                         className="admin-form__field"
-                        label="Estado"
-                        value={testDriveStatus}
+                        label="Decisão"
+                        value={
+                          ADMIN_LEAD_STATUS_ACTION_OPTIONS.some(
+                            (option) => option.value === testDriveStatus,
+                          )
+                            ? testDriveStatus
+                            : ""
+                        }
                         disabled={updatingTestDriveId === testDrive.id}
                         onChange={(event) =>
                           handleUpdateTestDrive(testDrive, {
@@ -320,39 +311,18 @@ function AdminTestDrives() {
                           })
                         }
                       >
-                        {ADMIN_LEAD_STATUS_OPTIONS.map((option) => (
+                        <option value="" disabled>
+                          Escolher decisão
+                        </option>
+                        {ADMIN_LEAD_STATUS_ACTION_OPTIONS.map((option) => (
                           <option key={option.value} value={option.value}>
                             {option.label}
                           </option>
                         ))}
                       </FormSelectField>
-
-                      <FormTextareaField
-                        className="admin-form__field admin-form__field--full"
-                        label="Notas internas"
-                        rows="3"
-                        value={noteDraft}
-                        placeholder="Notas apenas visiveis no painel admin"
-                        onChange={(event) =>
-                          setDraftNotes((currentNotes) => ({
-                            ...currentNotes,
-                            [testDrive.id]: event.target.value,
-                          }))
-                        }
-                      />
                     </div>
 
                     <div className="admin-lead-card__actions">
-                      <button
-                        className="admin-button admin-button--secondary"
-                        type="button"
-                        disabled={updatingTestDriveId === testDrive.id}
-                        onClick={() => handleUpdateTestDrive(testDrive)}
-                      >
-                        {updatingTestDriveId === testDrive.id
-                          ? "A guardar..."
-                          : "Guardar notas"}
-                      </button>
                       <button
                         className="admin-button admin-button--danger"
                         type="button"
