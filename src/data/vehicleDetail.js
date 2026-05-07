@@ -38,7 +38,7 @@ const vehicleDetailFields = [
     type: "garantia",
     label: "Disponibilidade",
     getValue: (vehicle) =>
-      vehicle.source === "highlight" ? "Destaque em loja" : "No catalogo",
+      vehicle.source === "highlight" ? "Destaque em loja" : "No catálogo",
   },
 ];
 

@@ -27,44 +27,44 @@ function Sobre() {
     <SitePage mainClassName="page-shell about-page">
       <PageHero
         className="about-page__hero"
-        title="A Nossa Historia"
-        description="Conheca a origem do projeto, a motivacao por tras da sua criacao e a visao que orientou o seu desenvolvimento."
+        title="A Nossa História"
+        description="Conheça a origem do projeto, a motivação por trás da sua criação e a visão que orientou o seu desenvolvimento."
       />
 
       <section className="about-story">
         <div className="about-story__content">
           <p>
-            A NikitaMotors foi criada no ambito da Prova de Aptidao Profissional
+            A NikitaMotors foi criada no âmbito da Prova de Aptidão Profissional
             (PAP), com o objetivo de desenvolver um website dedicado ao mercado
-            de automoveis de luxo. O projeto nasceu da vontade de aplicar, num
-            caso pratico e completo, os conhecimentos adquiridos ao longo do
-            curso, com especial foco no desenvolvimento web, na organizacao de
-            conteudo e na experiencia do utilizador.
+            de automóveis de luxo. O projeto nasceu da vontade de aplicar, num
+            caso prático e completo, os conhecimentos adquiridos ao longo do
+            curso, com especial foco no desenvolvimento web, na organização de
+            conteúdo e na experiência do utilizador.
           </p>
 
           <p>
-            Desde o inicio, o principal objetivo foi criar uma plataforma
+            Desde o início, o principal objetivo foi criar uma plataforma
             moderna, funcional e intuitiva, capaz de proporcionar uma boa
-            experiencia ao utilizador. Ao longo do desenvolvimento, fui
-            explorando diferentes ideias, tecnologias e solucoes para construir
-            uma interface apelativa, com navegacao clara, identidade visual
-            consistente e areas funcionais pensadas para diferentes tipos de
-            utilizacao.
+            experiência ao utilizador. Ao longo do desenvolvimento, fui
+            explorando diferentes ideias, tecnologias e soluções para construir
+            uma interface apelativa, com navegação clara, identidade visual
+            consistente e áreas funcionais pensadas para diferentes tipos de
+            utilização.
           </p>
 
           <p>
-            Durante a realizacao do projeto, enfrentei varios desafios tecnicos,
-            que me permitiram aprender e evoluir, tanto ao nivel da programacao
-            como na organizacao do trabalho. Com dedicacao e esforco, fui
-            consolidando competencias em frontend, estruturacao de dados,
-            validacao de formularios, area administrativa e integracao entre
+            Durante a realização do projeto, enfrentei vários desafios técnicos,
+            que me permitiram aprender e evoluir, tanto ao nível da programação
+            como na organização do trabalho. Com dedicação e esforço, fui
+            consolidando competências em frontend, estruturação de dados,
+            validação de formulários, área administrativa e integração entre
             interface, servidor e base de dados.
           </p>
 
           <p>
             Este projeto representa, assim, uma etapa importante no meu percurso
             académico, demonstrando não apenas as competências técnicas que
-            desenvolvi, mas tambem a minha capacidade de planear, executar e
+            desenvolvi, mas também a minha capacidade de planear, executar e
             melhorar um produto digital de forma progressiva.
           </p>
         </div>
@@ -82,8 +82,8 @@ function Sobre() {
       <section className="about-quote" aria-label="Mensagem da marca">
         <div className="about-quote__mark" aria-hidden="true" />
         <blockquote>
-          "Criar uma experiencia digital elegante, funcional e credivel, capaz
-          de refletir a exigencia e o detalhe associados ao universo automovel
+          "Criar uma experiência digital elegante, funcional e credível, capaz
+          de refletir a exigência e o detalhe associados ao universo automóvel
           premium."
         </blockquote>
         <p>- Nikita Kazutinas, CEO</p>

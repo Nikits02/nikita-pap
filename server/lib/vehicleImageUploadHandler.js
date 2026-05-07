@@ -1,6 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { constants as fsConstants } from "node:fs";
-import { copyFile, mkdir, readdir, writeFile } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -9,16 +8,6 @@ const MODULE_DIR = path.dirname(fileURLToPath(import.meta.url));
 
 export const VEHICLE_UPLOADS_ROOT_DIR = path.resolve(MODULE_DIR, "..", "uploads");
 export const VEHICLE_UPLOADS_DIR = path.join(VEHICLE_UPLOADS_ROOT_DIR, "vehicles");
-export const LEGACY_VEHICLE_UPLOADS_ROOT_DIR = path.resolve(
-  MODULE_DIR,
-  "..",
-  "server",
-  "uploads",
-);
-export const LEGACY_VEHICLE_UPLOADS_DIR = path.join(
-  LEGACY_VEHICLE_UPLOADS_ROOT_DIR,
-  "vehicles",
-);
 
 const ALLOWED_VEHICLE_IMAGE_TYPES = new Map([
   ["image/jpeg", "jpg"],
@@ -64,42 +53,8 @@ function getUploadFileName(originalName, extension) {
   return `${safeBaseName}-${Date.now()}-${randomUUID().slice(0, 8)}.${extension}`;
 }
 
-async function migrateLegacyVehicleUploads() {
-  if (LEGACY_VEHICLE_UPLOADS_DIR === VEHICLE_UPLOADS_DIR) {
-    return;
-  }
-
-  try {
-    const legacyEntries = await readdir(LEGACY_VEHICLE_UPLOADS_DIR, {
-      withFileTypes: true,
-    });
-
-    await Promise.all(
-      legacyEntries
-        .filter((entry) => entry.isFile())
-        .map(async (entry) => {
-          const sourcePath = path.join(LEGACY_VEHICLE_UPLOADS_DIR, entry.name);
-          const targetPath = path.join(VEHICLE_UPLOADS_DIR, entry.name);
-
-          try {
-            await copyFile(sourcePath, targetPath, fsConstants.COPYFILE_EXCL);
-          } catch (error) {
-            if (error?.code !== "EEXIST") {
-              throw error;
-            }
-          }
-        }),
-    );
-  } catch (error) {
-    if (error?.code !== "ENOENT") {
-      throw error;
-    }
-  }
-}
-
 export async function ensureVehicleUploadDirectory() {
   await mkdir(VEHICLE_UPLOADS_DIR, { recursive: true });
-  await migrateLegacyVehicleUploads();
 }
 
 export async function saveVehicleImageUpload(payload = {}) {

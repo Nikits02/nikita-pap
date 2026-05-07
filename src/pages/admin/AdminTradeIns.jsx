@@ -65,7 +65,7 @@ function AdminTradeIns() {
         }
 
         setError(
-          loadError.message ?? "Nao foi possivel carregar os pedidos de retoma.",
+          loadError.message ?? "Não foi possível carregar os pedidos de retoma.",
         );
       } finally {
         if (isMounted) {
@@ -104,7 +104,7 @@ function AdminTradeIns() {
           "email-not-configured"
         ) {
           setNotice(
-            "Estado atualizado. O email nao foi enviado porque o SMTP ainda nao esta configurado.",
+            "Estado atualizado. O email não foi enviado porque o SMTP ainda não está configurado.",
           );
         } else if (updatedTradeIn.notification_email_error) {
           setNotice("Estado atualizado, mas houve erro ao enviar o email.");
@@ -116,7 +116,7 @@ function AdminTradeIns() {
       }
 
       setError(
-        updateError.message ?? "Nao foi possivel atualizar o pedido de retoma.",
+        updateError.message ?? "Não foi possível atualizar o pedido de retoma.",
       );
     } finally {
       setUpdatingTradeInId(null);
@@ -146,7 +146,7 @@ function AdminTradeIns() {
       }
 
       setError(
-        deleteError.message ?? "Nao foi possivel eliminar o pedido de retoma.",
+        deleteError.message ?? "Não foi possível eliminar o pedido de retoma.",
       );
     } finally {
       setDeletingTradeInId(null);
@@ -188,7 +188,7 @@ function AdminTradeIns() {
       ) : tradeIns.length === 0 ? (
         <div className="admin-page__empty-state">
           <p className="admin-page__text">
-            Ainda nao existem pedidos de retoma registados.
+            Ainda não existem pedidos de retoma registados.
           </p>
         </div>
       ) : (
@@ -309,7 +309,7 @@ function AdminTradeIns() {
                         }
                       >
                         <option value="" disabled>
-                          Escolher decisao
+                          Escolher decisão
                         </option>
                         {ADMIN_DECISION_STATUS_ACTION_OPTIONS.map((option) => (
                           <option key={option.value} value={option.value}>

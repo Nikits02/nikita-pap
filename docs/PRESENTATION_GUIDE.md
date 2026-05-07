@@ -1,8 +1,8 @@
-﻿# Guia de Apresentacao
+# Guia de Apresentação
 
 Este guia serve para te ajudar a explicar o projeto de forma simples, organizada e sem te perderes.
 
-## 1. Estrutura Ideal da Explicacao
+## 1. Estrutura Ideal da Explicação
 
 Segue esta ordem:
 
@@ -14,19 +14,19 @@ Segue esta ordem:
 6. Painel admin
 7. Dificuldades e aprendizagens
 
-Se falares sempre nesta ordem, a apresentaÃ§Ã£o fica natural.
+Se falares sempre nesta ordem, a apresentação fica natural.
 
 ## 2. Discurso Curto Inicial
 
-Podes dizer algo deste genero:
+Podes dizer algo deste género:
 
-"Este projeto chama-se NikitaMotors e foi desenvolvido como PAP. O objetivo foi criar um website de um stand automÃ³vel premium, com catÃ¡logo de viaturas, detalhe de cada veÃ­culo, formulÃ¡rios de contacto, test drive e retoma, autenticaÃ§Ã£o de utilizadores e um painel de administraÃ§Ã£o para gerir viaturas, retomas e utilizadores."
+"Este projeto chama-se NikitaMotors e foi desenvolvido como PAP. O objetivo foi criar um website de um stand automóvel premium, com catálogo de viaturas, detalhe de cada veículo, formulários de contacto, test drive e retoma, autenticação de utilizadores e um painel de administração para gerir viaturas, retomas e utilizadores."
 
 ## 3. Como Explicar as Tecnologias
 
 Frontend:
 
-"No frontend usei React com Vite. O React foi usado para criar as pÃ¡ginas e os componentes reutilizÃ¡veis, enquanto o Vite facilitou o desenvolvimento e a compilacao do projeto."
+"No frontend usei React com Vite. O React foi usado para criar as páginas e os componentes reutilizáveis, enquanto o Vite facilitou o desenvolvimento e a compilação do projeto."
 
 Backend:
 
@@ -34,48 +34,48 @@ Backend:
 
 Base de dados:
 
-"Usei MySQL para guardar viaturas, utilizadores, admins e todos os pedidos enviados pelos formulÃ¡rios."
+"Usei MySQL para guardar viaturas, utilizadores, admins e todos os pedidos enviados pelos formulários."
 
-AutenticaÃ§Ã£o:
+Autenticação:
 
-"Para autenticaÃ§Ã£o usei JWT e bcrypt. O bcrypt protege as passwords com hash e o JWT protege a Ã¡rea administrativa."
+"Para autenticação usei JWT e bcrypt. O bcrypt protege as passwords com hash e o JWT protege a área administrativa."
 
 ## 4. Como Explicar a Estrutura do Projeto
 
 Forma curta:
 
-"O projeto estÃ¡ dividido em frontend e backend. No frontend tenho pÃ¡ginas, componentes, hooks, services e utils. No backend tenho os endpoints da API, a ligaÃ§Ã£o a base de dados, middleware de autenticaÃ§Ã£o e funÃ§Ãµes auxiliares."
+"O projeto está dividido em frontend e backend. No frontend tenho páginas, componentes, hooks, services e utils. No backend tenho os endpoints da API, a ligação a base de dados, middleware de autenticação e funções auxiliares."
 
-Forma prÃ¡tica:
+Forma prática:
 
 - `src/pages`
-  pÃ¡ginas principais
+  páginas principais
 
 - `src/components`
-  componentes reutilizÃ¡veis
+  componentes reutilizáveis
 
 - `src/services`
-  ligaÃ§Ã£o frontend -> backend
+  ligação frontend -> backend
 
 - `server/routes`
-  endpoints da API separados por Ã¡rea
+  endpoints da API separados por área
 
 - `server/databaseConnection.js`
-  ligaÃ§Ã£o MySQL
+  ligação MySQL
 
 ## 5. Como Explicar as Funcionalidades
 
-### CatÃ¡logo
+### Catálogo
 
-"As viaturas sÃ£o carregadas do backend, e o frontend transforma os dados para mostrar o catÃ¡logo, o detalhe e outras zonas do site."
+"As viaturas são carregadas do backend, e o frontend transforma os dados para mostrar o catálogo, o detalhe e outras zonas do site."
 
 ### Detalhe da viatura
 
-"Cada viatura tem uma pÃ¡gina propria com mais informaÃ§Ã£o, imagem, dados tÃ©cnicos e sugestÃµes de outras viaturas."
+"Cada viatura tem uma página própria com mais informação, imagem, dados técnicos e sugestões de outras viaturas."
 
 ### Contacto
 
-"O formulÃ¡rio de contacto recolhe os dados do utilizador e guarda-os na base de dados."
+"O formulário de contacto recolhe os dados do utilizador e guarda-os na base de dados."
 
 ### Test Drive
 
@@ -83,25 +83,25 @@ Forma prÃ¡tica:
 
 ### Retoma
 
-"O utilizador pode preencher os dados da viatura atual e os seus dados de contacto para pedir uma avaliaÃ§Ã£o."
+"O utilizador pode preencher os dados da viatura atual e os seus dados de contacto para pedir uma avaliação."
 
 ### Login e registo
 
-"Foi implementado um sistema de autenticaÃ§Ã£o com registo de utilizadores. O backend cria uma sessÃ£o por cookie HttpOnly e o frontend guarda apenas os dados bÃ¡sicos do utilizador para mostrar a interface."
+"Foi implementado um sistema de autenticação com registo de utilizadores. O backend cria uma sessão por cookie HttpOnly e o frontend guarda apenas os dados básicos do utilizador para mostrar a interface."
 
 ### Admin
 
-"O admin pode gerir viaturas, consultar pedidos de retoma, marcar esses pedidos como vistos e eliminar utilizadores."
+"O admin entra num dashboard com contadores e pode gerir viaturas, retomas, contactos, financiamentos, test drives e utilizadores."
 
-## 6. Como Explicar o Fluxo Tecnico
+## 6. Como Explicar o Fluxo Técnico
 
 Exemplo bom para mostrar que percebes:
 
-"No frontend, uma pÃ¡gina usa um hook ou um service para fazer um pedido HTTP. Esse pedido vai para um endpoint no backend. O backend valida os dados, fala com a base de dados e devolve a resposta. Depois o frontend atualiza o estado e mostra o resultado ao utilizador."
+"No frontend, uma página usa um hook ou um service para fazer um pedido HTTP. Esse pedido vai para um endpoint no backend. O backend valida os dados, fala com a base de dados e devolve a resposta. Depois o frontend atualiza o estado e mostra o resultado ao utilizador."
 
-## 7. Onde Carregar Durante a Apresentacao
+## 7. Onde Carregar Durante a Apresentação
 
-Se te pedirem para mostrar o cÃ³digo:
+Se te pedirem para mostrar o código:
 
 1. abre [src/App.jsx](../src/App.jsx)
    para mostrar as rotas
@@ -110,12 +110,12 @@ Se te pedirem para mostrar o cÃ³digo:
    para mostrar como o frontend chama a API
 
 3. abre [server/routes](../server/routes)
-   para mostrar os endpoints separados por pÃºblicos, autenticaÃ§Ã£o e admin
+   para mostrar os endpoints separados por públicos, autenticação e admin
 
 4. abre [server/databaseConnection.js](../server/databaseConnection.js)
-   para mostrar a ligaÃ§Ã£o MySQL
+   para mostrar a ligação MySQL
 
-5. abre uma pÃ¡gina concreta como:
+5. abre uma página concreta como:
    - [src/pages/public/Retoma.jsx](../src/pages/public/Retoma.jsx)
    - [src/pages/admin/AdminVehicles.jsx](../src/pages/admin/AdminVehicles.jsx)
    - [src/pages/admin/AdminTradeIns.jsx](../src/pages/admin/AdminTradeIns.jsx)
@@ -126,27 +126,27 @@ Se te pedirem para mostrar o cÃ³digo:
 
 Resposta:
 
-"Porque permite dividir o projeto em componentes reutilizÃ¡veis, organizar melhor a interface e gerir estados de forma clara."
+"Porque permite dividir o projeto em componentes reutilizáveis, organizar melhor a interface e gerir estados de forma clara."
 
 ### "Como o frontend comunica com o backend?"
 
 Resposta:
 
-"A comunicaÃ§Ã£o Ã© feita por pedidos HTTP para endpoints da API. No projeto, essa ligaÃ§Ã£o estÃ¡ centralizada nos ficheiros da pasta `src/services`."
+"A comunicação é feita por pedidos HTTP para endpoints da API. No projeto, essa ligação está centralizada nos ficheiros da pasta `src/services`."
 
-### "Como proteges a Ã¡rea admin?"
+### "Como proteges a área admin?"
 
 Resposta:
 
-"A Ã¡rea admin usa JWT guardado num cookie HttpOnly. Quando o admin faz login, o backend cria a sessÃ£o e os pedidos protegidos sÃ£o validados no middleware do backend."
+"A área admin usa JWT guardado num cookie HttpOnly. Quando o admin faz login, o backend cria a sessão e os pedidos protegidos são validados no middleware do backend."
 
 ### "Como guardas passwords?"
 
 Resposta:
 
-"As passwords nÃ£o ficam guardadas em texto simples. SÃ£o convertidas em hash com bcrypt."
+"As passwords não ficam guardadas em texto simples. São convertidas em hash com bcrypt."
 
-### "Onde sÃ£o guardadas as retomas?"
+### "Onde são guardadas as retomas?"
 
 Resposta:
 
@@ -154,11 +154,11 @@ Resposta:
 
 ## 9. Dificuldades Que Podes Referir
 
-Se quiseres falar de dificuldades, estÃ¡s sÃ£o credÃ­veis e boas:
+Se quiseres falar de dificuldades, estás são credíveis e boas:
 
-- organizacao do frontend e separacao em componentes
-- ligaÃ§Ã£o entre frontend, backend e base de dados
-- autenticaÃ§Ã£o e proteÃ§Ã£o do admin
+- organização do frontend e separação em componentes
+- ligação entre frontend, backend e base de dados
+- autenticação e proteção do admin
 - upload de imagens
 - manter o projeto coerente visualmente e funcionalmente
 
@@ -169,12 +169,12 @@ Se quiseres falar de dificuldades, estÃ¡s sÃ£o credÃ­veis e boas:
 - ligar React ao backend
 - trabalhar com MySQL
 - proteger rotas com JWT
-- usar cookies HttpOnly para sessoes
-- gerir formulÃ¡rios e validaÃ§Ãµes
-- organizar melhor o cÃ³digo e a documentaÃ§Ã£o
+- usar cookies HttpOnly para sessões
+- gerir formulários e validações
+- organizar melhor o código e a documentação
 
-## 11. Fecho da Apresentacao
+## 11. Fecho da Apresentação
 
 Podes terminar assim:
 
-"Este projeto permitiu-me aplicar conhecimentos de frontend, backend e base de dados num caso pratico e completo. Para alÃ©m da parte tÃ©cnica, ajudou-me a evoluir na organizacao do trabalho, na resoluÃ§Ã£o de problemas e na construÃ§Ã£o de uma aplicaÃ§Ã£o funcional de forma progressiva."
+"Este projeto permitiu-me aplicar conhecimentos de frontend, backend e base de dados num caso prático e completo. Para além da parte técnica, ajudou-me a evoluir na organização do trabalho, na resolução de problemas e na construção de uma aplicação funcional de forma progressiva."

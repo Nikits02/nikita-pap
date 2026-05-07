@@ -105,7 +105,7 @@ function getTradeInEmailContent(tradeIn, status) {
     text: [
       `Ola ${tradeIn.nome},`,
       "",
-      `Apos analise, nao conseguimos aceitar o pedido de retoma para ${vehicle || "a sua viatura"} neste momento.`,
+      `Após análise, não conseguimos aceitar o pedido de retoma para ${vehicle || "a sua viatura"} neste momento.`,
       "",
       "Caso pretenda esclarecer algum detalhe, responda a este email ou contacte-nos.",
       "",
@@ -137,7 +137,7 @@ function getFinanceEmailContent(financeRequest, status) {
     text: [
       `Ola ${financeRequest.nome},`,
       "",
-      `Apos analise, o seu pedido de financiamento para ${vehicle} nao foi aprovado neste momento.`,
+      `Após análise, o seu pedido de financiamento para ${vehicle} não foi aprovado neste momento.`,
       "",
       "Caso pretenda esclarecer algum detalhe, responda a este email ou contacte-nos.",
       "",

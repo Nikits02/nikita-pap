@@ -134,7 +134,7 @@ function AdminTestDrives() {
           "email-not-configured"
         ) {
           setNotice(
-            "Estado atualizado. O email nao foi enviado porque o SMTP ainda nao esta configurado.",
+            "Estado atualizado. O email não foi enviado porque o SMTP ainda não está configurado.",
           );
         } else if (updatedTestDrive.notification_email_error) {
           setNotice("Estado atualizado, mas houve erro ao enviar o email.");

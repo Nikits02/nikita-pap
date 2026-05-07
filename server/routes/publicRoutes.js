@@ -152,7 +152,7 @@ router.post("/test-drives", async (req, res) => {
 
     if (existingTestDrive) {
       return res.status(409).json({
-        message: "Esta hora ja nao esta disponivel.",
+        message: "Esta hora já não está disponível.",
       });
     }
 
@@ -181,7 +181,7 @@ router.post("/test-drives", async (req, res) => {
   } catch (error) {
     if (error?.code === "ER_DUP_ENTRY") {
       return res.status(409).json({
-        message: "Esta hora ja nao esta disponivel.",
+        message: "Esta hora já não está disponível.",
       });
     }
 

@@ -1,4 +1,4 @@
-﻿# Preparacao Para a Apresentacao
+# Preparação Para a Apresentação
 
 Este ficheiro serve para reduzir o risco de a demo falhar por causa da configuração local.
 
@@ -51,7 +51,7 @@ cd server
 npm run create-admin -- admin Admin123
 ```
 
-Se o admin ja existir, o comando atualiza a password.
+Se o admin já existir, o comando atualiza a password.
 
 ## 4. Arrancar a Demo
 
@@ -74,6 +74,7 @@ URLs:
 - Frontend: `http://localhost:5174`
 - Backend: `http://localhost:3002/api/health`
 - Admin: `http://localhost:5174/admin/login`
+- Dashboard admin: `http://localhost:5174/admin`
 
 ## 5. Checklist Antes da Defesa
 
@@ -84,8 +85,8 @@ URLs:
 - O login admin funciona.
 - O catálogo abre sem login.
 - O detalhe de uma viatura abre sem login.
-- O test drive redireciona para login quando não ha sessão.
-- Existe pelo menos uma viatura no admin/catalogo para demonstrar.
+- O test drive redireciona para login quando não há sessão.
+- Existe pelo menos uma viatura no admin/catálogo para demonstrar.
 
 
 

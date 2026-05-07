@@ -63,7 +63,7 @@ function AdminFinanceRequests() {
 
         setError(
           loadError.message ??
-            "Nao foi possivel carregar os pedidos de financiamento.",
+            "Não foi possível carregar os pedidos de financiamento.",
         );
       } finally {
         if (isMounted) {
@@ -107,7 +107,7 @@ function AdminFinanceRequests() {
           "email-not-configured"
         ) {
           setNotice(
-            "Estado atualizado. O email nao foi enviado porque o SMTP ainda nao esta configurado.",
+            "Estado atualizado. O email não foi enviado porque o SMTP ainda não está configurado.",
           );
         } else if (updatedFinanceRequest.notification_email_error) {
           setNotice("Estado atualizado, mas houve erro ao enviar o email.");
@@ -120,7 +120,7 @@ function AdminFinanceRequests() {
 
       setError(
         updateError.message ??
-          "Nao foi possivel atualizar o pedido de financiamento.",
+          "Não foi possível atualizar o pedido de financiamento.",
       );
     } finally {
       setUpdatingFinanceRequestId(null);
@@ -154,7 +154,7 @@ function AdminFinanceRequests() {
 
       setError(
         deleteError.message ??
-          "Nao foi possivel eliminar o pedido de financiamento.",
+          "Não foi possível eliminar o pedido de financiamento.",
       );
     } finally {
       setDeletingFinanceRequestId(null);
@@ -194,7 +194,7 @@ function AdminFinanceRequests() {
       ) : financeRequests.length === 0 ? (
         <div className="admin-page__empty-state">
           <p className="admin-page__text">
-            Ainda nao existem pedidos de financiamento registados.
+            Ainda não existem pedidos de financiamento registados.
           </p>
         </div>
       ) : (
@@ -313,7 +313,7 @@ function AdminFinanceRequests() {
                         }
                       >
                         <option value="" disabled>
-                          Escolher decisao
+                          Escolher decisão
                         </option>
                         {ADMIN_DECISION_STATUS_ACTION_OPTIONS.map((option) => (
                           <option key={option.value} value={option.value}>

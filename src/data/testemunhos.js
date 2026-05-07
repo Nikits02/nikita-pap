@@ -5,12 +5,12 @@ export const resumoTestemunhos = {
 
 export const testemunhos = [
   {
-    nome: "Luis Lopes",
+    nome: "Luís Lopes",
     data: "Ago 10, 2025",
     iniciais: "L",
     cor: "#2b7de9",
     texto:
-      "Recomendo vivamente a NikitaMotors. Fui muito bem atendido, esclareceram todas as minhas duvidas e o carro estava impecavel na entrega.",
+      "Recomendo vivamente a NikitaMotors. Fui muito bem atendido, esclareceram todas as minhas dúvidas e o carro estava impecável na entrega.",
   },
   {
     nome: "Sandra Gouveia",
@@ -18,7 +18,7 @@ export const testemunhos = [
     iniciais: "S",
     cor: "#145da0",
     texto:
-      "Fantastico. Equipa muito profissional, prestavel e sempre disponível para ajudar. O processo foi rapido e senti confianca do inicio ao fim.",
+      "Fantástico. Equipa muito profissional, prestável e sempre disponível para ajudar. O processo foi rápido e senti confiança do início ao fim.",
   },
   {
     nome: "Abel Gouveia",
@@ -26,7 +26,7 @@ export const testemunhos = [
     iniciais: "A",
     cor: "#1f8dd6",
     texto:
-      "Excelente experiencia. Deram-me varias opções, explicaram tudo com clareza e encontrei exatamente a viatura que procurava.",
+      "Excelente experiência. Deram-me várias opções, explicaram tudo com clareza e encontrei exatamente a viatura que procurava.",
   },
   {
     nome: "Bruno Fernandes",
@@ -34,7 +34,7 @@ export const testemunhos = [
     iniciais: "B",
     cor: "#6a4fbf",
     texto:
-      "Stand muito organizado e com atendimento personalizado. Gostei bastante da simpatia, da transparencia e da rapidez na entrega.",
+      "Stand muito organizado e com atendimento personalizado. Gostei bastante da simpatia, da transparência e da rapidez na entrega.",
   },
   {
     nome: "Marta Freitas",
@@ -42,15 +42,15 @@ export const testemunhos = [
     iniciais: "M",
     cor: "#e05670",
     texto:
-      "Fiquei muito satisfeita com a compra. A viatura estava como nova e todo o acompanhamento foi feito com muita atencao e cuidado.",
+      "Fiquei muito satisfeita com a compra. A viatura estava como nova e todo o acompanhamento foi feito com muita atenção e cuidado.",
   },
   {
-    nome: "Ricardo Camara",
+    nome: "Ricardo Câmara",
     data: "Jun 15, 2025",
     iniciais: "R",
     cor: "#f08c00",
     texto:
-      "Servico cinco estrelas. Ajudaram-me no credito e ainda trataram de tudo de forma simples. Foi mesmo uma experiencia sem stress.",
+      "Serviço cinco estrelas. Ajudaram-me no crédito e ainda trataram de tudo de forma simples. Foi mesmo uma experiência sem stress.",
   },
   {
     nome: "Carla Pestana",
@@ -58,14 +58,14 @@ export const testemunhos = [
     iniciais: "C",
     cor: "#0c8599",
     texto:
-      "Atendimento muito humano e profissional. Nota-se que ha preocupacao em encontrar a melhor solucao para cada cliente.",
+      "Atendimento muito humano e profissional. Nota-se que há preocupação em encontrar a melhor solução para cada cliente.",
   },
   {
-    nome: "Joao Sousa",
+    nome: "João Sousa",
     data: "Mai 18, 2025",
     iniciais: "J",
     cor: "#c92a2a",
     texto:
-      "Gostei muito da forma como fui recebido. Houve transparencia, disponibilidade para tirar duvidas e um excelente acompanhamento no pos-venda.",
+      "Gostei muito da forma como fui recebido. Houve transparência, disponibilidade para tirar dúvidas e um excelente acompanhamento no pós-venda.",
   },
 ];

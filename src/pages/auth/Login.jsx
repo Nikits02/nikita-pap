@@ -62,7 +62,7 @@ function Login() {
       <PageHero
         className="auth-hero"
         title="Login"
-        description="Entre com o seu username ou email. Se a conta for de administrador, o acesso fica na area de conta e o painel privado continua disponível separadamente."
+        description="Entre com o seu username ou email. Se a conta for de administrador, o acesso fica na área de conta e o painel privado continua disponível separadamente."
       />
 
       <section className="auth-page__content">

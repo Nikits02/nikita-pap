@@ -98,7 +98,7 @@ function Contacto() {
     }
 
     if (isTestDriveFlow && bookedHours.includes(formData.horaPreferida)) {
-      setTestDriveError("Esta hora ja nao esta disponivel.");
+      setTestDriveError("Esta hora já não está disponível.");
       return;
     }
 

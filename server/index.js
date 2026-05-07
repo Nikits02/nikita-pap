@@ -9,7 +9,6 @@ import {
 import { getRequiredEnv } from "./lib/requiredEnvironmentVariables.js";
 import {
   ensureVehicleUploadDirectory,
-  LEGACY_VEHICLE_UPLOADS_ROOT_DIR,
   VEHICLE_UPLOADS_ROOT_DIR,
 } from "./lib/vehicleImageUploadHandler.js";
 import publicRoutes from "./routes/publicRoutes.js";
@@ -67,7 +66,6 @@ app.disable("x-powered-by");
 app.use(cors(buildCorsOptions()));
 app.use(express.json({ limit: "10mb" }));
 app.use("/uploads", express.static(VEHICLE_UPLOADS_ROOT_DIR));
-app.use("/uploads", express.static(LEGACY_VEHICLE_UPLOADS_ROOT_DIR));
 app.use("/api", publicRoutes);
 app.use("/api", authRoutes);
 app.use("/api", adminRoutes);

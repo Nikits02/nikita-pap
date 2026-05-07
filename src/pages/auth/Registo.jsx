@@ -70,7 +70,7 @@ function Registo() {
       <PageHero
         className="auth-hero"
         title="Registo"
-        description="Crie uma conta para aceder a uma area privada. Se a conta for admin, o painel continua disponível a partir da area de conta."
+        description="Crie uma conta para aceder a uma área privada. Se a conta for admin, o painel continua disponível a partir da área de conta."
       />
 
       <section className="auth-page__content">

@@ -12,16 +12,16 @@ export const blogPosts = [
     imagem: "/vehicles/lamborghini-svj.png",
     conteudo: [
       {
-        titulo: "Presenca que domina qualquer sala",
+        titulo: "Presença que domina qualquer sala",
         paragrafos: [
           "O Aventador SVJ não precisa de apresentações longas. A silhueta baixa, as entradas de ar profundas e a largura visual criam um impacto imediato, mesmo antes de o motor acordar.",
           "No nosso catálogo, este modelo representa bem a ideia de superdesportivo puro: um automóvel feito para emocionar à primeira vista e para marcar presença onde quer que passe.",
         ],
       },
       {
-        titulo: "Um V12 que transforma a experiencia",
+        titulo: "Um V12 que transforma a experiência",
         paragrafos: [
-          "Mais do que numeros, o que impressiona no SVJ é a forma como entrega tudo. O motor sobe de rotação com urgência, o som é visceral e a condução pede atenção total do condutor.",
+          "Mais do que números, o que impressiona no SVJ é a forma como entrega tudo. O motor sobe de rotação com urgência, o som é visceral e a condução pede atenção total do condutor.",
           "É o tipo de viatura que não tenta ser discreta ou confortável acima de tudo. O seu valor está exatamente em oferecer uma experiência crua, rara e memorável.",
         ],
       },
@@ -31,7 +31,7 @@ export const blogPosts = [
     id: 2,
     slug: "ferrari-roma-elegancia-com-alma-gran-turismo",
     categoria: "Ferrari Roma",
-    titulo: "Ferrari Roma: elegancia com alma de gran turismo",
+    titulo: "Ferrari Roma: elegância com alma de gran turismo",
     excerto:
       "Linhas limpas, proporções clássicas e uma postura moderna fazem do Roma uma das interpretações mais sofisticadas da Ferrari atual.",
     data: "26 Mar 2026",
@@ -68,7 +68,7 @@ export const blogPosts = [
     imagem: "/vehicles/porsche-macan.png",
     conteudo: [
       {
-        titulo: "Formato pratico, atitude desportiva",
+        titulo: "Formato prático, atitude desportiva",
         paragrafos: [
           "O Macan consegue fazer algo difícil: ser um SUV realmente útil sem perder a sensação de foco dinâmico que se espera da Porsche.",
           "A posição de condução, o desenho do interior e a resposta do chassis mostram que este não é apenas mais um utilitário premium do mercado.",
@@ -87,7 +87,7 @@ export const blogPosts = [
     id: 4,
     slug: "bentley-continental-gt-luxo-artesanal-com-presenca",
     categoria: "Bentley Continental GT",
-    titulo: "Bentley Continental GT: luxo artesanal com presenca absoluta",
+    titulo: "Bentley Continental GT: luxo artesanal com presença absoluta",
     excerto:
       "O Continental GT continua a ser uma referência quando o objetivo é combinar requinte, potência e uma sensação genuína de exclusividade.",
     data: "24 Mar 2026",
@@ -103,7 +103,7 @@ export const blogPosts = [
         ],
       },
       {
-        titulo: "Potencia serena para grandes viagens",
+        titulo: "Potência serena para grandes viagens",
         paragrafos: [
           "Apesar do ambiente luxuoso, este modelo não abdica de capacidade mecânica. Há força de sobra, mas entregue com uma compostura que combina na perfeição com o espírito grand tourer.",
           "É uma viatura para quem valoriza silêncio, conforto e autoridade, sem querer abrir mão de desempenho sério quando a estrada o permite.",
@@ -131,7 +131,7 @@ export const blogPosts = [
         ],
       },
       {
-        titulo: "Velocidade, som e utilizacao real",
+        titulo: "Velocidade, som e utilização real",
         paragrafos: [
           "Há modelos muito rápidos que acabam por ser pouco convidativos fora de contextos específicos. O mérito do SL 63 é oferecer grande performance sem sacrificar totalmente a utilização quotidiana.",
           "Com capota aberta, o carro ganha ainda outra dimensão emocional, tornando cada trajeto mais marcante do que os números por si só conseguem explicar.",
@@ -143,7 +143,7 @@ export const blogPosts = [
     id: 6,
     slug: "aston-martin-dbx707-o-suv-britanico-com-atitude",
     categoria: "Aston Martin DBX707",
-    titulo: "Aston Martin DBX707: o SUV britanico com atitude de supercarro",
+    titulo: "Aston Martin DBX707: o SUV britânico com atitude de supercarro",
     excerto:
       "O DBX707 mostra como a Aston Martin soube entrar no mundo dos SUV de alta performance sem abdicar da sua identidade visual e emocional.",
     data: "22 Mar 2026",
@@ -152,7 +152,7 @@ export const blogPosts = [
     imagem: "/vehicles/aston-martin-dbx707.png",
     conteudo: [
       {
-        titulo: "Elegancia britanica num formato improvavel",
+        titulo: "Elegância britânica num formato improvável",
         paragrafos: [
           "Transformar a linguagem Aston Martin num SUV de grandes dimensões não era um desafio simples. Ainda assim, o DBX707 consegue manter sofisticação e proporções muito bem resolvidas.",
           "O resultado é um carro com presença distinta, menos genérico do que muitos rivais do segmento e imediatamente reconhecível pela sua assinatura estética.",

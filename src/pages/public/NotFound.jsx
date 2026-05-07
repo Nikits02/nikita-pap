@@ -16,7 +16,7 @@ function NotFound() {
           Voltar ao inicio
         </Link>
         <Link className="secondary-button" to="/catalogo">
-          Ver catalogo
+          Ver catálogo
         </Link>
       </div>
     </SitePage>

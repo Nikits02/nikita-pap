@@ -18,19 +18,19 @@ const DASHBOARD_CARDS = [
   {
     key: "vehicles",
     label: "Viaturas totais",
-    description: "Viaturas registadas no catalogo.",
+    description: "Viaturas registadas no catálogo.",
     path: "/admin/viaturas",
   },
   {
     key: "tradeIns",
     label: "Retomas por ver",
-    description: "Pedidos de retoma ainda sem decisao.",
+    description: "Pedidos de retoma ainda sem decisão.",
     path: "/admin/retomas",
   },
   {
     key: "finance",
     label: "Financiamentos por ver",
-    description: "Pedidos de financiamento ainda sem decisao.",
+    description: "Pedidos de financiamento ainda sem decisão.",
     path: "/admin/financiamentos",
   },
   {
@@ -109,7 +109,7 @@ function AdminDashboard() {
           return;
         }
 
-        setError(loadError.message ?? "Nao foi possivel carregar o resumo.");
+        setError(loadError.message ?? "Não foi possível carregar o resumo.");
       } finally {
         if (isMounted) {
           setIsLoading(false);
@@ -138,8 +138,8 @@ function AdminDashboard() {
       ) : (
         <div className="admin-dashboard">
           <p className="admin-page__text admin-page__text--muted">
-            Visao geral dos dados principais e dos pedidos que precisam de
-            atencao.
+            Visão geral dos dados principais e dos pedidos que precisam de
+            atenção.
           </p>
 
           <div className="admin-dashboard__grid">

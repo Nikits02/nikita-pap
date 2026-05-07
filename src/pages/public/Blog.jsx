@@ -46,7 +46,7 @@ function Blog() {
         <PageHero
           className="blog-page__hero"
           title="Blog"
-          description="Artigos editoriais sobre algumas das viaturas em destaque no nosso catalogo"
+          description="Artigos editoriais sobre algumas das viaturas em destaque no nosso catálogo"
         />
 
         <div className="blog-page__divider" />

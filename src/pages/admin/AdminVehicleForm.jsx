@@ -24,12 +24,12 @@ const ADMIN_VEHICLE_MAIN_FIELDS = adminVehicleFields.filter(
 const VEHICLE_FIELD_SECTIONS = [
   {
     title: "Identificacao",
-    description: "Dados principais que identificam a viatura no catalogo.",
+    description: "Dados principais que identificam a viatura no catálogo.",
     fields: ["source", "marca", "modelo", "tipo", "versao"],
   },
   {
     title: "Detalhes tecnicos",
-    description: "Caracteristicas usadas nos cards e na pagina de detalhe.",
+    description: "Características usadas nos cards e na página de detalhe.",
     fields: [
       "preco",
       "ano",

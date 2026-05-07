@@ -26,11 +26,11 @@ function TestDriveHourSelector({
               type="button"
               onClick={() => onChange(hour)}
               disabled={isDisabled}
-              aria-label={isDisabled ? `${hour} indisponivel` : hour}
-              title={isDisabled ? "Indisponivel" : undefined}
+              aria-label={isDisabled ? `${hour} indisponível` : hour}
+              title={isDisabled ? "Indisponível" : undefined}
             >
               <span>{hour}</span>
-              {isDisabled ? <small>Indisponivel</small> : null}
+              {isDisabled ? <small>Indisponível</small> : null}
             </button>
           );
         })}

@@ -3,6 +3,7 @@ export const contactSubjectOptions = [
   { value: "Pedido de Test Drive", label: "Pedido de Test Drive" },
   { value: "Financiamento", label: "Financiamento" },
   { value: "Retoma", label: "Retoma" },
+  { value: "Outro", label: "Outro" },
 ];
 
 export const initialContactForm = {
