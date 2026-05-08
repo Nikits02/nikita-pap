@@ -68,7 +68,11 @@ function Navbar() {
           ref={navbarSlotRef}
         >
           <div className={`navbar${currentUser ? " navbar--authenticated" : ""}`}>
-            <nav className="navbar__menu" aria-label="Navegacao principal">
+            <nav
+              className="navbar__menu"
+              id="primary-navigation"
+              aria-label="Navegacao principal"
+            >
               {navigationLinks.map((link) => {
                 const targetPath = link.href ?? link.to;
                 const isCurrent = isLinkActive(targetPath);

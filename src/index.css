@@ -8,11 +8,11 @@
 @import "./styles/components/SitePage.css";
 @import "./styles/components/Navbar.css";
 @import "./styles/pages/Home.css";
-@import "./styles/components/PublicShared.css";
 @import "./styles/pages/Sobre.css";
 @import "./styles/components/Footer.css";
 @import "./styles/pages/AdminPageShell.css";
 @import "./styles/pages/AuthPages.css";
+@import "./styles/pages/NotFound.css";
 @import "./styles/pages/Blog.css";
 @import "./styles/pages/Contacto.css";
 @import "./styles/pages/Financiamento.css";

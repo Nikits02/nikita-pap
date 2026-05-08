@@ -399,6 +399,193 @@
   font-size: 1.1rem;
 }
 
+@media (max-width: 980px) {
+  .tradein-process__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.2rem;
+  }
 
+  .tradein-step__line {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .tradein-page {
+    margin-top: var(--page-section-margin-top);
+    margin-bottom: 3.8rem;
+  }
+
+  .tradein-hero,
+  .tradein-process {
+    padding: 2.4rem 0;
+  }
+
+  .tradein-hero h1,
+  .tradein-process h2,
+  .tradein-section-heading h2,
+  .tradein-success h2 {
+    font-size: clamp(2rem, 10vw, 3rem);
+    line-height: 1.02;
+  }
+
+  .tradein-hero p:not(.section-kicker),
+  .contact-hero.tradein-hero p {
+    max-width: 30rem;
+    margin: 1rem auto 0;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .tradein-process__grid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+  }
+
+  .tradein-step,
+  .tradein-step__visual {
+    justify-items: center;
+    justify-content: center;
+  }
+
+  .tradein-step {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    justify-items: start;
+    gap: 0.9rem;
+    min-height: 5rem;
+    padding: 0.9rem;
+    border: 1px solid var(--surface-white-08);
+    background: var(--surface-white-03);
+    text-align: left;
+  }
+
+  .tradein-step__visual {
+    width: auto;
+  }
+
+  .tradein-step__icon {
+    width: 3.2rem;
+    height: 3.2rem;
+  }
+
+  .tradein-step__icon svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+
+  .tradein-step__number {
+    top: -0.3rem;
+    left: 2.45rem;
+  }
+
+  .tradein-step h3 {
+    text-align: left;
+  }
+
+  .tradein-form-section {
+    padding-top: 1.5rem;
+  }
+
+  .tradein-form-card,
+  .tradein-success {
+    padding: 1.15rem;
+  }
+
+  .tradein-section-heading {
+    padding-bottom: 1rem;
+  }
+
+  .tradein-section-heading--contact {
+    margin-top: 1.2rem;
+    padding-top: 1rem;
+  }
+
+  .tradein-form-grid--vehicle,
+  .tradein-form-grid--contact {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  .tradein-field,
+  .tradein-form-grid--vehicle .tradein-field:nth-child(3),
+  .tradein-form-grid--vehicle .tradein-field:nth-child(4),
+  .tradein-form-grid--vehicle .tradein-field:nth-child(5),
+  .tradein-field--full {
+    grid-column: 1 / -1;
+  }
+
+  .tradein-field {
+    justify-items: center;
+    gap: 0.45rem;
+  }
+
+  .tradein-field span {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+  }
+
+  .tradein-field input,
+  .tradein-field textarea,
+  .tradein-select__trigger {
+    min-height: 3.1rem;
+    text-align: center;
+  }
+
+  .tradein-field textarea {
+    min-height: 8rem;
+  }
+
+  .tradein-select {
+    width: 100%;
+  }
+
+  .tradein-select__trigger span {
+    text-align: center;
+  }
+
+  .tradein-select__menu,
+  .tradein-select__option {
+    text-align: left;
+  }
+
+  .tradein-form-error {
+    text-align: center;
+  }
+
+  .tradein-submit {
+    min-height: 3.15rem;
+    margin-top: 1.2rem;
+    font-size: 0.86rem;
+    letter-spacing: 0.1em;
+  }
+
+  .tradein-success {
+    padding-block: 2rem;
+  }
+
+  .tradein-success__icon {
+    width: 3.8rem;
+    height: 3.8rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .tradein-form-card,
+  .tradein-success {
+    padding: 1rem 0.85rem;
+  }
+
+  .tradein-step {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .tradein-step h3 {
+    text-align: center;
+  }
+}
 
 

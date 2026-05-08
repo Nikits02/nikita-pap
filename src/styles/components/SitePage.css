@@ -54,3 +54,39 @@ input {
   margin-top: 2.6rem;
 }
 
+@media (max-width: 760px) {
+  .page-shell {
+    width: min(100% - 1.2rem, var(--site-width));
+    text-align: center;
+  }
+
+  .site-header--home + .page-shell,
+  .site-header--inner + .page-shell {
+    margin-top: 1.6rem;
+  }
+
+  .page-shell :where(
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    span,
+    strong,
+    small,
+    label,
+    li,
+    blockquote,
+    figcaption,
+    a,
+    button
+  ) {
+    text-align: center;
+  }
+
+  .page-shell :where(input, textarea, select, option) {
+    text-align: left;
+  }
+}

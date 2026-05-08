@@ -365,12 +365,227 @@
   color: var(--color-neutral-0);
 }
 
+@media (max-width: 980px) {
+  .finance-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .finance-benefits {
+    padding-right: 0;
+  }
+
+  .finance-benefits::after {
+    content: none;
+  }
+}
+
 @media (max-width: 760px) {
+  .finance-page {
+    margin-top: var(--page-section-margin-top);
+    margin-bottom: 3.8rem;
+  }
+
+  .finance-hero {
+    padding: 2.4rem 0;
+  }
+
+  .finance-hero h1 {
+    font-size: clamp(2.35rem, 12vw, 3.4rem);
+    line-height: 0.98;
+  }
+
+  .finance-hero p {
+    max-width: 30rem;
+    margin-inline: auto;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .finance-grid {
+    gap: 1.4rem;
+    padding-top: 1.5rem;
+  }
+
+  .finance-card--simulator,
+  .finance-card--request {
+    padding: 1.15rem;
+  }
+
+  .finance-heading,
+  .finance-benefit {
+    justify-items: center;
+    justify-content: center;
+  }
+
+  .finance-heading {
+    display: grid;
+    gap: 0.75rem;
+    text-align: center;
+  }
+
+  .finance-heading h2,
+  .finance-benefits h2,
+  .finance-card--request h2 {
+    font-size: clamp(1.55rem, 7vw, 2.05rem);
+    line-height: 1.08;
+    text-align: center;
+  }
+
+  .finance-control {
+    padding: 1.2rem 0;
+  }
+
+  .finance-control__top {
+    display: grid;
+    justify-items: center;
+    gap: 0.45rem;
+    text-align: center;
+  }
+
+  .finance-control__top span {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+  }
+
+  .finance-control__top strong {
+    font-size: 1.16rem;
+    line-height: 1.2;
+  }
+
+  .finance-range {
+    margin-top: 1.2rem;
+  }
+
+  .finance-control__limits {
+    gap: 0.75rem;
+    font-size: 0.76rem;
+  }
+
+  .finance-term-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .finance-term-button {
+    min-height: 2.9rem;
+  }
+
+  .finance-fixed-rate-note,
+  .finance-disclaimer,
+  .finance-request-copy {
+    text-align: center;
+  }
+
+  .finance-results {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+    margin-top: 1.1rem;
+  }
+
+  .finance-result {
+    padding: 0.9rem;
+    border: 1px solid var(--surface-white-10);
+    background: var(--surface-white-03);
+  }
+
+  .finance-result:not(:last-child) {
+    border-right: 1px solid var(--surface-white-10);
+  }
+
+  .finance-column {
+    gap: 1.4rem;
+  }
+
+  .finance-benefits {
+    padding: 1.15rem;
+    border: var(--surface-divider);
+    background: var(--surface-white-03);
+  }
+
+  .finance-benefits__list {
+    display: grid;
+    gap: 0.7rem;
+    margin-top: 1.1rem;
+  }
+
+  .finance-benefit {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+    padding: 0.9rem;
+    border: 1px solid var(--surface-white-08);
+    text-align: center;
+  }
+
+  .finance-benefit span {
+    font-size: 0.96rem;
+    line-height: 1.5;
+  }
+
+  .finance-request-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem;
+  }
+
+  .finance-request-summary__item {
+    padding: 0.8rem 0.55rem;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .finance-request-summary__item span {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+  }
+
+  .finance-request-summary__item strong {
+    font-size: 0.92rem;
+    overflow-wrap: anywhere;
+  }
+
+  .finance-request-form {
+    gap: 0.8rem;
+    margin-top: 1.1rem;
+  }
+
+  .finance-request-form input,
+  .finance-request-form .vehicle-search__select-trigger {
+    min-height: 3.1rem;
+    text-align: center;
+  }
+
+  .finance-request-form .vehicle-search__select {
+    width: 100%;
+  }
+
+  .finance-request-form .vehicle-search__select-menu {
+    text-align: left;
+  }
+
+  .finance-submit {
+    min-height: 3.15rem;
+    font-size: 0.86rem;
+    letter-spacing: 0.1em;
+  }
+
+  .finance-success {
+    justify-items: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .finance-card--simulator,
+  .finance-card--request,
+  .finance-benefits {
+    padding: 1rem 0.85rem;
+  }
+
+  .finance-term-grid,
   .finance-request-summary {
     grid-template-columns: 1fr;
   }
 }
-
 
 
 

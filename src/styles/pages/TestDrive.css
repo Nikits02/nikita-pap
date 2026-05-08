@@ -369,16 +369,139 @@
   }
 
   .test-drive-hero {
-    padding-bottom: 2.2rem;
+    justify-items: center;
+    max-width: 100%;
+    padding: 0.2rem 0 2rem;
   }
 
-  .test-drive-vehicle-grid,
-  .test-drive-hours {
+  .test-drive-hero h1 {
+    font-size: clamp(2.35rem, 12vw, 3.4rem);
+    line-height: 0.98;
+  }
+
+  .test-drive-hero > p:last-child {
+    max-width: 31rem;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .test-drive-layout {
+    padding-top: 1.5rem;
+  }
+
+  .test-drive-form {
+    gap: 1.25rem;
+  }
+
+  .test-drive-step {
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--surface-white-08);
+    background: var(--surface-white-03);
+  }
+
+  .test-drive-step__heading {
+    justify-content: center;
+    gap: 0.65rem;
+    width: 100%;
+  }
+
+  .test-drive-step__icon,
+  .test-drive-step__number {
+    width: 2.25rem;
+    height: 2.25rem;
+    flex: 0 0 2.25rem;
+  }
+
+  .test-drive-step__heading h2 {
+    font-size: clamp(1.55rem, 7vw, 2rem);
+  }
+
+  .test-drive-vehicle-grid {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .test-drive-vehicle-card {
+    display: grid;
+    grid-template-columns: minmax(6.5rem, 38%) minmax(0, 1fr);
+    align-items: stretch;
+    min-height: 7.4rem;
+  }
+
+  .test-drive-vehicle-card__media {
+    aspect-ratio: auto;
+    height: 100%;
+    border-right: var(--surface-divider-faint);
+    border-bottom: 0;
+  }
+
+  .test-drive-vehicle-card__body {
+    align-content: center;
+    justify-items: center;
+    padding: 0.85rem;
+  }
+
+  .test-drive-vehicle-card__body h3 {
+    font-size: 1.08rem;
+  }
+
+  .test-drive-schedule,
+  .test-drive-personal-grid {
+    gap: 0.9rem;
+  }
+
+  .test-drive-field {
+    gap: 0.45rem;
+  }
+
+  .test-drive-field input {
+    min-height: 3.15rem;
+    text-align: center;
+  }
+
+  .test-drive-hours {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .test-drive-hours__button {
+    min-height: 3.1rem;
+    font-size: 0.92rem;
+  }
+
+  .test-drive-form__error,
+  .test-drive-hours__error {
+    margin-top: 0;
+    text-align: center;
+  }
+
+  .test-drive-submit {
+    width: 100%;
+    min-height: 3.35rem;
+    padding: 0.85rem 1rem;
+    font-size: 0.86rem;
+    letter-spacing: 0.1em;
   }
 
   .test-drive-success {
     padding: 2rem 1.2rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .test-drive-step {
+    padding: 0.85rem;
+  }
+
+  .test-drive-vehicle-card {
+    grid-template-columns: 1fr;
+  }
+
+  .test-drive-vehicle-card__media {
+    aspect-ratio: 1.72 / 1;
+    border-right: 0;
+    border-bottom: var(--surface-divider-faint);
   }
 }
 

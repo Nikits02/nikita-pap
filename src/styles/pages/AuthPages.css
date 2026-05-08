@@ -185,14 +185,147 @@
 }
 
 @media (max-width: 760px) {
+  .auth-page {
+    margin-top: var(--page-section-margin-top);
+    margin-bottom: 3.8rem;
+  }
+
+  .auth-hero {
+    padding: 2.4rem 0;
+  }
+
+  .auth-hero h1 {
+    font-size: clamp(2.35rem, 12vw, 3.4rem);
+    line-height: 0.98;
+  }
+
+  .auth-hero p {
+    max-width: 30rem;
+    margin: 1rem auto 0;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .auth-page__content {
+    display: grid;
+    justify-items: center;
+    padding-top: 1.5rem;
+  }
+
+  .auth-form,
+  .auth-form--wide,
+  .account-details {
+    width: 100%;
+  }
+
+  .auth-form {
+    gap: 1rem;
+    padding: 1.15rem;
+    border: var(--surface-divider);
+    background: var(--surface-panel-dark);
+    box-shadow: var(--shadow-elevated-dark-lg);
+  }
+
+  .auth-form .contact-field {
+    justify-items: center;
+    gap: 0.45rem;
+  }
+
+  .auth-form .contact-field > span {
+    font-size: 0.76rem;
+    letter-spacing: 0.1em;
+  }
+
+  .auth-form .contact-field input {
+    min-height: 3.1rem;
+    text-align: center;
+  }
+
+  .auth-form__actions {
+    justify-content: center;
+    padding-top: 0.2rem;
+  }
+
+  .auth-submit {
+    width: 100%;
+    min-width: 0;
+    min-height: 3.15rem;
+    font-size: 0.86rem;
+    letter-spacing: 0.1em;
+  }
+
+  .auth-notice {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .auth-notice__loading-indicator {
+    transform-origin: center;
+  }
+
+  .auth-form__helper {
+    text-align: center;
+  }
+
+  .account-page__content {
+    padding-top: 1.5rem;
+  }
+
+  .account-details {
+    gap: 1.1rem;
+    padding: 1.15rem;
+    border: var(--surface-divider);
+    background: var(--surface-panel-dark);
+    box-shadow: var(--shadow-elevated-dark-lg);
+  }
+
+  .account-details h2 {
+    text-align: center;
+    font-size: clamp(1.55rem, 8vw, 2.1rem);
+  }
+
   .account-details__grid {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .account-details__item {
+    justify-items: center;
+    padding: 0.9rem;
+    border: 1px solid var(--surface-white-08);
+    background: var(--surface-white-03);
+    text-align: center;
+  }
+
+  .account-details__item span {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+  }
+
+  .account-details__item strong {
+    font-size: 0.98rem;
+    overflow-wrap: anywhere;
+  }
+
+  .account-page__actions,
+  .account-page__actions--admin {
+    display: grid;
+    justify-items: stretch;
+    gap: 0.75rem;
+    width: 100%;
   }
 
   .account-page__secondary-action,
+  .account-page__actions--admin .contact-submit,
   .account-page .auth-submit {
     width: 100%;
     min-width: 0;
   }
 }
 
+@media (max-width: 420px) {
+  .auth-form,
+  .account-details {
+    padding: 1rem 0.85rem;
+  }
+}

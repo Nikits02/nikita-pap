@@ -216,3 +216,10 @@
   cursor: pointer;
   appearance: none;
 }
+
+@media (max-width: 420px) {
+  .site-header--home .brand-mark__text,
+  .site-header--inner .brand-mark__text {
+    font-size: clamp(2rem, 11vw, 3rem);
+  }
+}
