@@ -42,7 +42,7 @@
 .tradein-hero p:not(.section-kicker) {
   margin: 1.4rem 0 0;
   max-width: 620px;
-  color: var(--color-stone-280);
+  color: var(--color-stone-300);
   font-size: 1.1rem;
   line-height: 1.7;
 }
@@ -104,7 +104,7 @@
   height: 1.25rem;
   padding: 0 0.2rem;
   background: var(--tradein-accent);
-  color: var(--color-ivory-40);
+  color: var(--color-ivory-80);
   font-size: 0.78rem;
   font-weight: 700;
 }
@@ -383,7 +383,7 @@
 .tradein-success p {
   max-width: 640px;
   margin: 0;
-  color: var(--color-stone-290);
+  color: var(--color-stone-400);
   font-size: 1.1rem;
   line-height: 1.7;
 }

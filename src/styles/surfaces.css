@@ -53,6 +53,18 @@
   --surface-panel-lux-strong: rgba(28, 28, 31, 0.96);
   --surface-panel-lux-deep: rgba(12, 12, 14, 0.94);
   --surface-panel-lux-deeper: rgba(13, 13, 15, 0.98);
+  --lux-panel: linear-gradient(
+    180deg,
+    var(--surface-panel-lux),
+    var(--surface-panel-lux-deep)
+  );
+  --lux-panel-strong: linear-gradient(
+    180deg,
+    var(--surface-panel-lux-strong),
+    var(--surface-panel-lux-deeper)
+  );
+  --lux-line: var(--surface-white-08);
+  --lux-shadow: 0 24px 48px var(--surface-black-26);
   --surface-panel-service-start: rgba(38, 38, 38, 0.98);
   --surface-panel-service-end: rgba(28, 28, 28, 0.98);
   --surface-input-dark: var(--color-night-870);
@@ -99,7 +111,7 @@
   --surface-divider: 1px solid var(--surface-white-08);
   --surface-divider-faint: 1px solid var(--surface-white-06);
   --surface-divider-strong: 1px solid var(--surface-white-12);
-  --surface-border-light: 1px solid var(--color-neutral-300);
+  --surface-border-light: 1px solid var(--color-neutral-250);
   --surface-border-light-strong: 1px solid var(--color-neutral-400);
   --surface-ring-brand-sm: 0 0 0 1px var(--brand-surface-14);
   --surface-ring-brand-md: 0 0 0 4px var(--brand-surface-12);

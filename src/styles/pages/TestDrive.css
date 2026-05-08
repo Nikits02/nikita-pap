@@ -51,7 +51,7 @@
 .test-drive-hero > p:last-child,
 .test-drive-success p {
   margin: 0;
-  color: var(--color-stone-310);
+  color: var(--color-stone-400);
   font-size: 1.04rem;
   line-height: 1.75;
 }
@@ -142,7 +142,7 @@
 .test-drive-vehicle-card:hover,
 .test-drive-vehicle-card.is-selected {
   border-color: var(--brand-surface-52);
-  background: var(--color-black-860);
+  background: var(--color-black-940);
   transform: translateY(-2px);
   box-shadow: var(--shadow-elevated-dark-sm);
 }

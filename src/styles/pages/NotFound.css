@@ -42,7 +42,7 @@
 .secondary-button {
   border-color: var(--gold-surface-25);
   background: var(--gold-surface-08);
-  color: var(--color-ivory-90);
+  color: var(--color-ivory-100);
 }
 
 .primary-button:hover,

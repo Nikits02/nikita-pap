@@ -84,7 +84,7 @@
 }
 
 .finance-control__top span {
-  color: var(--color-stone-335);
+  color: var(--color-stone-400);
   font-size: 0.92rem;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -167,7 +167,7 @@
   min-height: 3rem;
   border: var(--surface-divider-strong);
   background: transparent;
-  color: var(--color-stone-315);
+  color: var(--color-stone-400);
   cursor: pointer;
   transition:
     background-color 0.2s ease,
@@ -256,7 +256,7 @@
 }
 
 .finance-benefit span {
-  color: var(--color-sand-190);
+  color: var(--color-sand-200);
   font-size: 1.04rem;
 }
 
@@ -266,7 +266,7 @@
 
 .finance-request-copy {
   margin: 0.9rem 0 0;
-  color: var(--color-stone-315);
+  color: var(--color-stone-400);
   font-size: 0.95rem;
   line-height: 1.65;
 }
@@ -355,7 +355,7 @@
   display: grid;
   gap: 0.25rem;
   margin-top: 1rem;
-  color: var(--color-sand-190);
+  color: var(--color-sand-200);
   padding: 1rem 1.1rem;
   border: 1px solid var(--brand-surface-24);
   background: var(--surface-white-03);

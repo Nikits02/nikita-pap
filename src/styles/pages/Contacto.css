@@ -109,7 +109,7 @@
   height: 16rem;
   border: var(--surface-divider);
   overflow: hidden;
-  background: var(--color-black-920);
+  background: var(--color-black-940);
 }
 
 .contact-map-card__embed iframe {
@@ -477,7 +477,7 @@
   min-height: 3.15rem;
   border: var(--surface-divider-strong);
   background: var(--surface-input-dark-strong);
-  color: var(--color-sand-210);
+  color: var(--color-sand-200);
   font-size: 0.95rem;
   cursor: pointer;
   transition:

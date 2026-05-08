@@ -17,7 +17,7 @@
 .services-section {
   margin: 0 calc(50% - 50vw);
   padding: 5.4rem 1.2rem 5.2rem;
-  background: var(--color-night-880);
+  background: var(--color-night-890);
 }
 
 .services-section__shell {
@@ -107,7 +107,7 @@
 .testimonials-section {
   margin: 0 calc(50% - 50vw);
   padding: 9rem 1.2rem 5rem;
-  background: var(--color-night-880);
+  background: var(--color-night-890);
 }
 
 .testimonials-section__shell {
@@ -284,7 +284,7 @@
 
 .testimonial-card__text {
   margin: 1.4rem 0 0;
-  color: var(--color-ink-880);
+  color: var(--color-ink-900);
   font-size: 0.98rem;
   line-height: 1.8;
   text-align: justify;
@@ -388,7 +388,7 @@
   padding: 2rem;
   border: 1px dashed var(--color-rose-200);
   border-radius: 20px;
-  background: var(--color-rose-110);
+  background: var(--color-rose-100);
   text-align: center;
 }
 
@@ -429,7 +429,7 @@
   width: 9.6rem;
   padding: 0.5rem 0;
   background: var(--brand-red-alert-surface-90);
-  color: var(--color-ink-860);
+  color: var(--color-ink-870);
   font-size: 0.92rem;
   font-weight: 800;
   letter-spacing: 0.06em;
@@ -443,7 +443,7 @@
   margin: -1rem auto 0;
   padding: 0.8rem 1rem;
   border-radius: 6px;
-  background: linear-gradient(90deg, var(--color-brand-red-480) 0%, var(--color-brand-red-460) 100%);
+  background: linear-gradient(90deg, var(--color-brand-red-500) 0%, var(--color-brand-red-460) 100%);
   color: var(--color-neutral-0);
   font-size: 1.25rem;
   font-weight: 800;
@@ -459,7 +459,7 @@
 
 .latest-card__body h3 {
   margin: 0;
-  color: var(--color-black-890);
+  color: var(--color-black-880);
   font-size: 1.2rem;
   font-weight: 500;
 }
@@ -495,7 +495,7 @@
 
 .vehicle-search__panel {
   padding: 2rem 1.5rem 1.35rem;
-  border: 1px solid var(--color-rose-220);
+  border: 1px solid var(--color-rose-210);
   border-radius: 12px;
   background: var(--color-neutral-0);
   box-shadow: 0 10px 28px var(--brown-shadow-08);
@@ -534,7 +534,7 @@
 }
 
 .vehicle-search__label {
-  color: var(--color-stone-370);
+  color: var(--color-stone-400);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -580,7 +580,7 @@
 }
 
 .vehicle-search__select-trigger.is-placeholder {
-  color: var(--color-stone-450);
+  color: var(--color-stone-400);
 }
 
 .vehicle-search__select-menu {
@@ -764,7 +764,7 @@
   width: 7.6rem;
   padding: 0.42rem 0;
   background: var(--brand-red-alert-surface-92);
-  color: var(--color-ink-865);
+  color: var(--color-ink-870);
   font-weight: 800;
   font-size: 0.82rem;
   letter-spacing: 0.05em;
@@ -778,7 +778,7 @@
   margin: -0.7rem auto 0;
   padding: 0.62rem 0.85rem;
   border-radius: 9px;
-  background: linear-gradient(90deg, var(--color-brand-red-490) 0%, var(--color-brand-red-440) 100%);
+  background: linear-gradient(90deg, var(--color-brand-red-500) 0%, var(--color-brand-red-440) 100%);
   color: var(--color-neutral-0);
   font-size: 1.35rem;
   font-weight: 800;
@@ -828,7 +828,7 @@
 }
 
 .highlight-card__stat strong {
-  color: var(--color-ink-875);
+  color: var(--color-ink-900);
   font-size: 0.88rem;
 }
 
@@ -844,7 +844,7 @@
   height: 0.68rem;
   border: none;
   border-radius: 50%;
-  background: var(--color-neutral-230);
+  background: var(--color-neutral-225);
   cursor: pointer;
   transition: transform 0.2s ease, background-color 0.2s ease;
 }
