@@ -7,7 +7,12 @@
 @import "./styles/components/PageHero.css";
 @import "./styles/components/SitePage.css";
 @import "./styles/components/Navbar.css";
-@import "./styles/pages/Home.css";
+@import "./styles/pages/home.css";
+@import "./styles/components/DestaquesSemana.css";
+@import "./styles/components/PesquisaViaturas.css";
+@import "./styles/components/UltimasViaturas.css";
+@import "./styles/components/WhyChoose.css";
+@import "./styles/components/Testemunhos.css";
 @import "./styles/pages/Sobre.css";
 @import "./styles/components/Footer.css";
 @import "./styles/pages/AdminPageShell.css";

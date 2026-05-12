@@ -61,7 +61,7 @@
 .finance-benefits h2,
 .finance-card--request h2 {
   margin: 0;
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
   font-family: var(--font-family-serif);
   font-size: clamp(1.8rem, 3vw, 2.45rem);
   font-weight: 700;
@@ -207,7 +207,7 @@
 }
 
 .finance-result strong {
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
   font-size: clamp(1.3rem, 2vw, 2rem);
   font-weight: 700;
 }
@@ -295,7 +295,7 @@
 }
 
 .finance-request-summary__item strong {
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
   font-size: 1rem;
   font-weight: 700;
 }
@@ -311,7 +311,7 @@
   padding: 0.95rem 1rem;
   border: 1px solid var(--surface-white-10);
   background: var(--surface-white-05);
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
 }
 
 .finance-request-form__hint {
@@ -362,7 +362,7 @@
 }
 
 .finance-success strong {
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
 }
 
 @media (max-width: 980px) {

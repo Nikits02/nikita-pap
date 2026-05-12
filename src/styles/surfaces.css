@@ -1,19 +1,19 @@
 :root {
   /* Neutral translucent surfaces */
-  --surface-white-01: rgba(255, 255, 255, 0.01);
-  --surface-white-02: rgba(255, 255, 255, 0.02);
-  --surface-white-03: rgba(255, 255, 255, 0.03);
-  --surface-white-04: rgba(255, 255, 255, 0.04);
-  --surface-white-05: rgba(255, 255, 255, 0.05);
-  --surface-white-06: rgba(255, 255, 255, 0.06);
-  --surface-white-07: rgba(255, 255, 255, 0.07);
-  --surface-white-08: rgba(255, 255, 255, 0.08);
-  --surface-white-10: rgba(255, 255, 255, 0.1);
-  --surface-white-12: rgba(255, 255, 255, 0.12);
-  --surface-white-14: rgba(255, 255, 255, 0.14);
-  --surface-white-18: rgba(255, 255, 255, 0.18);
-  --surface-white-86: rgba(255, 255, 255, 0.86);
-  --surface-white-98: rgba(255, 255, 255, 0.98);
+  --surface-white-01: color-mix(in srgb, var(--color-ivory-50) 1%, transparent);
+  --surface-white-02: color-mix(in srgb, var(--color-ivory-50) 2%, transparent);
+  --surface-white-03: color-mix(in srgb, var(--color-ivory-50) 3%, transparent);
+  --surface-white-04: color-mix(in srgb, var(--color-ivory-50) 4%, transparent);
+  --surface-white-05: color-mix(in srgb, var(--color-ivory-50) 5%, transparent);
+  --surface-white-06: color-mix(in srgb, var(--color-ivory-50) 6%, transparent);
+  --surface-white-07: color-mix(in srgb, var(--color-ivory-50) 7%, transparent);
+  --surface-white-08: color-mix(in srgb, var(--color-ivory-50) 8%, transparent);
+  --surface-white-10: color-mix(in srgb, var(--color-ivory-50) 10%, transparent);
+  --surface-white-12: color-mix(in srgb, var(--color-ivory-50) 12%, transparent);
+  --surface-white-14: color-mix(in srgb, var(--color-ivory-50) 14%, transparent);
+  --surface-white-18: color-mix(in srgb, var(--color-ivory-50) 18%, transparent);
+  --surface-white-86: color-mix(in srgb, var(--color-ivory-50) 86%, transparent);
+  --surface-white-98: color-mix(in srgb, var(--color-ivory-50) 98%, transparent);
 
   /* Dark translucent surfaces */
   --surface-black-02: rgba(0, 0, 0, 0.02);
@@ -70,7 +70,7 @@
   --surface-input-dark: var(--color-night-870);
   --surface-input-dark-alt: var(--color-night-860);
   --surface-input-dark-strong: var(--color-night-890);
-  --surface-panel-light: var(--color-neutral-0);
+  --surface-panel-light: var(--color-ivory-50);
   --surface-panel-light-soft: var(--color-neutral-50);
   --surface-panel-light-muted: var(--color-neutral-150);
   --surface-panel-light-notice: var(--color-neutral-200);

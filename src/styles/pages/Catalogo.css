@@ -120,7 +120,7 @@
   padding: 0 0.95rem;
   border: 1px solid var(--brand-surface-24);
   background: var(--color-black-940);
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
   font-size: 0.94rem;
   display: flex;
   align-items: center;
@@ -190,7 +190,7 @@
 .catalog-order__option:hover,
 .catalog-order__option.is-active {
   background: var(--brand-surface-16);
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
 }
 
 .catalog-page__count {
@@ -332,7 +332,7 @@
 }
 
 .catalog-card__meta-item strong {
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
   font-family: var(--font-family-sans);
   font-size: 0.82rem;
   font-weight: 700;
@@ -445,7 +445,7 @@
   padding: 3rem;
   border: var(--surface-divider);
   background: var(--color-black-870);
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
   text-align: center;
 }
 
@@ -940,7 +940,7 @@
 }
 
 .home-brand-wordmark__motors {
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
 }
 
 .catalog-page {
@@ -956,7 +956,7 @@
 
 .contact-hero.catalog-page__hero h1 {
   margin: 0;
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
   font-family: var(--font-family-serif);
   font-size: clamp(2.8rem, 5vw, 4.6rem);
   font-weight: 700;

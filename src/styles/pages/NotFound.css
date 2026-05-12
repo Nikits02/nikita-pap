@@ -35,7 +35,7 @@
     var(--color-brand-red-625) 0%,
     var(--color-brand-red-320) 100%
   );
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
   box-shadow: 0 14px 30px var(--rose-shadow-20);
 }
 

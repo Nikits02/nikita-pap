@@ -46,7 +46,7 @@
 }
 
 .site-footer__brand-title-accent {
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
 }
 
 .site-footer__brand-text {
@@ -104,7 +104,7 @@
 
 .site-footer__column-title {
   margin: 0 0 1.6rem;
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
   font-size: 0.9rem;
   font-weight: 800;
   letter-spacing: 0.18em;
@@ -184,7 +184,7 @@
 }
 
 .site-footer__bottom-brand-accent {
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
 }
 
 .site-footer__legal-links {

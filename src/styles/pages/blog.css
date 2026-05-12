@@ -397,13 +397,13 @@
 }
 
 .weekly-highlights__brand-motors {
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
 }
 
 .weekly-highlights__header h2,
 .latest-vehicles__title,
 .vehicle-search__panel h2 {
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
 }
 
 .weekly-highlights__intro {
@@ -440,7 +440,7 @@
 
 .highlight-card__body h3,
 .latest-card__body h3 {
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
 }
 
 .highlight-card__version,
@@ -458,7 +458,7 @@
 .highlight-card__stat strong,
 .latest-card__meta-item,
 .latest-card__meta-item svg {
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
 }
 
 .highlight-card__stat-label,
@@ -470,7 +470,7 @@
 .vehicle-search__select-trigger {
   border-color: var(--lux-line);
   background: var(--surface-white-04);
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
 }
 
 .vehicle-search__select-trigger.is-open {
@@ -490,13 +490,13 @@
 .testimonial-card {
   border: 1px solid var(--lux-line);
   background: var(--lux-panel-strong);
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
   box-shadow: var(--lux-shadow);
 }
 
 .testimonial-card h3,
 .testimonial-card__text {
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
 }
 
 .testimonial-card__date {
@@ -518,7 +518,7 @@
 
 .contact-hero.blog-page__hero h1 {
   margin: 0;
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
   font-family: var(--font-family-serif);
   font-size: clamp(2.8rem, 5vw, 4.6rem);
   font-weight: 700;

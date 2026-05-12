@@ -40,7 +40,7 @@
 .test-drive-step__heading h2,
 .test-drive-success h2 {
   margin: 0;
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
   font-family: var(--font-family-serif);
 }
 
@@ -177,7 +177,7 @@
 
 .test-drive-vehicle-card__body h3 {
   margin: 0;
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
   font-size: 1.02rem;
   line-height: 1.2;
 }
@@ -209,7 +209,7 @@
   padding: 0 1rem;
   border: var(--surface-divider-strong);
   background: var(--surface-input-dark-alt);
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
   font-size: 1rem;
 }
 
@@ -342,7 +342,7 @@
 }
 
 .test-drive-success strong {
-  color: var(--color-neutral-0);
+  color: var(--color-ivory-50);
 }
 
 @media (max-width: 1180px) {
