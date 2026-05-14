@@ -278,7 +278,7 @@ function Financiamento() {
               <span>{formatEuroAmount(entryMax)}</span>
             </div>
           </div>
-          <div className="finance-control">
+          <div className="finance-control finance-control--term">
             <div className="finance-control__top">
               <span>Prazo (meses)</span>
               <strong>{simulation.meses} meses</strong>
@@ -296,7 +296,7 @@ function Financiamento() {
               ))}
             </div>
           </div>
-          <div className="finance-control finance-control--last">
+          <div className="finance-control finance-control--rate finance-control--last">
             <div className="finance-control__top">
               <span>Taxa de juro fixa (TAN)</span>
               <strong>{FIXED_INTEREST_RATE.toFixed(1)}%</strong>

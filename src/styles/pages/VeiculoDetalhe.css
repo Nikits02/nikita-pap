@@ -606,5 +606,38 @@
 @media (max-width: 430px) {
   .vehicle-detail__info-list {
     grid-template-columns: 1fr;
+    gap: 0.55rem;
+    max-width: 24rem;
+  }
+
+  .vehicle-detail__info-row,
+  .vehicle-detail__info-row:first-child,
+  .vehicle-detail__info-row:last-child {
+    grid-template-columns: 1.35rem minmax(6.4rem, auto) minmax(0, 1fr);
+    align-items: center;
+    justify-items: start;
+    justify-content: stretch;
+    gap: 0.65rem;
+    min-height: 3.9rem;
+    padding: 0.72rem 0.8rem;
+  }
+
+  .vehicle-detail__info-icon {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+
+  .vehicle-detail__info-label {
+    font-size: 0.66rem;
+    letter-spacing: 0.11em;
+    line-height: 1.2;
+  }
+
+  .vehicle-detail__info-value {
+    justify-self: end;
+    font-size: 0.92rem;
+    line-height: 1.25;
+    text-align: right;
+    overflow-wrap: anywhere;
   }
 }

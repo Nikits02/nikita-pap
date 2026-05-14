@@ -77,10 +77,11 @@
 }
 
 .finance-control__top {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
+  display: grid;
+  justify-items: center;
+  justify-content: center;
   gap: 1rem;
+  text-align: center;
 }
 
 .finance-control__top span {
