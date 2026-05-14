@@ -6,7 +6,7 @@ Base de dados usada:
 - `nikita_stand`
 
 Ligação configurada em:
-- [server/databaseConnection.js](../server/databaseConnection.js)
+- [server/ligacaoBaseDados.js](../server/ligacaoBaseDados.js)
 
 ## 1. Ideia Geral
 
@@ -133,7 +133,7 @@ Notas:
 No projeto, várias tabelas são criadas automaticamente no arranque do backend.
 
 Isto acontece em:
-- [server/lib/createDatabaseTables.js](../server/lib/createDatabaseTables.js)
+- [server/lib/prepararBaseDados.js](../server/lib/prepararBaseDados.js)
 
 Funções principais:
 - `ensureAuthTables()`

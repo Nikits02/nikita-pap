@@ -1,13 +1,13 @@
 import express from "express";
-import { pool } from "../databaseConnection.js";
-import { fetchFirstRow, fetchRows, buildOrderedTableQuery } from "../lib/databaseQueries.js";
+import { pool } from "../ligacaoBaseDados.js";
+import { fetchFirstRow, fetchRows, buildOrderedTableQuery } from "../lib/consultasBaseDados.js";
 import {
   sendFinanceStatusEmail,
   sendTestDriveStatusEmail,
   sendTradeInStatusEmail,
-} from "../lib/emailNotifications.js";
-import { sendServerError } from "../lib/httpResponses.js";
-import { authenticateAdmin } from "../middleware/requireAdminLogin.js";
+} from "../lib/notificacoesEmail.js";
+import { sendServerError } from "../lib/respostasHttp.js";
+import { authenticateAdmin } from "../middleware/exigirLoginAdmin.js";
 import {
   getVehiclePayloadError,
   getVehicleValues,
@@ -16,11 +16,11 @@ import {
   VEHICLE_INSERT_PLACEHOLDERS_SQL,
   VEHICLE_SELECT_ORDER_QUERY,
   VEHICLE_UPDATE_ASSIGNMENTS_SQL,
-} from "../lib/vehicleFormPayload.js";
+} from "../lib/dadosFormularioViatura.js";
 import {
   saveVehicleImageUpload,
   VehicleImageUploadValidationError,
-} from "../lib/vehicleImageUploadHandler.js";
+} from "../lib/uploadImagemViatura.js";
 
 const router = express.Router();
 const ADMIN_LEAD_STATUSES = new Set([
@@ -190,7 +190,7 @@ async function updateAdminLeadRecord({
     const status = normalizeAdminText(req.body.status);
 
     if (!allowedStatuses.has(status)) {
-      return res.status(400).json({ message: "Estado invalido." });
+      return res.status(400).json({ message: "Estado inválido." });
     }
 
     const existingRecord = await fetchFirstRow(

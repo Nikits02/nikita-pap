@@ -89,11 +89,11 @@ function getTradeInEmailContent(tradeIn, status) {
     return {
       subject: "Pedido de retoma aceite",
       text: [
-        `Ola ${tradeIn.nome},`,
+        `Olá ${tradeIn.nome},`,
         "",
-        `O seu pedido de retoma para ${vehicle || "a sua viatura"} foi aceite para avancarmos com a avaliacao final.`,
+        `O seu pedido de retoma para ${vehicle || "a sua viatura"} foi aceite para avançarmos com a avaliação final.`,
         "",
-        "A nossa equipa vai entrar em contacto para confirmar os proximos passos.",
+        "A nossa equipa vai entrar em contacto para confirmar os próximos passos.",
         "",
         "Nikita Motors",
       ].join("\n"),
@@ -103,7 +103,7 @@ function getTradeInEmailContent(tradeIn, status) {
   return {
     subject: "Pedido de retoma recusado",
     text: [
-      `Ola ${tradeIn.nome},`,
+      `Olá ${tradeIn.nome},`,
       "",
       `Após análise, não conseguimos aceitar o pedido de retoma para ${vehicle || "a sua viatura"} neste momento.`,
       "",
@@ -121,11 +121,11 @@ function getFinanceEmailContent(financeRequest, status) {
     return {
       subject: "Pedido de financiamento aceite",
       text: [
-        `Ola ${financeRequest.nome},`,
+        `Olá ${financeRequest.nome},`,
         "",
-        `O seu pedido de financiamento para ${vehicle} foi aceite para avancarmos com o processo.`,
+        `O seu pedido de financiamento para ${vehicle} foi aceite para avançarmos com o processo.`,
         "",
-        "A nossa equipa vai entrar em contacto para confirmar os documentos e proximos passos.",
+        "A nossa equipa vai entrar em contacto para confirmar os documentos e próximos passos.",
         "",
         "Nikita Motors",
       ].join("\n"),
@@ -135,7 +135,7 @@ function getFinanceEmailContent(financeRequest, status) {
   return {
     subject: "Pedido de financiamento recusado",
     text: [
-      `Ola ${financeRequest.nome},`,
+      `Olá ${financeRequest.nome},`,
       "",
       `Após análise, o seu pedido de financiamento para ${vehicle} não foi aprovado neste momento.`,
       "",

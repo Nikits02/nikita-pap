@@ -8,7 +8,7 @@ import {
   isValidIsoDate,
   isValidPhone,
   isValidTestDriveHour,
-} from "../lib/formValidation.js";
+} from "../lib/validacoesFormularios.js";
 
 test("isValidEmail accepts common valid email addresses", () => {
   assert.equal(isValidEmail("cliente@email.pt"), true);

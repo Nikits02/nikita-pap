@@ -96,7 +96,7 @@ src/
 
 server/
   index.js      arranque do servidor Express
-  databaseConnection.js  ligação à base de dados
+  ligacaoBaseDados.js  ligação à base de dados
   lib/          lógica auxiliar do backend
   middleware/   middleware de autenticação
   routes/       endpoints públicos, autenticação e admin

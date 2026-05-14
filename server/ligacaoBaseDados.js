@@ -1,6 +1,6 @@
 import "dotenv/config";
 import mysql from "mysql2/promise";
-import { getRequiredEnv, getRequiredNumberEnv } from "./lib/requiredEnvironmentVariables.js";
+import { getRequiredEnv, getRequiredNumberEnv } from "./lib/variaveisAmbiente.js";
 
 export const pool = mysql.createPool({
   host: getRequiredEnv("DB_HOST"),

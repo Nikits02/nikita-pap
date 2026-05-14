@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import { AUTH_COOKIE_NAME } from "../lib/authenticationHelpers.js";
-import { getRequiredEnv } from "../lib/requiredEnvironmentVariables.js";
+import { AUTH_COOKIE_NAME } from "../lib/sessaoAutenticacao.js";
+import { getRequiredEnv } from "../lib/variaveisAmbiente.js";
 
 function getCookiesFromRequest(req) {
   const cookieHeader = req.headers.cookie;

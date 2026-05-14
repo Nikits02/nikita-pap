@@ -196,7 +196,7 @@ function AdminContactMessages() {
 
           <p className="admin-page__text admin-page__text--muted">
             {filteredMessages.length} de {messages.length} mensagem
-            {messages.length === 1 ? "" : "ens"} de contacto visive
+            {messages.length === 1 ? "" : "ens"} de contacto visíve
             {filteredMessages.length === 1 ? "l" : "is"}.
           </p>
 

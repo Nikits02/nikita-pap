@@ -5,7 +5,7 @@ import {
   getVehicleValues,
   normalizeVehiclePayload,
   VEHICLE_FIELDS,
-} from "../lib/vehicleFormPayload.js";
+} from "../lib/dadosFormularioViatura.js";
 
 const validVehiclePayload = {
   source: "catalog",

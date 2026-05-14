@@ -23,7 +23,7 @@ const ADMIN_VEHICLE_MAIN_FIELDS = adminVehicleFields.filter(
 );
 const VEHICLE_FIELD_SECTIONS = [
   {
-    title: "Identificacao",
+    title: "Identificação",
     description: "Dados principais que identificam a viatura no catálogo.",
     fields: ["source", "marca", "modelo", "tipo", "versao"],
   },
@@ -40,7 +40,7 @@ const VEHICLE_FIELD_SECTIONS = [
     ],
   },
   {
-    title: "Publicacao",
+    title: "Publicação",
     description: "Controla a ordem nas listas e os destaques visuais.",
     fields: ["inserted_at"],
   },
@@ -439,7 +439,7 @@ function AdminVehicleForm() {
       ) : (
         <form className="admin-form admin-vehicle-form" onSubmit={handleSubmit}>
           <p className="admin-page__text admin-page__text--muted">
-            Preenche os campos com os dados da viatura. Os obrigatórios estao
+            Preenche os campos com os dados da viatura. Os obrigatórios estão
             assinalados com * e os exemplos dentro dos campos mostram o formato
             esperado.
           </p>
@@ -485,7 +485,7 @@ function AdminVehicleForm() {
             </label>
 
             <p className="admin-form__hint">
-            Ativa está opção se quiseres mostrar a badge "Novo" na viatura.
+              Ativa esta opção se quiseres mostrar a badge "Novo" na viatura.
             </p>
 
           </div>
@@ -501,7 +501,7 @@ function AdminVehicleForm() {
               {isSubmitting
                 ? "A guardar..."
                 : isEditMode
-                  ? "Guardar alteracoes"
+                  ? "Guardar alterações"
                   : "Criar viatura"}
             </button>
 

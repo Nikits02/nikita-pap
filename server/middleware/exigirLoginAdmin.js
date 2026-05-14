@@ -1,4 +1,4 @@
-import { authenticateRequest } from "./requireUserLogin.js";
+import { authenticateRequest } from "./exigirLoginUtilizador.js";
 
 export function authenticateAdmin(req, res, next) {
   return authenticateRequest(req, res, () => {

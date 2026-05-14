@@ -229,7 +229,7 @@ function AdminTestDrives() {
 
           <p className="admin-page__text admin-page__text--muted">
             {filteredTestDrives.length} de {testDrives.length} pedido
-            {testDrives.length === 1 ? "" : "s"} de test drive visive
+            {testDrives.length === 1 ? "" : "s"} de test drive visíve
             {filteredTestDrives.length === 1 ? "l" : "is"}.
           </p>
 

@@ -2,7 +2,7 @@
   --admin-ink: var(--color-admin-ink);
   --admin-muted: var(--color-admin-muted);
   --admin-background: var(--color-neutral-100);
-  --admin-surface: var(--surface-panel-light);
+  --admin-surface: var(--surface-panel-light-soft);
   --admin-surface-soft: var(--surface-panel-light-soft);
   --admin-surface-muted: var(--surface-panel-light-muted);
   --admin-notice-background: var(--surface-panel-light-notice);
@@ -323,6 +323,16 @@
   transform: translateY(-1px);
 }
 
+.admin-button:focus-visible,
+.admin-section-nav__link:focus-visible,
+.admin-dashboard-card:focus-visible,
+.admin-form__field input:focus-visible,
+.admin-form__field select:focus-visible,
+.admin-form__field textarea:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--admin-ink) 24%, transparent);
+  outline-offset: 3px;
+}
+
 .admin-button:disabled {
   cursor: wait;
   opacity: 0.7;
@@ -550,6 +560,7 @@
   font-weight: var(--type-heading-weight);
   line-height: 1.15;
   color: var(--admin-ink);
+  overflow-wrap: anywhere;
 }
 
 .admin-vehicle-card__meta {
@@ -630,6 +641,7 @@
   font-weight: var(--type-heading-weight);
   line-height: 1.15;
   color: var(--admin-ink);
+  overflow-wrap: anywhere;
 }
 
 .admin-lead-card__status {
@@ -810,4 +822,3 @@
     justify-items: start;
   }
 }
-

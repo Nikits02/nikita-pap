@@ -124,7 +124,7 @@ function AdminUsers() {
 
           <p className="admin-page__text admin-page__text--muted">
             {filteredUsers.length} de {users.length} utilizador
-            {users.length === 1 ? "" : "es"} visive
+            {users.length === 1 ? "" : "es"} visíve
             {filteredUsers.length === 1 ? "l" : "is"}.
           </p>
 

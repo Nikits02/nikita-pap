@@ -1,7 +1,7 @@
 import express from "express";
-import { pool } from "../databaseConnection.js";
-import { fetchFirstRow, fetchRows } from "../lib/databaseQueries.js";
-import { sendServerError } from "../lib/httpResponses.js";
+import { pool } from "../ligacaoBaseDados.js";
+import { fetchFirstRow, fetchRows } from "../lib/consultasBaseDados.js";
+import { sendServerError } from "../lib/respostasHttp.js";
 import {
   getFinanceSimulationError,
   getVehicleLookupFromSlug,
@@ -9,8 +9,8 @@ import {
   isValidEmail,
   isValidPhone,
   isValidTestDriveHour,
-} from "../lib/formValidation.js";
-import { VEHICLE_SELECT_ORDER_QUERY } from "../lib/vehicleFormPayload.js";
+} from "../lib/validacoesFormularios.js";
+import { VEHICLE_SELECT_ORDER_QUERY } from "../lib/dadosFormularioViatura.js";
 
 const router = express.Router();
 
@@ -65,7 +65,7 @@ router.get("/test-drives/availability", async (req, res) => {
     const date = normalizeText(req.query.date);
 
     if (!isDateTodayOrFuture(date)) {
-      return res.status(400).json({ message: "Data invalida." });
+      return res.status(400).json({ message: "Data inválida." });
     }
 
     const bookedSlots = await fetchRows(

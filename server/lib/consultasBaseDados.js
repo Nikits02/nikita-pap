@@ -1,4 +1,4 @@
-import { pool } from "../databaseConnection.js";
+import { pool } from "../ligacaoBaseDados.js";
 
 export async function fetchRows(query, params = []) {
   const [rows] = await pool.query(query, params);

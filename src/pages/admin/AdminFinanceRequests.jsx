@@ -227,7 +227,7 @@ function AdminFinanceRequests() {
 
           <p className="admin-page__text admin-page__text--muted">
             {filteredFinanceRequests.length} de {financeRequests.length} pedido
-            {financeRequests.length === 1 ? "" : "s"} de financiamento visive
+            {financeRequests.length === 1 ? "" : "s"} de financiamento visíve
             {filteredFinanceRequests.length === 1 ? "l" : "is"}.
           </p>
 
@@ -246,12 +246,12 @@ function AdminFinanceRequests() {
                   ["Email", financeRequest.email ?? "-"],
                   ["Telefone", financeRequest.telefone ?? "-"],
                   ["Viatura", financeRequest.viatura || "-"],
-                  ["Preco", `${formatEuro(financeRequest.preco)} EUR`],
+                  ["Preço", `${formatEuro(financeRequest.preco)} EUR`],
                   ["Entrada", `${formatEuro(financeRequest.entrada)} EUR`],
                   ["Prazo", `${financeRequest.meses ?? "-"} meses`],
                   ["TAN", `${financeRequest.taxa ?? "-"}%`],
                   [
-                    "Prestacao",
+                    "Prestação",
                     `${formatEuro(financeRequest.prestacao_mensal)} EUR`,
                   ],
                   [
@@ -303,7 +303,7 @@ function AdminFinanceRequests() {
                     <div className="admin-lead-card__manage">
                       <FormSelectField
                         className="admin-form__field"
-                        label="Decisao"
+                        label="Decisão"
                         value={hasDecisionStatus(financeStatus) ? financeStatus : ""}
                         disabled={updatingFinanceRequestId === financeRequest.id}
                         onChange={(event) =>

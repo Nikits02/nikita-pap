@@ -202,17 +202,17 @@ Ordem recomendada:
 2. `src/services/api.js`
    Mostra a ponte entre frontend e backend.
 
-3. `server/routes/publicRoutes.js`
+3. `server/routes/rotasPublicas.js`
    Mostra validações e endpoints públicos.
 
-4. `server/routes/adminRoutes.js`
+4. `server/routes/rotasAdmin.js`
    Mostra endpoints protegidos do painel admin.
 
 Se sobrar tempo:
 
-- `server/databaseConnection.js` para mostrar a ligação MySQL;
-- `server/lib/createDatabaseTables.js` para mostrar a criação/atualização das tabelas;
-- `server/middleware/requireAdminLogin.js` para mostrar proteção admin.
+- `server/ligacaoBaseDados.js` para mostrar a ligação MySQL;
+- `server/lib/prepararBaseDados.js` para mostrar a criação/atualização das tabelas;
+- `server/middleware/exigirLoginAdmin.js` para mostrar proteção admin.
 
 Tempo: 2 minutos.
 
@@ -227,18 +227,18 @@ Se o backend falhar:
 - mostra a interface;
 - abre `docs/API_REFERENCE.md`;
 - explica os endpoints;
-- mostra `server/routes/publicRoutes.js` e `server/routes/adminRoutes.js`.
+- mostra `server/routes/rotasPublicas.js` e `server/routes/rotasAdmin.js`.
 
 Se a base de dados falhar:
 
 - mostra `docs/DATABASE.md`;
-- mostra `server/lib/createDatabaseTables.js`;
+- mostra `server/lib/prepararBaseDados.js`;
 - explica que as tabelas são criadas automaticamente no arranque.
 
 Se o login falhar:
 
-- mostra `server/scripts/createAdminAccount.js`;
-- mostra `server/middleware/requireAdminLogin.js`;
+- mostra `server/scripts/criarContaAdmin.js`;
+- mostra `server/middleware/exigirLoginAdmin.js`;
 - explica como a sessão é validada.
 
 Se uma imagem falhar:

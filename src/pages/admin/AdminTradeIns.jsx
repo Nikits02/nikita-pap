@@ -221,7 +221,7 @@ function AdminTradeIns() {
 
           <p className="admin-page__text admin-page__text--muted">
             {filteredTradeIns.length} de {tradeIns.length} pedido
-            {tradeIns.length === 1 ? "" : "s"} de retoma visive
+            {tradeIns.length === 1 ? "" : "s"} de retoma visíve
             {filteredTradeIns.length === 1 ? "l" : "is"}.
           </p>
 
@@ -288,18 +288,18 @@ function AdminTradeIns() {
                     </dl>
 
                     <div className="admin-lead-card__notes">
-                      <h3>Observacoes</h3>
+                      <h3>Observações</h3>
                       <p>
                         {tradeIn.observacoes?.trim()
                           ? tradeIn.observacoes
-                          : "Sem observacoes adicionais."}
+                          : "Sem observações adicionais."}
                       </p>
                     </div>
 
                     <div className="admin-lead-card__manage">
                       <FormSelectField
                         className="admin-form__field"
-                        label="Decisao"
+                        label="Decisão"
                         value={hasDecisionStatus(tradeInStatus) ? tradeInStatus : ""}
                         disabled={updatingTradeInId === tradeIn.id}
                         onChange={(event) =>

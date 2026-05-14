@@ -60,7 +60,7 @@ Forma prática:
 - `server/routes`
   endpoints da API separados por área
 
-- `server/databaseConnection.js`
+- `server/ligacaoBaseDados.js`
   ligação MySQL
 
 ## 5. Como Explicar as Funcionalidades
@@ -112,7 +112,7 @@ Se te pedirem para mostrar o código:
 3. abre [server/routes](../server/routes)
    para mostrar os endpoints separados por públicos, autenticação e admin
 
-4. abre [server/databaseConnection.js](../server/databaseConnection.js)
+4. abre [server/ligacaoBaseDados.js](../server/ligacaoBaseDados.js)
    para mostrar a ligação MySQL
 
 5. abre uma página concreta como:

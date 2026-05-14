@@ -4,7 +4,7 @@ import {
   authRateLimit,
   clearAuthAttempts,
   registerAuthAttempt,
-} from "../middleware/loginAttemptRateLimit.js";
+} from "../middleware/limiteTentativasLogin.js";
 
 function createRequest(ip) {
   return {

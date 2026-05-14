@@ -29,6 +29,8 @@ import useTestDriveAvailability from "../../hooks/useTestDriveAvailability";
 import { createContactMessage, createTestDrive } from "../../services/api";
 import { getTodayDateString } from "../../utils/date";
 
+const VEHICLE_SLUG_PATTERN = /^(catalog|highlight|stock)-\d+-[a-z0-9-]+$/;
+
 const contactInfoIcons = {
   clock: ClockCircleIcon,
   location: LocationPinIcon,
@@ -50,8 +52,8 @@ function Contacto() {
   const [searchParams] = useSearchParams();
   const assuntoParam = searchParams.get("assunto") ?? "";
   const veiculoParam = searchParams.get("veiculo") ?? "";
-  const isTestDriveFlow =
-    assuntoParam === "Pedido de Test Drive" || Boolean(veiculoParam);
+  const hasValidVehicleSlug = VEHICLE_SLUG_PATTERN.test(veiculoParam);
+  const isTestDriveFlow = hasValidVehicleSlug;
   const { formData, updateField: updateFormField } = useFormState(() =>
     buildInitialForm(assuntoParam, veiculoParam),
   );
@@ -112,8 +114,8 @@ function Contacto() {
 
       if (isTestDriveFlow) {
         await createTestDrive({
-          vehicleSlug: veiculoParam || "contacto-test-drive",
-          vehicleLabel: veiculoParam || "Teste Drive",
+          vehicleSlug: veiculoParam,
+          vehicleLabel: veiculoParam,
           dataPreferida: formData.dataPreferida,
           horaPreferida: formData.horaPreferida,
           nome: formData.nome,

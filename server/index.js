@@ -5,15 +5,15 @@ import {
   ensureAuthTables,
   ensureCatalogTables,
   ensureLeadTables,
-} from "./lib/createDatabaseTables.js";
-import { getRequiredEnv } from "./lib/requiredEnvironmentVariables.js";
+} from "./lib/prepararBaseDados.js";
+import { getRequiredEnv } from "./lib/variaveisAmbiente.js";
 import {
   ensureVehicleUploadDirectory,
   VEHICLE_UPLOADS_ROOT_DIR,
-} from "./lib/vehicleImageUploadHandler.js";
-import publicRoutes from "./routes/publicRoutes.js";
-import authRoutes from "./routes/authenticationRoutes.js";
-import adminRoutes from "./routes/adminRoutes.js";
+} from "./lib/uploadImagemViatura.js";
+import rotasPublicas from "./routes/rotasPublicas.js";
+import rotasAutenticacao from "./routes/rotasAutenticacao.js";
+import rotasAdmin from "./routes/rotasAdmin.js";
 
 const app = express();
 const port = Number(process.env.PORT) || 3002;
@@ -66,9 +66,9 @@ app.disable("x-powered-by");
 app.use(cors(buildCorsOptions()));
 app.use(express.json({ limit: "10mb" }));
 app.use("/uploads", express.static(VEHICLE_UPLOADS_ROOT_DIR));
-app.use("/api", publicRoutes);
-app.use("/api", authRoutes);
-app.use("/api", adminRoutes);
+app.use("/api", rotasPublicas);
+app.use("/api", rotasAutenticacao);
+app.use("/api", rotasAdmin);
 
 Promise.all([
   ensureAuthTables(),

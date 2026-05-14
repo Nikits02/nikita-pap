@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { getRequiredEnv } from "./requiredEnvironmentVariables.js";
+import { getRequiredEnv } from "./variaveisAmbiente.js";
 
 const AUTH_TOKEN_DURATION = "1d";
 export const AUTH_COOKIE_NAME = "auth_token";

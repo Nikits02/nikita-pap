@@ -1,4 +1,4 @@
-import { pool } from "../databaseConnection.js";
+import { pool } from "../ligacaoBaseDados.js";
 
 async function fetchRows(query, params = []) {
   const [rows] = await pool.query(query, params);
@@ -89,18 +89,24 @@ export async function ensureCatalogTables() {
   );
   await ensureTableColumn(
     "vehicles",
-    "inserted_at",
-    "inserted_at DATE NOT NULL AFTER caixa",
+    "created_at",
+    "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
   );
+  await ensureTableColumn(
+    "vehicles",
+    "inserted_at",
+    "inserted_at DATE DEFAULT NULL AFTER caixa",
+  );
+  await pool.query(`
+    UPDATE vehicles
+    SET inserted_at = COALESCE(inserted_at, DATE(created_at), CURRENT_DATE)
+    WHERE inserted_at IS NULL
+  `);
+  await pool.query("ALTER TABLE vehicles MODIFY inserted_at DATE NOT NULL");
   await ensureTableColumn(
     "vehicles",
     "novidade",
     "novidade TINYINT(1) NOT NULL DEFAULT 0 AFTER inserted_at",
-  );
-  await ensureTableColumn(
-    "vehicles",
-    "created_at",
-    "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
   );
 }
 

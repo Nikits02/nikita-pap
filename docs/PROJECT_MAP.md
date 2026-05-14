@@ -39,7 +39,7 @@ Se estiveres perdido, segue sempre esta ordem:
 6. [server/index.js](../server/index.js)
    Mostra o arranque do servidor e a ligação das rotas.
 
-7. [server/databaseConnection.js](../server/databaseConnection.js)
+7. [server/ligacaoBaseDados.js](../server/ligacaoBaseDados.js)
    Ligação ao MySQL.
 
 ## 3. O Que Está Em Cada Pasta
@@ -126,20 +126,20 @@ Exemplos:
 Helpers do backend.
 
 Exemplos:
-- `vehicleFormPayload.js` -> normalização/validação do payload das viaturas
-- `vehicleImageUploadHandler.js` -> upload de imagens
+- `dadosFormularioViatura.js` -> normalização/validação do payload das viaturas
+- `uploadImagemViatura.js` -> upload de imagens
 
 ### `server/middleware`
 
-- `requireAdminLogin.js` -> protege rotas admin com JWT
+- `exigirLoginAdmin.js` -> protege rotas admin com JWT
 
 ### `server/routes`
 
 Rotas Express separadas por responsabilidade.
 
-- `publicRoutes.js` -> viaturas, contacto, test drive, retoma e financiamento
-- `authenticationRoutes.js` -> login, registo, logout e validação de sessão
-- `adminRoutes.js` -> endpoints protegidos do painel de administração
+- `rotasPublicas.js` -> viaturas, contacto, test drive, retoma e financiamento
+- `rotasAutenticacao.js` -> login, registo, logout e validação de sessão
+- `rotasAdmin.js` -> endpoints protegidos do painel de administração
 
 ## 4. Fluxo de Dados Mais Importante
 
@@ -233,13 +233,13 @@ Se te perguntarem...
 - abre `src/pages/auth/Login.jsx`, `src/pages/admin/AdminLogin.jsx`, `src/services/authApi.js`, `src/services/adminApi.js`
 
 "Onde é protegido o admin?"
-- abre `src/components/ProtectedAdminRoute.jsx` e `server/middleware/requireAdminLogin.js`
+- abre `src/components/ProtectedAdminRoute.jsx` e `server/middleware/exigirLoginAdmin.js`
 
 "Onde são guardadas as retomas?"
-- abre `src/pages/public/Retoma.jsx`, `src/services/api.js` e `server/routes/publicRoutes.js`
+- abre `src/pages/public/Retoma.jsx`, `src/services/api.js` e `server/routes/rotasPublicas.js`
 
 "Onde se gerem viaturas?"
-- abre `src/pages/admin/AdminVehicles.jsx`, `src/pages/admin/AdminVehicleForm.jsx` e `server/routes/adminRoutes.js`
+- abre `src/pages/admin/AdminVehicles.jsx`, `src/pages/admin/AdminVehicleForm.jsx` e `server/routes/rotasAdmin.js`
 
 ## 9. O Que Eu Mudaria Mais Tarde
 

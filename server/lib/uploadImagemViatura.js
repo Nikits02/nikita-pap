@@ -37,7 +37,7 @@ function parseImageDataUrl(dataUrl) {
   const match = typeof dataUrl === "string" ? dataUrl.match(DATA_URL_PATTERN) : null;
 
   if (!match?.groups?.mimeType || !match.groups.content) {
-    throw buildValidationError("A imagem enviada não tem um formato valido.");
+    throw buildValidationError("A imagem enviada não tem um formato válido.");
   }
 
   return {

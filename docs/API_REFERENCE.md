@@ -245,7 +245,7 @@ Todos estes endpoints exigem uma sessão autenticada de administrador.
 A validação principal é feita por cookie de sessão `HttpOnly`.
 
 O acesso é validado em:
-- [server/middleware/requireAdminLogin.js](../server/middleware/requireAdminLogin.js)
+- [server/middleware/exigirLoginAdmin.js](../server/middleware/exigirLoginAdmin.js)
 
 ### `POST /api/admin/uploads/vehicle-image`
 

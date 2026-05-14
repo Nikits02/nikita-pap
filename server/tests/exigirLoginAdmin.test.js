@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { createAuthToken } from "../lib/authenticationHelpers.js";
-import { authenticateAdmin } from "../middleware/requireAdminLogin.js";
+import { createAuthToken } from "../lib/sessaoAutenticacao.js";
+import { authenticateAdmin } from "../middleware/exigirLoginAdmin.js";
 
 function createResponseMock() {
   return {
