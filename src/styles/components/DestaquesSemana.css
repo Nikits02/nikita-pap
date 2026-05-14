@@ -76,7 +76,7 @@
   top: 1.35rem;
   writing-mode: vertical-rl;
   transform: rotate(180deg);
-  color: var(--brand-red);
+  color: var(--weekly-accent-red);
   font-size: 0.8rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -235,10 +235,6 @@
 
 .weekly-highlights__intro {
   color: var(--lux-copy-soft);
-}
-
-.weekly-highlights__side-label {
-  color: var(--weekly-accent-red);
 }
 
 .weekly-highlights__cards {
