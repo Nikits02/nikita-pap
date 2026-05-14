@@ -36,7 +36,7 @@
 
 .blog-page__hero h1 {
   margin: 0;
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-size: clamp(3.5rem, 8vw, 5.4rem);
   line-height: 0.95;
 }
@@ -153,7 +153,7 @@
   z-index: 1;
   padding: 0.7rem 1rem;
   background: var(--blog-accent);
-  color: var(--color-ivory-80);
+  color: var(--site-white);
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.16em;
@@ -197,7 +197,7 @@
 .blog-feature-card__content h2 {
   margin: 0;
   max-width: 13ch;
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-size: clamp(2rem, 3vw, 3.15rem);
   line-height: 1.06;
 }
@@ -250,7 +250,7 @@
 
 .blog-list-card__body h3 {
   margin: 0;
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-size: 1.45rem;
   line-height: 1.2;
 }
@@ -311,7 +311,7 @@
 .blog-detail-body h2 {
   margin: 0;
   max-width: 14ch;
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-size: clamp(2.15rem, 4vw, 3.4rem);
   line-height: 1.08;
 }
@@ -331,7 +331,7 @@
 
 .blog-detail-section h3 {
   margin: 0 0 0.8rem;
-  color: var(--color-ivory-20);
+  color: var(--site-white);
   font-size: 1.75rem;
 }
 
@@ -355,7 +355,7 @@
 
 .blog-detail-empty h2 {
   margin: 0;
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-size: 2rem;
 }
 
@@ -392,121 +392,6 @@
   transform: translateY(-1px);
 }
 
-.weekly-highlights__brand-nikita {
-  color: var(--home-accent-red);
-}
-
-.weekly-highlights__brand-motors {
-  color: var(--color-ivory-50);
-}
-
-.weekly-highlights__header h2,
-.latest-vehicles__title,
-.vehicle-search__panel h2 {
-  color: var(--color-ivory-50);
-}
-
-.weekly-highlights__intro {
-  color: var(--lux-copy-soft);
-}
-
-.weekly-highlights__side-label {
-  color: var(--weekly-accent-red);
-}
-
-.weekly-highlights__arrow {
-  border-color: var(--lux-line);
-  background: var(--surface-white-04);
-  color: var(--weekly-accent-red);
-  box-shadow: none;
-}
-
-.weekly-highlights__dot {
-  background: var(--surface-white-18);
-}
-
-.highlight-card,
-.latest-card,
-.vehicle-search__panel {
-  border: 1px solid var(--lux-line);
-  background: var(--lux-panel);
-  box-shadow: var(--lux-shadow);
-}
-
-.highlight-card__price,
-.latest-card__price {
-  background: linear-gradient(90deg, var(--color-brand-red-650) 0%, var(--color-brand-red-350) 100%);
-}
-
-.highlight-card__body h3,
-.latest-card__body h3 {
-  color: var(--color-ivory-50);
-}
-
-.highlight-card__version,
-.latest-card__version {
-  color: var(--lux-gold);
-}
-
-.highlight-card__stat,
-.latest-card__meta-item,
-.empty-results {
-  border-color: var(--lux-line);
-  background: var(--surface-white-04);
-}
-
-.highlight-card__stat strong,
-.latest-card__meta-item,
-.latest-card__meta-item svg {
-  color: var(--color-ivory-50);
-}
-
-.highlight-card__stat-label,
-.vehicle-search__label {
-  color: var(--home-accent-red);
-}
-
-.vehicle-search__field select,
-.vehicle-search__select-trigger {
-  border-color: var(--lux-line);
-  background: var(--surface-white-04);
-  color: var(--color-ivory-50);
-}
-
-.vehicle-search__select-trigger.is-open {
-  border-color: var(--brand-surface-36);
-  box-shadow: var(--surface-ring-brand-sm);
-}
-
-.vehicle-search__select-trigger.is-placeholder {
-  color: var(--color-taupe-350);
-}
-
-.services-section,
-.testimonials-section {
-  background: var(--site-black);
-}
-
-.testimonial-card {
-  border: 1px solid var(--lux-line);
-  background: var(--lux-panel-strong);
-  color: var(--color-ivory-50);
-  box-shadow: var(--lux-shadow);
-}
-
-.testimonial-card h3,
-.testimonial-card__text {
-  color: var(--color-ivory-50);
-}
-
-.testimonial-card__date {
-  color: var(--lux-copy-soft);
-}
-
-.testimonial-card__google {
-  background: var(--surface-white-08);
-}
-
 .blog-page {
   margin-top: var(--page-section-margin-top);
   padding-top: 0;
@@ -518,7 +403,7 @@
 
 .contact-hero.blog-page__hero h1 {
   margin: 0;
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-family: var(--font-family-serif);
   font-size: clamp(2.8rem, 5vw, 4.6rem);
   font-weight: 700;
@@ -531,208 +416,10 @@
 }
 
 @media (max-width: 1080px) {
-  .contact-page__layout {
-    grid-template-columns: 1fr;
-  }
-
-  .tradein-process__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 2rem 1.4rem;
-  }
-
-  .tradein-form-grid--vehicle,
-  .tradein-form-grid--contact {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .tradein-field,
-  .tradein-form-grid--vehicle .tradein-field:nth-child(3),
-  .tradein-form-grid--vehicle .tradein-field:nth-child(4),
-  .tradein-form-grid--vehicle .tradein-field:nth-child(5) {
-    grid-column: span 1;
-  }
-
-  .tradein-field--full {
-    grid-column: 1 / -1;
-  }
-
-  .finance-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .finance-benefits {
-    padding-right: 0;
-  }
-
-  .finance-benefits::after {
-    display: none;
-  }
-
-  .about-story,
-  .about-values__grid,
-  .featured-article,
   .blog-feature-card,
-  .catalog-grid,
-  .blog-list,
-  .blog-grid,
-  .why-choose__grid {
+  .blog-list {
     grid-template-columns: 1fr;
   }
-}
-
-@media (max-width: 760px) {
-  .about-story {
-    padding-top: 1rem;
-  }
-
-  .about-story__stats {
-    grid-template-columns: 1fr;
-  }
-
-  .about-story__content h1 {
-    font-size: clamp(2.4rem, 12vw, 3.6rem);
-  }
-
-  .about-quote {
-    margin-top: 3rem;
-    padding: 3.2rem 1.2rem 3.4rem;
-  }
-
-  .about-quote blockquote {
-    font-size: clamp(1.75rem, 9vw, 2.7rem);
-  }
-
-  .about-quote p {
-    font-size: 0.82rem;
-    letter-spacing: 0.2em;
-  }
-
-  .about-values {
-    padding: 3rem 1.2rem 3.5rem;
-  }
-
-  .about-values__heading h2 {
-    font-size: clamp(2.15rem, 11vw, 3.2rem);
-  }
-
-  .about-values__grid {
-    margin-top: 2.2rem;
-  }
-
-  .blog-page__hero {
-    padding: 2.6rem 0;
-  }
-
-  .blog-tabs {
-    gap: 0.65rem;
-  }
-
-  .blog-tab {
-    min-width: auto;
-    padding: 0.75rem 0.9rem;
-  }
-
-  .blog-feature {
-    margin-top: var(--page-section-margin-top);
-  }
-
-  .blog-feature-card__media,
-  .blog-detail-media {
-    min-height: 240px;
-  }
-
-  .blog-feature-card__content,
-  .blog-list-card__body,
-  .blog-detail-body {
-    padding: 1.35rem;
-  }
-
-  .blog-feature-card__footer {
-    align-items: start;
-    flex-direction: column;
-  }
-
-  .blog-detail-overlay {
-    padding: 1rem;
-  }
-
-  .blog-detail-dialog {
-    max-height: calc(100vh - 2rem);
-  }
-
-  .blog-detail-close {
-    top: 0.8rem;
-    right: 0.8rem;
-  }
-
-  .contact-hero {
-    padding: var(--page-hero-padding-block-sm) 0;
-  }
-
-  .contact-form-panel {
-    padding: 1.35rem;
-  }
-
-  .contact-form__grid {
-    grid-template-columns: 1fr;
-  }
-
-  .contact-map-card {
-    padding: 0.9rem 0.9rem 1.5rem;
-  }
-
-  .contact-map-card__embed {
-    height: 13rem;
-  }
-
-  .tradein-hero,
-  .tradein-process {
-    padding: var(--page-hero-padding-block-sm) 0;
-  }
-
-  .tradein-process__grid,
-  .tradein-form-grid--vehicle,
-  .tradein-form-grid--contact {
-    grid-template-columns: 1fr;
-  }
-
-  .tradein-form-card,
-  .tradein-success {
-    padding: 1.35rem;
-  }
-
-  .tradein-hero h1,
-  .tradein-process h2 {
-    font-size: clamp(2.1rem, 10vw, 3rem);
-  }
-
-  .tradein-step__visual {
-    max-width: 260px;
-  }
-
-  .finance-card--simulator,
-  .finance-card--request {
-    padding: 1.35rem;
-  }
-
-  .finance-heading {
-    align-items: flex-start;
-  }
-
-  .finance-term-grid,
-  .finance-results {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .finance-result {
-    padding: 0.8rem 0.6rem;
-  }
-
-  .finance-result:not(:last-child) {
-    border-right: none;
-  }
-
 }
 
 @media (max-width: 760px) {

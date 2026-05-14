@@ -11,7 +11,7 @@
   margin: 0 calc(50% - 50vw);
   min-height: max(760px, 100svh);
   padding: 2rem 1.2rem 7.4rem;
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   background: var(--site-black);
   isolation: isolate;
 }
@@ -36,7 +36,7 @@
 
 .site-header--inner {
   padding: 1.5rem 1rem 1.35rem;
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   background: var(--site-black);
 }
 
@@ -113,7 +113,7 @@
 }
 
 .brand-mark__motors {
-  color: var(--color-ivory-50);
+  color: var(--site-white);
 }
 
 .navbar {
@@ -125,7 +125,7 @@
   border: var(--surface-divider);
   border-radius: 999px;
   background: var(--surface-panel-dark-soft);
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   box-shadow: 0 22px 54px var(--surface-black-28);
   backdrop-filter: blur(10px);
 }
@@ -174,7 +174,7 @@
 .navbar__link {
   position: relative;
   padding: 0.5rem 0.25rem;
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-size: 0.95rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -201,7 +201,7 @@
 
 .navbar__link:hover,
 .navbar__link.is-active {
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   transform: translateY(-1px);
 }
 

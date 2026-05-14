@@ -257,7 +257,7 @@
 }
 
 .vehicle-detail__image-caption strong {
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-family: var(--font-family-serif);
   font-size: clamp(1.65rem, 2.4vw, 2.35rem);
   font-weight: 700;
@@ -287,7 +287,7 @@
   padding: 0.55rem 0.95rem;
   border: 1px solid var(--color-accent-rose-border-42);
   background: var(--color-neutral-950);
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -306,7 +306,7 @@
 }
 
 .vehicle-detail__notes-card h2 {
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-size: clamp(1.45rem, 2.4vw, 2.2rem);
 }
 
@@ -335,7 +335,7 @@
   padding: 1rem 1rem 1rem 2.35rem;
   border: 1px solid var(--color-accent-rose-border-42);
   background: var(--surface-white-04);
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-size: 0.92rem;
   font-weight: 700;
   line-height: 1.45;
@@ -373,7 +373,7 @@
 
 .vehicle-detail__related-heading h2,
 .vehicle-detail__missing h1 {
-  color: var(--color-ivory-50);
+  color: var(--site-white);
 }
 
 .vehicle-detail__missing p,

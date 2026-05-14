@@ -33,7 +33,7 @@
 .tradein-section-heading h2,
 .tradein-success h2 {
   margin: 0;
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-family: var(--font-family-serif);
   font-size: clamp(2.6rem, 5vw, 4.5rem);
   font-weight: 700;
@@ -104,7 +104,7 @@
   height: 1.25rem;
   padding: 0 0.2rem;
   background: var(--tradein-accent);
-  color: var(--color-ivory-80);
+  color: var(--site-white);
   font-size: 0.78rem;
   font-weight: 700;
 }
@@ -117,7 +117,7 @@
 
 .tradein-step h3 {
   margin: 0;
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-size: 1.05rem;
   font-weight: 600;
   text-align: center;
@@ -192,7 +192,7 @@
   border: var(--surface-divider-strong);
   border-radius: 0;
   background: var(--surface-input-dark-alt);
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-size: 1rem;
 }
 
@@ -217,7 +217,7 @@
   padding: 0.95rem 1rem;
   border: var(--surface-divider-strong);
   background: var(--surface-input-dark-alt);
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-size: 1rem;
   font-family: inherit;
   line-height: 1.2;
@@ -288,7 +288,7 @@
   padding: 0.78rem 0.9rem;
   border: 1px solid transparent;
   background: transparent;
-  color: var(--color-ivory-100);
+  color: var(--site-white);
   font-size: 0.98rem;
   font-family: inherit;
   line-height: 1.35;
@@ -312,7 +312,7 @@
 .tradein-select__option.is-active {
   border-color: var(--rose-surface-30);
   background: var(--rose-surface-16);
-  color: var(--color-ivory-50);
+  color: var(--site-white);
 }
 
 .tradein-field__error {

@@ -1,19 +1,19 @@
 :root {
   /* Neutral translucent surfaces */
-  --surface-white-01: color-mix(in srgb, var(--color-ivory-50) 1%, transparent);
-  --surface-white-02: color-mix(in srgb, var(--color-ivory-50) 2%, transparent);
-  --surface-white-03: color-mix(in srgb, var(--color-ivory-50) 3%, transparent);
-  --surface-white-04: color-mix(in srgb, var(--color-ivory-50) 4%, transparent);
-  --surface-white-05: color-mix(in srgb, var(--color-ivory-50) 5%, transparent);
-  --surface-white-06: color-mix(in srgb, var(--color-ivory-50) 6%, transparent);
-  --surface-white-07: color-mix(in srgb, var(--color-ivory-50) 7%, transparent);
-  --surface-white-08: color-mix(in srgb, var(--color-ivory-50) 8%, transparent);
-  --surface-white-10: color-mix(in srgb, var(--color-ivory-50) 10%, transparent);
-  --surface-white-12: color-mix(in srgb, var(--color-ivory-50) 12%, transparent);
-  --surface-white-14: color-mix(in srgb, var(--color-ivory-50) 14%, transparent);
-  --surface-white-18: color-mix(in srgb, var(--color-ivory-50) 18%, transparent);
-  --surface-white-86: color-mix(in srgb, var(--color-ivory-50) 86%, transparent);
-  --surface-white-98: color-mix(in srgb, var(--color-ivory-50) 98%, transparent);
+  --surface-white-01: color-mix(in srgb, var(--site-white) 1%, transparent);
+  --surface-white-02: color-mix(in srgb, var(--site-white) 2%, transparent);
+  --surface-white-03: color-mix(in srgb, var(--site-white) 3%, transparent);
+  --surface-white-04: color-mix(in srgb, var(--site-white) 4%, transparent);
+  --surface-white-05: color-mix(in srgb, var(--site-white) 5%, transparent);
+  --surface-white-06: color-mix(in srgb, var(--site-white) 6%, transparent);
+  --surface-white-07: color-mix(in srgb, var(--site-white) 7%, transparent);
+  --surface-white-08: color-mix(in srgb, var(--site-white) 8%, transparent);
+  --surface-white-10: color-mix(in srgb, var(--site-white) 10%, transparent);
+  --surface-white-12: color-mix(in srgb, var(--site-white) 12%, transparent);
+  --surface-white-14: color-mix(in srgb, var(--site-white) 14%, transparent);
+  --surface-white-18: color-mix(in srgb, var(--site-white) 18%, transparent);
+  --surface-white-86: color-mix(in srgb, var(--site-white) 86%, transparent);
+  --surface-white-98: color-mix(in srgb, var(--site-white) 98%, transparent);
 
   /* Dark translucent surfaces */
   --surface-black-02: rgba(0, 0, 0, 0.02);
@@ -70,7 +70,7 @@
   --surface-input-dark: var(--color-night-870);
   --surface-input-dark-alt: var(--color-night-860);
   --surface-input-dark-strong: var(--color-night-890);
-  --surface-panel-light: var(--color-ivory-50);
+  --surface-panel-light: var(--site-white);
   --surface-panel-light-soft: var(--color-neutral-50);
   --surface-panel-light-muted: var(--color-neutral-150);
   --surface-panel-light-notice: var(--color-neutral-200);

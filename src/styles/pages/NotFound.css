@@ -35,14 +35,14 @@
     var(--color-brand-red-625) 0%,
     var(--color-brand-red-320) 100%
   );
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   box-shadow: 0 14px 30px var(--rose-shadow-20);
 }
 
 .secondary-button {
   border-color: var(--gold-surface-25);
   background: var(--gold-surface-08);
-  color: var(--color-ivory-100);
+  color: var(--site-white);
 }
 
 .primary-button:hover,

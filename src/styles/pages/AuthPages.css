@@ -7,10 +7,10 @@
   --auth-notice-background: var(--color-black-940);
   --auth-notice-overlay: var(--color-accent-rose-soft-12);
   --auth-notice-shadow: var(--color-night-900-72);
-  --auth-copy-strong: var(--color-ivory-120);
-  --auth-copy-heading: var(--color-ivory-50);
+  --auth-copy-strong: var(--site-white);
+  --auth-copy-heading: var(--site-white);
   --auth-copy-muted: var(--color-stone-400);
-  --auth-copy-inverse: var(--color-ivory-50);
+  --auth-copy-inverse: var(--site-white);
   --auth-copy-contrast: var(--color-black-900);
   margin-top: var(--page-section-margin-top);
   margin-bottom: var(--page-section-margin-bottom);

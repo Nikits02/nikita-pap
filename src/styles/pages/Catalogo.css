@@ -19,7 +19,7 @@
 
 .catalog-page__hero h1 {
   margin: 0;
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-family: var(--font-family-serif);
   font-size: clamp(3.7rem, 7.2vw, 5.8rem);
   line-height: 0.94;
@@ -120,7 +120,7 @@
   padding: 0 0.95rem;
   border: 1px solid var(--brand-surface-24);
   background: var(--color-black-940);
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-size: 0.94rem;
   display: flex;
   align-items: center;
@@ -178,7 +178,7 @@
   padding: 0.7rem 0.8rem;
   border: 0;
   background: transparent;
-  color: var(--color-ivory-100);
+  color: var(--site-white);
   font-size: 0.94rem;
   text-align: left;
   cursor: pointer;
@@ -190,7 +190,7 @@
 .catalog-order__option:hover,
 .catalog-order__option.is-active {
   background: var(--brand-surface-16);
-  color: var(--color-ivory-50);
+  color: var(--site-white);
 }
 
 .catalog-page__count {
@@ -259,7 +259,7 @@
   padding: 0.54rem 0.86rem;
   border-radius: 0;
   background: var(--home-accent-red);
-  color: var(--color-ivory-80);
+  color: var(--site-white);
   font-family: var(--font-family-sans);
   font-size: 0.69rem;
   font-weight: 700;
@@ -290,7 +290,7 @@
 
 .catalog-card h3 {
   margin: 0;
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-family: var(--font-family-serif);
   font-size: 1.42rem;
   font-weight: 700;
@@ -332,7 +332,7 @@
 }
 
 .catalog-card__meta-item strong {
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-family: var(--font-family-sans);
   font-size: 0.82rem;
   font-weight: 700;
@@ -445,7 +445,7 @@
   padding: 3rem;
   border: var(--surface-divider);
   background: var(--color-black-870);
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   text-align: center;
 }
 
@@ -650,297 +650,9 @@
   }
 }
 
-.weekly-highlights__cards {
-  gap: 1.15rem;
-}
-
-.highlight-card {
-  display: grid;
-  grid-template-rows: 280px auto;
-  padding: 0;
-  border: 1px solid var(--brand-surface-18);
-  border-radius: 0;
-  background: var(--site-black);
-  box-shadow: none;
-  color: inherit;
-  text-decoration: none;
-}
-
-.catalog-card:focus-visible,
-.highlight-card:focus-visible {
+.catalog-card:focus-visible {
   outline: 2px solid var(--home-accent-red);
   outline-offset: 4px;
-}
-
-.highlight-card__media-link {
-  display: block;
-  color: inherit;
-  text-decoration: none;
-}
-
-.weekly-highlights .highlight-card__media-link {
-  height: 100%;
-}
-
-.highlight-card__media-link:focus-visible {
-  outline: 2px solid var(--home-accent-red);
-  outline-offset: 4px;
-}
-
-.highlight-card__media {
-  position: relative;
-  overflow: hidden;
-  border-radius: 0;
-}
-
-.weekly-highlights .highlight-card__media {
-  height: 100%;
-  isolation: isolate;
-  background-image: var(--weekly-highlight-image);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.weekly-highlights .highlight-card__media::before {
-  content: none;
-}
-
-.weekly-highlights .highlight-card__media::after {
-  content: none;
-}
-
-.highlight-card__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.weekly-highlights .highlight-card__media img {
-  display: none;
-}
-
-.highlight-card__badge {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  padding: 0.58rem 0.84rem;
-  background: var(--weekly-accent-red);
-  color: var(--color-ivory-80);
-  font-family: var(--font-family-sans);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.weekly-highlights .highlight-card__badge {
-  z-index: 3;
-}
-
-.highlight-card__body {
-  display: grid;
-  align-content: start;
-  gap: 1rem;
-  padding: 2.05rem 1.45rem 1.5rem;
-  text-align: left;
-}
-
-/* Weekly Highlights */
-.weekly-highlight-card__copy {
-  display: grid;
-  align-content: start;
-  gap: 0.7rem;
-}
-
-.weekly-highlight-card__brand,
-.latest-card .latest-card__brand {
-  display: block;
-  margin: 0;
-  font-family: var(--type-label-family);
-  font-size: var(--type-label-size);
-  font-weight: var(--type-label-weight);
-  letter-spacing: var(--type-label-letter-spacing);
-  line-height: var(--type-label-line-height);
-  text-transform: uppercase;
-}
-
-.weekly-highlight-card__brand {
-  color: var(--weekly-accent-red);
-}
-
-.weekly-highlight-card__title,
-.latest-card .latest-card__title {
-  display: block;
-  margin: 0;
-  color: var(--color-ivory-50);
-  font-family: var(--type-display-family);
-  font-size: var(--type-display-size-lg);
-  font-weight: var(--type-display-weight);
-  line-height: var(--type-display-line-height);
-}
-
-.weekly-highlight-card__price {
-  display: block;
-  margin: 0;
-  width: auto;
-  padding: 0;
-  border-radius: 0;
-  background: transparent;
-  color: var(--weekly-accent-red);
-  font-family: var(--type-price-family);
-  font-size: var(--type-price-size-lg);
-  font-weight: var(--type-price-weight);
-  letter-spacing: var(--type-price-letter-spacing);
-  line-height: var(--type-price-line-height);
-  text-align: center;
-  position: static;
-  z-index: auto;
-  text-transform: uppercase;
-}
-
-/* Latest Vehicles */
-.latest-card .latest-card__body {
-  gap: 0.85rem;
-  padding-top: 1.2rem;
-}
-
-.latest-card .latest-card__brand,
-.latest-card .latest-card__price,
-.latest-card .latest-card__cta {
-  color: var(--home-accent-red);
-}
-
-.latest-card .latest-card__title {
-  margin-top: -0.2rem;
-}
-
-.latest-card .latest-card__price {
-  width: auto;
-  margin: 0;
-  padding: 0;
-  border-radius: 0;
-  background: transparent;
-  font-family: var(--type-price-family);
-  font-size: 1.7rem;
-  font-weight: var(--type-price-weight);
-  text-align: center;
-  position: static;
-  z-index: auto;
-}
-
-.latest-card .latest-card__cta {
-  justify-self: center;
-  width: min(74%, 16rem);
-  min-height: 2.5rem;
-  margin-top: 0.45rem;
-}
-
-.highlight-card__cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: 3.3rem;
-  margin-top: 0.25rem;
-  border: 1px solid var(--home-accent-red);
-  background: var(--site-black);
-  color: var(--weekly-accent-red);
-  font-family: var(--type-button-family);
-  font-size: var(--type-button-size);
-  font-weight: var(--type-button-weight);
-  letter-spacing: var(--type-button-letter-spacing);
-  text-decoration: none;
-  text-transform: uppercase;
-  transition:
-    border-color 0.22s ease,
-    background-color 0.22s ease,
-    color 0.22s ease,
-    transform 0.22s ease;
-}
-
-.highlight-card__cta:hover {
-  border-color: var(--home-accent-red);
-  background: var(--home-accent-red);
-  color: var(--color-black-900);
-  transform: translateY(-1px);
-}
-
-@media (max-width: 1180px) {
-  .highlight-card {
-    grid-template-rows: 245px auto;
-  }
-
-  .weekly-highlight-card__title,
-  .latest-card .latest-card__title {
-    font-size: var(--type-display-size-md);
-  }
-
-  .weekly-highlight-card__price {
-    font-size: var(--type-price-size-md);
-  }
-}
-
-@media (max-width: 760px) {
-  .highlight-card {
-    grid-template-rows: 210px auto;
-  }
-
-  .highlight-card__body {
-    padding: 1.7rem 1.15rem 1.2rem;
-  }
-
-  .weekly-highlight-card__title,
-  .latest-card .latest-card__title {
-    font-size: var(--type-display-size-sm);
-  }
-
-  .weekly-highlight-card__price {
-    font-size: var(--type-price-size-sm);
-  }
-
-  .highlight-card__cta {
-    min-height: 3rem;
-    font-size: var(--type-button-size-sm);
-  }
-}
-
-.weekly-highlights__header h2,
-.vehicle-search__panel h2,
-.latest-vehicles__title,
-.why-choose h2,
-.testimonials-section__heading h2 {
-  color: var(--color-ivory-50);
-  font-family: var(--font-family-serif);
-  font-size: clamp(2.1rem, 3.4vw, 3.15rem);
-  font-weight: 700;
-  line-height: 0.98;
-  letter-spacing: 0.01em;
-  text-transform: none;
-}
-
-.testimonials-section__heading h2 {
-  max-width: none;
-  margin: 0 auto;
-  font-size: clamp(1.2rem, 3.1vw, 3.15rem);
-  text-align: center;
-}
-
-@media (max-width: 760px) {
-  .testimonials-section__eyebrow {
-    margin-bottom: 0.95rem;
-    font-size: 0.74rem;
-    letter-spacing: 0.24em;
-  }
-}
-
-.home-brand-wordmark__nikita {
-  color: var(--home-accent-red);
-}
-
-.home-brand-wordmark__motors {
-  color: var(--color-ivory-50);
 }
 
 .catalog-page {
@@ -956,7 +668,7 @@
 
 .contact-hero.catalog-page__hero h1 {
   margin: 0;
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-family: var(--font-family-serif);
   font-size: clamp(2.8rem, 5vw, 4.6rem);
   font-weight: 700;

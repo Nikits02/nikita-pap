@@ -38,13 +38,8 @@
   --color-brown-420: #5f5a52;
   --color-brown-450: #4d4a45;
 
-  /* Warm editorial copy */
-  --color-ivory-20: #fff1d8;
-  --color-ivory-50: #fff8ee;
-  --color-ivory-80: #fff5f5;
-  --color-ivory-100: #f4efe7;
-  --color-ivory-120: #f3ede3;
-  --color-ivory-200: #ddd7cc;
+  /* Public site white */
+  --site-white: #fff8ee;
   --color-sand-240: #a6927e;
   --color-sand-200: #d7d0c5;
   --color-sand-220: #ddd4c7;
@@ -80,7 +75,7 @@
   --color-admin-notice-ink: var(--color-neutral-925);
 
   /* Detail and test-drive accents */
-  --color-detail-copy: var(--color-ivory-200);
+  --color-detail-copy: #ddd7cc;
   --color-detail-copy-soft: #a79d92;
   --color-detail-line: rgba(181, 58, 63, 0.2);
   --color-test-drive-soft: #cf9ea2;
@@ -88,7 +83,7 @@
 
   /* Luxury accent palette */
   --color-lux-gold: #c9a76e;
-  --color-lux-copy: var(--color-ivory-100);
+  --color-lux-copy: var(--site-white);
   --color-lux-copy-soft: #aea596;
 
   /* Status accents */
@@ -101,7 +96,6 @@
   --color-google-green: #34a853;
   --color-google-yellow: #fbbc05;
   --color-google-red: #ea4335;
-  --color-rose-100: #fff7f7;
   --color-rose-200: #f1c3c3;
   --color-rose-210: #efe2e2;
   --color-rose-230: #efb8b8;

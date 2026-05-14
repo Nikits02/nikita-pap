@@ -20,7 +20,7 @@
 .contact-hero h1,
 .contact-success h2 {
   margin: 0;
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-family: var(--font-family-serif);
   font-size: clamp(2.8rem, 5vw, 4.6rem);
   font-weight: 700;
@@ -87,7 +87,7 @@
 
 .contact-info-item p {
   margin: 0.15rem 0 0;
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-size: 1.02rem;
   line-height: 1.55;
 }
@@ -186,7 +186,7 @@
   border: var(--surface-divider-strong);
   border-radius: 0;
   background: var(--surface-input-dark);
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-size: 1rem;
 }
 
@@ -211,7 +211,7 @@
   padding: 0.95rem 1rem;
   border: var(--surface-divider-strong);
   background: var(--surface-input-dark);
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-size: 1rem;
   font-family: inherit;
   line-height: 1.2;
@@ -282,7 +282,7 @@
   padding: 0.78rem 0.9rem;
   border: 1px solid transparent;
   background: transparent;
-  color: var(--color-ivory-100);
+  color: var(--site-white);
   font-size: 0.98rem;
   font-family: inherit;
   line-height: 1.35;
@@ -306,7 +306,7 @@
 .contact-select__option.is-active {
   border-color: var(--rose-surface-30);
   background: var(--rose-surface-16);
-  color: var(--color-ivory-50);
+  color: var(--site-white);
 }
 
 .contact-field__error {
@@ -391,7 +391,7 @@
 
 .test-drive-intro h2 {
   margin: 0;
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-family: var(--font-family-serif);
   font-size: clamp(2rem, 3vw, 2.7rem);
   line-height: 1.1;
@@ -422,7 +422,7 @@
 }
 
 .test-drive-vehicle-card strong {
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-size: 1.02rem;
   line-height: 1.5;
 }
@@ -451,7 +451,7 @@
 
 .test-drive-section__header h3 {
   margin: 0;
-  color: var(--color-ivory-50);
+  color: var(--site-white);
   font-family: var(--font-family-serif);
   font-size: clamp(1.45rem, 2.2vw, 2rem);
   line-height: 1.15;
