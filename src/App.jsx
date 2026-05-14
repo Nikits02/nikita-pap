@@ -33,7 +33,7 @@ const Sobre = lazy(() => import("./pages/public/Sobre"));
 const TestDrive = lazy(() => import("./pages/public/TestDrive"));
 const VeiculoDetalhe = lazy(() => import("./pages/public/VeiculoDetalhe"));
 
-const publicRoutes = [
+const rotasPublicas = [
   { path: "/", element: <Home /> },
   { path: "/catalogo", element: <Catalogo /> },
   { path: "/viaturas/:slug", element: <VeiculoDetalhe /> },
@@ -47,14 +47,14 @@ const publicRoutes = [
   { path: "*", element: <NotFound /> },
 ];
 
-const authRoutes = [
+const rotasAutenticadas = [
   { path: "/financiamento", element: <Financiamento /> },
   { path: "/retoma", element: <Retoma /> },
   { path: "/test-drive", element: <TestDrive /> },
   { path: "/conta", element: <Conta /> },
 ];
 
-const adminRoutes = [
+const rotasAdmin = [
   { path: "/admin", element: <AdminDashboard /> },
   { path: "/admin/viaturas", element: <AdminVehicles /> },
   { path: "/admin/retomas", element: <AdminTradeIns /> },
@@ -100,13 +100,13 @@ function App() {
       <AuthProvider>
         <AppRouteEffects />
         <Routes>
-          {renderRoutes(publicRoutes)}
+          {renderRoutes(rotasPublicas)}
           {renderRoutes(
-            authRoutes,
+            rotasAutenticadas,
             (element) => <ProtectedAuthRoute>{element}</ProtectedAuthRoute>,
           )}
           {renderRoutes(
-            adminRoutes,
+            rotasAdmin,
             (element) => <ProtectedAdminRoute>{element}</ProtectedAdminRoute>,
             "admin",
           )}
