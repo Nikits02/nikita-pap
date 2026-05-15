@@ -1,0 +1,69 @@
+:where(
+  .auth-submit,
+  .contact-submit,
+  .tradein-submit,
+  .highlight-card__cta,
+  .latest-vehicles__cta,
+  .catalog-card__cta-link,
+  .catalog-card__cta-arrow,
+  .blog-detail-back,
+  .test-drive-submit
+) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+:where(.auth-submit, .contact-submit, .tradein-submit) {
+  border: 1px solid var(--color-accent-rose-600);
+  background: transparent;
+  color: var(--color-accent-rose-500);
+  font-size: 0.96rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  cursor: pointer;
+  transition:
+    border-color 0.22s ease,
+    background-color 0.22s ease,
+    color 0.22s ease,
+    transform 0.22s ease;
+}
+
+.auth-submit:hover,
+.contact-submit:hover,
+.tradein-submit:hover:not(:disabled),
+.blog-detail-back:hover,
+.test-drive-hours__option:hover,
+.test-drive-hours__option.is-active {
+  border-color: var(--color-accent-rose-600);
+  background: var(--color-accent-rose-600);
+  color: var(--color-black-900);
+  transform: translateY(-1px);
+}
+
+:where(
+  .highlight-card__cta,
+  .latest-vehicles__cta,
+  .catalog-card__cta-link,
+  .catalog-card__cta-arrow,
+  .test-drive-submit
+) {
+  border: 1px solid var(--home-accent-red);
+  color: var(--home-accent-red);
+}
+
+.highlight-card__cta:hover,
+.latest-vehicles__cta:hover,
+.catalog-card__cta-link:hover,
+.catalog-card__cta-arrow:hover,
+.finance-submit:hover,
+.test-drive-submit:hover,
+.test-drive-hours__button:hover,
+.test-drive-hours__button.is-active {
+  border-color: var(--home-accent-red);
+  background: var(--home-accent-red);
+  color: var(--color-black-900);
+  transform: translateY(-1px);
+}

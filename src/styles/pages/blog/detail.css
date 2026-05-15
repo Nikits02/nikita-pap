@@ -1,0 +1,118 @@
+.blog-detail-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  background: var(--surface-panel-dark-overlay);
+  backdrop-filter: blur(12px);
+}
+
+.blog-detail-dialog {
+  position: relative;
+  width: min(900px, 100%);
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+  border: var(--surface-divider);
+  border-right: 3px solid var(--color-accent-rose-600);
+  background: var(--site-black);
+  box-shadow: 0 26px 70px var(--surface-black-45);
+}
+
+.blog-detail-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  border: 1px solid var(--surface-white-14);
+  background: var(--surface-panel-dark-modal);
+  color: var(--color-sand-200);
+  text-decoration: none;
+}
+
+.blog-detail-media {
+  min-height: 350px;
+}
+
+.blog-detail-body {
+  display: grid;
+  gap: 1.2rem;
+  padding: 1.9rem 2rem 2.4rem;
+}
+
+.blog-detail-body h2 {
+  margin: 0;
+  max-width: 14ch;
+  color: var(--site-white);
+  font-size: clamp(2.15rem, 4vw, 3.4rem);
+  line-height: 1.08;
+}
+
+.blog-detail-intro {
+  margin: 0;
+  max-width: 42rem;
+  color: var(--lux-copy);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.blog-detail-content {
+  display: grid;
+  gap: 1.7rem;
+}
+
+.blog-detail-section h3 {
+  margin: 0 0 0.8rem;
+  color: var(--site-white);
+  font-size: 1.75rem;
+}
+
+.blog-detail-section p {
+  margin: 0;
+  color: var(--lux-copy);
+  line-height: 1.8;
+}
+
+.blog-detail-section p + p {
+  margin-top: 1rem;
+}
+
+.blog-detail-empty {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.blog-detail-empty h2 {
+  margin: 0;
+  color: var(--site-white);
+  font-size: 2rem;
+}
+
+.blog-detail-empty p {
+  margin: 0;
+  color: var(--lux-copy-soft);
+}
+
+.blog-detail-back {
+  min-width: 12rem;
+  min-height: 3rem;
+  padding: 0 1.4rem;
+  border: 1px solid var(--color-accent-rose-border-34);
+  color: var(--color-accent-rose-600);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  transition:
+    border-color 0.22s ease,
+    background-color 0.22s ease,
+    color 0.22s ease,
+    transform 0.22s ease;
+}

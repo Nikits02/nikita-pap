@@ -6,6 +6,9 @@
 @import "./styles/surfaces.css";
 @import "./styles/components/PageHero.css";
 @import "./styles/components/SitePage.css";
+@import "./styles/components/FormSelect.css";
+@import "./styles/components/ActionButton.css";
+@import "./styles/components/SharedPatterns.css";
 @import "./styles/components/Navbar.css";
 @import "./styles/pages/home.css";
 @import "./styles/components/DestaquesSemana.css";
@@ -18,7 +21,7 @@
 @import "./styles/pages/AdminPageShell.css";
 @import "./styles/pages/AuthPages.css";
 @import "./styles/pages/NotFound.css";
-@import "./styles/pages/Blog.css";
+@import "./styles/pages/blog.css";
 @import "./styles/pages/Contacto.css";
 @import "./styles/pages/Financiamento.css";
 @import "./styles/pages/Catalogo.css";

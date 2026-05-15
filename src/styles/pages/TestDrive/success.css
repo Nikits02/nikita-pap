@@ -1,0 +1,16 @@
+.test-drive-success {
+  justify-items: center;
+  padding: 2.8rem 2rem;
+  border: var(--surface-divider);
+  background: var(--surface-panel-dark);
+  text-align: center;
+}
+
+.test-drive-success__icon {
+  width: 3rem;
+  height: 3rem;
+}
+
+.test-drive-success strong {
+  color: var(--site-white);
+}

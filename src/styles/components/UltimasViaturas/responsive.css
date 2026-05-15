@@ -1,0 +1,27 @@
+@media (max-width: 1080px) {
+  .latest-vehicles__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .latest-card .latest-card__title {
+    font-size: var(--type-display-size-md);
+  }
+}
+
+@media (max-width: 760px) {
+  .latest-vehicles__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .latest-card__media img {
+    height: 220px;
+  }
+
+  .latest-card__meta {
+    grid-template-columns: 1fr;
+  }
+
+  .latest-card .latest-card__title {
+    font-size: var(--type-display-size-sm);
+  }
+}

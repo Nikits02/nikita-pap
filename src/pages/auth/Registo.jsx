@@ -126,7 +126,7 @@ function Registo() {
 
           <div className="auth-form__actions">
             <button
-              className="contact-submit auth-submit"
+              className="auth-submit"
               type="submit"
               disabled={isSubmitting}
             >

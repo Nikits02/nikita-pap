@@ -1,0 +1,12 @@
+.about-page__hero,
+.about-story {
+  border-top: var(--surface-divider);
+}
+
+.about-story {
+  padding-top: 3.2rem;
+}
+
+.about-story__content p:first-of-type {
+  margin-top: 0;
+}

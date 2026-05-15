@@ -1,0 +1,41 @@
+@media (max-width: 1080px) {
+  .testimonials-section__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .testimonials-section {
+    padding: 2.2rem 0.9rem 3.6rem;
+  }
+
+  .testimonials-section__eyebrow {
+    margin-bottom: 0.95rem;
+    font-size: 0.74rem;
+    letter-spacing: 0.24em;
+  }
+
+  .testimonials-section__summary {
+    gap: 0.4rem;
+    font-size: 1.2rem;
+  }
+
+  .testimonials-section__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .testimonial-card {
+    min-height: 0;
+  }
+
+  .testimonial-card__text {
+    min-height: 0;
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonials-section__track {
+    transition: none;
+  }
+}

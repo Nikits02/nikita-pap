@@ -1,0 +1,151 @@
+.contact-select,
+.tradein-select {
+  position: relative;
+  isolation: isolate;
+}
+
+.contact-select__trigger,
+.tradein-select__trigger {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.9rem;
+  width: 100%;
+  min-height: 3.3rem;
+  padding: 0.95rem 1rem;
+  border: var(--surface-divider-strong);
+  color: var(--site-white);
+  font-size: 1rem;
+  font-family: inherit;
+  line-height: 1.2;
+  text-align: left;
+  cursor: pointer;
+  user-select: none;
+  -webkit-appearance: none;
+  appearance: none;
+  transition:
+    border-color 0.22s ease,
+    background-color 0.22s ease,
+    color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.contact-select__trigger:hover,
+.contact-select__trigger.is-open,
+.tradein-select__trigger:hover,
+.tradein-select__trigger.is-open {
+  border-color: var(--color-accent-rose-600);
+  box-shadow: var(--surface-ring-rose-sm);
+}
+
+.contact-select__trigger.is-placeholder,
+.tradein-select__trigger.is-placeholder {
+  color: var(--color-stone-400);
+}
+
+.contact-select__trigger span,
+.tradein-select__trigger span {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.contact-select__trigger svg,
+.tradein-select__trigger svg {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  transition: transform 0.22s ease;
+}
+
+.contact-select__trigger.is-open svg,
+.tradein-select__trigger.is-open svg {
+  transform: rotate(180deg);
+}
+
+.contact-select__menu,
+.tradein-select__menu {
+  position: absolute;
+  top: calc(100% + 0.45rem);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: grid;
+  gap: 0.24rem;
+  padding: 0.4rem;
+  border-radius: 0;
+  background: var(--surface-input-dark-strong);
+  overflow: hidden;
+  box-shadow: var(--shadow-elevated-dark-md-strong);
+}
+
+.contact-select__option,
+.tradein-select__option {
+  all: unset;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 2.9rem;
+  padding: 0.78rem 0.9rem;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--site-white);
+  font-size: 0.98rem;
+  font-family: inherit;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+  user-select: none;
+  -webkit-appearance: none;
+  appearance: none;
+  transition:
+    border-color 0.22s ease,
+    background-color 0.22s ease,
+    color 0.22s ease;
+}
+
+.contact-select__trigger:focus-visible,
+.contact-select__option:focus-visible,
+.tradein-select__trigger:focus-visible,
+.tradein-select__option:focus-visible {
+  outline: none;
+}
+
+.contact-select__option:hover,
+.contact-select__option.is-active,
+.tradein-select__option:hover,
+.tradein-select__option.is-active {
+  border-color: var(--rose-surface-30);
+  background: var(--rose-surface-16);
+  color: var(--site-white);
+}
+
+@media (max-width: 760px) {
+  .contact-select,
+  .tradein-select {
+    width: 100%;
+  }
+
+  .contact-select__trigger,
+  .tradein-select__trigger {
+    min-height: 3.1rem;
+    text-align: center;
+  }
+
+  .contact-select__trigger span,
+  .tradein-select__trigger span {
+    text-align: center;
+  }
+
+  .contact-select__menu,
+  .contact-select__option,
+  .tradein-select__menu,
+  .tradein-select__option {
+    text-align: left;
+  }
+}

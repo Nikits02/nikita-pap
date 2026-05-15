@@ -67,7 +67,10 @@ function TestDrive() {
   }
 
   useEffect(() => {
-    if (formData.horaPreferida && bookedHours.includes(formData.horaPreferida)) {
+    if (
+      formData.horaPreferida &&
+      bookedHours.includes(formData.horaPreferida)
+    ) {
       updateFormField("horaPreferida", "");
     }
   }, [bookedHours, formData.horaPreferida, updateFormField]);
@@ -188,7 +191,8 @@ function TestDrive() {
                             <p>{vehicle.marca}</p>
                             <h3>{vehicle.modelo}</h3>
                             <span>
-                              {vehicle.ano} | {vehicle.potencia ?? "Sob consulta"}
+                              {vehicle.ano} |{" "}
+                              {vehicle.potencia ?? "Sob consulta"}
                             </span>
                           </div>
                         </button>
@@ -259,7 +263,9 @@ function TestDrive() {
               disabled={isSubmitting || isLoading}
             >
               <CheckCircleIcon />
-              <span>{isSubmitting ? "A enviar..." : "Confirmar Agendamento"}</span>
+              <span>
+                {isSubmitting ? "A enviar..." : "CONFIRMAR AGENDAMENTO"}
+              </span>
             </button>
           </form>
         )}

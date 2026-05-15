@@ -60,7 +60,7 @@ function Conta() {
           >
             {user.role === "admin" ? (
               <button
-                className="contact-submit account-page__secondary-action"
+                className="auth-submit account-page__secondary-action"
                 type="button"
                 onClick={() => navigate("/admin/viaturas")}
               >
@@ -69,7 +69,7 @@ function Conta() {
             ) : null}
 
             <button
-              className="contact-submit auth-submit"
+              className="auth-submit"
               type="button"
               onClick={handleLogout}
             >

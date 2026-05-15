@@ -1,0 +1,62 @@
+.latest-vehicles {
+  margin-top: 10.2rem;
+  margin-bottom: 12rem;
+}
+
+.latest-vehicles__title {
+  margin: 0 0 1.5rem;
+  color: var(--site-white);
+  font-family: var(--font-family-serif);
+  font-size: clamp(2.1rem, 3.4vw, 3.15rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: 0.01em;
+  text-align: center;
+  text-transform: none;
+}
+
+.latest-vehicles__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.45rem;
+}
+
+.latest-vehicles__cta-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.7rem;
+}
+
+.latest-vehicles__cta {
+  min-width: 250px;
+  padding: 0.95rem 1.8rem;
+  border-radius: 999px;
+  background: var(--site-black);
+  color: var(--home-accent-red);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.latest-vehicles__empty {
+  padding: 2rem;
+  border: 1px dashed var(--color-rose-200);
+  border-radius: 20px;
+  background: var(--site-white);
+  text-align: center;
+}
+
+.latest-vehicles__empty h3,
+.latest-vehicles__empty p {
+  margin: 0;
+}
+
+.latest-vehicles__empty p {
+  margin-top: 0.6rem;
+  color: var(--ink-soft);
+}

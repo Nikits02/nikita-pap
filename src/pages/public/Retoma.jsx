@@ -255,8 +255,12 @@ function Retoma() {
 
             <FormError className="tradein-form-error" message={submitError} />
 
-            <button className="tradein-submit" type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "A enviar..." : "Solicitar Avaliação"}
+            <button
+              className="tradein-submit"
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "A enviar..." : "SOLICITAR AVALIAÇÃO"}
             </button>
           </form>
         )}

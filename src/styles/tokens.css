@@ -4,5 +4,9 @@
   --font-family-serif: "Libre Baskerville", Georgia, serif;
 
   --site-width: 1320px;
+  --page-section-margin-top: 2rem;
+  --page-section-margin-bottom: 3.6rem;
+  --page-hero-padding-block: 3.4rem;
+  --page-hero-padding-block-sm: 2.6rem;
   --color-detail-shadow: 0 24px 48px rgba(0, 0, 0, 0.34);
 }

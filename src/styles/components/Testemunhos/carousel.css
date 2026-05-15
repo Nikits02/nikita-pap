@@ -1,0 +1,40 @@
+.testimonials-section__viewport {
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.testimonials-section__viewport.is-dragging {
+  cursor: grabbing;
+}
+
+.testimonials-section__viewport-window {
+  overflow: hidden;
+  margin-top: 2.2rem;
+}
+
+.testimonials-section__track {
+  display: flex;
+  transition: transform 1s ease-in-out;
+  will-change: transform;
+}
+
+.testimonials-section__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.testimonials-section__slide--item {
+  flex-basis: calc(100% / var(--testimonials-per-view));
+  padding: 0 0.6rem;
+}
+
+.testimonials-section__viewport.is-dragging .testimonials-section__track {
+  transition: none;
+}
+
+.testimonials-section__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.2rem;
+}

@@ -1,0 +1,96 @@
+.vehicle-detail__gallery {
+  display: grid;
+  align-content: start;
+  justify-items: end;
+  margin-top: -7rem;
+}
+
+.vehicle-detail__image-frame {
+  position: relative;
+  overflow: hidden;
+  width: min(100%, 680px);
+  aspect-ratio: 1.06 / 1;
+  border: 8px solid var(--color-black-900);
+  background: var(--color-black-900);
+  box-shadow: var(--color-detail-shadow);
+}
+
+.vehicle-detail__image-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: var(--surface-divider);
+  pointer-events: none;
+}
+
+.vehicle-detail__image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vehicle-detail__image-caption {
+  position: relative;
+  display: grid;
+  gap: 0.55rem;
+  width: min(100%, 680px);
+  padding: 1.4rem 1.55rem 1.55rem;
+  background: var(--color-neutral-950);
+  text-align: left;
+}
+
+.vehicle-detail__image-caption::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1.55rem;
+  width: 5rem;
+  height: 2px;
+  background: var(--color-accent-rose-600);
+}
+
+.vehicle-detail__image-kicker {
+  margin: 0;
+  color: var(--color-accent-rose-muted);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.vehicle-detail__image-caption strong {
+  color: var(--site-white);
+  font-family: var(--font-family-serif);
+  font-size: clamp(1.65rem, 2.4vw, 2.35rem);
+  font-weight: 700;
+  line-height: 1.08;
+}
+
+.vehicle-detail__image-subtitle {
+  color: var(--color-sand-230);
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.vehicle-detail__image-meta-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 0.2rem;
+}
+
+.vehicle-detail__image-meta-item {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.7rem;
+  padding: 0.55rem 0.95rem;
+  border: 1px solid var(--color-accent-rose-border-42);
+  background: var(--color-neutral-950);
+  color: var(--site-white);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}

@@ -1,0 +1,145 @@
+.contact-form--test-drive {
+  gap: 1.9rem;
+}
+
+.test-drive-intro {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.test-drive-intro__kicker {
+  margin: 0;
+  color: var(--color-accent-rose-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.test-drive-intro h2 {
+  margin: 0;
+  color: var(--site-white);
+  font-family: var(--font-family-serif);
+  font-size: clamp(2rem, 3vw, 2.7rem);
+  line-height: 1.1;
+}
+
+.test-drive-intro p {
+  max-width: 42rem;
+  margin: 0;
+  color: var(--color-stone-400);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.test-drive-vehicle-card {
+  display: grid;
+  gap: 0.45rem;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--color-accent-rose-border-42);
+  background: var(--rose-surface-08);
+}
+
+.test-drive-vehicle-card span {
+  color: var(--color-accent-rose-muted);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.test-drive-vehicle-card strong {
+  color: var(--site-white);
+  font-size: 1.02rem;
+  line-height: 1.5;
+}
+
+.test-drive-section {
+  display: grid;
+  gap: 1.35rem;
+}
+
+.test-drive-section__header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.test-drive-section__step {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--color-accent-rose-border-42);
+  color: var(--color-accent-rose-500);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.test-drive-section__header h3 {
+  margin: 0;
+  color: var(--site-white);
+  font-family: var(--font-family-serif);
+  font-size: clamp(1.45rem, 2.2vw, 2rem);
+  line-height: 1.15;
+}
+
+.test-drive-section__grid {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.95fr) minmax(0, 1fr);
+  gap: 1.4rem;
+  align-items: start;
+}
+
+.test-drive-hours {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.test-drive-hours__option {
+  display: grid;
+  place-items: center;
+  gap: 0.12rem;
+  min-height: 3.15rem;
+  border: var(--surface-divider-strong);
+  background: var(--surface-input-dark-strong);
+  color: var(--color-sand-200);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition:
+    border-color 0.22s ease,
+    background-color 0.22s ease,
+    color 0.22s ease,
+    transform 0.22s ease;
+}
+
+.test-drive-hours__option.is-disabled,
+.test-drive-hours__option:disabled {
+  border-color: var(--surface-white-10);
+  background: var(--surface-input-dark);
+  color: var(--color-stone-360);
+  cursor: not-allowed;
+  opacity: 0.72;
+  transform: none;
+}
+
+.test-drive-hours__option.is-disabled:hover,
+.test-drive-hours__option:disabled:hover {
+  border-color: var(--surface-white-10);
+  background: var(--surface-input-dark);
+  color: var(--color-stone-360);
+  transform: none;
+}
+
+.contact-form__grid--test-drive {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.test-drive-submit {
+  margin-top: 0.2rem;
+}
+
+.contact-form--test-drive input[type="date"] {
+  color-scheme: dark;
+}

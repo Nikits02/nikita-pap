@@ -1,0 +1,4 @@
+.auth-page__content {
+  border-top: var(--surface-divider);
+  padding-top: 3.2rem;
+}

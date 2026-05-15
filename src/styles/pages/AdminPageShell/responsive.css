@@ -1,0 +1,56 @@
+@media (max-width: 720px) {
+  .admin-page {
+    padding: 22px 16px;
+  }
+
+  .admin-page__panel {
+    padding: 20px;
+  }
+
+  .admin-vehicle-card {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-lead-card__manage {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-page__session-actions,
+  .admin-section-nav__actions,
+  .admin-lead-card__actions,
+  .admin-vehicle-card__actions {
+    justify-content: stretch;
+  }
+
+  .admin-page__session-actions > *,
+  .admin-section-nav__actions > *,
+  .admin-lead-card__actions > *,
+  .admin-vehicle-card__actions > * {
+    width: 100%;
+  }
+
+  .admin-section-nav {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .admin-form__grid--vehicle,
+  .admin-form__upload {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-vehicle-card__title {
+    font-size: 24px;
+  }
+
+  .admin-lead-card__title {
+    font-size: 24px;
+  }
+
+  .admin-lead-card__header-side {
+    justify-items: start;
+  }
+}

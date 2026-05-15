@@ -1,0 +1,15 @@
+.catalog-card:focus-visible {
+  outline: 2px solid var(--home-accent-red);
+  outline-offset: 4px;
+}
+
+.catalog-page {
+  margin-top: var(--page-section-margin-top);
+  padding-top: 0;
+  width: min(var(--site-width), calc(100% - 2.5rem));
+}
+
+.catalog-page__hero {
+  max-width: none;
+  padding: var(--page-hero-padding-block) 0;
+}

@@ -1,0 +1,42 @@
+.empty-results {
+  padding: 2rem;
+  border: 1px dashed var(--color-rose-230);
+  border-radius: 20px;
+  background: var(--site-white);
+  text-align: center;
+}
+
+.empty-results h3,
+.empty-results p {
+  margin: 0;
+}
+
+.empty-results p {
+  margin-top: 0.6rem;
+  color: var(--ink-soft);
+}
+
+.home-section-divider {
+  width: 100vw;
+  height: 1px;
+  margin: 3.4rem 0 0;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  background: var(--surface-white-12);
+}
+
+.home-section-divider--flush {
+  margin-top: 2rem;
+}
+
+.home-section-divider--tight {
+  margin-top: 1.8rem;
+}
+
+.home-brand-wordmark__nikita {
+  color: var(--home-accent-red);
+}
+
+.home-brand-wordmark__motors {
+  color: var(--site-white);
+}

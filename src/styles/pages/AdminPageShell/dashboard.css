@@ -1,0 +1,76 @@
+.admin-vehicles {
+  display: grid;
+  gap: 18px;
+}
+
+.admin-filters {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) minmax(220px, 0.8fr);
+  gap: 16px;
+  padding: 16px;
+  border: var(--admin-panel-border);
+  border-radius: 16px;
+  background: var(--admin-surface-soft);
+}
+
+.admin-filters--single {
+  grid-template-columns: minmax(0, 520px);
+}
+
+.admin-leads {
+  display: grid;
+  gap: 18px;
+}
+
+.admin-dashboard {
+  display: grid;
+  gap: 18px;
+}
+
+.admin-dashboard__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 16px;
+}
+
+.admin-dashboard-card {
+  display: grid;
+  gap: 10px;
+  min-height: 150px;
+  padding: 18px;
+  border: var(--admin-panel-border);
+  border-radius: 16px;
+  color: inherit;
+  text-decoration: none;
+  background: var(--admin-surface-soft);
+  transition:
+    border-color 160ms ease,
+    transform 160ms ease,
+    background-color 160ms ease;
+}
+
+.admin-dashboard-card:hover,
+.admin-dashboard-card:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--admin-control-border);
+  background: var(--admin-notice-background);
+  outline: none;
+}
+
+.admin-dashboard-card__label {
+  font-family: var(--type-label-family);
+  font-size: 12px;
+  font-weight: var(--type-label-weight);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: var(--type-body-line-height-md);
+  color: var(--admin-muted);
+}
+
+.admin-dashboard-card__value {
+  font-family: var(--type-heading-family);
+  font-size: 48px;
+  font-weight: var(--type-heading-weight);
+  line-height: 0.95;
+  color: var(--admin-ink);
+}

@@ -1,0 +1,55 @@
+.brand-mark {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.brand-mark--hero {
+  padding: 1rem 1rem 1.15rem;
+}
+
+.brand-mark__text {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.08rem;
+  line-height: 0.9;
+  text-transform: none;
+}
+
+.site-header--home .brand-mark__text,
+.site-header--inner .brand-mark__text {
+  font-family: var(--font-family-sans);
+  font-size: clamp(3rem, 8vw, 6.2rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  text-shadow: 0 10px 24px var(--surface-black-34);
+}
+
+.site-header--home .navbar {
+  margin-top: 0.8rem;
+}
+
+.site-header--home .navbar.navbar--authenticated {
+  width: min(100%, 1080px);
+}
+
+.navbar-slot {
+  position: relative;
+  min-height: 4.2rem;
+}
+
+.navbar-slot.is-navbar-pinned {
+  z-index: 2001;
+}
+
+.brand-mark__nikita {
+  color: var(--home-accent-red);
+}
+
+.brand-mark__motors {
+  color: var(--site-white);
+}

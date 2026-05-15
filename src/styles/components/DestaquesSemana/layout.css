@@ -1,0 +1,88 @@
+.weekly-highlights {
+  margin-top: 0;
+  margin-bottom: 9rem;
+}
+
+.weekly-highlights__frame {
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.weekly-highlights__frame.is-dragging {
+  cursor: grabbing;
+}
+
+.weekly-highlights__viewport {
+  overflow: hidden;
+}
+
+.weekly-highlights__track {
+  display: flex;
+  transition: transform 1.1s ease-in-out;
+  will-change: transform;
+}
+
+.weekly-highlights__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+.weekly-highlights__frame.is-dragging .weekly-highlights__track {
+  transition: none;
+}
+
+.weekly-highlights__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.weekly-highlights__heading {
+  width: 100%;
+  text-align: center;
+}
+
+.weekly-highlights__header h2 {
+  margin: 0.3rem 0 0;
+  font-size: clamp(1.7rem, 2.5vw, 2.35rem);
+}
+
+.weekly-highlights__intro {
+  max-width: 620px;
+  margin: 0.45rem auto 0;
+  color: var(--ink-soft);
+  font-size: 0.96rem;
+  line-height: 1.55;
+}
+
+.weekly-highlights__brand {
+  display: inline-flex;
+  justify-content: center;
+  gap: 0.08rem;
+}
+
+.weekly-highlights__frame {
+  position: relative;
+  padding-left: 3.35rem;
+}
+
+.weekly-highlights__side-label {
+  position: absolute;
+  left: 0;
+  top: 1.35rem;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  color: var(--home-accent-red);
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.weekly-highlights__cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}

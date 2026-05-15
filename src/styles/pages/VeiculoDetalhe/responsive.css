@@ -1,0 +1,208 @@
+@media (max-width: 1080px) {
+  .vehicle-detail__showcase {
+    grid-template-columns: 1fr;
+  }
+
+  .vehicle-detail__header h1 {
+    max-width: 100%;
+  }
+
+  .vehicle-detail__image-frame {
+    width: 100%;
+    aspect-ratio: 1.14 / 1;
+  }
+
+  .vehicle-detail__image-caption {
+    width: 100%;
+  }
+
+  .vehicle-detail__gallery {
+    margin-top: 0;
+  }
+
+  .vehicle-detail__highlights {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .vehicle-detail-page {
+    padding-top: 0.8rem;
+    padding-bottom: 4.8rem;
+  }
+
+  .vehicle-detail__breadcrumbs {
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .vehicle-detail__header {
+    justify-items: center;
+    justify-content: center;
+    margin-bottom: 1.45rem;
+  }
+
+  .vehicle-detail__header h1 {
+    font-size: clamp(1.8rem, 8vw, 2.35rem);
+    line-height: 1.12;
+  }
+
+  .vehicle-detail__showcase {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+  }
+
+  .vehicle-detail__gallery {
+    order: 1;
+    justify-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .vehicle-detail__sidebar {
+    order: 2;
+    justify-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 1.2rem;
+  }
+
+  .vehicle-detail__price-tag,
+  .vehicle-detail__cta {
+    width: 100%;
+    max-width: 24rem;
+  }
+
+  .vehicle-detail__price-tag {
+    min-width: 0;
+    min-height: 3.4rem;
+    padding: 0.8rem 1rem;
+    font-size: 1.25rem;
+    text-align: center;
+  }
+
+  .vehicle-detail__info-list {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+
+  .vehicle-detail__info-row {
+    display: grid;
+    justify-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    min-height: 7.1rem;
+    padding: 1rem 0.75rem;
+    border: 1px solid var(--color-detail-line);
+    background: var(--surface-white-04);
+  }
+
+  .vehicle-detail__info-row:first-child,
+  .vehicle-detail__info-row:last-child {
+    padding: 1rem 0.75rem;
+    border: 1px solid var(--color-detail-line);
+  }
+
+  .vehicle-detail__info-icon {
+    width: 1.65rem;
+    height: 1.65rem;
+  }
+
+  .vehicle-detail__info-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .vehicle-detail__info-value {
+    font-size: 0.98rem;
+    line-height: 1.25;
+  }
+
+  .vehicle-detail__cta {
+    min-height: 3.35rem;
+  }
+
+  .vehicle-detail__image-frame {
+    border-width: 4px;
+    aspect-ratio: 4 / 3;
+  }
+
+  .vehicle-detail__image-caption {
+    justify-items: center;
+    justify-content: center;
+    padding: 1.15rem 1rem 1.2rem;
+  }
+
+  .vehicle-detail__image-caption::before {
+    left: 50%;
+    width: 4.1rem;
+    transform: translateX(-50%);
+  }
+
+  .vehicle-detail__image-meta-list {
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .vehicle-detail__notes-card {
+    margin-top: 2rem;
+  }
+
+  .vehicle-detail__highlights {
+    grid-template-columns: 1fr;
+  }
+
+  .vehicle-detail__highlights li {
+    justify-content: center;
+    min-height: 3.7rem;
+    padding: 1rem;
+  }
+
+  .vehicle-detail__highlights li::before {
+    content: none;
+  }
+}
+
+@media (max-width: 430px) {
+  .vehicle-detail__info-list {
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+    max-width: 24rem;
+  }
+
+  .vehicle-detail__info-row,
+  .vehicle-detail__info-row:first-child,
+  .vehicle-detail__info-row:last-child {
+    grid-template-columns: 1.35rem minmax(6.4rem, auto) minmax(0, 1fr);
+    align-items: center;
+    justify-items: start;
+    justify-content: stretch;
+    gap: 0.65rem;
+    min-height: 3.9rem;
+    padding: 0.72rem 0.8rem;
+  }
+
+  .vehicle-detail__info-icon {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+
+  .vehicle-detail__info-label {
+    font-size: 0.66rem;
+    letter-spacing: 0.11em;
+    line-height: 1.2;
+  }
+
+  .vehicle-detail__info-value {
+    justify-self: end;
+    font-size: 0.92rem;
+    line-height: 1.25;
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+}

@@ -86,7 +86,10 @@ function Contacto() {
   }
 
   useEffect(() => {
-    if (formData.horaPreferida && bookedHours.includes(formData.horaPreferida)) {
+    if (
+      formData.horaPreferida &&
+      bookedHours.includes(formData.horaPreferida)
+    ) {
       updateFormField("horaPreferida", "");
     }
   }, [bookedHours, formData.horaPreferida, updateFormField]);
@@ -202,9 +205,7 @@ function Contacto() {
                 <PaperPlaneIcon />
               </div>
               <h2>
-                {isTestDriveFlow
-                  ? "Agendamento enviado!"
-                  : "Mensagem enviada!"}
+                {isTestDriveFlow ? "Agendamento enviado!" : "Mensagem enviada!"}
               </h2>
               <p>
                 {isTestDriveFlow
@@ -293,7 +294,9 @@ function Contacto() {
                 disabled={isSubmitting}
               >
                 <PaperPlaneIcon />
-                <span>{isSubmitting ? "A enviar..." : "Confirmar Agendamento"}</span>
+                <span>
+                  {isSubmitting ? "A enviar..." : "Confirmar Agendamento"}
+                </span>
               </button>
             </form>
           ) : (
@@ -351,11 +354,16 @@ function Contacto() {
                 label="Mensagem *"
                 rows="7"
                 value={formData.mensagem}
-                onChange={(event) => updateField("mensagem", event.target.value)}
+                onChange={(event) =>
+                  updateField("mensagem", event.target.value)
+                }
                 required
               />
 
-              <FormError className="contact-field__error" message={submitError} />
+              <FormError
+                className="contact-field__error"
+                message={submitError}
+              />
 
               <button
                 className="contact-submit"
@@ -363,7 +371,7 @@ function Contacto() {
                 disabled={isSubmitting}
               >
                 <PaperPlaneIcon />
-                <span>{isSubmitting ? "A enviar..." : "Enviar Mensagem"}</span>
+                <span>{isSubmitting ? "A enviar..." : "ENVIAR MENSAGEM"}</span>
               </button>
             </form>
           )}
