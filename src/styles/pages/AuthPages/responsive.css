@@ -1,12 +1,7 @@
 @media (max-width: 760px) {
-  .auth-page {
-    margin-top: var(--page-section-margin-top);
-    margin-bottom: 3.8rem;
-  }
+  .auth-page { margin-top: var(--page-section-margin-top); margin-bottom: 3.8rem; }
 
-  .auth-hero {
-    padding: 2.4rem 0;
-  }
+  .auth-hero { padding: 2.4rem 0; }
 
   .auth-hero h1 {
     font-size: clamp(2.35rem, 12vw, 3.4rem);
@@ -28,9 +23,7 @@
 
   .auth-form,
   .auth-form--wide,
-  .account-details {
-    width: 100%;
-  }
+  .account-details { width: 100%; }
 
   .auth-form {
     gap: 1rem;
@@ -68,22 +61,13 @@
     letter-spacing: 0.1em;
   }
 
-  .auth-notice {
-    justify-items: center;
-    text-align: center;
-  }
+  .auth-notice { justify-items: center; text-align: center; }
 
-  .auth-notice__loading-indicator {
-    transform-origin: center;
-  }
+  .auth-notice__loading-indicator { transform-origin: center; }
 
-  .auth-form__helper {
-    text-align: center;
-  }
+  .auth-form__helper { text-align: center; }
 
-  .account-page__content {
-    padding-top: 1.5rem;
-  }
+  .account-page__content { padding-top: 1.5rem; }
 
   .account-details {
     gap: 1.1rem;
@@ -111,15 +95,9 @@
     text-align: center;
   }
 
-  .account-details__item span {
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-  }
+  .account-details__item span { font-size: 0.72rem; letter-spacing: 0.12em; }
 
-  .account-details__item strong {
-    font-size: 0.98rem;
-    overflow-wrap: anywhere;
-  }
+  .account-details__item strong { font-size: 0.98rem; overflow-wrap: anywhere; }
 
   .account-page__actions,
   .account-page__actions--admin {
@@ -139,7 +117,5 @@
 
 @media (max-width: 420px) {
   .auth-form,
-  .account-details {
-    padding: 1rem 0.85rem;
-  }
+  .account-details { padding: 1rem 0.85rem; }
 }

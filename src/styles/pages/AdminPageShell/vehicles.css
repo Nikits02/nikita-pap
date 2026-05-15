@@ -1,8 +1,4 @@
-.admin-vehicles__list {
-  display: grid;
-  gap: 18px;
-}
-
+.admin-vehicles__list,
 .admin-leads__list {
   display: grid;
   gap: 18px;

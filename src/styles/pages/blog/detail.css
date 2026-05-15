@@ -35,9 +35,7 @@
   text-decoration: none;
 }
 
-.blog-detail-media {
-  min-height: 350px;
-}
+.blog-detail-media { min-height: 350px; }
 
 .blog-detail-body {
   display: grid;
@@ -48,7 +46,6 @@
 .blog-detail-body h2 {
   margin: 0;
   max-width: 14ch;
-  color: var(--site-white);
   font-size: clamp(2.15rem, 4vw, 3.4rem);
   line-height: 1.08;
 }
@@ -56,9 +53,7 @@
 .blog-detail-intro {
   margin: 0;
   max-width: 42rem;
-  color: var(--lux-copy);
   font-size: 1.1rem;
-  line-height: 1.7;
 }
 
 .blog-detail-content {
@@ -66,21 +61,22 @@
   gap: 1.7rem;
 }
 
+.blog-detail-intro,
+.blog-detail-section p {
+  color: var(--lux-copy);
+}
+
 .blog-detail-section h3 {
   margin: 0 0 0.8rem;
-  color: var(--site-white);
   font-size: 1.75rem;
 }
 
 .blog-detail-section p {
   margin: 0;
-  color: var(--lux-copy);
   line-height: 1.8;
 }
 
-.blog-detail-section p + p {
-  margin-top: 1rem;
-}
+.blog-detail-section p + p { margin-top: 1rem; }
 
 .blog-detail-empty {
   display: grid;
@@ -92,14 +88,10 @@
 
 .blog-detail-empty h2 {
   margin: 0;
-  color: var(--site-white);
   font-size: 2rem;
 }
 
-.blog-detail-empty p {
-  margin: 0;
-  color: var(--lux-copy-soft);
-}
+.blog-detail-empty p { margin: 0; color: var(--lux-copy-soft); }
 
 .blog-detail-back {
   min-width: 12rem;
@@ -110,9 +102,5 @@
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.16em;
-  transition:
-    border-color 0.22s ease,
-    background-color 0.22s ease,
-    color 0.22s ease,
-    transform 0.22s ease;
+  transition: border-color 0.22s ease, background-color 0.22s ease, color 0.22s ease, transform 0.22s ease;
 }

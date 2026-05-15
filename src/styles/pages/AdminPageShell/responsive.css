@@ -7,14 +7,8 @@
     padding: 20px;
   }
 
-  .admin-vehicle-card {
-    grid-template-columns: 1fr;
-  }
-
-  .admin-filters {
-    grid-template-columns: 1fr;
-  }
-
+  .admin-vehicle-card,
+  .admin-filters,
   .admin-lead-card__manage {
     grid-template-columns: 1fr;
   }
@@ -42,10 +36,7 @@
     grid-template-columns: 1fr;
   }
 
-  .admin-vehicle-card__title {
-    font-size: 24px;
-  }
-
+  .admin-vehicle-card__title,
   .admin-lead-card__title {
     font-size: 24px;
   }

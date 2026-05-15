@@ -10,10 +10,7 @@
   background: var(--color-black-880);
   color: inherit;
   text-decoration: none;
-  transition:
-    border-color 0.22s ease,
-    transform 0.22s ease,
-    box-shadow 0.22s ease;
+  transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
 }
 
 .catalog-card:hover {
@@ -37,9 +34,7 @@
   transition: transform 0.35s ease;
 }
 
-.catalog-card:hover .catalog-card__media img {
-  transform: scale(1.03);
-}
+.catalog-card:hover .catalog-card__media img { transform: scale(1.03); }
 
 .catalog-card__badge {
   position: absolute;
@@ -138,10 +133,7 @@
   padding-top: 0.1rem;
 }
 
-.catalog-card__price-block {
-  display: grid;
-  gap: 0.44rem;
-}
+.catalog-card__price-block { display: grid; gap: 0.44rem; }
 
 .catalog-card__price-prefix {
   color: var(--color-stone-400);
@@ -179,11 +171,7 @@
 .catalog-card__cta-link,
 .catalog-card__cta-arrow {
   min-height: 2.45rem;
-  transition:
-    border-color 0.22s ease,
-    background-color 0.22s ease,
-    color 0.22s ease,
-    transform 0.22s ease;
+  transition: border-color 0.22s ease, background-color 0.22s ease, color 0.22s ease, transform 0.22s ease;
 }
 
 .catalog-card__cta-link {
@@ -196,11 +184,7 @@
   line-height: 1;
 }
 
-.catalog-card__cta-arrow {
-  width: 2.45rem;
-  flex: 0 0 2.45rem;
-  border-radius: 0;
-}
+.catalog-card__cta-arrow { width: 2.45rem; flex: 0 0 2.45rem; border-radius: 0; }
 
 .catalog-card__cta-arrow svg {
   width: 0.86rem;
@@ -223,6 +207,4 @@
 }
 
 .empty-results h3,
-.empty-results p {
-  margin: 0;
-}
+.empty-results p { margin: 0; }

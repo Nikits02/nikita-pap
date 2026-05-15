@@ -1,7 +1,4 @@
-.catalog-card:focus-visible {
-  outline: 2px solid var(--home-accent-red);
-  outline-offset: 4px;
-}
+.catalog-card:focus-visible { outline: 2px solid var(--home-accent-red); outline-offset: 4px; }
 
 .catalog-page {
   margin-top: var(--page-section-margin-top);

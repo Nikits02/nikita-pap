@@ -1,5 +1,18 @@
-.admin-lead-card {
+.admin-lead-card,
+.admin-lead-card__header-side,
+.admin-lead-card__meta,
+.admin-lead-card__meta div,
+.admin-lead-card__notes,
+.admin-lead-card__manage {
   display: grid;
+}
+
+.admin-lead-card__header,
+.admin-lead-card__actions {
+  display: flex;
+}
+
+.admin-lead-card {
   gap: 16px;
   padding: 18px;
   border: var(--admin-panel-border);
@@ -8,7 +21,6 @@
 }
 
 .admin-lead-card__header {
-  display: flex;
   justify-content: space-between;
   align-items: start;
   gap: 16px;
@@ -16,7 +28,6 @@
 }
 
 .admin-lead-card__header-side {
-  display: grid;
   justify-items: end;
   gap: 10px;
 }
@@ -66,11 +77,6 @@
   background: var(--admin-surface-muted);
 }
 
-.admin-lead-card__status--new {
-  color: var(--admin-danger);
-  background: var(--admin-surface);
-}
-
 .admin-lead-card__status--scheduled {
   color: var(--admin-ink);
   background: var(--admin-notice-background);
@@ -89,14 +95,12 @@
 }
 
 .admin-lead-card__meta {
-  display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 14px 16px;
   margin: 0;
 }
 
 .admin-lead-card__meta div {
-  display: grid;
   gap: 4px;
 }
 
@@ -109,7 +113,6 @@
 }
 
 .admin-lead-card__notes {
-  display: grid;
   gap: 8px;
   padding: 16px;
   border: var(--admin-panel-border);
@@ -129,7 +132,6 @@
 }
 
 .admin-lead-card__manage {
-  display: grid;
   grid-template-columns: minmax(180px, 0.35fr) minmax(0, 1fr);
   gap: 14px;
   padding: 16px;
@@ -139,7 +141,6 @@
 }
 
 .admin-lead-card__actions {
-  display: flex;
   gap: 12px;
   flex-wrap: wrap;
   justify-content: flex-end;

@@ -1,8 +1,4 @@
-.catalog-page__count {
-  margin: 2.2rem 0 0;
-  color: var(--lux-copy-soft);
-  font-size: 1rem;
-}
+.catalog-page__count { margin: 2.2rem 0 0; color: var(--lux-copy-soft); font-size: 1rem; }
 
 .catalog-grid {
   display: grid;

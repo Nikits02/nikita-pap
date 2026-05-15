@@ -1,4 +1,6 @@
-.admin-vehicles {
+.admin-vehicles,
+.admin-leads,
+.admin-dashboard {
   display: grid;
   gap: 18px;
 }
@@ -15,16 +17,6 @@
 
 .admin-filters--single {
   grid-template-columns: minmax(0, 520px);
-}
-
-.admin-leads {
-  display: grid;
-  gap: 18px;
-}
-
-.admin-dashboard {
-  display: grid;
-  gap: 18px;
 }
 
 .admin-dashboard__grid {

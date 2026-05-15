@@ -30,10 +30,7 @@
   text-transform: uppercase;
   cursor: pointer;
   white-space: nowrap;
-  transition:
-    color 0.22s ease,
-    border-color 0.22s ease,
-    background-color 0.22s ease;
+  transition: color 0.22s ease, border-color 0.22s ease, background-color 0.22s ease;
 }
 
 .catalog-filter-tab:hover,
@@ -51,9 +48,9 @@
   color: var(--lux-copy-soft);
 }
 
-.catalog-order svg {
-  width: 1rem;
-  height: 1rem;
+.catalog-order svg,
+.catalog-order__trigger svg {
+  width: 1rem; height: 1rem;
   color: var(--color-stone-360);
   stroke: currentColor;
   stroke-linecap: round;
@@ -85,24 +82,15 @@
   gap: 0.75rem;
   text-align: left;
   cursor: pointer;
-  transition:
-    border-color 0.22s ease,
-    box-shadow 0.22s ease,
-    background-color 0.22s ease;
+  transition: border-color 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease;
 }
 
 .catalog-order__trigger svg {
-  width: 1rem;
-  height: 1rem;
   flex-shrink: 0;
   fill: none;
   stroke: var(--color-stone-400);
   stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transition:
-    transform 0.22s ease,
-    stroke 0.22s ease;
+  transition: transform 0.22s ease, stroke 0.22s ease;
 }
 
 .catalog-order__trigger.is-open {
@@ -110,10 +98,7 @@
   box-shadow: var(--surface-ring-brand-sm);
 }
 
-.catalog-order__trigger.is-open svg {
-  stroke: var(--home-accent-red);
-  transform: rotate(180deg);
-}
+.catalog-order__trigger.is-open svg { stroke: var(--home-accent-red); transform: rotate(180deg); }
 
 .catalog-order__menu {
   position: absolute;
@@ -139,13 +124,8 @@
   font-size: 0.94rem;
   text-align: left;
   cursor: pointer;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .catalog-order__option:hover,
-.catalog-order__option.is-active {
-  background: var(--brand-surface-16);
-  color: var(--site-white);
-}
+.catalog-order__option.is-active { background: var(--brand-surface-16); color: var(--site-white); }

@@ -1,6 +1,4 @@
-.account-page__content {
-  padding-top: 2.8rem;
-}
+.account-page__content { padding-top: 2.8rem; }
 
 .account-details {
   display: grid;
@@ -45,9 +43,7 @@
   line-height: 1.5;
 }
 
-.account-page__actions {
-  padding-top: 0.3rem;
-}
+.account-page__actions { padding-top: 0.3rem; }
 
 .account-page__actions--admin {
   display: grid;

@@ -3,10 +3,7 @@
   width: min(1440px, calc(100% - 2rem));
 }
 
-.catalog-page__hero {
-  max-width: 52rem;
-  padding: 1.1rem 0 3.9rem;
-}
+.catalog-page__hero { max-width: 52rem; padding: 1.1rem 0 3.9rem; }
 
 .catalog-page__eyebrow {
   margin: 0 0 1.7rem;
