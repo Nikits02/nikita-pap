@@ -45,21 +45,9 @@
     justify-content: flex-end;
   }
 
-  .highlight-card {
-    padding: 0.65rem 0.65rem 0.9rem;
-  }
-
-  .highlight-card__media img {
-    height: 200px;
-  }
-
   .highlight-card__price {
     width: 78%;
     font-size: 1.2rem;
-  }
-
-  .highlight-card__body {
-    padding-inline: 0.35rem;
   }
 
   .highlight-card__body h3 {

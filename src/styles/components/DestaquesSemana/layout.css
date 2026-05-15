@@ -1,9 +1,10 @@
 .weekly-highlights {
-  margin-top: 0;
-  margin-bottom: 9rem;
+  margin: 0 0 9rem;
 }
 
 .weekly-highlights__frame {
+  position: relative;
+  padding-left: 3.35rem;
   cursor: grab;
   touch-action: pan-y;
   user-select: none;
@@ -62,11 +63,6 @@
   display: inline-flex;
   justify-content: center;
   gap: 0.08rem;
-}
-
-.weekly-highlights__frame {
-  position: relative;
-  padding-left: 3.35rem;
 }
 
 .weekly-highlights__side-label {

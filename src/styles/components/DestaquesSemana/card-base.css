@@ -1,10 +1,30 @@
 .highlight-card {
   padding: 0.7rem 0.7rem 0.95rem;
   border-radius: 22px;
-  background: linear-gradient(180deg, var(--surface-white-98), var(--site-white));
+  background: linear-gradient(
+    180deg,
+    var(--surface-white-98),
+    var(--site-white)
+  );
   color: inherit;
   box-shadow: 0 14px 30px var(--brown-shadow-14);
   text-decoration: none;
+}
+
+.highlight-card__fuel,
+.highlight-card__price,
+.highlight-card__body {
+  text-align: center;
+}
+
+.highlight-card__fuel,
+.highlight-card__price {
+  font-weight: 800;
+}
+
+.highlight-card__fuel,
+.highlight-card__stat-label {
+  text-transform: uppercase;
 }
 
 .highlight-card__media {
@@ -23,15 +43,11 @@
   position: absolute;
   top: 0.8rem;
   right: -2.45rem;
-  width: 7.6rem;
   padding: 0.42rem 0;
   background: var(--brand-red-alert-surface-92);
   color: var(--color-ink-870);
-  font-weight: 800;
   font-size: 0.82rem;
   letter-spacing: 0.05em;
-  text-align: center;
-  text-transform: uppercase;
   transform: rotate(45deg);
 }
 
@@ -40,18 +56,19 @@
   margin: -0.7rem auto 0;
   padding: 0.62rem 0.85rem;
   border-radius: 9px;
-  background: linear-gradient(90deg, var(--color-brand-red-500) 0%, var(--color-brand-red-440) 100%);
+  background: linear-gradient(
+    90deg,
+    var(--color-brand-red-500) 0%,
+    var(--color-brand-red-440) 100%
+  );
   color: var(--site-white);
   font-size: 1.35rem;
-  font-weight: 800;
-  text-align: center;
   position: relative;
   z-index: 1;
 }
 
 .highlight-card__body {
   padding: 1rem 0.7rem 0;
-  text-align: center;
 }
 
 .highlight-card__body h3 {
@@ -86,7 +103,6 @@
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.06em;
-  text-transform: uppercase;
 }
 
 .highlight-card__stat strong {
@@ -108,7 +124,9 @@
   border-radius: 50%;
   background: var(--color-neutral-225);
   cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .weekly-highlights__dot.is-active {

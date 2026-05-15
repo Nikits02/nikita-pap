@@ -16,10 +16,14 @@
   isolation: isolate;
 }
 
-.site-header--home::before {
+.site-header--home::before,
+.site-header--home::after {
   content: "";
   position: absolute;
   inset: 0;
+}
+
+.site-header--home::before {
   background: url("/carbackground.png") center 42% / cover no-repeat;
   opacity: 0.82;
   filter: grayscale(1) contrast(1.08) brightness(0.44);
@@ -27,9 +31,6 @@
 }
 
 .site-header--home::after {
-  content: "";
-  position: absolute;
-  inset: 0;
   background: var(--surface-black-56);
   z-index: -1;
 }

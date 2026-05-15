@@ -16,7 +16,7 @@
 
 @media (max-width: 760px) {
   .site-footer,
-  .site-footer * {
+  .site-footer {
     text-align: center;
   }
 
@@ -39,8 +39,7 @@
   }
 
   .site-footer__brand-text {
-    margin-right: auto;
-    margin-left: auto;
+    margin-inline: auto;
   }
 
   .site-footer__brand-title {

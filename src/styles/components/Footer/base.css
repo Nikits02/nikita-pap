@@ -1,7 +1,7 @@
 .site-footer {
-  margin-top: 0;
   position: relative;
   z-index: 1;
+  margin-top: 0;
   color: var(--color-sand-200);
   background: var(--color-neutral-950);
   border-top: 1px solid var(--surface-white-07);
@@ -25,11 +25,19 @@
   min-width: 0;
 }
 
+.site-footer__brand-link,
+.site-footer__social-link,
+.site-footer__list-link,
+.site-footer__list-text,
+.site-footer__contact-link,
+.site-footer__legal-links a {
+  text-decoration: none;
+}
+
 .site-footer__brand-link {
   display: inline-flex;
   align-items: center;
   gap: 0;
-  text-decoration: none;
 }
 
 .site-footer__brand-title {
@@ -41,11 +49,14 @@
   line-height: 1;
 }
 
-.site-footer__brand-title-primary {
+.site-footer__brand-title-primary,
+.site-footer__bottom-brand-primary {
   color: var(--home-accent-red);
 }
 
-.site-footer__brand-title-accent {
+.site-footer__brand-title-accent,
+.site-footer__bottom-brand-accent,
+.site-footer__column-title {
   color: var(--site-white);
 }
 
@@ -70,7 +81,6 @@
   height: 2.35rem;
   border: var(--surface-divider-strong);
   color: var(--color-stone-270);
-  text-decoration: none;
   transition:
     color 0.25s ease,
     border-color 0.25s ease,
@@ -93,7 +103,6 @@
 
 .site-footer__column-title {
   margin: 0 0 1.6rem;
-  color: var(--site-white);
   font-size: 0.9rem;
   font-weight: 800;
   letter-spacing: 0.18em;
@@ -113,8 +122,6 @@
   color: var(--color-stone-400);
   font-size: 0.92rem;
   line-height: 1.7;
-  text-decoration: none;
-  transition: color 0.25s ease;
 }
 
 .site-footer__list-link::before,
@@ -138,8 +145,10 @@
   line-height: 1.7;
 }
 
-.site-footer__contact-link {
-  text-decoration: none;
+.site-footer__list-link,
+.site-footer__list-text,
+.site-footer__contact-link,
+.site-footer__legal-links a {
   transition: color 0.25s ease;
 }
 
@@ -162,18 +171,14 @@
   background: var(--brand-surface-22);
 }
 
-.site-footer__bottom-bar p {
-  margin: 0;
+.site-footer__bottom-bar p,
+.site-footer__legal-links a {
   color: var(--color-stone-260);
   font-size: 0.88rem;
 }
 
-.site-footer__bottom-brand-primary {
-  color: var(--home-accent-red);
-}
-
-.site-footer__bottom-brand-accent {
-  color: var(--site-white);
+.site-footer__bottom-bar p {
+  margin: 0;
 }
 
 .site-footer__legal-links {
@@ -181,11 +186,4 @@
   flex-wrap: wrap;
   justify-content: flex-end;
   gap: 1.4rem;
-}
-
-.site-footer__legal-links a {
-  color: var(--color-stone-260);
-  font-size: 0.88rem;
-  text-decoration: none;
-  transition: color 0.25s ease;
 }

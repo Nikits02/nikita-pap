@@ -37,19 +37,21 @@
   width: min(100%, 1180px);
 }
 
-.navbar__menu {
+.navbar__menu,
+.navbar__session {
   display: flex;
   align-items: center;
+  gap: 0.45rem 1.2rem;
+}
+
+.navbar__menu {
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.45rem 1.2rem;
 }
 
 .navbar__session {
   display: inline-flex;
-  align-items: center;
   flex-wrap: nowrap;
-  gap: 0.45rem 1.2rem;
   white-space: nowrap;
 }
 
