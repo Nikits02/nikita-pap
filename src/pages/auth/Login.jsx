@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FormError, FormInputField } from "../../components/form/FormField";
 import { PageHero, SitePage } from "../../components/common";
@@ -21,12 +21,28 @@ function Login() {
     "Não foi possível iniciar sessão.",
   );
   const { currentUser, isAuthReady, refreshSession } = useAuth();
+  const [storedNotice] = useState(() => {
+    const notice = sessionStorage.getItem("auth_notice");
+
+    if (notice) {
+      sessionStorage.removeItem("auth_notice");
+    }
+
+    return notice;
+  });
+  const visibleNotice = storedNotice ?? location.state?.notice;
 
   useEffect(() => {
-    if (isAuthReady && currentUser) {
+    if (isAuthReady && currentUser && !location.state?.skipAuthRedirect) {
       navigate(location.state?.redirectTo ?? getPostAuthRoute(), { replace: true });
     }
-  }, [currentUser, isAuthReady, location.state?.redirectTo, navigate]);
+  }, [
+    currentUser,
+    isAuthReady,
+    location.state?.redirectTo,
+    location.state?.skipAuthRedirect,
+    navigate,
+  ]);
 
   function updateField(field, value) {
     if (error) {
@@ -62,10 +78,10 @@ function Login() {
 
       <section className="auth-page__content">
         <form className="auth-form" onSubmit={handleSubmit}>
-          {location.state?.notice ? (
+          {visibleNotice ? (
             <div className="auth-notice" role="status" aria-live="polite">
               <span className="auth-notice__eyebrow">Sessão</span>
-              <p>{location.state.notice}</p>
+              <p>{visibleNotice}</p>
             </div>
           ) : null}
 

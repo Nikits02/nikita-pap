@@ -7,11 +7,13 @@ function Conta() {
   const { currentUser: user, logout } = useAuth();
 
   async function handleLogout() {
+    sessionStorage.setItem("auth_notice", "Sessão terminada com sucesso.");
     await logout();
     navigate("/login", {
       replace: true,
       state: {
         notice: "Sessão terminada com sucesso.",
+        skipAuthRedirect: true,
       },
     });
   }
