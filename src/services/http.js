@@ -2,6 +2,20 @@ async function getResponseData(response) {
   return response.json().catch(() => null);
 }
 
+function createRequestError(message, status, data) {
+  const error = new Error(message);
+
+  if (status !== undefined) {
+    error.status = status;
+  }
+
+  if (data !== undefined) {
+    error.data = data;
+  }
+
+  return error;
+}
+
 export async function requestJson(
   url,
   { method = "GET", body, headers = {}, errorMessage } = {},
@@ -22,7 +36,11 @@ export async function requestJson(
   const data = await getResponseData(response);
 
   if (!response.ok) {
-    throw new Error(data?.message ?? errorMessage ?? "Ocorreu um erro.");
+    throw createRequestError(
+      data?.message ?? errorMessage ?? "Ocorreu um erro.",
+      response.status,
+      data,
+    );
   }
 
   return data;

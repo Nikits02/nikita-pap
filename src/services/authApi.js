@@ -66,9 +66,13 @@ export async function validateAuthSession() {
 
     saveAuthSession({ user: data.user });
     return data.user;
-  } catch {
-    clearAuthSession();
-    return null;
+  } catch (error) {
+    if (error.status === 401 || error.status === 403) {
+      clearAuthSession();
+      return null;
+    }
+
+    return getAuthSession()?.user ?? null;
   }
 }
 

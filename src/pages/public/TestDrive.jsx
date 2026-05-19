@@ -102,6 +102,10 @@ function TestDrive() {
       return;
     }
 
+    if (isLoadingAvailability) {
+      return;
+    }
+
     if (bookedHours.includes(formData.horaPreferida)) {
       setFormError("Esta hora já não está disponível.");
       return;
@@ -259,7 +263,7 @@ function TestDrive() {
             <button
               className="test-drive-submit"
               type="submit"
-              disabled={isSubmitting || isLoading}
+              disabled={isSubmitting || isLoading || isLoadingAvailability}
             >
               <CheckCircleIcon />
               <span>

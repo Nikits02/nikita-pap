@@ -25,8 +25,11 @@ import TestDriveHourSelector from "../../components/test-drive/TestDriveHourSele
 import TestDrivePersonalFields from "../../components/test-drive/TestDrivePersonalFields";
 import useFormState from "../../hooks/useFormState";
 import useTestDriveAvailability from "../../hooks/useTestDriveAvailability";
+import useVehicles from "../../hooks/useVehicles";
 import { createContactMessage, createTestDrive } from "../../services/api";
 import { getTodayDateString } from "../../utils/date";
+import { getVehicleLabel } from "../../utils/vehicle";
+import { getVehicleBySlug } from "../../utils/vehicleMeta";
 
 const VEHICLE_SLUG_PATTERN = /^(catalog|highlight|stock)-\d+-[a-z0-9-]+$/;
 
@@ -53,6 +56,11 @@ function Contacto() {
   const veiculoParam = searchParams.get("veiculo") ?? "";
   const hasValidVehicleSlug = VEHICLE_SLUG_PATTERN.test(veiculoParam);
   const isTestDriveFlow = hasValidVehicleSlug;
+  const { vehicles } = useVehicles();
+  const selectedVehicle = getVehicleBySlug(vehicles, veiculoParam);
+  const vehicleLabel = selectedVehicle
+    ? getVehicleLabel(selectedVehicle)
+    : veiculoParam;
   const { formData, updateField: updateFormField } = useFormState(() =>
     buildInitialForm(assuntoParam, veiculoParam),
   );
@@ -101,6 +109,10 @@ function Contacto() {
       return;
     }
 
+    if (isTestDriveFlow && isLoadingAvailability) {
+      return;
+    }
+
     if (isTestDriveFlow && bookedHours.includes(formData.horaPreferida)) {
       setTestDriveError("Esta hora já não está disponível.");
       return;
@@ -117,7 +129,7 @@ function Contacto() {
       if (isTestDriveFlow) {
         await createTestDrive({
           vehicleSlug: veiculoParam,
-          vehicleLabel: veiculoParam,
+          vehicleLabel,
           dataPreferida: formData.dataPreferida,
           horaPreferida: formData.horaPreferida,
           nome: formData.nome,
@@ -290,7 +302,7 @@ function Contacto() {
               <button
                 className="contact-submit test-drive-submit"
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || isLoadingAvailability}
               >
                 <PaperPlaneIcon />
                 <span>
