@@ -1,0 +1,41 @@
+.vehicle-search {
+  margin: 0;
+  padding: 10.7rem 0 9rem;
+}
+
+.vehicle-search__panel {
+  padding: 2rem 1.5rem 1.35rem;
+  border: 1px solid var(--lux-line);
+  border-radius: 12px;
+  background: var(--lux-panel);
+  box-shadow: var(--lux-shadow);
+}
+
+.vehicle-search__panel h2 {
+  margin: -0.1rem 0 0;
+  color: var(--site-white);
+  font-family: var(--font-family-serif);
+  font-size: clamp(2.1rem, 3.4vw, 3.15rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: 0.01em;
+  text-align: center;
+  text-transform: none;
+}
+
+.vehicle-search__form {
+  margin-top: 3rem;
+}
+
+.vehicle-search__selectors {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(180px, 210px);
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.vehicle-search__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}

@@ -1,0 +1,27 @@
+@media (max-width: 1080px) {
+  .vehicle-search__selectors {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .vehicle-search__button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 760px) {
+  .vehicle-search__panel {
+    padding: 1.35rem;
+  }
+
+  .vehicle-search__panel h2 {
+    font-size: 1.55rem;
+  }
+
+  .vehicle-search__selectors {
+    grid-template-columns: 1fr;
+  }
+
+  .vehicle-search__button {
+    font-size: 1.1rem;
+  }
+}

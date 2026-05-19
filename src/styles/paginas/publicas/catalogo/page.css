@@ -1,0 +1,31 @@
+.catalog-page {
+  padding-top: 0.6rem;
+  width: min(1440px, calc(100% - 2rem));
+}
+
+.catalog-page__hero { max-width: 52rem; padding: 1.1rem 0 3.9rem; }
+
+.catalog-page__eyebrow {
+  margin: 0 0 1.7rem;
+  color: var(--home-accent-red);
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.catalog-page__hero h1 {
+  margin: 0;
+  color: var(--site-white);
+  font-family: var(--font-family-serif);
+  font-size: clamp(3.7rem, 7.2vw, 5.8rem);
+  line-height: 0.94;
+}
+
+.catalog-page__hero > p:last-child {
+  max-width: 34rem;
+  margin: 1.95rem 0 0;
+  color: var(--lux-copy-soft);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}

@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "create-admin": "node scripts/criarContaAdmin.js",
+    "test": "node --test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "mysql2": "^3.20.0",
+    "nodemailer": "^8.0.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

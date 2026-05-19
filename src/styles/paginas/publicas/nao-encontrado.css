@@ -1,0 +1,61 @@
+.not-found-page {
+  min-height: 46vh;
+}
+
+.not-found-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.4rem;
+}
+
+.primary-button,
+.secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.2rem;
+  padding: 0.85rem 1.4rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.primary-button {
+  background: linear-gradient(
+    90deg,
+    var(--color-brand-red-625) 0%,
+    var(--color-brand-red-320) 100%
+  );
+  color: var(--site-white);
+  box-shadow: 0 14px 30px var(--rose-shadow-20);
+}
+
+.secondary-button {
+  border-color: var(--gold-surface-25);
+  background: var(--gold-surface-08);
+  color: var(--site-white);
+}
+
+.primary-button:hover,
+.secondary-button:hover {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 760px) {
+  .primary-button,
+  .secondary-button {
+    width: 100%;
+    min-height: 3rem;
+    padding-inline: 1rem;
+    text-align: center;
+  }
+}

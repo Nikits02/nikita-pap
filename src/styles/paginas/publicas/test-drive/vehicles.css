@@ -1,0 +1,72 @@
+.test-drive-personal-grid,
+.test-drive-vehicle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  width: min(100%, 900px);
+  margin: 0 auto;
+}
+
+.test-drive-vehicle-card {
+  padding: 0;
+  border: 1px solid var(--surface-white-10);
+  background: var(--color-black-880);
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 0.22s ease,
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    background-color 0.22s ease;
+}
+
+.test-drive-vehicle-card:hover,
+.test-drive-vehicle-card.is-selected {
+  border-color: var(--brand-surface-52);
+  background: var(--color-black-940);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-elevated-dark-sm);
+}
+
+.test-drive-vehicle-card__media {
+  aspect-ratio: 1.72 / 1;
+  overflow: hidden;
+  border-bottom: var(--surface-divider-faint);
+}
+
+.test-drive-vehicle-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.test-drive-vehicle-card__body {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.8rem 0.85rem 0.9rem;
+}
+
+.test-drive-vehicle-card__body p,
+.test-drive-field span {
+  margin: 0;
+  color: var(--color-test-drive-soft);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.test-drive-vehicle-card__body h3 {
+  margin: 0;
+  color: var(--site-white);
+  font-size: 1.02rem;
+  line-height: 1.2;
+}
+
+.test-drive-vehicle-card__body span:last-child {
+  color: var(--color-stone-300);
+  font-size: 0.88rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}

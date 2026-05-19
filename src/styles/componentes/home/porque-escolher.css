@@ -1,0 +1,73 @@
+.why-choose {
+  margin-top: 9rem;
+  padding: 0.8rem 0 6rem;
+}
+
+.why-choose h2 {
+  margin: 0;
+  color: var(--site-white);
+  font-family: var(--font-family-serif);
+  font-size: clamp(2.1rem, 3.4vw, 3.15rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: 0.01em;
+  text-align: center;
+  text-transform: none;
+}
+
+.why-choose__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.4rem;
+  margin-top: 2.2rem;
+}
+
+.why-choose__card {
+  display: grid;
+  justify-items: center;
+  gap: 0.95rem;
+  min-height: 180px;
+  padding: 2rem 1.4rem 1.7rem;
+  border: var(--surface-divider);
+  background: var(--site-black);
+  text-align: center;
+}
+
+.why-choose__icon {
+  display: grid;
+  place-items: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  color: var(--home-accent-red);
+}
+
+.why-choose__icon svg {
+  width: 1.85rem;
+  height: 1.85rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.why-choose__card h3 {
+  margin: 0;
+  color: var(--site-white);
+  font-family: var(--font-family-serif);
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+.why-choose__card p {
+  margin: 0;
+  max-width: 16rem;
+  color: var(--lux-copy-soft);
+  line-height: 1.65;
+}
+
+@media (max-width: 1080px) {
+  .why-choose__grid {
+    grid-template-columns: 1fr;
+  }
+}

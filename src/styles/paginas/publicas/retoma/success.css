@@ -1,0 +1,43 @@
+.tradein-success {
+  display: grid;
+  justify-items: center;
+  gap: 1.1rem;
+  padding-block: 3.2rem;
+  text-align: center;
+}
+
+.tradein-success__icon {
+  display: grid;
+  place-items: center;
+  width: 4.7rem;
+  height: 4.7rem;
+  color: var(--color-accent-rose-600);
+}
+
+.tradein-success__icon svg {
+  width: 1.55rem;
+  height: 1.55rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.tradein-success h2 {
+  font-size: clamp(2.1rem, 4vw, 3.1rem);
+}
+
+.tradein-success p {
+  max-width: 640px;
+  margin: 0;
+  color: var(--color-stone-400);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.contact-hero.tradein-hero p {
+  margin: 1.35rem 0 0;
+  color: var(--color-stone-300);
+  font-size: 1.1rem;
+}

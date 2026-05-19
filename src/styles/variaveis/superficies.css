@@ -1,0 +1,119 @@
+:root {
+  /* Neutral translucent surfaces */
+  --surface-white-01: color-mix(in srgb, var(--site-white) 1%, transparent);
+  --surface-white-02: color-mix(in srgb, var(--site-white) 2%, transparent);
+  --surface-white-03: color-mix(in srgb, var(--site-white) 3%, transparent);
+  --surface-white-04: color-mix(in srgb, var(--site-white) 4%, transparent);
+  --surface-white-05: color-mix(in srgb, var(--site-white) 5%, transparent);
+  --surface-white-06: color-mix(in srgb, var(--site-white) 6%, transparent);
+  --surface-white-07: color-mix(in srgb, var(--site-white) 7%, transparent);
+  --surface-white-08: color-mix(in srgb, var(--site-white) 8%, transparent);
+  --surface-white-10: color-mix(in srgb, var(--site-white) 10%, transparent);
+  --surface-white-12: color-mix(in srgb, var(--site-white) 12%, transparent);
+  --surface-white-14: color-mix(in srgb, var(--site-white) 14%, transparent);
+  --surface-white-18: color-mix(in srgb, var(--site-white) 18%, transparent);
+  --surface-white-86: color-mix(in srgb, var(--site-white) 86%, transparent);
+  --surface-white-98: color-mix(in srgb, var(--site-white) 98%, transparent);
+
+  /* Dark translucent surfaces */
+  --surface-black-02: rgba(0, 0, 0, 0.02);
+  --surface-black-12: rgba(0, 0, 0, 0.12);
+  --surface-black-16: rgba(0, 0, 0, 0.16);
+  --surface-black-18: rgba(0, 0, 0, 0.18);
+  --surface-black-20: rgba(0, 0, 0, 0.2);
+  --surface-black-22: rgba(0, 0, 0, 0.22);
+  --surface-black-24: rgba(0, 0, 0, 0.24);
+  --surface-black-26: rgba(0, 0, 0, 0.26);
+  --surface-black-28: rgba(0, 0, 0, 0.28);
+  --surface-black-34: rgba(0, 0, 0, 0.34);
+  --surface-black-45: rgba(0, 0, 0, 0.45);
+  --surface-black-56: rgba(0, 0, 0, 0.56);
+
+  /* Accent translucent surfaces */
+  --brand-red-surface-24: rgba(239, 36, 36, 0.24);
+  --brand-red-bright-surface-16: rgba(255, 73, 73, 0.16);
+  --brand-red-alert-surface-90: rgba(255, 67, 67, 0.9);
+  --brand-red-alert-surface-92: rgba(255, 64, 64, 0.92);
+  --gold-surface-08: rgba(201, 167, 110, 0.08);
+  --gold-surface-25: rgba(201, 167, 110, 0.25);
+  --brown-shadow-08: rgba(102, 51, 51, 0.08);
+  --brown-shadow-12: rgba(95, 49, 49, 0.12);
+  --brown-shadow-14: rgba(77, 37, 37, 0.14);
+  --rose-shadow-20: rgba(194, 50, 50, 0.2);
+  --rose-border-90: rgba(182, 57, 57, 0.9);
+
+  /* Shared dark panels and controls */
+  --surface-panel-dark: linear-gradient(180deg, rgba(7, 7, 10, 0.98), rgba(3, 3, 5, 0.98));
+  --surface-panel-dark-soft: rgba(7, 7, 7, 0.84);
+  --surface-panel-dark-modal: rgba(7, 7, 10, 0.78);
+  --surface-panel-dark-overlay: rgba(2, 2, 3, 0.8);
+  --surface-panel-deep-84: rgba(10, 9, 9, 0.84);
+  --surface-panel-deep-96: rgba(18, 17, 17, 0.96);
+  --surface-panel-lux: rgba(22, 22, 24, 0.94);
+  --surface-panel-lux-strong: rgba(28, 28, 31, 0.96);
+  --surface-panel-lux-deep: rgba(12, 12, 14, 0.94);
+  --surface-panel-lux-deeper: rgba(13, 13, 15, 0.98);
+  --lux-panel: linear-gradient(
+    180deg,
+    var(--surface-panel-lux),
+    var(--surface-panel-lux-deep)
+  );
+  --lux-panel-strong: linear-gradient(
+    180deg,
+    var(--surface-panel-lux-strong),
+    var(--surface-panel-lux-deeper)
+  );
+  --lux-line: var(--surface-white-08);
+  --lux-shadow: 0 24px 48px var(--surface-black-26);
+  --surface-panel-service-start: rgba(38, 38, 38, 0.98);
+  --surface-panel-service-end: rgba(28, 28, 28, 0.98);
+  --surface-input-dark: var(--color-night-870);
+  --surface-input-dark-alt: var(--color-night-860);
+  --surface-input-dark-strong: var(--color-night-890);
+  --surface-panel-light: var(--site-white);
+  --surface-panel-light-soft: var(--color-neutral-50);
+  --surface-panel-light-muted: var(--color-neutral-150);
+  --surface-panel-light-notice: var(--color-neutral-200);
+
+  /* Shared elevation */
+  --shadow-elevated-dark-sm: 0 18px 34px rgba(0, 0, 0, 0.24);
+  --shadow-elevated-dark-md: 0 20px 40px rgba(0, 0, 0, 0.3);
+  --shadow-elevated-dark-md-strong: 0 20px 40px rgba(0, 0, 0, 0.38);
+  --shadow-elevated-dark-lg: 0 24px 54px rgba(0, 0, 0, 0.26);
+  --shadow-elevated-dark-xl: 0 30px 60px rgba(0, 0, 0, 0.3);
+  --shadow-elevated-light-md: 0 18px 50px rgba(20, 33, 61, 0.08);
+
+  /* Brand red translucent surfaces */
+  --brand-surface-08: rgba(181, 58, 63, 0.08);
+  --brand-surface-12: rgba(181, 58, 63, 0.12);
+  --brand-surface-14: rgba(181, 58, 63, 0.14);
+  --brand-surface-16: rgba(181, 58, 63, 0.16);
+  --brand-surface-18: rgba(181, 58, 63, 0.18);
+  --brand-surface-22: rgba(181, 58, 63, 0.22);
+  --brand-surface-24: rgba(181, 58, 63, 0.24);
+  --brand-surface-32: rgba(181, 58, 63, 0.32);
+  --brand-surface-36: rgba(181, 58, 63, 0.36);
+  --brand-surface-42: rgba(181, 58, 63, 0.42);
+  --brand-surface-45: rgba(181, 58, 63, 0.45);
+  --brand-surface-48: rgba(181, 58, 63, 0.48);
+  --brand-surface-52: rgba(181, 58, 63, 0.52);
+  --brand-surface-55: rgba(181, 58, 63, 0.55);
+  --brand-surface-72: rgba(181, 58, 63, 0.72);
+  --brand-surface-75: rgba(181, 58, 63, 0.75);
+
+  /* Rose translucent surfaces */
+  --rose-surface-08: rgba(163, 52, 57, 0.08);
+  --rose-surface-16: rgba(163, 52, 57, 0.16);
+  --rose-surface-18: rgba(163, 52, 57, 0.18);
+  --rose-surface-30: rgba(163, 52, 57, 0.3);
+
+  /* Reusable borders and rings */
+  --surface-divider: 1px solid var(--surface-white-08);
+  --surface-divider-faint: 1px solid var(--surface-white-06);
+  --surface-divider-strong: 1px solid var(--surface-white-12);
+  --surface-border-light: 1px solid var(--color-neutral-250);
+  --surface-border-light-strong: 1px solid var(--color-neutral-400);
+  --surface-ring-brand-sm: 0 0 0 1px var(--brand-surface-14);
+  --surface-ring-brand-md: 0 0 0 4px var(--brand-surface-12);
+  --surface-ring-rose-sm: 0 0 0 1px var(--rose-surface-18);
+}

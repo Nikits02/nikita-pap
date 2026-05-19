@@ -1,0 +1,46 @@
+@media (max-width: 1080px) {
+  .about-story,
+  .about-values__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .about-story {
+    padding-top: 1rem;
+  }
+
+  .about-story__stats {
+    grid-template-columns: 1fr;
+  }
+
+  .about-story__content h1 {
+    font-size: clamp(2.4rem, 12vw, 3.6rem);
+  }
+
+  .about-quote {
+    margin-top: 3rem;
+    padding: 3.2rem 1.2rem 3.4rem;
+  }
+
+  .about-quote blockquote {
+    font-size: clamp(1.75rem, 9vw, 2.7rem);
+  }
+
+  .about-quote p {
+    font-size: 0.82rem;
+    letter-spacing: 0.2em;
+  }
+
+  .about-values {
+    padding: 3rem 1.2rem 3.5rem;
+  }
+
+  .about-values__heading h2 {
+    font-size: clamp(2.15rem, 11vw, 3.2rem);
+  }
+
+  .about-values__grid {
+    margin-top: 2.2rem;
+  }
+}

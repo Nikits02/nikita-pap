@@ -1,0 +1,117 @@
+.contact-form-panel {
+  min-height: 100%;
+  padding: 2.2rem 2rem;
+  border: var(--surface-divider);
+  background: var(--surface-panel-dark);
+}
+
+.contact-form {
+  display: grid;
+  gap: 1.45rem;
+}
+
+.contact-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem;
+}
+
+.contact-field {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.contact-field--full {
+  grid-column: 1 / -1;
+}
+
+.contact-field > span {
+  color: var(--color-accent-rose-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.contact-field input,
+.contact-field select,
+.contact-field textarea {
+  width: 100%;
+  padding: 0.95rem 1rem;
+  border: var(--surface-divider-strong);
+  border-radius: 0;
+  background: var(--surface-input-dark);
+  color: var(--site-white);
+  font-size: 1rem;
+}
+
+.contact-field select option {
+  color: var(--color-neutral-900);
+}
+
+.contact-select__trigger {
+  background: var(--surface-input-dark);
+}
+
+.contact-select__menu {
+  border: 1px solid var(--color-accent-rose-border-42);
+}
+
+.contact-field__error {
+  margin: 0;
+  color: var(--color-rose-400);
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
+.contact-field textarea {
+  resize: vertical;
+}
+
+.contact-submit {
+  gap: 0.55rem;
+  width: 100%;
+  min-height: 3.2rem;
+  font-weight: 800;
+}
+
+.contact-submit svg,
+.contact-success__icon svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.contact-success {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 1rem;
+  min-height: 100%;
+  text-align: center;
+}
+
+.contact-success h2 {
+  margin: 0;
+  color: var(--site-white);
+  font-family: var(--font-family-serif);
+  font-size: clamp(2.8rem, 5vw, 4.6rem);
+  font-weight: 700;
+}
+
+.contact-success__icon {
+  width: 3rem;
+  height: 3rem;
+}
+
+.contact-success p {
+  max-width: 520px;
+  margin: 0;
+  color: var(--color-stone-400);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}

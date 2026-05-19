@@ -1,0 +1,19 @@
+.catalog-page__divider {
+  width: 100vw;
+  height: 1px;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  background: var(--surface-white-08);
+}
+
+.catalog-page__count { margin: 2.2rem 0 0; color: var(--lux-copy-soft); font-size: 1rem; }
+
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: auto;
+  align-items: stretch;
+  gap: 1.2rem;
+  margin-top: 2.4rem;
+  margin-bottom: 8rem;
+}

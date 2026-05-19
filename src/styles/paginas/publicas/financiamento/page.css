@@ -1,0 +1,27 @@
+.finance-page {
+  margin-top: var(--page-section-margin-top);
+  margin-bottom: var(--page-section-margin-bottom);
+}
+
+.finance-hero,
+.finance-grid {
+  border-top: var(--surface-divider);
+}
+
+.finance-hero {
+  padding: var(--page-hero-padding-block) 0;
+}
+
+.finance-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 0.92fr);
+  gap: 2.8rem;
+  align-items: start;
+  padding-top: 3.2rem;
+}
+
+.finance-card {
+  border: var(--surface-divider);
+  background: var(--surface-panel-dark);
+  box-shadow: var(--shadow-elevated-dark-xl);
+}

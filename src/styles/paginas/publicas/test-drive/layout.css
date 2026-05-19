@@ -1,0 +1,59 @@
+.test-drive-layout {
+  display: grid;
+  justify-items: center;
+  border-top: var(--surface-divider);
+  padding-top: 2.6rem;
+}
+
+.test-drive-form,
+.test-drive-success {
+  display: grid;
+  gap: 2.2rem;
+  width: min(100%, 980px);
+}
+
+.test-drive-step {
+  display: grid;
+  gap: 1.35rem;
+  width: 100%;
+}
+
+.test-drive-step__heading {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: min(100%, 900px);
+  margin: 0 auto;
+}
+
+.test-drive-step__icon,
+.test-drive-step__number,
+.test-drive-success__icon {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--color-test-drive-line);
+  color: var(--home-accent-red);
+}
+
+.test-drive-step__number {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.test-drive-step__icon svg,
+.test-drive-success__icon svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.test-drive-step__heading h2,
+.test-drive-success h2 {
+  font-size: clamp(1.8rem, 3vw, 2.45rem);
+}
