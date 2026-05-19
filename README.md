@@ -232,22 +232,22 @@ Componentes partilhados:
 - [src/styles/components/PageHero.css](src/styles/components/PageHero.css)
 - [src/styles/components/Navbar.css](src/styles/components/Navbar.css)
 - [src/styles/components/Footer.css](src/styles/components/Footer.css)
-- [src/styles/components/PublicShared.css](src/styles/components/PublicShared.css)
+- [src/styles/components/SharedPatterns.css](src/styles/components/SharedPatterns.css)
 
 Por página/área:
 - [src/styles/pages/AdminPageShell.css](src/styles/pages/AdminPageShell.css)
 - [src/styles/pages/AuthPages.css](src/styles/pages/AuthPages.css)
-- [src/styles/pages/Blog.css](src/styles/pages/Blog.css)
+- [src/styles/pages/blog.css](src/styles/pages/blog.css)
 - [src/styles/pages/Catalogo.css](src/styles/pages/Catalogo.css)
 - [src/styles/pages/Contacto.css](src/styles/pages/Contacto.css)
 - [src/styles/pages/Financiamento.css](src/styles/pages/Financiamento.css)
-- [src/styles/pages/Home.css](src/styles/pages/Home.css)
+- [src/styles/pages/home.css](src/styles/pages/home.css)
 - [src/styles/pages/Retoma.css](src/styles/pages/Retoma.css)
 - [src/styles/pages/Sobre.css](src/styles/pages/Sobre.css)
 - [src/styles/pages/TestDrive.css](src/styles/pages/TestDrive.css)
 - [src/styles/pages/VeiculoDetalhe.css](src/styles/pages/VeiculoDetalhe.css)
 
-Tudo é importado a partir de [src/index.css](src/index.css).
+Tudo é importado a partir de [src/styles/index.css](src/styles/index.css).
 
 ## Como Explicar o Projeto
 
