@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AdminPageShell from "../../components/admin/AdminPageShell";
-import { FormError, FormField } from "../../components/form/FormField";
+import {
+  AdminVehicleFormSection,
+  AdminVehicleImageField,
+  AdminVehicleNoveltyToggle,
+} from "../../components/admin/vehicle-form";
+import { FormError } from "../../components/form/FormField";
 import { adminVehicleFields } from "../../data/adminVehicleFields";
 import useFormState from "../../hooks/useFormState";
 import {
@@ -127,152 +132,6 @@ function getVehicleImageSelectionError(file) {
   }
 
   return "";
-}
-
-function AdminVehicleInput({ field, value, onChange }) {
-  if (field.control === "select") {
-    return (
-      <FormField
-        className="admin-form__field"
-        label={field.label}
-        hint={field.hint}
-        hintClassName="admin-form__hint"
-      >
-        <select
-          value={value}
-          onChange={(event) => onChange(field.name, event.target.value)}
-        >
-          {field.options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-      </FormField>
-    );
-  }
-
-  return (
-    <FormField
-      className="admin-form__field"
-      label={field.label}
-      hint={field.hint}
-      hintClassName="admin-form__hint"
-    >
-      <input
-        type={field.type}
-        min={field.min}
-        max={field.max}
-        step={field.step}
-        value={value}
-        placeholder={field.placeholder}
-        onChange={(event) => onChange(field.name, event.target.value)}
-        required={field.required}
-      />
-    </FormField>
-  );
-}
-
-function AdminVehicleImageField({
-  value,
-  onChange,
-  previewUrl,
-  uploadError,
-  isUploading,
-  onFileChange,
-  selectedImageLabel,
-}) {
-  return (
-    <div className="admin-form__upload">
-      <FormField
-        className="admin-form__field admin-form__field--full"
-        label="Carregar imagem"
-        hint='Escolhe um ficheiro JPG, PNG ou WEBP. O upload preenche o campo "Imagem" automaticamente.'
-        hintClassName="admin-form__hint"
-      >
-        <div className="admin-form__upload-row">
-          <input
-            className="admin-form__file-input"
-            type="file"
-            accept={VEHICLE_IMAGE_ACCEPT}
-            onChange={onFileChange}
-          />
-
-          {isUploading ? (
-            <span className="admin-form__upload-status">A carregar imagem...</span>
-          ) : null}
-        </div>
-
-        {selectedImageLabel ? (
-          <p className="admin-form__upload-note">{selectedImageLabel}</p>
-        ) : null}
-
-        <FormError className="admin-form__error" message={uploadError} />
-      </FormField>
-
-      <FormField
-        className="admin-form__field admin-form__field--full"
-        label={VEHICLE_IMAGE_FIELD?.label ?? "Imagem *"}
-        hint={VEHICLE_IMAGE_FIELD?.hint}
-        hintClassName="admin-form__hint"
-      >
-        <input
-          type="text"
-          value={value}
-          placeholder={VEHICLE_IMAGE_FIELD?.placeholder}
-          onChange={(event) => onChange("imagem", event.target.value)}
-          required
-        />
-      </FormField>
-
-      {previewUrl ? (
-        <div className="admin-form__preview">
-          <p className="admin-form__preview-label">Pré-visualização</p>
-          <img
-            className="admin-form__preview-image"
-            src={previewUrl}
-            alt="Pré-visualização da viatura"
-          />
-        </div>
-      ) : null}
-    </div>
-  );
-}
-
-function AdminVehicleFormSection({
-  title,
-  description,
-  fields,
-  formData,
-  onChange,
-}) {
-  return (
-    <section className="admin-form-section">
-      <div className="admin-form-section__heading">
-        <h2>{title}</h2>
-        <p>{description}</p>
-      </div>
-
-      <div className="admin-form__grid admin-form__grid--vehicle">
-        {fields.map((fieldName) => {
-          const field = ADMIN_VEHICLE_FIELDS_BY_NAME.get(fieldName);
-
-          if (!field) {
-            return null;
-          }
-
-          return (
-            <AdminVehicleInput
-              key={field.name}
-              field={field}
-              value={formData[field.name]}
-              onChange={onChange}
-            />
-          );
-        })}
-      </div>
-    </section>
-  );
 }
 
 function AdminVehicleForm() {
@@ -450,6 +309,7 @@ function AdminVehicleForm() {
               title={section.title}
               description={section.description}
               fields={section.fields}
+              fieldsByName={ADMIN_VEHICLE_FIELDS_BY_NAME}
               formData={formData}
               onChange={updateField}
             />
@@ -469,27 +329,15 @@ function AdminVehicleForm() {
               isUploading={isUploadingImage}
               onFileChange={handleImageFileChange}
               selectedImageLabel={selectedImageLabel}
+              imageField={VEHICLE_IMAGE_FIELD}
+              accept={VEHICLE_IMAGE_ACCEPT}
             />
           </section>
 
-          <div className="admin-form__notice">
-            <label className="admin-form__checkbox">
-              <input
-                type="checkbox"
-                checked={formData.novidade}
-                onChange={(event) =>
-                  updateField("novidade", event.target.checked)
-                }
-              />
-              Marcar como novidade
-            </label>
-
-            <p className="admin-form__hint">
-              Ativa esta opção se quiseres mostrar a badge "Novo" na viatura.
-            </p>
-
-          </div>
-
+          <AdminVehicleNoveltyToggle
+            checked={formData.novidade}
+            onChange={updateField}
+          />
           <FormError className="admin-form__error" message={error} />
 
           <div className="admin-form__actions">
