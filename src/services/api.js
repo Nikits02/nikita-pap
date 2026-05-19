@@ -1,4 +1,4 @@
-import { requestJson } from "./http";
+import { requestJson } from "../shared/services/http";
 
 function postJson(url, payload, errorMessage) {
   return requestJson(url, {

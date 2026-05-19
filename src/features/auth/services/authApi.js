@@ -1,0 +1,107 @@
+import { requestJson } from "../../../shared/services/http";
+
+const AUTH_SESSION_KEY = "auth_session";
+
+export function saveAuthSession(data) {
+  localStorage.setItem(
+    AUTH_SESSION_KEY,
+    JSON.stringify({
+      user: data.user,
+    }),
+  );
+}
+
+export function getAuthSession() {
+  const rawSession = localStorage.getItem(AUTH_SESSION_KEY);
+
+  if (!rawSession) {
+    return null;
+  }
+
+  try {
+    const parsedSession = JSON.parse(rawSession);
+
+    if (
+      !parsedSession ||
+      typeof parsedSession !== "object" ||
+      !parsedSession.user ||
+      typeof parsedSession.user !== "object"
+    ) {
+      clearAuthSession();
+      return null;
+    }
+
+    return parsedSession;
+  } catch {
+    clearAuthSession();
+    return null;
+  }
+}
+
+export function clearAuthSession() {
+  localStorage.removeItem(AUTH_SESSION_KEY);
+}
+
+export async function requestLogout() {
+  try {
+    await requestJson("/api/auth/logout", {
+      method: "POST",
+      errorMessage: "Não foi possível terminar a sessão.",
+    });
+  } catch {
+    // O cleanup local continua a ser feito mesmo se o pedido falhar.
+  }
+}
+
+export async function validateAuthSession() {
+  try {
+    const data = await requestJson("/api/auth/session", {
+      errorMessage: "Não foi possível validar a sessão.",
+    });
+
+    if (!data?.user) {
+      clearAuthSession();
+      return null;
+    }
+
+    saveAuthSession({ user: data.user });
+    return data.user;
+  } catch (error) {
+    if (error.status === 401 || error.status === 403) {
+      clearAuthSession();
+      return null;
+    }
+
+    return getAuthSession()?.user ?? null;
+  }
+}
+
+export function getDefaultRouteForUser() {
+  return "/conta";
+}
+
+export function getPostAuthRoute() {
+  return "/";
+}
+
+export async function login(payload) {
+  const data = await requestJson("/api/auth/login", {
+    method: "POST",
+    body: payload,
+    errorMessage: "Não foi possível iniciar sessão.",
+  });
+
+  saveAuthSession({ user: data.user });
+  return data;
+}
+
+export async function register(payload) {
+  const data = await requestJson("/api/auth/register", {
+    method: "POST",
+    body: payload,
+    errorMessage: "Não foi possível criar a conta.",
+  });
+
+  saveAuthSession({ user: data.user });
+  return data;
+}
