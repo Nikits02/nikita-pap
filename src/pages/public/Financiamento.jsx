@@ -8,8 +8,8 @@ import {
 } from "../../components/icons/CommonIcons";
 import CustomSelect from "../../components/form/CustomSelect";
 import TypedIcon from "../../components/icons/TypedIcon";
-import PageHero from "../../components/PageHero";
-import SitePage from "../../components/SitePage";
+import PageHero from "../../components/common/PageHero";
+import SitePage from "../../components/common/SitePage";
 import {
   financeBenefits,
   financeRequestFields,

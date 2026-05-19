@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { ArrowRightIcon } from "./icons/CommonIcons";
-import { formatEuro } from "../utils/format";
-import { getVehicleLabel } from "../utils/vehicle";
-import { getVehicleDetailPath } from "../utils/vehicleMeta";
+import { ArrowRightIcon } from "../icons/CommonIcons";
+import { formatEuro } from "../../utils/format";
+import { getVehicleLabel } from "../../utils/vehicle";
+import { getVehicleDetailPath } from "../../utils/vehicleMeta";
 
 function CarCard({ car }) {
   const formattedPrice = formatEuro(car.preco);

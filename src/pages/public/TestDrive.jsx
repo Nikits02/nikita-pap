@@ -6,8 +6,8 @@ import {
   CarSilhouetteIcon,
   CheckCircleIcon,
 } from "../../components/icons/CommonIcons";
-import PageHero from "../../components/PageHero";
-import SitePage from "../../components/SitePage";
+import PageHero from "../../components/common/PageHero";
+import SitePage from "../../components/common/SitePage";
 import TestDriveHourSelector from "../../components/test-drive/TestDriveHourSelector";
 import TestDrivePersonalFields from "../../components/test-drive/TestDrivePersonalFields";
 import useFormState from "../../hooks/useFormState";

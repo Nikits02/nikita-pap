@@ -2,8 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import BlogDetailOverlay from "../../components/blog/BlogDetailOverlay";
 import BlogPostCard from "../../components/blog/BlogPostCard";
-import PageHero from "../../components/PageHero";
-import SitePage from "../../components/SitePage";
+import PageHero from "../../components/common/PageHero";
+import SitePage from "../../components/common/SitePage";
 import { blogCategoryTabs } from "../../data/blog";
 import { blogPosts } from "../../data/blogPosts";
 

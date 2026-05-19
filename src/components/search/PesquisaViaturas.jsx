@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import CustomSelect from "./form/CustomSelect";
-import { SearchIcon } from "./icons/CommonIcons";
+import CustomSelect from "../form/CustomSelect";
+import { SearchIcon } from "../icons/CommonIcons";
 
 function SearchSelect({
   label,

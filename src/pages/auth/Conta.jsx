@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import PageHero from "../../components/PageHero";
-import SitePage from "../../components/SitePage";
+import PageHero from "../../components/common/PageHero";
+import SitePage from "../../components/common/SitePage";
 import { useAuth } from "../../hooks/useAuth";
 
 function Conta() {

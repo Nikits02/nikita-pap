@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
-import CarCard from "../../components/CarCard";
+import CarCard from "../../components/common/CarCard";
 import VehicleDetailInfoList from "../../components/vehicle/VehicleDetailInfoList";
 import VehicleDetailState from "../../components/vehicle/VehicleDetailState";
 import {
@@ -15,7 +15,7 @@ import {
 } from "../../components/icons/CommonIcons";
 import TypedIcon from "../../components/icons/TypedIcon";
 import { buildVehicleDetailRows } from "../../data/vehicleDetail";
-import SitePage from "../../components/SitePage";
+import SitePage from "../../components/common/SitePage";
 import { formatEuro } from "../../utils/format";
 import { buildUniqueVehicleText } from "../../utils/vehicle";
 import useVehicles from "../../hooks/useVehicles";

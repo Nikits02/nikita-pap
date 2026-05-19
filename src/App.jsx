@@ -1,9 +1,9 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ProtectedAuthRoute from "./components/ProtectedAuthRoute";
-import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
-import AppRouteEffects from "./components/AppRouteEffects";
-import SessionStatus from "./components/SessionStatus";
+import ProtectedAuthRoute from "./components/routing/ProtectedAuthRoute";
+import ProtectedAdminRoute from "./components/routing/ProtectedAdminRoute";
+import AppRouteEffects from "./components/routing/AppRouteEffects";
+import SessionStatus from "./components/routing/SessionStatus";
 import { AuthProvider } from "./context/AuthContext";
 
 const AdminContactMessages = lazy(

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { resumoTestemunhos, testemunhos } from "../data/testemunhos";
-import useCarouselIndex from "../hooks/useCarouselIndex";
-import useCarouselInteractions from "../hooks/useCarouselInteractions";
+import { resumoTestemunhos, testemunhos } from "../../data/testemunhos";
+import useCarouselIndex from "../../hooks/useCarouselIndex";
+import useCarouselInteractions from "../../hooks/useCarouselInteractions";
 
 const STAR_COUNT = 5;
 

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { formatEuro } from "../utils/format";
-import { getVehicleLabel } from "../utils/vehicle";
-import { getVehicleDetailPath } from "../utils/vehicleMeta";
+import { formatEuro } from "../../utils/format";
+import { getVehicleLabel } from "../../utils/vehicle";
+import { getVehicleDetailPath } from "../../utils/vehicleMeta";
 
 const MAX_LATEST_VEHICLES = 6;
 

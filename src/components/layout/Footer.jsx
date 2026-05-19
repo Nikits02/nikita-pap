@@ -1,13 +1,13 @@
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
-import BrandWordmark from "./BrandWordmark";
+import BrandWordmark from "../common/BrandWordmark";
 import {
   footerContactItems,
   footerSocialLinks,
   legalLinks,
-} from "../data/footer";
-import useVehicles from "../hooks/useVehicles";
-import { getFooterQuickLinks } from "../data/navigation";
+} from "../../data/footer";
+import useVehicles from "../../hooks/useVehicles";
+import { getFooterQuickLinks } from "../../data/navigation";
 import {
   FacebookIcon,
   InstagramIcon,
@@ -16,10 +16,10 @@ import {
   MailIcon,
   PhoneIcon,
   YouTubeIcon,
-} from "./icons/CommonIcons";
-import TypedIcon from "./icons/TypedIcon";
-import { useAuth } from "../hooks/useAuth";
-import { getVehicleLabel } from "../utils/vehicle";
+} from "../icons/CommonIcons";
+import TypedIcon from "../icons/TypedIcon";
+import { useAuth } from "../../hooks/useAuth";
+import { getVehicleLabel } from "../../utils/vehicle";
 
 const socialIcons = {
   facebook: FacebookIcon,

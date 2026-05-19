@@ -1,5 +1,5 @@
-import Footer from "./Footer";
-import Navbar from "./Navbar";
+import Footer from "../layout/Footer";
+import Navbar from "../layout/Navbar";
 
 function SitePage({ mainClassName = "page-shell", children }) {
   return (

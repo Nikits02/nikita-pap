@@ -1,6 +1,6 @@
 import { Navigate, useLocation } from "react-router-dom";
 import SessionStatus from "./SessionStatus";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth";
 
 function ProtectedAdminRoute({ children }) {
   const { hasAdminSession, isAuthReady } = useAuth();

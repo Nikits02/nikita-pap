@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import BrandWordmark from "./BrandWordmark";
-import { getVisibleNavigationLinks } from "../data/navigation";
-import { useAuth } from "../hooks/useAuth";
-import { getDefaultRouteForUser } from "../services/authApi";
+import BrandWordmark from "../common/BrandWordmark";
+import { getVisibleNavigationLinks } from "../../data/navigation";
+import { useAuth } from "../../hooks/useAuth";
+import { getDefaultRouteForUser } from "../../services/authApi";
 
 function Navbar() {
   const location = useLocation();

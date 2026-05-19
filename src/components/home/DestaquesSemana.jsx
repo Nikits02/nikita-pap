@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
-import useCarouselInteractions from "../hooks/useCarouselInteractions";
-import useCarouselIndex from "../hooks/useCarouselIndex";
-import { formatEuro } from "../utils/format";
-import { getVehicleLabel } from "../utils/vehicle";
+import useCarouselInteractions from "../../hooks/useCarouselInteractions";
+import useCarouselIndex from "../../hooks/useCarouselIndex";
+import { formatEuro } from "../../utils/format";
+import { getVehicleLabel } from "../../utils/vehicle";
 
 function DestaquesSemana({ vehicles = [], isLoading = false, error = "" }) {
   const slides = useMemo(

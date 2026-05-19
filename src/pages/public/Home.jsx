@@ -1,19 +1,19 @@
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import BrandWordmark from "../../components/BrandWordmark";
-import DestaquesSemana from "../../components/DestaquesSemana";
+import BrandWordmark from "../../components/common/BrandWordmark";
+import DestaquesSemana from "../../components/home/DestaquesSemana";
 import {
   CheckMarkIcon,
   ShieldIcon,
   StarIcon,
 } from "../../components/icons/CommonIcons";
 import TypedIcon from "../../components/icons/TypedIcon";
-import PesquisaViaturas from "../../components/PesquisaViaturas";
-import SectionDivider from "../../components/SectionDivider";
-import UltimasViaturas from "../../components/UltimasViaturas";
-import Testemunhos from "../../components/Testemunhos";
+import PesquisaViaturas from "../../components/search/PesquisaViaturas";
+import SectionDivider from "../../components/common/SectionDivider";
+import UltimasViaturas from "../../components/home/UltimasViaturas";
+import Testemunhos from "../../components/home/Testemunhos";
 import { homeInitialFilters, whyChooseItems } from "../../data/home";
-import SitePage from "../../components/SitePage";
+import SitePage from "../../components/common/SitePage";
 import useVehicles from "../../hooks/useVehicles";
 
 const whyChooseIcons = {

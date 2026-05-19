@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import PageHero from "../../components/PageHero";
-import SitePage from "../../components/SitePage";
+import PageHero from "../../components/common/PageHero";
+import SitePage from "../../components/common/SitePage";
 
 function NotFound() {
   return (
