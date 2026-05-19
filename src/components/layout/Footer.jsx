@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
-import BrandWordmark from "../common/BrandWordmark";
+import { BrandWordmark } from "../common";
 import {
   footerContactItems,
   footerSocialLinks,

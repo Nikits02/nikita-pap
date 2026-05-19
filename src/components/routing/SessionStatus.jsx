@@ -1,6 +1,5 @@
 import AdminPageShell from "../admin/AdminPageShell";
-import PageHero from "../common/PageHero";
-import SitePage from "../common/SitePage";
+import { PageHero, SitePage } from "../common";
 
 function SessionStatus({
   variant = "public",

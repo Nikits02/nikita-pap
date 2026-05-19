@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import BrandWordmark from "../common/BrandWordmark";
+import { BrandWordmark } from "../common";
 import { getVisibleNavigationLinks } from "../../data/navigation";
 import { useAuth } from "../../hooks/useAuth";
 import { getDefaultRouteForUser } from "../../services/authApi";

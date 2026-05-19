@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import SitePage from "../common/SitePage";
+import { SitePage } from "../common";
 
 function VehicleDetailState({ title, description, error }) {
   return (

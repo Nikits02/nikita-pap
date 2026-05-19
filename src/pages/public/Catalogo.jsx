@@ -1,10 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import CarCard from "../../components/common/CarCard";
+import { CarCard, PageHero, SitePage } from "../../components/common";
 import CustomSelect from "../../components/form/CustomSelect";
 import { SortAdjustIcon } from "../../components/icons/CommonIcons";
-import PageHero from "../../components/common/PageHero";
-import SitePage from "../../components/common/SitePage";
 import { catalogOrderOptions } from "../../data/catalog";
 import useVehicles from "../../hooks/useVehicles";
 import {

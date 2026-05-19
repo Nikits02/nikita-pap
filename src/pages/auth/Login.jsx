@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FormError, FormInputField } from "../../components/form/FormField";
-import PageHero from "../../components/common/PageHero";
-import SitePage from "../../components/common/SitePage";
+import { PageHero, SitePage } from "../../components/common";
 import { useAuth } from "../../hooks/useAuth";
 import useFormState from "../../hooks/useFormState";
 import {
