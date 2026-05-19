@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import AdminPageShell from "../../components/admin/AdminPageShell";
 import { FormError, FormInputField } from "../../components/form/FormField";
 import { ADMIN_HOME_PATH } from "../../data/adminNavigation";
 import { useAuth } from "../../hooks/useAuth";
 import useFormState from "../../hooks/useFormState";
+import useSubmitState from "../../hooks/useSubmitState";
 import { loginAdmin } from "../../services/adminApi";
 import { saveAuthSession } from "../../services/authApi";
 
@@ -15,8 +16,9 @@ function AdminLogin() {
     username: "",
     password: "",
   });
-  const [error, setError] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { error, isSubmitting, clearError, runSubmit } = useSubmitState(
+    "Não foi possível iniciar sessão.",
+  );
   const { hasAdminSession, isAuthReady, refreshSession } = useAuth();
   const redirectTo = location.state?.redirectTo ?? ADMIN_HOME_PATH;
 
@@ -27,14 +29,13 @@ function AdminLogin() {
   }, [hasAdminSession, isAuthReady, navigate, redirectTo]);
   function updateField(field, value) {
     if (error) {
-      setError("");
+      clearError();
     }
     updateFormField(field, value);
   }
   async function handleSubmit(event) {
     event.preventDefault();
-    try {
-      setIsSubmitting(true);
+    await runSubmit(async () => {
       const data = await loginAdmin({
         username: formData.username,
         password: formData.password,
@@ -43,11 +44,7 @@ function AdminLogin() {
       saveAuthSession(data);
       await refreshSession();
       navigate(redirectTo, { replace: true });
-    } catch (submitError) {
-      setError(submitError.message ?? "Não foi possível iniciar sessão.");
-    } finally {
-      setIsSubmitting(false);
-    }
+    });
   }
   return (
     <AdminPageShell title="Login Admin" narrow>

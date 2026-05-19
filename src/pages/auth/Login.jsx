@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FormError, FormInputField } from "../../components/form/FormField";
 import { PageHero, SitePage } from "../../components/common";
 import { useAuth } from "../../hooks/useAuth";
 import useFormState from "../../hooks/useFormState";
+import useSubmitState from "../../hooks/useSubmitState";
 import {
   getPostAuthRoute,
   login,
@@ -16,8 +17,9 @@ function Login() {
     identifier: "",
     password: "",
   });
-  const [error, setError] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { error, isSubmitting, clearError, runSubmit } = useSubmitState(
+    "Não foi possível iniciar sessão.",
+  );
   const { currentUser, isAuthReady, refreshSession } = useAuth();
 
   useEffect(() => {
@@ -28,7 +30,7 @@ function Login() {
 
   function updateField(field, value) {
     if (error) {
-      setError("");
+      clearError();
     }
 
     updateFormField(field, value);
@@ -37,9 +39,7 @@ function Login() {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    try {
-      setIsSubmitting(true);
-
+    await runSubmit(async () => {
       const data = await login({
         identifier: formData.identifier,
         password: formData.password,
@@ -49,11 +49,7 @@ function Login() {
       navigate(location.state?.redirectTo ?? getPostAuthRoute(data.user), {
         replace: true,
       });
-    } catch (submitError) {
-      setError(submitError.message ?? "Não foi possível iniciar sessão.");
-    } finally {
-      setIsSubmitting(false);
-    }
+    });
   }
 
   return (

@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FormError, FormInputField } from "../../components/form/FormField";
 import { PageHero, SitePage } from "../../components/common";
 import { useAuth } from "../../hooks/useAuth";
 import useFormState from "../../hooks/useFormState";
+import useSubmitState from "../../hooks/useSubmitState";
 import {
   getPostAuthRoute,
   register,
@@ -19,8 +20,8 @@ function Registo() {
     password: "",
     confirmPassword: "",
   });
-  const [error, setError] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { error, setError, isSubmitting, clearError, runSubmit } =
+    useSubmitState("Não foi possível criar a conta.");
   const { currentUser, isAuthReady, refreshSession } = useAuth();
 
   useEffect(() => {
@@ -31,7 +32,7 @@ function Registo() {
 
   function updateField(field, value) {
     if (error) {
-      setError("");
+      clearError();
     }
 
     updateFormField(field, value);
@@ -45,9 +46,7 @@ function Registo() {
       return;
     }
 
-    try {
-      setIsSubmitting(true);
-
+    await runSubmit(async () => {
       const data = await register({
         nome: formData.nome,
         username: formData.username,
@@ -57,11 +56,7 @@ function Registo() {
 
       await refreshSession();
       navigate(getPostAuthRoute(data.user), { replace: true });
-    } catch (submitError) {
-      setError(submitError.message ?? "Não foi possível criar a conta.");
-    } finally {
-      setIsSubmitting(false);
-    }
+    });
   }
 
   return (
