@@ -1,0 +1,6 @@
+@import "./catalogo/page.css";
+@import "./catalogo/filters.css";
+@import "./catalogo/grid.css";
+@import "./catalogo/card.css";
+@import "./catalogo/responsive.css";
+@import "./catalogo/overrides.css";
