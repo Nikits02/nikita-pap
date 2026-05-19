@@ -8,6 +8,14 @@
 
 .blog-page__hero { padding: var(--page-hero-padding-block) 0; }
 
+.blog-page__divider {
+  width: 100vw;
+  height: 1px;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  background: var(--surface-white-08);
+}
+
 .blog-page__eyebrow {
   margin: 0 0 1.8rem;
   color: var(--color-accent-rose-600);

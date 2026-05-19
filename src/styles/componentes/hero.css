@@ -11,9 +11,23 @@ section.page-hero h1 {
   font-weight: 700;
 }
 
+.contact-hero h1 {
+  margin: 0;
+  color: var(--site-white);
+  font-family: var(--font-family-serif);
+  font-size: clamp(2.8rem, 5vw, 4.6rem);
+  font-weight: 700;
+}
+
 section.page-hero > p:last-child {
   margin: var(--page-hero-description-margin-top) 0 0;
   color: var(--color-stone-300);
   font-size: var(--page-hero-description-size);
   line-height: 1.7;
+}
+
+.contact-hero p {
+  margin: 1.35rem 0 0;
+  color: var(--color-stone-300);
+  font-size: 1.1rem;
 }

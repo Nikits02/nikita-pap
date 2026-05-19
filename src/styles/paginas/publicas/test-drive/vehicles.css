@@ -1,3 +1,12 @@
+.test-drive-personal-grid,
+.test-drive-vehicle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  width: min(100%, 900px);
+  margin: 0 auto;
+}
+
 .test-drive-vehicle-card {
   padding: 0;
   border: 1px solid var(--surface-white-10);

@@ -1,3 +1,8 @@
+.contact-page {
+  margin-top: var(--page-section-margin-top);
+  margin-bottom: var(--page-section-margin-bottom);
+}
+
 .contact-hero,
 .contact-page__layout {
   border-top: var(--surface-divider);
@@ -35,6 +40,17 @@
   height: 2.55rem;
   border: 1px solid var(--color-accent-rose-border-42);
   color: var(--color-accent-rose-600);
+}
+
+.contact-info-item__icon svg,
+.contact-map-card__pin svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .contact-info-item span {

@@ -1,3 +1,8 @@
+.about-page {
+  margin-top: var(--page-section-margin-top);
+  margin-bottom: var(--page-section-margin-bottom);
+}
+
 .about-page__hero,
 .about-story {
   border-top: var(--surface-divider);

@@ -71,6 +71,28 @@
   padding: 1rem 0.7rem 0;
 }
 
+.weekly-highlight-card__brand {
+  display: block;
+  margin: 0;
+  color: var(--home-accent-red);
+  font-family: var(--type-label-family);
+  font-size: var(--type-label-size);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-letter-spacing);
+  line-height: var(--type-label-line-height);
+  text-transform: uppercase;
+}
+
+.weekly-highlight-card__title {
+  display: block;
+  margin: 0;
+  color: var(--site-white);
+  font-family: var(--type-display-family);
+  font-size: var(--type-display-size-lg);
+  font-weight: var(--type-display-weight);
+  line-height: var(--type-display-line-height);
+}
+
 .highlight-card__body h3 {
   margin: 0;
   font-size: 1.3rem;
