@@ -39,9 +39,7 @@ function Blog() {
 
   return (
     <>
-      <SitePage
-        mainClassName={`page-shell blog-page${slug ? " blog-page--modal-open" : ""}`}
-      >
+      <SitePage mainClassName="page-shell blog-page">
         <PageHero
           className="blog-page__hero"
           title="Blog"

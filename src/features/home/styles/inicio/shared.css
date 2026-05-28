@@ -1,21 +1,3 @@
-.empty-results {
-  padding: 2rem;
-  border: 1px dashed var(--color-rose-230);
-  border-radius: 20px;
-  background: var(--site-white);
-  text-align: center;
-}
-
-.empty-results h3,
-.empty-results p {
-  margin: 0;
-}
-
-.empty-results p {
-  margin-top: 0.6rem;
-  color: var(--ink-soft);
-}
-
 .home-section-divider {
   width: 100vw;
   height: 1px;

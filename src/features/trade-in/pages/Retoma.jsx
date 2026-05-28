@@ -22,6 +22,9 @@ import useFormState from "../../../shared/hooks/useFormState";
 import { createTradeInRequest } from "../services/tradeInApi";
 
 const currentYear = new Date().getFullYear();
+const MAX_TRADE_IN_MILEAGE = 150000;
+const MAX_TRADE_IN_MILEAGE_MESSAGE =
+  "Só aceitamos veículos até 150 000 km.";
 
 function CarStepIcon() {
   return (
@@ -55,12 +58,20 @@ function Retoma() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [vehicleConditionError, setVehicleConditionError] = useState("");
+  const [mileageError, setMileageError] = useState("");
   const [submitError, setSubmitError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   function updateField(field, value) {
     if (field === "estado" && vehicleConditionError) {
       setVehicleConditionError("");
+    }
+
+    if (field === "quilometragem") {
+      const mileage = Number(value);
+      setMileageError(
+        mileage > MAX_TRADE_IN_MILEAGE ? MAX_TRADE_IN_MILEAGE_MESSAGE : "",
+      );
     }
 
     if (submitError) {
@@ -78,6 +89,11 @@ function Retoma() {
 
     if (!formData.estado) {
       setVehicleConditionError("Selecione o estado geral da viatura.");
+      return;
+    }
+
+    if (formData.quilometragem > MAX_TRADE_IN_MILEAGE) {
+      setMileageError(MAX_TRADE_IN_MILEAGE_MESSAGE);
       return;
     }
 
@@ -180,10 +196,13 @@ function Retoma() {
                 label="Quilómetros *"
                 type="number"
                 min="0"
+                max={MAX_TRADE_IN_MILEAGE}
                 value={formData.quilometragem}
                 onChange={(event) =>
                   updateField("quilometragem", event.target.value)
                 }
+                error={mileageError}
+                errorClassName="tradein-field__error"
                 required
               />
 

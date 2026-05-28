@@ -16,15 +16,6 @@
   background: var(--surface-white-08);
 }
 
-.blog-page__eyebrow {
-  margin: 0 0 1.8rem;
-  color: var(--color-accent-rose-600);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-}
-
 .blog-page__hero h1,
 .blog-feature-card__content h2,
 .blog-list-card__body h3,

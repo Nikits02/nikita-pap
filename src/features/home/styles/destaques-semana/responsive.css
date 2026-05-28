@@ -40,26 +40,8 @@
     font-size: 1.6rem;
   }
 
-  .weekly-highlights__controls {
-    width: 100%;
-    justify-content: flex-end;
-  }
-
-  .highlight-card__price {
-    width: 78%;
-    font-size: 1.2rem;
-  }
-
   .highlight-card__body h3 {
     font-size: 1.2rem;
-  }
-
-  .highlight-card__version {
-    font-size: 0.88rem;
-  }
-
-  .highlight-card__stats {
-    grid-template-columns: 1fr;
   }
 
   .highlight-card {

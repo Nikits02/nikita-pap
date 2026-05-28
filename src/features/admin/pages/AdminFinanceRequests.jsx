@@ -255,7 +255,7 @@ function AdminFinanceRequests() {
                     `${formatEuro(financeRequest.prestacao_mensal)} EUR`,
                   ],
                   [
-                    "Montante Total",
+                    "Total das prestações",
                     `${formatEuro(financeRequest.montante_total)} EUR`,
                   ],
                   ["TAEG", `${financeRequest.taeg ?? "-"}%`],

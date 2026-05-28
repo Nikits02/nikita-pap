@@ -13,14 +13,6 @@
     grid-template-columns: 1fr;
   }
 
-  .latest-card__media img {
-    height: 220px;
-  }
-
-  .latest-card__meta {
-    grid-template-columns: 1fr;
-  }
-
   .latest-card .latest-card__title {
     font-size: var(--type-display-size-sm);
   }

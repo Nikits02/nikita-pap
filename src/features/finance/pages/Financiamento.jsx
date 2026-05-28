@@ -106,7 +106,7 @@ function Financiamento() {
   const vehicleSelectPlaceholder = isLoadingVehicles
     ? "A carregar viaturas..."
     : availableVehicles.length > 0
-      ? "Veículo de interesse"
+      ? "Viatura de interesse (opcional)"
       : "Sem viaturas disponíveis";
   useEffect(() => {
     setSimulation((current) => {
@@ -157,6 +157,7 @@ function Financiamento() {
     const nextPrice = vehiclePriceOptions[Number(value)];
 
     if (nextPrice) {
+      updateRequest("viatura", "");
       updateSimulation("preco", nextPrice);
     }
   }
@@ -214,7 +215,7 @@ function Financiamento() {
 
   const resultItems = [
     ["Prestação mensal", formatEuroAmount(result.prestacaoMensal)],
-    ["Montante total", formatEuroAmount(result.montanteTotal)],
+    ["Total das prestações", formatEuroAmount(result.montanteTotal)],
     ["TAEG", `${result.taeg.toFixed(1)}%`],
   ];
   return (

@@ -93,10 +93,3 @@
 .navbar__link.is-active::after {
   transform: scaleX(1);
 }
-
-.navbar__button {
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  appearance: none;
-}

@@ -120,7 +120,7 @@ export function getFinanceSimulationError({
   }
 
   if (montanteTotal + 1 < prestacaoMensal * meses) {
-    return "Montante total inválido.";
+    return "Total das prestações inválido.";
   }
 
   return null;

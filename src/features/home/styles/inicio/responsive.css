@@ -1,33 +1,10 @@
 @media (max-width: 1080px) {
-  .services-section__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .service-card--last {
-    grid-column: 2 / 3;
-  }
-
   .site-header--home .topbar {
     padding-bottom: 1.9rem;
   }
 }
 
 @media (max-width: 760px) {
-  .services-section {
-    padding: 3.2rem 0.9rem 1.8rem;
-  }
-
-  .services-section__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-  }
-
-  .service-card--last {
-    grid-column: 1 / -1;
-    max-width: 240px;
-    justify-self: center;
-  }
-
   .site-header--home {
     min-height: max(540px, 100svh);
     padding: 1.15rem 0.85rem 3rem;

@@ -136,7 +136,6 @@ const ADMIN_SUMMARY_QUERIES = {
     SELECT COUNT(*) AS total
     FROM trade_in_requests
     WHERE COALESCE(NULLIF(status, ''), 'new') = 'new'
-      AND COALESCE(is_viewed, 0) = 0
   `,
   finance: `
     SELECT COUNT(*) AS total

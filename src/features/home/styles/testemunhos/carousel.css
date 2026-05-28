@@ -32,9 +32,3 @@
 .testimonials-section__viewport.is-dragging .testimonials-section__track {
   transition: none;
 }
-
-.testimonials-section__grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.2rem;
-}

@@ -72,11 +72,6 @@
   background: var(--admin-surface);
 }
 
-.admin-lead-card__status.is-viewed {
-  color: var(--admin-ink);
-  background: var(--admin-surface-muted);
-}
-
 .admin-lead-card__status--scheduled {
   color: var(--admin-ink);
   background: var(--admin-notice-background);

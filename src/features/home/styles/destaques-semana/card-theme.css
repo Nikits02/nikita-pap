@@ -8,7 +8,6 @@
 }
 
 .weekly-highlights__brand-nikita,
-.highlight-card__stat-label,
 .weekly-highlight-card__price,
 .highlight-card__cta {
   color: var(--home-accent-red);
@@ -16,8 +15,7 @@
 
 .weekly-highlights__brand-motors,
 .weekly-highlights__header h2,
-.highlight-card__body h3,
-.highlight-card__stat strong {
+.highlight-card__body h3 {
   color: var(--site-white);
 }
 
@@ -126,15 +124,6 @@
   text-align: left;
 }
 
-.highlight-card__version {
-  color: var(--lux-gold);
-}
-
-.highlight-card__stat {
-  border-color: var(--lux-line);
-  background: var(--surface-white-04);
-}
-
 .weekly-highlight-card__copy {
   display: grid;
   align-content: start;
@@ -159,14 +148,6 @@
   text-transform: uppercase;
   position: static;
   z-index: auto;
-}
-
-.highlight-card__price {
-  background: linear-gradient(
-    90deg,
-    var(--color-brand-red-650) 0%,
-    var(--color-brand-red-350) 100%
-  );
 }
 
 .highlight-card__cta {

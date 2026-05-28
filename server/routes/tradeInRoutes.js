@@ -11,6 +11,10 @@ import {
 
 const router = express.Router();
 
+const MAX_TRADE_IN_MILEAGE = 150000;
+const MAX_TRADE_IN_MILEAGE_MESSAGE =
+  "Só aceitamos veículos até 150 000 km.";
+
 router.post("/trade-ins", async (req, res) => {
   try {
     const marca = normalizeText(req.body.marca);
@@ -44,6 +48,10 @@ router.post("/trade-ins", async (req, res) => {
 
     if (quilometragem < 0) {
       return res.status(400).json({ message: "Quilometragem inválida." });
+    }
+
+    if (quilometragem > MAX_TRADE_IN_MILEAGE) {
+      return res.status(400).json({ message: MAX_TRADE_IN_MILEAGE_MESSAGE });
     }
 
     await pool.query(

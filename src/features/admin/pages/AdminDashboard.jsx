@@ -14,7 +14,7 @@ const DASHBOARD_CARDS = [
   },
   {
     key: "tradeIns",
-    label: "Retomas por ver",
+    label: "Retomas sem decisão",
     description: "Pedidos de retoma ainda sem decisão.",
     path: "/admin/retomas",
   },
