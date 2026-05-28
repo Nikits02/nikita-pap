@@ -48,14 +48,14 @@ Forma curta:
 
 Forma prática:
 
-- `src/pages`
-  páginas principais
+- `src/features/*/pages`
+  páginas principais por área
 
-- `src/components`
+- `src/shared/components` e `src/features/*/components`
   componentes reutilizáveis
 
-- `src/services`
-  ligação frontend -> backend
+- `src/features/*/services`
+  ligação frontend -> backend por área
 
 - `server/routes`
   endpoints da API separados por área
@@ -103,10 +103,10 @@ Exemplo bom para mostrar que percebes:
 
 Se te pedirem para mostrar o código:
 
-1. abre [src/App.jsx](../src/App.jsx)
+1. abre [src/app/App.jsx](../src/app/App.jsx)
    para mostrar as rotas
 
-2. abre [src/services/api.js](../src/services/api.js)
+2. abre `src/features/*/services`
    para mostrar como o frontend chama a API
 
 3. abre [server/routes](../server/routes)
@@ -116,9 +116,9 @@ Se te pedirem para mostrar o código:
    para mostrar a ligação MySQL
 
 5. abre uma página concreta como:
-   - [src/pages/public/Retoma.jsx](../src/pages/public/Retoma.jsx)
-   - [src/pages/admin/AdminVehicles.jsx](../src/pages/admin/AdminVehicles.jsx)
-   - [src/pages/admin/AdminTradeIns.jsx](../src/pages/admin/AdminTradeIns.jsx)
+   - [src/features/trade-in/pages/Retoma.jsx](../src/features/trade-in/pages/Retoma.jsx)
+   - [src/features/admin/pages/AdminVehicles.jsx](../src/features/admin/pages/AdminVehicles.jsx)
+   - [src/features/admin/pages/AdminTradeIns.jsx](../src/features/admin/pages/AdminTradeIns.jsx)
 
 ## 8. Perguntas Que Te Podem Fazer
 
@@ -132,7 +132,7 @@ Resposta:
 
 Resposta:
 
-"A comunicação é feita por pedidos HTTP para endpoints da API. No projeto, essa ligação está centralizada nos ficheiros da pasta `src/services`."
+"A comunicação é feita por pedidos HTTP para endpoints da API. No projeto, essa ligação está separada nos ficheiros `services` de cada feature."
 
 ### "Como proteges a área admin?"
 

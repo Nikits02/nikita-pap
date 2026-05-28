@@ -7,7 +7,7 @@ import {
   sendTradeInStatusEmail,
 } from "../lib/notificacoesEmail.js";
 import { sendServerError } from "../lib/respostasHttp.js";
-import { authenticateAdmin } from "../middleware/exigirLoginAdmin.js";
+import { authenticateAdmin } from "../middleware/requireAdminLogin.js";
 import {
   getVehiclePayloadError,
   getVehicleValues,

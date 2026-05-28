@@ -1,253 +1,168 @@
 # Mapa do Projeto
 
-Este ficheiro serve para perceber rapidamente o que cada parte do projeto faz e para te ajudar a explicar o trabalho sem te perderes.
-
-## 1. Como Pensar o Projeto
-
-O projeto tem 3 blocos principais:
-
-1. Interface
-   Tudo o que o utilizador vê no browser.
-
-2. Lógica de comunicação
-   Funções que fazem pedidos ao backend.
-
-3. Backend + base de dados
-   Parte que valida, guarda, altera e devolve dados.
-
-Se pensares sempre nestes 3 blocos, o projeto fica muito mais fácil de explicar.
-
-## 2. Ordem Certa Para Ler o Projeto
-
-Se estiveres perdido, segue sempre esta ordem:
-
-1. [src/App.jsx](../src/App.jsx)
-   Mostra todas as rotas.
-
-2. [src/pages](../src/pages)
-   As páginas estão separadas por área: públicas, autenticação e admin.
-
-3. [src/components](../src/components)
-   Componentes reutilizados dentro das páginas.
-
-4. [src/services](../src/services)
-   Faz a ponte entre frontend e backend.
-
-5. [server/routes](../server/routes)
-   Mostra os endpoints separados por área.
-
-6. [server/index.js](../server/index.js)
-   Mostra o arranque do servidor e a ligação das rotas.
-
-7. [server/ligacaoBaseDados.js](../server/ligacaoBaseDados.js)
-   Ligação ao MySQL.
-
-## 3. O Que Está Em Cada Pasta
-
-### `src/pages`
-
-Aqui estão as páginas principais, separadas por contexto.
-
-Subpastas:
-- `public/` -> páginas abertas do site
-- `auth/` -> login, registo e área de conta
-- `admin/` -> painel de administração
-
-Exemplos:
-- `public/Home.jsx` -> página inicial
-- `public/Catalogo.jsx` -> lista de viaturas
-- `public/VeiculoDetalhe.jsx` -> detalhe de uma viatura
-- `public/Contacto.jsx` -> formulário de contacto
-- `public/Retoma.jsx` -> formulário de retoma
-- `public/TestDrive.jsx` -> pedido de test drive
-- `public/Sobre.jsx` -> página institucional
-- `auth/Login.jsx` -> login
-- `auth/Registo.jsx` -> registo
-- `auth/Conta.jsx` -> área privada do utilizador
-- `admin/AdminDashboard.jsx` -> resumo inicial do painel admin
-- `admin/AdminVehicles.jsx` -> painel admin de viaturas
-- `admin/AdminTradeIns.jsx` -> painel admin de retomas
-- `admin/AdminUsers.jsx` -> painel admin de utilizadores
-
-### `src/components`
-
-Componentes reutilizáveis.
-
-Subpastas importantes:
-- `admin/` -> layout do painel admin
-- `form/` -> campos e selects reutilizáveis
-- `icons/` -> ícones SVG
-- `blog/` -> componentes da área de blog
-- `vehicle/` -> componentes do detalhe de viatura
-- `test-drive/` -> componentes específicos do test drive
-
-### `src/data`
-
-Conteúdo estático ou configurações simples.
-
-Exemplos:
-- `navigation.js` -> links da navbar/footer
-- `about.js` -> conteúdo da página Sobre
-- `footer.js` -> dados do footer
-- `contact.js` -> opções da página Contacto
-- `tradeIn.js` -> opções e passos da página Retoma
-- `adminVehicleFields.js` -> campos do formulário admin
-
-### `src/hooks`
-
-Hooks reutilizáveis.
-
-Os mais importantes:
-- `useVehicles.js` -> carrega viaturas do backend
-- `useFormState.js` -> ajuda a gerir formulários
-- `useDismissableLayer.js` -> fechar menus/dropdowns
-
-### `src/services`
-
-Aqui está a comunicação HTTP.
-
-- `http.js` -> função base `requestJson`
-- `api.js` -> pedidos normais do site
-- `authApi.js` -> login/registo/sessão
-- `adminApi.js` -> pedidos autenticados do admin
-
-### `src/utils`
-
-Funções auxiliares.
-
-Exemplos:
-- `vehicleMeta.js` -> enrich dos dados da viatura
-- `vehicle.js` -> labels e texto único de viaturas
-- `format.js` -> formatação de preço e outros
-- `date.js` -> datas
-
-### `server/lib`
-
-Helpers do backend.
-
-Exemplos:
-- `dadosFormularioViatura.js` -> normalização/validação do payload das viaturas
-- `uploadImagemViatura.js` -> upload de imagens
-
-### `server/middleware`
-
-- `exigirLoginAdmin.js` -> protege rotas admin com JWT
-
-### `server/routes`
-
-Rotas Express separadas por responsabilidade.
-
-- `rotasPublicas.js` -> viaturas, contacto, test drive, retoma e financiamento
-- `rotasAutenticacao.js` -> login, registo, logout e validação de sessão
-- `rotasAdmin.js` -> endpoints protegidos do painel de administração
-
-## 4. Fluxo de Dados Mais Importante
-
-Exemplo: Catálogo
-
-1. O utilizador abre `/catalogo`
-2. A página usa `useVehicles()`
-3. `useVehicles()` chama `fetchVehicles()`
-4. `fetchVehicles()` usa `requestJson("/api/vehicles")`
-5. O backend responde com dados da tabela `vehicles`
-6. O frontend transforma esses dados e mostra os cards
-
-Este mesmo raciocínio aplica-se a retomas, contacto e admin.
-
-## 5. Rotas do Frontend
-
-Públicas:
-- `/`
-- `/catalogo`
-- `/viaturas/:slug`
-- `/contacto`
-- `/financiamento`
-- `/retoma`
-- `/blog`
-- `/test-drive`
-- `/sobre`
-- `/registo`
-- `/login`
-- `*` página 404 para rotas inexistentes
-
-Protegidas:
-- `/financiamento`
-- `/retoma`
-- `/test-drive`
-- `/conta`
-- `/admin/*`
-
-## 6. Rotas do Backend
-
-Públicas:
-- `GET /api/health`
-- `GET /api/vehicles`
-- `POST /api/contact`
-- `POST /api/test-drives`
-- `POST /api/trade-ins`
-- `POST /api/auth/register`
-- `POST /api/auth/login`
-- `POST /api/admin/login`
-
-Admin:
-- `GET /api/admin/vehicles`
-- `GET /api/admin/vehicles/:id`
-- `POST /api/admin/vehicles`
-- `PUT /api/admin/vehicles/:id`
-- `DELETE /api/admin/vehicles/:id`
-- `POST /api/admin/uploads/vehicle-image`
-- `GET /api/admin/trade-ins`
-- `PATCH /api/admin/trade-ins/:id`
-- `DELETE /api/admin/trade-ins/:id`
-- `GET /api/admin/users`
-- `DELETE /api/admin/users/:id`
-
-## 7. Como Explicar o Projeto a Um Professor
-
-Explicação curta:
-
-"No frontend usei React com componentes reutilizáveis, páginas separadas e hooks para carregar dados. No backend usei Express e MySQL para guardar viaturas, utilizadores e pedidos feitos pelos formulários. O admin usa autenticação por token e permite gerir o conteúdo do projeto."
-
-Explicação por camadas:
-
-- Apresentação:
-  páginas, componentes, CSS
-
-- Lógica:
-  hooks, utils, services
-
-- Persistência:
-  backend, endpoints, MySQL
-
-## 8. O Que Abrir Consoante a Pergunta
-
-Se te perguntarem...
-
-"Onde estão as páginas?"
-- abre `src/pages`
-
-"Onde são feitas as chamadas a API?"
-- abre `src/services`
-
-"Onde é feito o login?"
-- abre `src/pages/auth/Login.jsx`, `src/pages/admin/AdminLogin.jsx`, `src/services/authApi.js`, `src/services/adminApi.js`
-
-"Onde é protegido o admin?"
-- abre `src/components/ProtectedAdminRoute.jsx` e `server/middleware/exigirLoginAdmin.js`
-
-"Onde são guardadas as retomas?"
-- abre `src/pages/public/Retoma.jsx`, `src/services/api.js` e `server/routes/rotasPublicas.js`
-
-"Onde se gerem viaturas?"
-- abre `src/pages/admin/AdminVehicles.jsx`, `src/pages/admin/AdminVehicleForm.jsx` e `server/routes/rotasAdmin.js`
-
-## 9. O Que Eu Mudaria Mais Tarde
-
-Se um dia quiseres refatorar com calma, os próximos passos de organização seriam:
-
-1. criar uma pasta `features/` com módulos por área
-2. juntar CSS por feature
-3. separar melhor a lógica admin da lógica pública
-4. extrair componentes menores das páginas admin mais longas
-
-Mas, para já, a forma mais segura de organizar e manter a estrutura atual simples, com páginas por área, services centralizados e rotas do backend separadas.
+O projeto esta organizado por areas. A regra e simples: tudo o que pertence a uma area fica dentro da feature dessa area.
+
+Para um mapa visual com graficos, abre [CODE_ORGANIZATION_MAP.md](CODE_ORGANIZATION_MAP.md).
+
+## Estrutura Principal
+
+```text
+src/
+  app/
+    App.jsx
+
+  features/
+    home/
+    blog/
+    vehicles/
+    contact/
+    finance/
+    trade-in/
+    test-drive/
+    auth/
+    admin/
+    about/
+    not-found/
+
+  shared/
+    components/
+    hooks/
+    services/
+
+  styles/
+    base/
+    componentes/
+    layout/
+    variaveis/
+    index.css
+
+server/
+  index.js
+  routes/
+  middleware/
+  lib/
+  tests/
+```
+
+## Estrutura De Uma Feature
+
+Cada feature pode ter estas pastas, mas so mantém as que realmente usa. Nao ha pastas vazias so para completar a estrutura.
+
+```text
+feature-name/
+  pages/       paginas dessa area
+  components/  componentes especificos dessa area
+  data/        textos, listas e configuracoes
+  hooks/       logica React reutilizavel
+  services/    chamadas HTTP
+  styles/      CSS dessa area
+  utils/       funcoes auxiliares
+```
+
+Exemplo: se a feature `about` nao precisa de `services`, essa pasta nao existe.
+
+- `pages`: paginas completas que aparecem nas rotas.
+- `components`: partes pequenas usadas pelas paginas.
+- `data`: textos, listas e configuracoes da area.
+- `hooks`: logica React reutilizavel.
+- `services`: chamadas HTTP dessa area.
+- `styles`: CSS dessa area.
+- `utils`: funcoes auxiliares dessa area.
+
+## Onde Esta Cada Area
+
+```text
+Home              -> src/features/home
+Blog              -> src/features/blog
+Catalogo          -> src/features/vehicles
+Detalhe viatura   -> src/features/vehicles
+Contacto          -> src/features/contact
+Financiamento     -> src/features/finance
+Retoma            -> src/features/trade-in
+Test drive        -> src/features/test-drive
+Login/registo     -> src/features/auth
+Admin             -> src/features/admin
+Sobre             -> src/features/about
+404               -> src/features/not-found
+```
+
+## Services Do Frontend
+
+As chamadas API ja nao estao num ficheiro generico. Agora cada area tem o seu service:
+
+```text
+src/features/vehicles/services/vehiclesApi.js
+src/features/contact/services/contactApi.js
+src/features/finance/services/financeApi.js
+src/features/trade-in/services/tradeInApi.js
+src/features/test-drive/services/testDriveApi.js
+src/features/auth/services/authApi.js
+src/features/admin/services/adminApi.js
+```
+
+Todas usam a funcao base:
+
+```text
+src/shared/services/http.js
+```
+
+## Backend
+
+O backend tambem esta separado por areas:
+
+```text
+server/routes/
+  healthRoutes.js
+  vehicleRoutes.js
+  contactRoutes.js
+  financeRoutes.js
+  testDriveRoutes.js
+  tradeInRoutes.js
+  authRoutes.js
+  adminRoutes.js
+  publicRouteHelpers.js
+```
+
+Middleware:
+
+```text
+server/middleware/
+  requireUserLogin.js
+  requireAdminLogin.js
+  authRateLimit.js
+```
+
+## Fluxo Mais Importante
+
+Exemplo: catalogo.
+
+```text
+Catalogo.jsx
+  -> useVehicles.js
+  -> vehiclesApi.js
+  -> requestJson()
+  -> GET /api/vehicles
+  -> vehicleRoutes.js
+  -> tabela vehicles no MySQL
+```
+
+Exemplo: retoma.
+
+```text
+Retoma.jsx
+  -> tradeInApi.js
+  -> requestJson()
+  -> POST /api/trade-ins
+  -> tradeInRoutes.js
+  -> tabela trade_in_requests no MySQL
+```
+
+## Ordem Para Estudar
+
+1. `src/app/App.jsx`
+2. `src/features/*/pages`
+3. `src/features/*/services`
+4. `src/shared/services/http.js`
+5. `server/index.js`
+6. `server/routes`
+7. `server/ligacaoBaseDados.js`

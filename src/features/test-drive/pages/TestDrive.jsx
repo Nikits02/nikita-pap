@@ -12,7 +12,7 @@ import TestDrivePersonalFields from "../components/TestDrivePersonalFields";
 import useFormState from "../../../shared/hooks/useFormState";
 import useTestDriveAvailability from "../hooks/useTestDriveAvailability";
 import useVehicles from "../../vehicles/hooks/useVehicles";
-import { createTestDrive } from "../../../services/api";
+import { createTestDrive } from "../services/testDriveApi";
 import { getTodayDateString } from "../../../utils/date";
 import { getVehicleLabel } from "../../vehicles/utils/vehicle";
 

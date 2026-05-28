@@ -1,4 +1,4 @@
-﻿# NikitaMotors
+# NikitaMotors
 
 Projeto PAP desenvolvido com React + Vite no frontend e Node.js + Express + MySQL no backend.
 
@@ -18,7 +18,7 @@ Frontend:
 - React
 - React Router
 - Vite
-- CSS dividido por áreas/páginas
+- CSS dividido por feature/área
 
 Backend:
 - Node.js
@@ -81,25 +81,17 @@ Nota:
 
 ```text
 src/
-  components/   componentes reutilizáveis
-  data/         dados estáticos e configurações simples
-  hooks/        hooks reutilizáveis
-  pages/        páginas organizadas por área
-    admin/      páginas do painel de administração
-    auth/       login, registo e conta
-    public/     páginas públicas do site
-  services/     chamadas HTTP para a API
-  styles/       tokens, estilos globais e estilos por página
-    components/ estilos de componentes partilhados
-    pages/      estilos específicos de áreas/páginas
-  utils/        funções auxiliares
+  app/          arranque das rotas React
+  features/     áreas do projeto: home, vehicles, admin, auth, etc.
+  shared/       componentes, hooks e serviços partilhados
+  styles/       tokens, estilos globais, layout e imports centrais
 
 server/
   index.js      arranque do servidor Express
   ligacaoBaseDados.js  ligação à base de dados
   lib/          lógica auxiliar do backend
   middleware/   middleware de autenticação
-  routes/       endpoints públicos, autenticação e admin
+  routes/       endpoints separados por área
   uploads/      imagens carregadas
 ```
 
@@ -107,20 +99,20 @@ server/
 
 Se quiseres perceber o projeto depressa, abre por esta ordem:
 
-1. [src/App.jsx](src/App.jsx)
+1. [src/app/App.jsx](src/app/App.jsx)
    Aqui estão todas as rotas do site e do admin.
 
-2. [src/pages](src/pages)
-   Cada ficheiro corresponde a uma página.
+2. [src/features](src/features)
+   Cada pasta corresponde a uma área do projeto.
 
-3. [src/services](src/services)
-   Aqui vês como o frontend comunica com o backend.
+3. `src/features/*/services`
+   Aqui vês como cada área comunica com o backend.
 
 4. [server/routes](server/routes)
    Aqui estão os endpoints, validações principais e operações na base de dados.
 
-5. [src/components](src/components)
-   Componentes reutilizáveis usados pelas páginas.
+5. [src/shared](src/shared)
+   Componentes, hooks e serviços reutilizáveis.
 
 ## Páginas do Frontend
 
@@ -157,16 +149,16 @@ Admin:
 
 ### 1. Catálogo de viaturas
 
-- o frontend chama `fetchVehicles()` em [src/services/api.js](src/services/api.js)
+- o frontend chama `fetchVehicles()` em [src/features/vehicles/services/vehiclesApi.js](src/features/vehicles/services/vehiclesApi.js)
 - essa chamada vai para `GET /api/vehicles`
 - o backend responde com as viaturas da base de dados
-- no frontend, o hook [src/hooks/useVehicles.js](src/hooks/useVehicles.js) normaliza os dados e acrescenta meta-informação
+- no frontend, o hook [src/features/vehicles/hooks/useVehicles.js](src/features/vehicles/hooks/useVehicles.js) normaliza os dados e acrescenta meta-informação
 
 ### 2. Detalhe da viatura
 
 - a rota usa o `slug`
 - o hook `useVehicles()` carrega as viaturas
-- a página [src/pages/public/VeiculoDetalhe.jsx](src/pages/public/VeiculoDetalhe.jsx) encontra a viatura correta e mostra os detalhes
+- a página [src/features/vehicles/pages/VeiculoDetalhe.jsx](src/features/vehicles/pages/VeiculoDetalhe.jsx) encontra a viatura correta e mostra os detalhes
 
 ### 3. Formulário de contacto
 
@@ -221,31 +213,21 @@ Tabelas principais usadas no projeto:
 
 Os estilos estão divididos por responsabilidade:
 
-Base:
-- [src/styles/colors.css](src/styles/colors.css)
-- [src/styles/tokens.css](src/styles/tokens.css)
-- [src/styles/typography.css](src/styles/typography.css)
-- [src/styles/surfaces.css](src/styles/surfaces.css)
+Globais:
+- [src/styles/variaveis](src/styles/variaveis)
+- [src/styles/base](src/styles/base)
+- [src/styles/layout](src/styles/layout)
+- [src/styles/componentes](src/styles/componentes)
 
-Componentes partilhados:
-- [src/styles/components/SitePage.css](src/styles/components/SitePage.css)
-- [src/styles/components/PageHero.css](src/styles/components/PageHero.css)
-- [src/styles/components/Navbar.css](src/styles/components/Navbar.css)
-- [src/styles/components/Footer.css](src/styles/components/Footer.css)
-- [src/styles/components/SharedPatterns.css](src/styles/components/SharedPatterns.css)
-
-Por página/área:
-- [src/styles/pages/AdminPageShell.css](src/styles/pages/AdminPageShell.css)
-- [src/styles/pages/AuthPages.css](src/styles/pages/AuthPages.css)
-- [src/styles/pages/blog.css](src/styles/pages/blog.css)
-- [src/styles/pages/Catalogo.css](src/styles/pages/Catalogo.css)
-- [src/styles/pages/Contacto.css](src/styles/pages/Contacto.css)
-- [src/styles/pages/Financiamento.css](src/styles/pages/Financiamento.css)
-- [src/styles/pages/home.css](src/styles/pages/home.css)
-- [src/styles/pages/Retoma.css](src/styles/pages/Retoma.css)
-- [src/styles/pages/Sobre.css](src/styles/pages/Sobre.css)
-- [src/styles/pages/TestDrive.css](src/styles/pages/TestDrive.css)
-- [src/styles/pages/VeiculoDetalhe.css](src/styles/pages/VeiculoDetalhe.css)
+Por feature:
+- [src/features/home/styles](src/features/home/styles)
+- [src/features/vehicles/styles](src/features/vehicles/styles)
+- [src/features/admin/styles](src/features/admin/styles)
+- [src/features/auth/styles](src/features/auth/styles)
+- [src/features/contact/styles](src/features/contact/styles)
+- [src/features/finance/styles](src/features/finance/styles)
+- [src/features/trade-in/styles](src/features/trade-in/styles)
+- [src/features/test-drive/styles](src/features/test-drive/styles)
 
 Tudo é importado a partir de [src/styles/index.css](src/styles/index.css).
 
@@ -257,11 +239,15 @@ Resumo simples:
 
 Se quiseres uma explicação mais detalhada da arquitetura, abre:
 - [docs/PROJECT_MAP.md](docs/PROJECT_MAP.md)
+- [docs/CODE_ORGANIZATION_MAP.md](docs/CODE_ORGANIZATION_MAP.md)
 
 ## Documentação Disponível
 
 - [docs/PROJECT_MAP.md](docs/PROJECT_MAP.md)
   Mapa geral do projeto: pastas, ficheiros importantes, rotas e forma certa de ler o código.
+
+- [docs/CODE_ORGANIZATION_MAP.md](docs/CODE_ORGANIZATION_MAP.md)
+  Mapa visual com gráficos simples do fluxo frontend -> backend -> base de dados.
 
 - [docs/API_REFERENCE.md](docs/API_REFERENCE.md)
   Lista dos endpoints do backend, o que recebem e o que devolvem.

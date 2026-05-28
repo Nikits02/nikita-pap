@@ -11,12 +11,12 @@ import {
 import { fetchFirstRow } from "../lib/consultasBaseDados.js";
 import { sendServerError } from "../lib/respostasHttp.js";
 import { isValidEmail } from "../lib/validacoesFormularios.js";
-import { authenticateRequest } from "../middleware/exigirLoginUtilizador.js";
+import { authenticateRequest } from "../middleware/requireUserLogin.js";
 import {
   authRateLimit,
   clearAuthAttempts,
   registerAuthAttempt,
-} from "../middleware/limiteTentativasLogin.js";
+} from "../middleware/authRateLimit.js";
 
 const router = express.Router();
 

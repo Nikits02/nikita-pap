@@ -1,4 +1,4 @@
-﻿# Base de Dados
+# Base de Dados
 
 Este ficheiro explica a base de dados do projeto de forma simples.
 
@@ -163,25 +163,25 @@ Isto significa que o servidor:
 
 - tabela: `contact_messages`
 - frontend:
-  `src/pages/public/Contacto.jsx` -> `createContactMessage()`
+  `src/features/contact/pages/Contacto.jsx` -> `createContactMessage()`
 
 ### Test Drive
 
 - tabela: `test_drives`
 - frontend:
-  `src/pages/public/TestDrive.jsx` -> `createTestDrive()`
+  `src/features/test-drive/pages/TestDrive.jsx` -> `createTestDrive()`
 
 ### Retoma
 
 - tabela: `trade_in_requests`
 - frontend:
-  `src/pages/public/Retoma.jsx` -> `createTradeInRequest()`
+  `src/features/trade-in/pages/Retoma.jsx` -> `createTradeInRequest()`
 
 ### Financiamento
 
 - tabela: `finance_requests`
 - frontend:
-  `src/pages/public/Financiamento.jsx` -> `createFinanceRequest()`
+  `src/features/finance/pages/Financiamento.jsx` -> `createFinanceRequest()`
 
 ### Painel Admin
 

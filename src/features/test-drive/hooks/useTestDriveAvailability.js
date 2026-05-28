@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchTestDriveAvailability } from "../../../services/api";
+import { fetchTestDriveAvailability } from "../services/testDriveApi";
 
 function useTestDriveAvailability(date) {
   const [bookedHours, setBookedHours] = useState([]);

@@ -1,4 +1,4 @@
-﻿# Roteiro da Demo PAP
+# Roteiro da Demo PAP
 
 Este roteiro é para a parte prática da apresentação. A ideia é mostrares o projeto como se fosses apresentar um produto real, sem saltar de página em página ao acaso.
 
@@ -196,23 +196,23 @@ Abre o editor e mostra só 4 ficheiros. Não abras ficheiros ao acaso.
 
 Ordem recomendada:
 
-1. `src/App.jsx`
+1. `src/app/App.jsx`
    Mostra as rotas e a separação entre públicas, autenticadas e admin.
 
-2. `src/services/api.js`
+2. `src/features/*/services/*Api.js`
    Mostra a ponte entre frontend e backend.
 
-3. `server/routes/rotasPublicas.js`
+3. `server/routes/*Routes.js`
    Mostra validações e endpoints públicos.
 
-4. `server/routes/rotasAdmin.js`
+4. `server/routes/adminRoutes.js`
    Mostra endpoints protegidos do painel admin.
 
 Se sobrar tempo:
 
 - `server/ligacaoBaseDados.js` para mostrar a ligação MySQL;
 - `server/lib/prepararBaseDados.js` para mostrar a criação/atualização das tabelas;
-- `server/middleware/exigirLoginAdmin.js` para mostrar proteção admin.
+- `server/middleware/requireAdminLogin.js` para mostrar proteção admin.
 
 Tempo: 2 minutos.
 
@@ -227,7 +227,7 @@ Se o backend falhar:
 - mostra a interface;
 - abre `docs/API_REFERENCE.md`;
 - explica os endpoints;
-- mostra `server/routes/rotasPublicas.js` e `server/routes/rotasAdmin.js`.
+- mostra `server/routes/*Routes.js` e `server/routes/adminRoutes.js`.
 
 Se a base de dados falhar:
 
@@ -238,7 +238,7 @@ Se a base de dados falhar:
 Se o login falhar:
 
 - mostra `server/scripts/criarContaAdmin.js`;
-- mostra `server/middleware/exigirLoginAdmin.js`;
+- mostra `server/middleware/requireAdminLogin.js`;
 - explica como a sessão é validada.
 
 Se uma imagem falhar:

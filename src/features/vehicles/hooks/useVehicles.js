@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchVehicles } from "../../../services/api";
+import { fetchVehicles } from "../services/vehiclesApi";
 import { mapVehiclesWithMeta } from "../utils/vehicleMeta";
 
 function useVehicles() {

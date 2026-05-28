@@ -19,7 +19,7 @@ import {
   tradeInVehicleConditionOptions,
 } from "../data/tradeIn";
 import useFormState from "../../../shared/hooks/useFormState";
-import { createTradeInRequest } from "../../../services/api";
+import { createTradeInRequest } from "../services/tradeInApi";
 
 const currentYear = new Date().getFullYear();
 

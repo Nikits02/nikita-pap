@@ -1,4 +1,4 @@
-﻿# API Reference
+# API Reference
 
 Este ficheiro documenta a API do backend de forma simples e prática.
 
@@ -245,7 +245,7 @@ Todos estes endpoints exigem uma sessão autenticada de administrador.
 A validação principal é feita por cookie de sessão `HttpOnly`.
 
 O acesso é validado em:
-- [server/middleware/exigirLoginAdmin.js](../server/middleware/exigirLoginAdmin.js)
+- [server/middleware/requireAdminLogin.js](../server/middleware/requireAdminLogin.js)
 
 ### `POST /api/admin/uploads/vehicle-image`
 
@@ -342,16 +342,28 @@ Objetivo:
 
 Camadas:
 
-1. `src/services/http.js`
+1. `src/shared/services/http.js`
    Faz o pedido HTTP base.
 
-2. `src/services/api.js`
-   Endpoints públicos.
+2. `src/features/vehicles/services/vehiclesApi.js`
+   Viaturas.
 
-3. `src/services/authApi.js`
+3. `src/features/contact/services/contactApi.js`
+   Contacto.
+
+4. `src/features/finance/services/financeApi.js`
+   Financiamento.
+
+5. `src/features/trade-in/services/tradeInApi.js`
+   Retomas.
+
+6. `src/features/test-drive/services/testDriveApi.js`
+   Test drives.
+
+7. `src/features/auth/services/authApi.js`
    Login, registo, validação da sessão e persistência local do utilizador.
 
-4. `src/services/adminApi.js`
+8. `src/features/admin/services/adminApi.js`
    Endpoints protegidos do admin suportados por sessão via cookie.
 
 ## 4. Erros e Mensagens

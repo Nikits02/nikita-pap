@@ -26,7 +26,8 @@ import TestDrivePersonalFields from "../../test-drive/components/TestDrivePerson
 import useFormState from "../../../shared/hooks/useFormState";
 import useTestDriveAvailability from "../../test-drive/hooks/useTestDriveAvailability";
 import useVehicles from "../../vehicles/hooks/useVehicles";
-import { createContactMessage, createTestDrive } from "../../../services/api";
+import { createContactMessage } from "../services/contactApi";
+import { createTestDrive } from "../../test-drive/services/testDriveApi";
 import { getTodayDateString } from "../../../utils/date";
 import { getVehicleLabel } from "../../vehicles/utils/vehicle";
 import { getVehicleBySlug } from "../../vehicles/utils/vehicleMeta";

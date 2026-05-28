@@ -16,7 +16,7 @@ import {
 } from "../data/finance";
 import useFormState from "../../../shared/hooks/useFormState";
 import useVehicles from "../../vehicles/hooks/useVehicles";
-import { createFinanceRequest } from "../../../services/api";
+import { createFinanceRequest } from "../services/financeApi";
 import { formatRoundedNumber } from "../../../utils/format";
 import { getVehicleLabel } from "../../vehicles/utils/vehicle";
 const benefitIcons = {

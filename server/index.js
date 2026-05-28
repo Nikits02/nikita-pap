@@ -11,9 +11,14 @@ import {
   ensureVehicleUploadDirectory,
   VEHICLE_UPLOADS_ROOT_DIR,
 } from "./lib/uploadImagemViatura.js";
-import rotasPublicas from "./routes/rotasPublicas.js";
-import rotasAutenticacao from "./routes/rotasAutenticacao.js";
-import rotasAdmin from "./routes/rotasAdmin.js";
+import adminRoutes from "./routes/adminRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+import contactRoutes from "./routes/contactRoutes.js";
+import financeRoutes from "./routes/financeRoutes.js";
+import healthRoutes from "./routes/healthRoutes.js";
+import testDriveRoutes from "./routes/testDriveRoutes.js";
+import tradeInRoutes from "./routes/tradeInRoutes.js";
+import vehicleRoutes from "./routes/vehicleRoutes.js";
 
 const app = express();
 const port = Number(process.env.PORT) || 3002;
@@ -66,9 +71,14 @@ app.disable("x-powered-by");
 app.use(cors(buildCorsOptions()));
 app.use(express.json({ limit: "10mb" }));
 app.use("/uploads", express.static(VEHICLE_UPLOADS_ROOT_DIR));
-app.use("/api", rotasPublicas);
-app.use("/api", rotasAutenticacao);
-app.use("/api", rotasAdmin);
+app.use("/api", healthRoutes);
+app.use("/api", vehicleRoutes);
+app.use("/api", contactRoutes);
+app.use("/api", financeRoutes);
+app.use("/api", testDriveRoutes);
+app.use("/api", tradeInRoutes);
+app.use("/api", authRoutes);
+app.use("/api", adminRoutes);
 
 Promise.all([
   ensureAuthTables(),
