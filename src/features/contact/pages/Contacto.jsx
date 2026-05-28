@@ -75,7 +75,10 @@ function Contacto() {
     bookedHours,
     error: availabilityError,
     isLoading: isLoadingAvailability,
-  } = useTestDriveAvailability(isTestDriveFlow ? formData.dataPreferida : "");
+  } = useTestDriveAvailability(
+    isTestDriveFlow ? formData.dataPreferida : "",
+    isTestDriveFlow ? veiculoParam : "",
+  );
 
   function updateField(field, value) {
     if (field === "horaPreferida") {

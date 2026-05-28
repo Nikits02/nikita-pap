@@ -1,5 +1,6 @@
 import { requestJson } from "../../../shared/services/http";
 import { clearAuthSession } from "../../auth/services/authApi";
+import { clearVehiclesCache } from "../../vehicles/services/vehiclesApi";
 
 const ADMIN_SESSION_EXPIRED_MESSAGE = "Sessão expirada.";
 const ADMIN_SESSION_ERROR_MESSAGES = new Set([
@@ -32,6 +33,13 @@ export function loginAdmin(payload) {
     body: payload,
     errorMessage: "Erro no login admin.",
   });
+}
+
+export function fetchAdminDashboardSummary() {
+  return requestAdminJson(
+    "/api/admin/summary",
+    "Não foi possível carregar o resumo.",
+  );
 }
 
 export function fetchAdminVehicles() {
@@ -159,13 +167,16 @@ export function fetchAdminVehicle(id) {
   );
 }
 
-export function createAdminVehicle(payload) {
-  return requestAdminJson(
+export async function createAdminVehicle(payload) {
+  const vehicle = await requestAdminJson(
     "/api/admin/vehicles",
     "Não foi possível criar a viatura.",
     "POST",
     payload,
   );
+
+  clearVehiclesCache();
+  return vehicle;
 }
 
 export function uploadAdminVehicleImage(payload) {
@@ -177,19 +188,25 @@ export function uploadAdminVehicleImage(payload) {
   );
 }
 
-export function updateAdminVehicle(id, payload) {
-  return requestAdminJson(
+export async function updateAdminVehicle(id, payload) {
+  const vehicle = await requestAdminJson(
     `/api/admin/vehicles/${id}`,
     "Não foi possível atualizar a viatura.",
     "PUT",
     payload,
   );
+
+  clearVehiclesCache();
+  return vehicle;
 }
 
-export function deleteAdminVehicle(id) {
-  return requestAdminJson(
+export async function deleteAdminVehicle(id) {
+  const result = await requestAdminJson(
     `/api/admin/vehicles/${id}`,
     "Não foi possível eliminar a viatura.",
     "DELETE",
   );
+
+  clearVehiclesCache();
+  return result;
 }

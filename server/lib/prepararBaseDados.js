@@ -28,6 +28,30 @@ async function ensureTableIndex(tableName, indexName, indexDefinitionSql) {
   }
 }
 
+async function ensureTestDriveSlotIndex() {
+  const indexName = "unique_test_drive_slot";
+  const expectedColumns = ["vehicle_slug", "data_preferida", "hora_preferida"];
+  const indexes = await fetchRows("SHOW INDEX FROM test_drives WHERE Key_name = ?", [
+    indexName,
+  ]);
+  const currentColumns = indexes
+    .sort((firstIndex, secondIndex) => firstIndex.Seq_in_index - secondIndex.Seq_in_index)
+    .map((index) => index.Column_name);
+
+  if (
+    currentColumns.length > 0 &&
+    currentColumns.join("|") !== expectedColumns.join("|")
+  ) {
+    await pool.query(`ALTER TABLE test_drives DROP INDEX ${indexName}`);
+  }
+
+  await ensureTableIndex(
+    "test_drives",
+    indexName,
+    `UNIQUE INDEX ${indexName} (${expectedColumns.join(", ")})`,
+  );
+}
+
 export async function ensureAuthTables() {
   await pool.query(`
     CREATE TABLE IF NOT EXISTS admins (
@@ -140,11 +164,7 @@ export async function ensureLeadTables() {
     SET hora_preferida = LEFT(hora_preferida, 5)
     WHERE LENGTH(hora_preferida) > 5
   `);
-  await ensureTableIndex(
-    "test_drives",
-    "unique_test_drive_slot",
-    "UNIQUE INDEX unique_test_drive_slot (data_preferida, hora_preferida)",
-  );
+  await ensureTestDriveSlotIndex();
 
   await pool.query(`
     CREATE TABLE IF NOT EXISTS contact_messages (

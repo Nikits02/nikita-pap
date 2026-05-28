@@ -17,24 +17,49 @@ import {
 
 const router = express.Router();
 
+async function getExistingVehicleFromSlug(vehicleSlug) {
+  const vehicleLookup = getVehicleLookupFromSlug(vehicleSlug);
+
+  if (!vehicleLookup) {
+    return null;
+  }
+
+  return fetchFirstRow(
+    "SELECT id FROM vehicles WHERE id = ? AND source = ? LIMIT 1",
+    [vehicleLookup.id, vehicleLookup.source],
+  );
+}
+
 router.get("/test-drives/availability", async (req, res) => {
   try {
     const date = normalizeText(req.query.date);
+    const vehicleSlug = normalizeText(req.query.vehicleSlug);
+
+    if (!vehicleSlug) {
+      return res.status(400).json({ message: "Viatura em falta." });
+    }
 
     if (!isDateTodayOrFuture(date)) {
       return res.status(400).json({ message: "Data inválida." });
     }
 
+    const vehicle = await getExistingVehicleFromSlug(vehicleSlug);
+
+    if (!vehicle) {
+      return res.status(404).json({ message: "Viatura não encontrada." });
+    }
+
     const bookedSlots = await fetchRows(
       `SELECT DISTINCT LEFT(hora_preferida, 5) AS hour
        FROM test_drives
-       WHERE data_preferida = ?
+       WHERE vehicle_slug = ? AND data_preferida = ?
        ORDER BY hour ASC`,
-      [date],
+      [vehicleSlug, date],
     );
 
     return res.json({
       date,
+      vehicleSlug,
       bookedHours: bookedSlots.map((slot) => slot.hour),
     });
   } catch (error) {
@@ -84,27 +109,18 @@ router.post("/test-drives", async (req, res) => {
       return res.status(400).json({ message: "Hora inválida." });
     }
 
-    const vehicleLookup = getVehicleLookupFromSlug(vehicleSlug);
-
-    if (!vehicleLookup) {
-      return res.status(400).json({ message: "Viatura inválida." });
-    }
-
-    const vehicle = await fetchFirstRow(
-      "SELECT id FROM vehicles WHERE id = ? AND source = ? LIMIT 1",
-      [vehicleLookup.id, vehicleLookup.source],
-    );
+    const vehicle = await getExistingVehicleFromSlug(vehicleSlug);
 
     if (!vehicle) {
-      return res.status(404).json({ message: "Viatura não encontrada." });
+      return res.status(400).json({ message: "Viatura inválida." });
     }
 
     const existingTestDrive = await fetchFirstRow(
       `SELECT id
        FROM test_drives
-       WHERE data_preferida = ? AND LEFT(hora_preferida, 5) = ?
+       WHERE vehicle_slug = ? AND data_preferida = ? AND LEFT(hora_preferida, 5) = ?
        LIMIT 1`,
-      [dataPreferida, horaPreferida],
+      [vehicleSlug, dataPreferida, horaPreferida],
     );
 
     if (existingTestDrive) {

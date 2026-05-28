@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { fetchTestDriveAvailability } from "../services/testDriveApi";
 
-function useTestDriveAvailability(date) {
+function useTestDriveAvailability(date, vehicleSlug) {
   const [bookedHours, setBookedHours] = useState([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (!date) {
+    if (!date || !vehicleSlug) {
       setBookedHours([]);
       setError("");
       setIsLoading(false);
@@ -20,7 +20,7 @@ function useTestDriveAvailability(date) {
       try {
         setIsLoading(true);
         setError("");
-        const availability = await fetchTestDriveAvailability(date);
+        const availability = await fetchTestDriveAvailability(date, vehicleSlug);
 
         if (isCurrent) {
           setBookedHours(availability.bookedHours ?? []);
@@ -42,7 +42,7 @@ function useTestDriveAvailability(date) {
     return () => {
       isCurrent = false;
     };
-  }, [date]);
+  }, [date, vehicleSlug]);
 
   return { bookedHours, error, isLoading };
 }

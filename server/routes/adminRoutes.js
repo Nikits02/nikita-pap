@@ -130,6 +130,31 @@ const ADMIN_DELETE_ROUTES = [
   ],
 ];
 
+const ADMIN_SUMMARY_QUERIES = {
+  vehicles: "SELECT COUNT(*) AS total FROM vehicles",
+  tradeIns: `
+    SELECT COUNT(*) AS total
+    FROM trade_in_requests
+    WHERE COALESCE(NULLIF(status, ''), 'new') = 'new'
+      AND COALESCE(is_viewed, 0) = 0
+  `,
+  finance: `
+    SELECT COUNT(*) AS total
+    FROM finance_requests
+    WHERE COALESCE(NULLIF(status, ''), 'new') = 'new'
+  `,
+  testDrives: `
+    SELECT COUNT(*) AS total
+    FROM test_drives
+    WHERE COALESCE(NULLIF(status, ''), 'new') = 'new'
+  `,
+  contacts: `
+    SELECT COUNT(*) AS total
+    FROM contact_messages
+    WHERE COALESCE(NULLIF(status, ''), 'new') = 'new'
+  `,
+};
+
 function registerAdminListRoute(path, query, logMessage, clientMessage) {
   router.get(path, authenticateAdmin, async (_req, res) => {
     try {
@@ -170,6 +195,12 @@ function registerAdminDeleteRoute(
 
 function normalizeAdminText(value) {
   return typeof value === "string" ? value.trim() : "";
+}
+
+async function fetchAdminSummaryCount(query) {
+  const row = await fetchFirstRow(query);
+
+  return Number(row?.total ?? 0);
 }
 
 async function updateAdminLeadRecord({
@@ -271,6 +302,34 @@ router.post("/admin/uploads/vehicle-image", authenticateAdmin, async (req, res) 
 });
 
 ADMIN_LIST_ROUTES.forEach((routeConfig) => registerAdminListRoute(...routeConfig));
+
+router.get("/admin/summary", authenticateAdmin, async (_req, res) => {
+  try {
+    const [vehicles, tradeIns, finance, testDrives, contacts] =
+      await Promise.all([
+        fetchAdminSummaryCount(ADMIN_SUMMARY_QUERIES.vehicles),
+        fetchAdminSummaryCount(ADMIN_SUMMARY_QUERIES.tradeIns),
+        fetchAdminSummaryCount(ADMIN_SUMMARY_QUERIES.finance),
+        fetchAdminSummaryCount(ADMIN_SUMMARY_QUERIES.testDrives),
+        fetchAdminSummaryCount(ADMIN_SUMMARY_QUERIES.contacts),
+      ]);
+
+    return res.json({
+      vehicles,
+      tradeIns,
+      finance,
+      testDrives,
+      contacts,
+    });
+  } catch (error) {
+    return sendServerError(
+      res,
+      "Erro ao buscar resumo do admin",
+      "Erro ao buscar resumo.",
+      error,
+    );
+  }
+});
 
 router.patch("/admin/trade-ins/:id", authenticateAdmin, async (req, res) =>
   updateAdminLeadRecord({

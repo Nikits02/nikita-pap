@@ -2,17 +2,8 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AdminPageShell from "../components/AdminPageShell";
 import AdminSectionLinks from "../components/AdminSectionLinks";
-import {
-  fetchAdminContactMessages,
-  fetchAdminFinanceRequests,
-  fetchAdminTestDrives,
-  fetchAdminTradeIns,
-  fetchAdminVehicles,
-} from "../services/adminApi";
-import {
-  getAdminLeadStatus,
-  handleAdminSessionError,
-} from "../utils/admin";
+import { fetchAdminDashboardSummary } from "../services/adminApi";
+import { handleAdminSessionError } from "../utils/admin";
 
 const DASHBOARD_CARDS = [
   {
@@ -47,27 +38,17 @@ const DASHBOARD_CARDS = [
   },
 ];
 
-function countNewRecords(records) {
-  return records.filter((record) => getAdminLeadStatus(record.status) === "new")
-    .length;
-}
-
-function countNewTradeIns(tradeIns) {
-  return tradeIns.filter(
-    (tradeIn) =>
-      getAdminLeadStatus(tradeIn.status) === "new" && !tradeIn.is_viewed,
-  ).length;
-}
+const EMPTY_SUMMARY = {
+  vehicles: 0,
+  tradeIns: 0,
+  finance: 0,
+  testDrives: 0,
+  contacts: 0,
+};
 
 function AdminDashboard() {
   const navigate = useNavigate();
-  const [summary, setSummary] = useState({
-    vehicles: 0,
-    tradeIns: 0,
-    finance: 0,
-    testDrives: 0,
-    contacts: 0,
-  });
+  const [summary, setSummary] = useState(EMPTY_SUMMARY);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -77,27 +58,12 @@ function AdminDashboard() {
     async function loadDashboard() {
       try {
         setIsLoading(true);
-        const [
-          vehicles,
-          tradeIns,
-          financeRequests,
-          testDrives,
-          contactMessages,
-        ] = await Promise.all([
-          fetchAdminVehicles(),
-          fetchAdminTradeIns(),
-          fetchAdminFinanceRequests(),
-          fetchAdminTestDrives(),
-          fetchAdminContactMessages(),
-        ]);
+        const loadedSummary = await fetchAdminDashboardSummary();
 
         if (isMounted) {
           setSummary({
-            vehicles: vehicles.length,
-            tradeIns: countNewTradeIns(tradeIns),
-            finance: countNewRecords(financeRequests),
-            testDrives: countNewRecords(testDrives),
-            contacts: countNewRecords(contactMessages),
+            ...EMPTY_SUMMARY,
+            ...loadedSummary,
           });
         }
       } catch (loadError) {

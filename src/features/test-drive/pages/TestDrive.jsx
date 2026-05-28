@@ -42,7 +42,7 @@ function TestDrive() {
     bookedHours,
     error: availabilityError,
     isLoading: isLoadingAvailability,
-  } = useTestDriveAvailability(formData.dataPreferida);
+  } = useTestDriveAvailability(formData.dataPreferida, formData.vehicleSlug);
 
   const todayDate = useMemo(() => getTodayDateString(), []);
   const orderedVehicles = useMemo(
