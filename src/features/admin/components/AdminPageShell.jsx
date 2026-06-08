@@ -14,14 +14,9 @@ function AdminPageShell({
   const { logout } = useAuth();
   const hasSessionActions = showLogout || showBackToSite;
 
-  async function handleLogout() {
-    await logout();
-    navigate("/admin/login", {
-      replace: true,
-      state: {
-        notice: "Sessão de administrador terminada com sucesso.",
-      },
-    });
+  function handleLogout() {
+    void logout();
+    navigate("/", { replace: true });
   }
 
   return (
