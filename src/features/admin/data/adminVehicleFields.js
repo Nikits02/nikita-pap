@@ -1,3 +1,5 @@
+const CURRENT_YEAR = new Date().getFullYear();
+
 export const adminVehicleFields = [
   {
     name: "source",
@@ -50,8 +52,9 @@ export const adminVehicleFields = [
     label: "Ano *",
     type: "number",
     min: "1900",
-    max: "2100",
+    max: String(CURRENT_YEAR),
     placeholder: "Ex.: 2023",
+    hint: `O ano nao pode ser superior a ${CURRENT_YEAR}.`,
     required: true,
   },
   {

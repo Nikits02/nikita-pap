@@ -61,6 +61,15 @@ test("getVehiclePayloadError rejects invalid vehicle source values", () => {
   );
 });
 
+test("getVehiclePayloadError rejects vehicle years in the future", () => {
+  const nextYear = new Date().getFullYear() + 1;
+
+  assert.equal(
+    getVehiclePayloadError({ ...validVehiclePayload, ano: nextYear }),
+    "Ano inválido.",
+  );
+});
+
 test("getVehicleValues keeps database values in VEHICLE_FIELDS order", () => {
   const values = getVehicleValues(validVehiclePayload);
 

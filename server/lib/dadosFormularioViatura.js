@@ -25,6 +25,7 @@ export const VEHICLE_INSERT_PLACEHOLDERS_SQL = VEHICLE_FIELDS.map(() => "?").joi
 export const VEHICLE_UPDATE_ASSIGNMENTS_SQL = VEHICLE_FIELDS.map(
   (field) => `${field} = ?`,
 ).join(", ");
+const MIN_VEHICLE_YEAR = 1900;
 
 export function normalizeVehiclePayload(payload = {}) {
   return {
@@ -62,6 +63,17 @@ export function getVehiclePayloadError(vehicle) {
 
   if (!["stock", "highlight", "catalog"].includes(vehicle.source)) {
     return "Source inválido.";
+  }
+
+  const vehicleYear = Number(vehicle.ano);
+  const currentYear = new Date().getFullYear();
+
+  if (
+    !Number.isInteger(vehicleYear) ||
+    vehicleYear < MIN_VEHICLE_YEAR ||
+    vehicleYear > currentYear
+  ) {
+    return "Ano inválido.";
   }
 
   return null;
