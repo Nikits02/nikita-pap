@@ -24,6 +24,7 @@ import { PageHero, SitePage } from "../../../shared/components/ui";
 import TestDriveHourSelector from "../../test-drive/components/TestDriveHourSelector";
 import TestDrivePersonalFields from "../../test-drive/components/TestDrivePersonalFields";
 import useFormState from "../../../shared/hooks/useFormState";
+import useSubmitState from "../../../shared/hooks/useSubmitState";
 import useTestDriveAvailability from "../../test-drive/hooks/useTestDriveAvailability";
 import useVehicles from "../../vehicles/hooks/useVehicles";
 import { createContactMessage } from "../services/contactApi";
@@ -68,8 +69,16 @@ function Contacto() {
   const [submitted, setSubmitted] = useState(false);
   const [testDriveError, setTestDriveError] = useState("");
   const [contactError, setContactError] = useState("");
-  const [submitError, setSubmitError] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const {
+    error: submitError,
+    isSubmitting,
+    clearError: clearSubmitError,
+    runSubmit,
+  } = useSubmitState(
+    isTestDriveFlow
+      ? "Não foi possível enviar o pedido de teste drive."
+      : "Não foi possível enviar a mensagem.",
+  );
   const [todayDate] = useState(() => getTodayDateString());
   const {
     bookedHours,
@@ -90,7 +99,7 @@ function Contacto() {
     }
 
     if (submitError) {
-      setSubmitError("");
+      clearSubmitError();
     }
 
     updateFormField(field, value);
@@ -127,9 +136,7 @@ function Contacto() {
       return;
     }
 
-    try {
-      setIsSubmitting(true);
-
+    await runSubmit(async () => {
       if (isTestDriveFlow) {
         await createTestDrive({
           vehicleSlug: veiculoParam,
@@ -151,16 +158,7 @@ function Contacto() {
       }
 
       setSubmitted(true);
-    } catch (error) {
-      setSubmitError(
-        error.message ??
-          (isTestDriveFlow
-            ? "Não foi possível enviar o pedido de teste drive."
-            : "Não foi possível enviar a mensagem."),
-      );
-    } finally {
-      setIsSubmitting(false);
-    }
+    });
   }
 
   return (

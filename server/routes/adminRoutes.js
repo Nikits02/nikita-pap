@@ -41,93 +41,93 @@ const ADMIN_DECISION_STATUSES = new Set([
 ]);
 
 const ADMIN_LIST_ROUTES = [
-  [
-    "/admin/vehicles",
-    VEHICLE_SELECT_ORDER_QUERY,
-    "Erro ao buscar viaturas do admin",
-    "Erro ao buscar viaturas.",
-  ],
-  [
-    "/admin/trade-ins",
-    buildOrderedTableQuery("trade_in_requests"),
-    "Erro ao buscar pedidos de retoma",
-    "Erro ao buscar pedidos de retoma.",
-  ],
-  [
-    "/admin/test-drives",
-    buildOrderedTableQuery("test_drives"),
-    "Erro ao buscar pedidos de test drive",
-    "Erro ao buscar pedidos de test drive.",
-  ],
-  [
-    "/admin/contact-messages",
-    buildOrderedTableQuery("contact_messages"),
-    "Erro ao buscar mensagens de contacto",
-    "Erro ao buscar mensagens de contacto.",
-  ],
-  [
-    "/admin/finance-requests",
-    buildOrderedTableQuery("finance_requests"),
-    "Erro ao buscar pedidos de financiamento",
-    "Erro ao buscar pedidos de financiamento.",
-  ],
-  [
-    "/admin/users",
-    buildOrderedTableQuery("users", "id, nome, username, email, created_at"),
-    "Erro ao buscar utilizadores",
-    "Erro ao buscar utilizadores.",
-  ],
+  {
+    path: "/admin/vehicles",
+    query: VEHICLE_SELECT_ORDER_QUERY,
+    logMessage: "Erro ao buscar viaturas do admin",
+    clientMessage: "Erro ao buscar viaturas.",
+  },
+  {
+    path: "/admin/trade-ins",
+    query: buildOrderedTableQuery("trade_in_requests"),
+    logMessage: "Erro ao buscar pedidos de retoma",
+    clientMessage: "Erro ao buscar pedidos de retoma.",
+  },
+  {
+    path: "/admin/test-drives",
+    query: buildOrderedTableQuery("test_drives"),
+    logMessage: "Erro ao buscar pedidos de test drive",
+    clientMessage: "Erro ao buscar pedidos de test drive.",
+  },
+  {
+    path: "/admin/contact-messages",
+    query: buildOrderedTableQuery("contact_messages"),
+    logMessage: "Erro ao buscar mensagens de contacto",
+    clientMessage: "Erro ao buscar mensagens de contacto.",
+  },
+  {
+    path: "/admin/finance-requests",
+    query: buildOrderedTableQuery("finance_requests"),
+    logMessage: "Erro ao buscar pedidos de financiamento",
+    clientMessage: "Erro ao buscar pedidos de financiamento.",
+  },
+  {
+    path: "/admin/users",
+    query: buildOrderedTableQuery("users", "id, nome, username, email, created_at"),
+    logMessage: "Erro ao buscar utilizadores",
+    clientMessage: "Erro ao buscar utilizadores.",
+  },
 ];
 
 const ADMIN_DELETE_ROUTES = [
-  [
-    "/admin/contact-messages/:id",
-    "contact_messages",
-    "Mensagem de contacto não encontrada.",
-    "Mensagem eliminada com sucesso.",
-    "Erro ao eliminar mensagem de contacto",
-    "Erro ao eliminar mensagem de contacto.",
-  ],
-  [
-    "/admin/finance-requests/:id",
-    "finance_requests",
-    "Pedido de financiamento não encontrado.",
-    "Pedido de financiamento eliminado com sucesso.",
-    "Erro ao eliminar pedido de financiamento",
-    "Erro ao eliminar pedido de financiamento.",
-  ],
-  [
-    "/admin/trade-ins/:id",
-    "trade_in_requests",
-    "Pedido de retoma não encontrado.",
-    "Pedido de retoma eliminado com sucesso.",
-    "Erro ao eliminar pedido de retoma",
-    "Erro ao eliminar pedido de retoma.",
-  ],
-  [
-    "/admin/test-drives/:id",
-    "test_drives",
-    "Pedido de test drive não encontrado.",
-    "Pedido de test drive eliminado com sucesso.",
-    "Erro ao eliminar pedido de test drive",
-    "Erro ao eliminar pedido de test drive.",
-  ],
-  [
-    "/admin/users/:id",
-    "users",
-    "Utilizador não encontrado.",
-    "Utilizador eliminado com sucesso.",
-    "Erro ao eliminar utilizador",
-    "Erro ao eliminar utilizador.",
-  ],
-  [
-    "/admin/vehicles/:id",
-    "vehicles",
-    "Viatura não encontrada.",
-    "Viatura eliminada com sucesso.",
-    "Erro ao eliminar viatura",
-    "Erro ao eliminar viatura.",
-  ],
+  {
+    path: "/admin/contact-messages/:id",
+    tableName: "contact_messages",
+    notFoundMessage: "Mensagem de contacto não encontrada.",
+    successMessage: "Mensagem eliminada com sucesso.",
+    logMessage: "Erro ao eliminar mensagem de contacto",
+    clientMessage: "Erro ao eliminar mensagem de contacto.",
+  },
+  {
+    path: "/admin/finance-requests/:id",
+    tableName: "finance_requests",
+    notFoundMessage: "Pedido de financiamento não encontrado.",
+    successMessage: "Pedido de financiamento eliminado com sucesso.",
+    logMessage: "Erro ao eliminar pedido de financiamento",
+    clientMessage: "Erro ao eliminar pedido de financiamento.",
+  },
+  {
+    path: "/admin/trade-ins/:id",
+    tableName: "trade_in_requests",
+    notFoundMessage: "Pedido de retoma não encontrado.",
+    successMessage: "Pedido de retoma eliminado com sucesso.",
+    logMessage: "Erro ao eliminar pedido de retoma",
+    clientMessage: "Erro ao eliminar pedido de retoma.",
+  },
+  {
+    path: "/admin/test-drives/:id",
+    tableName: "test_drives",
+    notFoundMessage: "Pedido de test drive não encontrado.",
+    successMessage: "Pedido de test drive eliminado com sucesso.",
+    logMessage: "Erro ao eliminar pedido de test drive",
+    clientMessage: "Erro ao eliminar pedido de test drive.",
+  },
+  {
+    path: "/admin/users/:id",
+    tableName: "users",
+    notFoundMessage: "Utilizador não encontrado.",
+    successMessage: "Utilizador eliminado com sucesso.",
+    logMessage: "Erro ao eliminar utilizador",
+    clientMessage: "Erro ao eliminar utilizador.",
+  },
+  {
+    path: "/admin/vehicles/:id",
+    tableName: "vehicles",
+    notFoundMessage: "Viatura não encontrada.",
+    successMessage: "Viatura eliminada com sucesso.",
+    logMessage: "Erro ao eliminar viatura",
+    clientMessage: "Erro ao eliminar viatura.",
+  },
 ];
 
 const ADMIN_SUMMARY_QUERIES = {
@@ -154,7 +154,7 @@ const ADMIN_SUMMARY_QUERIES = {
   `,
 };
 
-function registerAdminListRoute(path, query, logMessage, clientMessage) {
+function registerAdminListRoute({ path, query, logMessage, clientMessage }) {
   router.get(path, authenticateAdmin, async (_req, res) => {
     try {
       return res.json(await fetchRows(query));
@@ -164,14 +164,14 @@ function registerAdminListRoute(path, query, logMessage, clientMessage) {
   });
 }
 
-function registerAdminDeleteRoute(
+function registerAdminDeleteRoute({
   path,
   tableName,
   notFoundMessage,
   successMessage,
   logMessage,
   clientMessage,
-) {
+}) {
   router.delete(path, authenticateAdmin, async (req, res) => {
     try {
       const existingRecord = await fetchFirstRow(
@@ -200,6 +200,17 @@ async function fetchAdminSummaryCount(query) {
   const row = await fetchFirstRow(query);
 
   return Number(row?.total ?? 0);
+}
+
+async function fetchAdminSummary() {
+  const summaryEntries = await Promise.all(
+    Object.entries(ADMIN_SUMMARY_QUERIES).map(async ([key, query]) => [
+      key,
+      await fetchAdminSummaryCount(query),
+    ]),
+  );
+
+  return Object.fromEntries(summaryEntries);
 }
 
 async function updateAdminLeadRecord({
@@ -300,26 +311,11 @@ router.post("/admin/uploads/vehicle-image", authenticateAdmin, async (req, res) 
   }
 });
 
-ADMIN_LIST_ROUTES.forEach((routeConfig) => registerAdminListRoute(...routeConfig));
+ADMIN_LIST_ROUTES.forEach(registerAdminListRoute);
 
 router.get("/admin/summary", authenticateAdmin, async (_req, res) => {
   try {
-    const [vehicles, tradeIns, finance, testDrives, contacts] =
-      await Promise.all([
-        fetchAdminSummaryCount(ADMIN_SUMMARY_QUERIES.vehicles),
-        fetchAdminSummaryCount(ADMIN_SUMMARY_QUERIES.tradeIns),
-        fetchAdminSummaryCount(ADMIN_SUMMARY_QUERIES.finance),
-        fetchAdminSummaryCount(ADMIN_SUMMARY_QUERIES.testDrives),
-        fetchAdminSummaryCount(ADMIN_SUMMARY_QUERIES.contacts),
-      ]);
-
-    return res.json({
-      vehicles,
-      tradeIns,
-      finance,
-      testDrives,
-      contacts,
-    });
+    return res.json(await fetchAdminSummary());
   } catch (error) {
     return sendServerError(
       res,
@@ -481,8 +477,6 @@ router.put("/admin/vehicles/:id", authenticateAdmin, async (req, res) => {
   }
 });
 
-ADMIN_DELETE_ROUTES.forEach((routeConfig) =>
-  registerAdminDeleteRoute(...routeConfig),
-);
+ADMIN_DELETE_ROUTES.forEach(registerAdminDeleteRoute);
 
 export default router;

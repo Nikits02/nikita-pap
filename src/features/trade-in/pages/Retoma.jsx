@@ -19,6 +19,7 @@ import {
   tradeInVehicleConditionOptions,
 } from "../data/tradeIn";
 import useFormState from "../../../shared/hooks/useFormState";
+import useSubmitState from "../../../shared/hooks/useSubmitState";
 import { createTradeInRequest } from "../services/tradeInApi";
 
 const currentYear = new Date().getFullYear();
@@ -59,8 +60,12 @@ function Retoma() {
   const [submitted, setSubmitted] = useState(false);
   const [vehicleConditionError, setVehicleConditionError] = useState("");
   const [mileageError, setMileageError] = useState("");
-  const [submitError, setSubmitError] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const {
+    error: submitError,
+    isSubmitting,
+    clearError: clearSubmitError,
+    runSubmit,
+  } = useSubmitState("Não foi possível enviar o pedido de retoma.");
 
   function updateField(field, value) {
     if (field === "estado" && vehicleConditionError) {
@@ -75,7 +80,7 @@ function Retoma() {
     }
 
     if (submitError) {
-      setSubmitError("");
+      clearSubmitError();
     }
 
     updateFormField(
@@ -97,17 +102,10 @@ function Retoma() {
       return;
     }
 
-    try {
-      setIsSubmitting(true);
+    await runSubmit(async () => {
       await createTradeInRequest(formData);
       setSubmitted(true);
-    } catch (error) {
-      setSubmitError(
-        error.message ?? "Não foi possível enviar o pedido de retoma.",
-      );
-    } finally {
-      setIsSubmitting(false);
-    }
+    });
   }
 
   return (

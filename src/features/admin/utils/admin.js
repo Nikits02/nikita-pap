@@ -59,6 +59,26 @@ export function matchesAdminSearch(values, searchTerm) {
   return searchableText.includes(normalizedSearchTerm);
 }
 
+export function getAdminNotificationNotice(record, statusesWithEmail) {
+  if (!statusesWithEmail.includes(record.status)) {
+    return "";
+  }
+
+  if (record.notification_email_sent) {
+    return "Estado atualizado e email enviado ao cliente.";
+  }
+
+  if (record.notification_email_skipped_reason === "email-not-configured") {
+    return "Estado atualizado. O email não foi enviado porque o SMTP ainda não está configurado.";
+  }
+
+  if (record.notification_email_error) {
+    return "Estado atualizado, mas houve erro ao enviar o email.";
+  }
+
+  return "";
+}
+
 export function handleAdminSessionError(error, navigate) {
   if (error.message !== "Sessão expirada.") {
     return false;
