@@ -39,9 +39,18 @@ function buildInitialForm(assuntoParam) {
   };
 }
 
+function getValidSubjectParam(searchParams) {
+  const subjectParam = searchParams.get("assunto") ?? "";
+  const hasValidSubject = contactSubjectOptions.some(
+    (option) => option.value === subjectParam,
+  );
+
+  return hasValidSubject ? subjectParam : "";
+}
+
 function Contacto() {
   const [searchParams] = useSearchParams();
-  const assuntoParam = searchParams.get("assunto") ?? "";
+  const assuntoParam = getValidSubjectParam(searchParams);
   const { formData, updateField: updateFormField } = useFormState(() =>
     buildInitialForm(assuntoParam),
   );

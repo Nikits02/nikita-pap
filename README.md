@@ -1,58 +1,134 @@
 # NikitaMotors
 
-Projeto PAP desenvolvido com React + Vite no frontend e Node.js + Express + MySQL no backend.
+NikitaMotors é um projeto PAP de um stand automóvel premium. O objetivo é simular uma plataforma completa onde visitantes podem consultar viaturas, pedir contacto, marcar test drives, pedir retomas e simular financiamentos. O projeto também inclui autenticação de utilizadores e uma área de administração para gerir os dados principais.
 
-O objetivo do projeto é apresentar um stand automóvel premium com:
-- catálogo de viaturas
-- página de detalhe por viatura
-- pedidos de contacto
-- pedidos de test drive
-- pedidos de retoma
-- pedidos de financiamento
-- autenticação de utilizadores
-- painel de administração para gerir viaturas, pedidos e utilizadores
+## Como o Projeto Funciona
 
-## Stack
+O projeto está dividido em duas partes:
+
+- **Frontend:** aplicação React com Vite, responsável pelas páginas, interface, formulários e navegação.
+- **Backend:** API em Node.js + Express, responsável pela autenticação, validações, comunicação com MySQL e gestão dos dados.
+
+O frontend comunica com o backend através de rotas `/api`. Durante o desenvolvimento, o Vite encaminha esses pedidos para o servidor Express através do proxy configurado em `vite.config.js`.
+
+## Principais Características
+
+- Catálogo de viaturas carregado a partir da base de dados.
+- Página de detalhe para cada viatura.
+- Pesquisa e filtros por marca, modelo, combustível, caixa e ordenação.
+- Sistema de login e registo de utilizadores.
+- Rotas privadas para financiamento, retoma, test drive e conta.
+- Formulário de contacto.
+- Pedido de test drive com escolha de viatura, data e hora.
+- Pedido de retoma com validação de quilometragem e dados da viatura.
+- Simulador de financiamento ligado às viaturas disponíveis.
+- Painel de administração protegido.
+- Gestão admin de viaturas, utilizadores, contactos, retomas, financiamentos e test drives.
+- Upload de imagens de viaturas no painel admin.
+- Validações no frontend e no backend.
+- Base de dados MySQL preparada automaticamente no arranque do servidor.
+
+## Tecnologias Utilizadas
 
 Frontend:
+
 - React
 - React Router
 - Vite
-- CSS dividido por feature/área
+- CSS modular organizado por áreas do projeto
 
 Backend:
+
 - Node.js
 - Express
 - MySQL
 - JWT
 - bcryptjs
+- Nodemailer
 
-## Como arrancar o projeto
+## Estrutura Principal
+
+```text
+src/
+  app/          rotas principais da aplicação React
+  features/     páginas, componentes, dados e estilos por área
+  shared/       componentes, hooks e serviços reutilizáveis
+  styles/       estilos globais, variáveis e layout geral
+
+server/
+  index.js      arranque da API Express
+  routes/       endpoints da API
+  lib/          funções auxiliares do backend
+  middleware/   autenticação e permissões
+  uploads/      imagens carregadas pelo admin
+```
+
+## Páginas Principais
+
+Públicas:
+
+- `/`
+- `/catalogo`
+- `/viaturas/:slug`
+- `/contacto`
+- `/blog`
+- `/sobre`
+- `/login`
+- `/registo`
+
+Privadas:
+
+- `/conta`
+- `/financiamento`
+- `/retoma`
+- `/test-drive`
+
+Admin:
+
+- `/admin/login`
+- `/admin`
+- `/admin/viaturas`
+- `/admin/contactos`
+- `/admin/retomas`
+- `/admin/financiamentos`
+- `/admin/test-drives`
+- `/admin/utilizadores`
+
+## Base de Dados
+
+O projeto usa MySQL. As principais tabelas são:
+
+- `admins`
+- `users`
+- `vehicles`
+- `contact_messages`
+- `test_drives`
+- `trade_in_requests`
+- `finance_requests`
+
+O backend cria e atualiza as tabelas principais automaticamente quando arranca.
+
+## Como Executar
 
 Frontend:
+
 ```powershell
 npm install
 npm run dev
 ```
 
 Backend:
+
 ```powershell
 cd server
 npm install
 npm run dev
 ```
 
-Antes de arrancar o backend pela primeira vez:
-- cria a base de dados MySQL `nikita_stand`
-- cria `server/.env` com base em [server/.env.example](server/.env.example)
-- cria a conta admin com:
+Antes de arrancar o backend, é necessário criar o ficheiro `server/.env` com base em `server/.env.example`.
 
-```powershell
-cd server
-npm run create-admin -- admin Admin123
-```
+Variáveis principais:
 
-Variáveis de ambiente mínimas no backend:
 - `DB_HOST`
 - `DB_PORT`
 - `DB_USER`
@@ -60,225 +136,38 @@ Variáveis de ambiente mínimas no backend:
 - `DB_NAME`
 - `JWT_SECRET`
 
-Opcional:
-- `PORT`
-- `CORS_ORIGIN`
-  Pode receber uma ou várias origens separadas por vírgulas, por exemplo:
-  `http://localhost:5174,http://127.0.0.1:5174`
+Criar conta admin:
 
-Frontend:
-- `http://localhost:5174`
-
-Backend:
-- `http://localhost:3002`
-
-Nota:
-- o frontend usa proxy no `vite.config.js` para encaminhar `/api` e `/uploads` para o backend
-- o backend cria automaticamente as tabelas principais no arranque, incluindo a tabela `vehicles`
-- comandos para verificar dados no MySQL: [docs/VERIFICAR_BASE_DADOS.md](docs/VERIFICAR_BASE_DADOS.md)
-
-## Estrutura Geral
-
-```text
-src/
-  app/          arranque das rotas React
-  features/     áreas do projeto: home, vehicles, admin, auth, etc.
-  shared/       componentes, hooks e serviços partilhados
-  styles/       tokens, estilos globais, layout e imports centrais
-
-server/
-  index.js      arranque do servidor Express
-  ligacaoBaseDados.js  ligação à base de dados
-  lib/          lógica auxiliar do backend
-  middleware/   middleware de autenticação
-  routes/       endpoints separados por área
-  uploads/      imagens carregadas
+```powershell
+cd server
+npm run create-admin -- admin Admin123
 ```
-
-## Ficheiros Mais Importantes
-
-Se quiseres perceber o projeto depressa, abre por esta ordem:
-
-1. [src/app/App.jsx](src/app/App.jsx)
-   Aqui estão todas as rotas do site e do admin.
-
-2. [src/features](src/features)
-   Cada pasta corresponde a uma área do projeto.
-
-3. `src/features/*/services`
-   Aqui vês como cada área comunica com o backend.
-
-4. [server/routes](server/routes)
-   Aqui estão os endpoints, validações principais e operações na base de dados.
-
-5. [src/shared](src/shared)
-   Componentes, hooks e serviços reutilizáveis.
-
-## Páginas do Frontend
-
-Públicas:
-- `/` Home
-- `/catalogo`
-- `/viaturas/:slug`
-- `/contacto`
-- `/blog`
-- `/sobre`
-- `/registo`
-- `/login`
-- `*` página 404 para rotas inexistentes
-
-Privadas:
-- `/financiamento`
-- `/retoma`
-- `/test-drive`
-- `/conta`
-
-Admin:
-- `/admin/login`
-- `/admin`
-- `/admin/viaturas`
-- `/admin/viaturas/nova`
-- `/admin/viaturas/:id/editar`
-- `/admin/retomas`
-- `/admin/utilizadores`
-- `/admin/contactos`
-- `/admin/financiamentos`
-- `/admin/test-drives`
-
-## Fluxos Principais
-
-### 1. Catálogo de viaturas
-
-- o frontend chama `fetchVehicles()` em [src/features/vehicles/services/vehiclesApi.js](src/features/vehicles/services/vehiclesApi.js)
-- essa chamada vai para `GET /api/vehicles`
-- o backend responde com as viaturas da base de dados
-- no frontend, o hook [src/features/vehicles/hooks/useVehicles.js](src/features/vehicles/hooks/useVehicles.js) normaliza os dados e acrescenta meta-informação
-
-### 2. Detalhe da viatura
-
-- a rota usa o `slug`
-- o hook `useVehicles()` carrega as viaturas
-- a página [src/features/vehicles/pages/VeiculoDetalhe.jsx](src/features/vehicles/pages/VeiculoDetalhe.jsx) encontra a viatura correta e mostra os detalhes
-
-### 3. Formulário de contacto
-
-- frontend envia para `POST /api/contact`
-- backend guarda em `contact_messages`
-
-### 4. Formulário de test drive
-
-- a página `/test-drive` exige sessão iniciada
-- frontend envia para `POST /api/test-drives`
-- backend guarda em `test_drives`
-
-### 5. Formulário de retoma
-
-- a página `/retoma` exige sessão iniciada
-- frontend envia para `POST /api/trade-ins`
-- backend guarda em `trade_in_requests`
-
-### 6. Simulador e pedido de financiamento
-
-- a página `/financiamento` exige sessão iniciada
-- o utilizador simula valores de financiamento e envia o pedido
-- frontend envia para `POST /api/finance-requests`
-- backend guarda em `finance_requests`
-
-### 7. Login e registo
-
-- registo: `POST /api/auth/register`
-- login: `POST /api/auth/login`
-- o backend cria uma sessão autenticada por cookie `HttpOnly`
-- o frontend guarda localmente apenas os dados do utilizador para a interface
-
-### 8. Painel admin
-
-- login admin: `POST /api/admin/login`
-- rotas protegidas por JWT
-- as rotas admin funcionam por sessão autenticada via cookie
-- permite gerir viaturas, retomas, utilizadores, contactos, financiamentos e test drives
-
-## Base de Dados
-
-Tabelas principais usadas no projeto:
-- `admins`
-- `users`
-- `vehicles`
-- `test_drives`
-- `contact_messages`
-- `trade_in_requests`
-- `finance_requests`
-
-## Estilos
-
-Os estilos estão divididos por responsabilidade:
-
-Globais:
-- [src/styles/variaveis](src/styles/variaveis)
-- [src/styles/base](src/styles/base)
-- [src/styles/layout](src/styles/layout)
-- [src/styles/componentes](src/styles/componentes)
-
-Por feature:
-- [src/features/home/styles](src/features/home/styles)
-- [src/features/vehicles/styles](src/features/vehicles/styles)
-- [src/features/admin/styles](src/features/admin/styles)
-- [src/features/auth/styles](src/features/auth/styles)
-- [src/features/contact/styles](src/features/contact/styles)
-- [src/features/finance/styles](src/features/finance/styles)
-- [src/features/trade-in/styles](src/features/trade-in/styles)
-- [src/features/test-drive/styles](src/features/test-drive/styles)
-
-Tudo é importado a partir de [src/styles/index.css](src/styles/index.css).
-
-## Como Explicar o Projeto
-
-Resumo simples:
-
-"O projeto está dividido em duas partes: frontend em React e backend em Express. O frontend trata da interface, páginas, componentes e formulários. O backend trata da autenticação, CRUD de viaturas, gestão de retomas, utilizadores e ligação à base de dados MySQL. A comunicação entre ambos é feita por API REST."
-
-## Documentação Disponível
-
-- [docs/VERIFICAR_BASE_DADOS.md](docs/VERIFICAR_BASE_DADOS.md)
-  Comandos SQL para verificar utilizadores, viaturas, pedidos e dados guardados no MySQL.
 
 ## Comandos Úteis
 
 Frontend:
+
 ```powershell
 npm run dev
 npm run build
+npm run lint
 ```
 
 Backend:
+
 ```powershell
 cd server
 npm run dev
+npm run start
 npm run create-admin -- admin Admin123
 ```
 
-## Estado Atual do Projeto
+## Resumo Para Apresentação
 
-Já implementado:
-- catálogo dinâmico
-- detalhe de viaturas
-- retoma funcional
-- contacto funcional
-- test drive funcional
-- simulador e pedidos de financiamento
-- login/registo
-- admin de viaturas
-- admin de retomas
-- admin de utilizadores
-- admin de contactos
-- admin de financiamentos
-- admin de test drives
-- upload de imagens de viaturas no admin
-- rotas protegidas para financiamento, retoma, test drive e área de conta
+Este projeto representa um stand automóvel premium com frontend em React e backend em Express. A aplicação permite consultar viaturas, fazer pedidos de contacto, test drive, retoma e financiamento. Também tem autenticação de utilizadores e uma área admin onde é possível gerir viaturas, pedidos e utilizadores. Os dados são guardados numa base de dados MySQL e a comunicação entre frontend e backend é feita através de uma API REST.
 
-## Sugestão de Próximos Passos
+## Documentação Extra
 
-- revisão final de UX e mobile
-- reforçar testes dos endpoints principais
-- rever textos, acentos e consistência visual
-- preparar base de dados e credenciais para a apresentação
+Os comandos SQL para verificar os dados guardados estão em:
+
+[docs/VERIFICAR_BASE_DADOS.md](docs/VERIFICAR_BASE_DADOS.md)

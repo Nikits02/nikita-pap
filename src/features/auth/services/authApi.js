@@ -72,7 +72,8 @@ export async function validateAuthSession() {
       return null;
     }
 
-    return getAuthSession()?.user ?? null;
+    clearAuthSession();
+    return null;
   }
 }
 
