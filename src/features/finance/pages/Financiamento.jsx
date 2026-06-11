@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   CalculatorIcon,
   CheckCircleIcon,
@@ -15,6 +15,7 @@ import {
   termOptions,
 } from "../data/finance";
 import useFormState from "../../../shared/hooks/useFormState";
+import useSubmitState from "../../../shared/hooks/useSubmitState";
 import useVehicles from "../../vehicles/hooks/useVehicles";
 import { createFinanceRequest } from "../services/financeApi";
 import { formatRoundedNumber } from "../../../utils/format";
@@ -42,13 +43,18 @@ function getClosestPrice(price, priceOptions) {
       : closestPrice,
   );
 }
+
+function getVehicleOptionByPrice(price, vehicleOptions) {
+  return vehicleOptions.find((vehicle) => vehicle.price === price) ?? null;
+}
+
 function Financiamento() {
   const {
     vehicles,
     isLoading: isLoadingVehicles,
     error: vehicleError,
   } = useVehicles();
-  const [simulation, setSimulation] = useState({
+  const [simulationInput, setSimulation] = useState({
     preco: 120000,
     entrada: 24000,
     meses: 60,
@@ -60,8 +66,13 @@ function Financiamento() {
     viatura: "",
   });
   const [submitted, setSubmitted] = useState(false);
-  const [submitError, setSubmitError] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [vehicleSelectionError, setVehicleSelectionError] = useState("");
+  const {
+    error: submitError,
+    isSubmitting,
+    clearError: clearSubmitError,
+    runSubmit,
+  } = useSubmitState("Não foi possível guardar o pedido de financiamento.");
   const vehiclePriceOptions = useMemo(() => {
     const vehiclePrices = vehicles.map((vehicle) => Number(vehicle.preco));
 
@@ -78,6 +89,25 @@ function Financiamento() {
         max: vehiclePriceOptions.at(-1),
       }
     : FALLBACK_PRICE_RANGE;
+
+  const simulation = useMemo(() => {
+    const nextPrice = hasVehiclePriceOptions
+      ? getClosestPrice(simulationInput.preco, vehiclePriceOptions)
+      : Math.min(Math.max(simulationInput.preco, priceRange.min), priceRange.max);
+    const nextEntryMax = Math.round(nextPrice * 0.5);
+
+    return {
+      ...simulationInput,
+      preco: nextPrice,
+      entrada: Math.min(simulationInput.entrada, nextEntryMax),
+    };
+  }, [
+    hasVehiclePriceOptions,
+    priceRange.max,
+    priceRange.min,
+    simulationInput,
+    vehiclePriceOptions,
+  ]);
 
   const selectedPriceIndex = hasVehiclePriceOptions
     ? vehiclePriceOptions.indexOf(simulation.preco)
@@ -106,26 +136,35 @@ function Financiamento() {
   const vehicleSelectPlaceholder = isLoadingVehicles
     ? "A carregar viaturas..."
     : availableVehicles.length > 0
-      ? "Viatura de interesse (opcional)"
+      ? "Viatura de interesse"
       : "Sem viaturas disponíveis";
-  useEffect(() => {
-    setSimulation((current) => {
-      const nextPrice = hasVehiclePriceOptions
-        ? getClosestPrice(current.preco, vehiclePriceOptions)
-        : Math.min(Math.max(current.preco, priceRange.min), priceRange.max);
-      const nextEntryMax = Math.round(nextPrice * 0.5);
-
-      return {
-        ...current,
-        preco: nextPrice,
-        entrada: Math.min(current.entrada, nextEntryMax),
-      };
-    });
-  }, [hasVehiclePriceOptions, priceRange.max, priceRange.min, vehiclePriceOptions]);
+  const selectedVehicleOption =
+    availableVehicles.find((vehicle) => vehicle.value === requestData.viatura) ??
+    getVehicleOptionByPrice(simulation.preco, availableVehicles);
+  const selectedVehicleValue = selectedVehicleOption?.value ?? "";
   const entryPercent = Math.round(
     (simulation.entrada / simulation.preco) * 100,
   );
   const entryMax = Math.round(simulation.preco * 0.5);
+  const result = useMemo(() => {
+    const montanteFinanciado = Math.max(
+      0,
+      simulation.preco - simulation.entrada,
+    );
+    const taxaMensal = FIXED_INTEREST_RATE / 100 / 12;
+    const prestacaoMensal =
+      taxaMensal === 0
+        ? montanteFinanciado / simulation.meses
+        : montanteFinanciado *
+          (taxaMensal / (1 - Math.pow(1 + taxaMensal, -simulation.meses)));
+
+    return {
+      prestacaoMensal,
+      montanteTotal: prestacaoMensal * simulation.meses,
+      taeg: FIXED_INTEREST_RATE + 1,
+    };
+  }, [simulation.entrada, simulation.meses, simulation.preco]);
+
   function updateSimulation(field, value) {
     setSimulation((current) => {
       const nextValue = Number(value);
@@ -144,6 +183,7 @@ function Financiamento() {
   }
 
   function handleVehicleSelect(value) {
+    setVehicleSelectionError("");
     updateRequest("viatura", value);
 
     const selectedVehicle = availableVehicles.find((vehicle) => vehicle.value === value);
@@ -157,20 +197,29 @@ function Financiamento() {
     const nextPrice = vehiclePriceOptions[Number(value)];
 
     if (nextPrice) {
-      updateRequest("viatura", "");
+      const nextVehicle = getVehicleOptionByPrice(nextPrice, availableVehicles);
+
+      setVehicleSelectionError("");
+      updateRequest("viatura", nextVehicle?.value ?? "");
       updateSimulation("preco", nextPrice);
     }
   }
   async function handleSubmit(event) {
     event.preventDefault();
-    try {
-      setIsSubmitting(true);
-      setSubmitError("");
+
+    clearSubmitError();
+
+    if (!selectedVehicleValue) {
+      setVehicleSelectionError("Selecione uma viatura antes de enviar o pedido.");
+      return;
+    }
+
+    await runSubmit(async () => {
       await createFinanceRequest({
         nome: requestData.nome,
         email: requestData.email,
         telefone: requestData.telefone,
-        viatura: requestData.viatura,
+        viatura: selectedVehicleValue,
         preco: simulation.preco,
         entrada: simulation.entrada,
         meses: simulation.meses,
@@ -180,31 +229,8 @@ function Financiamento() {
         taeg: result.taeg,
       });
       setSubmitted(true);
-    } catch (error) {
-      setSubmitError(
-        error.message ?? "Não foi possível guardar o pedido de financiamento.",
-      );
-    } finally {
-      setIsSubmitting(false);
-    }
+    });
   }
-  const result = useMemo(() => {
-    const montanteFinanciado = Math.max(
-      0,
-      simulation.preco - simulation.entrada,
-    );
-    const taxaMensal = FIXED_INTEREST_RATE / 100 / 12;
-    const prestacaoMensal =
-      taxaMensal === 0
-        ? montanteFinanciado / simulation.meses
-        : montanteFinanciado *
-          (taxaMensal / (1 - Math.pow(1 + taxaMensal, -simulation.meses)));
-    return {
-      prestacaoMensal,
-      montanteTotal: prestacaoMensal * simulation.meses,
-      taeg: FIXED_INTEREST_RATE + 1,
-    };
-  }, [simulation]);
 
   const requestSummaryItems = [
     ["Preço", formatEuroAmount(simulation.preco)],
@@ -274,7 +300,7 @@ function Financiamento() {
               }
             />
             <div className="finance-control__limits">
-              <span>EUR0</span>
+              <span>0 EUR</span>
               <span>{formatEuroAmount(entryMax)}</span>
             </div>
           </div>
@@ -357,7 +383,7 @@ function Financiamento() {
                 field.name === "viatura" ? (
                   <CustomSelect
                     key={field.name}
-                    value={requestData[field.name]}
+                    value={selectedVehicleValue}
                     options={availableVehicles}
                     placeholder={vehicleSelectPlaceholder}
                     onChange={handleVehicleSelect}
@@ -382,6 +408,11 @@ function Financiamento() {
               )}
               {vehicleError ? (
                 <p className="finance-request-form__hint">{vehicleError}</p>
+              ) : null}
+              {vehicleSelectionError ? (
+                <p className="finance-request-form__error">
+                  {vehicleSelectionError}
+                </p>
               ) : null}
               {submitError ? (
                 <p className="finance-request-form__error">{submitError}</p>

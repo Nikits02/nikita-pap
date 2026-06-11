@@ -22,26 +22,56 @@ import vehicleRoutes from "./routes/vehicleRoutes.js";
 
 const app = express();
 const port = Number(process.env.PORT) || 3002;
+const DEV_FRONTEND_HOSTS = new Set([
+  "localhost",
+  "127.0.0.1",
+  "::1",
+  "nikitamotors",
+]);
+const DEV_FRONTEND_PORTS = new Set(["5173", "5174", "5175"]);
 
 function normalizeOrigin(origin) {
   return origin.replace(/\/+$/, "").toLowerCase();
+}
+
+function getDefaultCorsOrigins() {
+  return [
+    "http://localhost:5174",
+    "http://127.0.0.1:5174",
+    "http://nikitamotors:5174",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+  ];
 }
 
 function getAllowedCorsOrigins() {
   const configuredOrigins = process.env.CORS_ORIGIN?.split(",")
     .map((origin) => origin.trim())
     .filter(Boolean);
+  const origins =
+    configuredOrigins && configuredOrigins.length > 0
+      ? configuredOrigins
+      : getDefaultCorsOrigins();
 
-  if (configuredOrigins?.length) {
-    return configuredOrigins.map(normalizeOrigin);
+  return [...new Set(origins)].map(normalizeOrigin);
+}
+
+function isLocalDevelopmentOrigin(origin) {
+  if (process.env.NODE_ENV === "production") {
+    return false;
   }
 
-  return [
-    "http://localhost:5174",
-    "http://127.0.0.1:5174",
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-  ].map(normalizeOrigin);
+  try {
+    const parsedOrigin = new URL(origin);
+
+    return (
+      parsedOrigin.protocol === "http:" &&
+      DEV_FRONTEND_HOSTS.has(parsedOrigin.hostname.toLowerCase()) &&
+      DEV_FRONTEND_PORTS.has(parsedOrigin.port)
+    );
+  } catch {
+    return false;
+  }
 }
 
 function buildCorsOptions() {
@@ -60,6 +90,12 @@ function buildCorsOptions() {
         return;
       }
 
+      if (isLocalDevelopmentOrigin(origin)) {
+        callback(null, true);
+        return;
+      }
+
+      console.warn(`Origem bloqueada pelo CORS: ${origin}`);
       callback(new Error("Origem não permitida pelo CORS."));
     },
   };

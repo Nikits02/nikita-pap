@@ -1,14 +1,11 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AdminPageShell from "../components/AdminPageShell";
 import AdminSectionLinks from "../components/AdminSectionLinks";
-import {
-  ADMIN_LOGIN_PATH,
-  ADMIN_NEW_VEHICLE_PATH,
-} from "../data/adminNavigation";
+import { ADMIN_NEW_VEHICLE_PATH } from "../data/adminNavigation";
 import { deleteAdminVehicle, fetchAdminVehicles } from "../services/adminApi";
 import { formatEuro } from "../../../utils/format";
-import { formatAdminDate, handleAdminSessionError } from "../utils/admin";
+import { formatAdminDate } from "../utils/admin";
+import { useAdminCollection } from "../hooks/useAdminCollection";
 
 const SOURCE_LABELS = {
   stock: "Catálogo",
@@ -21,72 +18,23 @@ function getVehicleName(vehicle) {
 }
 
 function AdminVehicles() {
-  const navigate = useNavigate();
-  const [vehicles, setVehicles] = useState([]);
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [deletingVehicleId, setDeletingVehicleId] = useState(null);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    async function loadVehicles() {
-      try {
-        setIsLoading(true);
-        const loadedVehicles = await fetchAdminVehicles();
-
-        if (isMounted) {
-          setVehicles(loadedVehicles);
-        }
-      } catch (loadError) {
-        if (!isMounted) {
-          return;
-        }
-
-        if (handleAdminSessionError(loadError, navigate)) {
-          return;
-        }
-
-        setError(loadError.message ?? "Não foi possível carregar as viaturas.");
-      } finally {
-        if (isMounted) {
-          setIsLoading(false);
-        }
-      }
-    }
-
-    loadVehicles();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [navigate]);
+  const {
+    records: vehicles,
+    error,
+    isLoading,
+    deletingId,
+    deleteRecord,
+  } = useAdminCollection({
+    loadRecords: fetchAdminVehicles,
+    loadErrorMessage: "Não foi possível carregar as viaturas.",
+  });
 
   async function handleDeleteVehicle(vehicle) {
-    const vehicleName = getVehicleName(vehicle) || `viatura #${vehicle.id}`;
-    const shouldDelete = window.confirm(
-      `Tem a certeza que pretende eliminar ${vehicleName}?`,
-    );
-
-    if (!shouldDelete) {
-      return;
-    }
-
-    try {
-      setDeletingVehicleId(vehicle.id);
-      await deleteAdminVehicle(vehicle.id);
-      setVehicles((currentVehicles) =>
-        currentVehicles.filter(({ id }) => id !== vehicle.id),
-      );
-    } catch (deleteError) {
-      if (handleAdminSessionError(deleteError, navigate)) {
-        return;
-      }
-
-      setError(deleteError.message ?? "Não foi possível eliminar a viatura.");
-    } finally {
-      setDeletingVehicleId(null);
-    }
+    return deleteRecord(vehicle, {
+      request: deleteAdminVehicle,
+      getLabel: (record) => getVehicleName(record) || `viatura #${record.id}`,
+      errorMessage: "Não foi possível eliminar a viatura.",
+    });
   }
 
   return (
@@ -186,12 +134,10 @@ function AdminVehicles() {
                       <button
                         className="admin-button admin-button--danger"
                         type="button"
-                        disabled={deletingVehicleId === vehicle.id}
+                        disabled={deletingId === vehicle.id}
                         onClick={() => handleDeleteVehicle(vehicle)}
                       >
-                        {deletingVehicleId === vehicle.id
-                          ? "A eliminar..."
-                          : "Eliminar"}
+                        {deletingId === vehicle.id ? "A eliminar..." : "Eliminar"}
                       </button>
                     </div>
                   </div>

@@ -26,7 +26,7 @@ router.post("/finance-requests", async (req, res) => {
     const montanteTotal = Number(req.body.montanteTotal);
     const taeg = Number(req.body.taeg);
 
-    if (hasMissingFields([nome, email, telefone])) {
+    if (hasMissingFields([nome, email, telefone, viatura])) {
       return res.status(400).json({ message: REQUIRED_FIELDS_MESSAGE });
     }
 
@@ -68,7 +68,7 @@ router.post("/finance-requests", async (req, res) => {
         nome,
         email,
         telefone,
-        viatura || null,
+        viatura,
         preco,
         entrada,
         meses,

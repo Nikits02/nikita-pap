@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "create-admin": "node scripts/criarContaAdmin.js",
-    "test": "node --test"
+    "create-admin": "node scripts/criarContaAdmin.js"
   },
   "keywords": [],
   "author": "",

@@ -1,192 +1,88 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import AdminPageShell from "../components/AdminPageShell";
-import AdminSectionLinks from "../components/AdminSectionLinks";
-import { FormInputField } from "../../../shared/components/form/FormField";
+import { useMemo, useState } from "react";
+import {
+  AdminDeleteButton,
+  AdminLeadCard,
+  AdminRecordsPage,
+} from "../components/AdminList";
+import { useAdminCollection } from "../hooks/useAdminCollection";
 import { deleteAdminUser, fetchAdminUsers } from "../services/adminApi";
 import {
   formatAdminDateTime,
-  handleAdminSessionError,
   matchesAdminSearch,
 } from "../utils/admin";
 
+function getUserTitle(user) {
+  return user.nome?.trim() || user.username || `Utilizador ${user.id}`;
+}
+
 function AdminUsers() {
-  const navigate = useNavigate();
-  const [users, setUsers] = useState([]);
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [deletingUserId, setDeletingUserId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-
-  useEffect(() => {
-    let isMounted = true;
-
-    async function loadUsers() {
-      try {
-        setIsLoading(true);
-        const loadedUsers = await fetchAdminUsers();
-
-        if (isMounted) {
-          setUsers(loadedUsers);
-        }
-      } catch (loadError) {
-        if (!isMounted) {
-          return;
-        }
-
-        if (handleAdminSessionError(loadError, navigate)) {
-          return;
-        }
-
-        setError(loadError.message ?? "Não foi possível carregar os utilizadores.");
-      } finally {
-        if (isMounted) {
-          setIsLoading(false);
-        }
-      }
-    }
-
-    loadUsers();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [navigate]);
-
-  async function handleDeleteUser(user) {
-    const userLabel = user.nome?.trim() || user.username || `utilizador #${user.id}`;
-    const shouldDelete = window.confirm(
-      `Tem a certeza que pretende eliminar ${userLabel}?`,
-    );
-
-    if (!shouldDelete) {
-      return;
-    }
-
-    try {
-      setDeletingUserId(user.id);
-      setError("");
-      await deleteAdminUser(user.id);
-      setUsers((currentUsers) =>
-        currentUsers.filter(({ id }) => id !== user.id),
-      );
-    } catch (deleteError) {
-      if (handleAdminSessionError(deleteError, navigate)) {
-        return;
-      }
-
-      setError(
-        deleteError.message ?? "Não foi possível eliminar o utilizador.",
-      );
-    } finally {
-      setDeletingUserId(null);
-    }
-  }
-
-  const filteredUsers = users.filter((user) => {
-    return matchesAdminSearch(
-      [user.nome, user.username, user.email],
-      searchTerm,
-    );
+  const {
+    records: users,
+    error,
+    isLoading,
+    deletingId,
+    deleteRecord,
+  } = useAdminCollection({
+    loadRecords: fetchAdminUsers,
+    loadErrorMessage: "Não foi possível carregar os utilizadores.",
   });
 
+  const filteredUsers = useMemo(
+    () =>
+      users.filter((user) =>
+        matchesAdminSearch([user.nome, user.username, user.email], searchTerm),
+      ),
+    [searchTerm, users],
+  );
+
+  function handleDeleteUser(user) {
+    return deleteRecord(user, {
+      request: deleteAdminUser,
+      getLabel: (record) =>
+        record.nome?.trim() || record.username || `utilizador #${record.id}`,
+      errorMessage: "Não foi possível eliminar o utilizador.",
+    });
+  }
+
   return (
-    <AdminPageShell
+    <AdminRecordsPage
       title="Utilizadores Registados"
-      showLogout
-      showBackToSite
-      actions={
-        <AdminSectionLinks current="users" />
-      }
-    >
-      {isLoading ? (
-        <p className="admin-page__text">A carregar utilizadores...</p>
-      ) : error ? (
-        <p className="admin-form__error">{error}</p>
-      ) : users.length === 0 ? (
-        <div className="admin-page__empty-state">
-          <p className="admin-page__text">
-            Ainda não existem utilizadores registados.
-          </p>
-        </div>
-      ) : (
-        <div className="admin-leads">
-          <div className="admin-filters admin-filters--single">
-            <FormInputField
-              className="admin-form__field"
-              label="Pesquisar"
-              type="search"
-              value={searchTerm}
-              onChange={(event) => setSearchTerm(event.target.value)}
-              placeholder="Nome, username ou email"
+      currentSection="users"
+      isLoading={isLoading}
+      error={error}
+      records={users}
+      filteredRecords={filteredUsers}
+      loadingText="A carregar utilizadores..."
+      emptyText="Ainda não existem utilizadores registados."
+      filteredEmptyText="Nenhum utilizador corresponde aos filtros selecionados."
+      searchTerm={searchTerm}
+      onSearchTermChange={setSearchTerm}
+      searchPlaceholder="Nome, username ou email"
+      countText={`${filteredUsers.length} de ${users.length} utilizador${
+        users.length === 1 ? "" : "es"
+      } visíve${filteredUsers.length === 1 ? "l" : "is"}.`}
+      renderRecord={(user) => (
+        <AdminLeadCard
+          key={user.id}
+          eyebrow={`Conta #${user.id}`}
+          title={getUserTitle(user)}
+          timestamp={formatAdminDateTime(user.created_at)}
+          metaItems={[
+            ["Username", user.username ?? "-"],
+            ["Email", user.email ?? "-"],
+            ["Nome", user.nome ?? "-"],
+            ["Registo", formatAdminDateTime(user.created_at)],
+          ]}
+          actions={
+            <AdminDeleteButton
+              disabled={deletingId === user.id}
+              onClick={() => handleDeleteUser(user)}
             />
-          </div>
-
-          <p className="admin-page__text admin-page__text--muted">
-            {filteredUsers.length} de {users.length} utilizador
-            {users.length === 1 ? "" : "es"} visíve
-            {filteredUsers.length === 1 ? "l" : "is"}.
-          </p>
-
-          {filteredUsers.length === 0 ? (
-            <div className="admin-page__empty-state">
-              <p className="admin-page__text">
-                Nenhum utilizador corresponde aos filtros selecionados.
-              </p>
-            </div>
-          ) : (
-            <div className="admin-leads__list">
-              {filteredUsers.map((user) => (
-                <article className="admin-lead-card" key={user.id}>
-                  <div className="admin-lead-card__header">
-                    <div>
-                      <p className="admin-lead-card__eyebrow">Conta #{user.id}</p>
-                      <h2 className="admin-lead-card__title">
-                        {user.nome?.trim() || user.username || `Utilizador ${user.id}`}
-                      </h2>
-                    </div>
-
-                    <p className="admin-lead-card__timestamp">
-                      {formatAdminDateTime(user.created_at)}
-                    </p>
-                  </div>
-
-                  <dl className="admin-lead-card__meta">
-                    <div>
-                      <dt>Username</dt>
-                      <dd>{user.username ?? "-"}</dd>
-                    </div>
-                    <div>
-                      <dt>Email</dt>
-                      <dd>{user.email ?? "-"}</dd>
-                    </div>
-                    <div>
-                      <dt>Nome</dt>
-                      <dd>{user.nome ?? "-"}</dd>
-                    </div>
-                    <div>
-                      <dt>Registo</dt>
-                      <dd>{formatAdminDateTime(user.created_at)}</dd>
-                    </div>
-                  </dl>
-
-                  <div className="admin-lead-card__actions">
-                    <button
-                      className="admin-button admin-button--danger"
-                      type="button"
-                      disabled={deletingUserId === user.id}
-                      onClick={() => handleDeleteUser(user)}
-                    >
-                      {deletingUserId === user.id ? "A eliminar..." : "Eliminar"}
-                    </button>
-                  </div>
-                </article>
-              ))}
-            </div>
-          )}
-        </div>
+          }
+        />
       )}
-    </AdminPageShell>
+    />
   );
 }
 

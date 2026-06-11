@@ -16,6 +16,13 @@ const valueIcons = {
   target: TargetIcon,
 };
 
+const valueIconClasses = {
+  award: "about-values__icon--award",
+  people: "about-values__icon--people",
+  spark: "about-values__icon--spark",
+  target: "about-values__icon--target",
+};
+
 function Sobre() {
   const { vehicles, isLoading, error } = useVehicles();
   const historyStats = buildHistoryStats(
@@ -98,7 +105,12 @@ function Sobre() {
           {coreValues.map((item) => (
             <article className="about-values__card" key={item.title}>
               <div
-                className={`about-values__icon about-values__icon--${item.icon}`}
+                className={[
+                  "about-values__icon",
+                  valueIconClasses[item.icon],
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
               >
                 <TypedIcon
                   type={item.icon}

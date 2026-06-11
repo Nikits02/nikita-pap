@@ -5,10 +5,14 @@ import BlogMeta from "./BlogMeta";
 function BlogPostCard({ post, featured = false }) {
   const Heading = featured ? "h2" : "h3";
   const cardClass = featured ? "blog-feature-card" : "blog-list-card";
+  const mediaClass = featured
+    ? "blog-feature-card__media"
+    : "blog-list-card__media";
+  const tagClass = featured ? "blog-feature-card__tag" : "blog-list-card__tag";
   const contentClass = featured
     ? "blog-feature-card__content"
     : "blog-list-card__body";
-  const ctaClass = `${cardClass}__cta`;
+  const ctaClass = featured ? "blog-feature-card__cta" : "blog-list-card__cta";
 
   const cta = (
     <span className={ctaClass}>
@@ -19,8 +23,8 @@ function BlogPostCard({ post, featured = false }) {
 
   return (
     <Link className={cardClass} to={`/blog/${post.slug}`}>
-      <div className={`${cardClass}__media`}>
-        <span className={`${cardClass}__tag`}>{post.categoria}</span>
+      <div className={mediaClass}>
+        <span className={tagClass}>{post.categoria}</span>
         <img src={post.imagem} alt={post.titulo} />
       </div>
 

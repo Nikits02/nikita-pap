@@ -34,9 +34,7 @@
 .auth-submit:hover,
 .contact-submit:hover,
 .tradein-submit:hover:not(:disabled),
-.blog-detail-back:hover,
-.test-drive-hours__option:hover,
-.test-drive-hours__option.is-active {
+.blog-detail-back:hover {
   border-color: var(--color-accent-rose-600);
   background: var(--color-accent-rose-600);
   color: var(--color-black-900);

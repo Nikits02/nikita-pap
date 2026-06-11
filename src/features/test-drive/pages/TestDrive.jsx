@@ -10,6 +10,7 @@ import { PageHero, SitePage } from "../../../shared/components/ui";
 import TestDriveHourSelector from "../components/TestDriveHourSelector";
 import TestDrivePersonalFields from "../components/TestDrivePersonalFields";
 import useFormState from "../../../shared/hooks/useFormState";
+import useSubmitState from "../../../shared/hooks/useSubmitState";
 import useTestDriveAvailability from "../hooks/useTestDriveAvailability";
 import useVehicles from "../../vehicles/hooks/useVehicles";
 import { createTestDrive } from "../services/testDriveApi";
@@ -36,8 +37,13 @@ function TestDrive() {
     vehicleSlug: requestedVehicle,
   }));
   const [submitted, setSubmitted] = useState(false);
-  const [formError, setFormError] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const {
+    error: formError,
+    setError: setFormError,
+    isSubmitting,
+    clearError: clearFormError,
+    runSubmit,
+  } = useSubmitState("Não foi possível guardar o agendamento.");
   const {
     bookedHours,
     error: availabilityError,
@@ -59,7 +65,7 @@ function TestDrive() {
 
   function updateField(field, value) {
     if (formError) {
-      setFormError("");
+      clearFormError();
     }
 
     updateFormField(field, value);
@@ -92,7 +98,7 @@ function TestDrive() {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    if (!formData.vehicleSlug) {
+    if (!formData.vehicleSlug || !selectedVehicle) {
       setFormError("Selecione uma viatura para o teste drive.");
       return;
     }
@@ -111,20 +117,13 @@ function TestDrive() {
       return;
     }
 
-    try {
-      setIsSubmitting(true);
+    await runSubmit(async () => {
       await createTestDrive({
         ...formData,
         vehicleLabel: selectedVehicle ? getVehicleLabel(selectedVehicle) : "",
       });
       setSubmitted(true);
-    } catch (submitError) {
-      setFormError(
-        submitError.message ?? "Não foi possível guardar o agendamento.",
-      );
-    } finally {
-      setIsSubmitting(false);
-    }
+    });
   }
 
   return (
