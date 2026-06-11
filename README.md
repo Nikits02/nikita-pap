@@ -75,7 +75,7 @@ Backend:
 Nota:
 - o frontend usa proxy no `vite.config.js` para encaminhar `/api` e `/uploads` para o backend
 - o backend cria automaticamente as tabelas principais no arranque, incluindo a tabela `vehicles`
-- guia completo de preparação: [docs/PRESENTATION_SETUP.md](docs/PRESENTATION_SETUP.md)
+- comandos para verificar dados no MySQL: [docs/VERIFICAR_BASE_DADOS.md](docs/VERIFICAR_BASE_DADOS.md)
 
 ## Estrutura Geral
 
@@ -237,35 +237,10 @@ Resumo simples:
 
 "O projeto está dividido em duas partes: frontend em React e backend em Express. O frontend trata da interface, páginas, componentes e formulários. O backend trata da autenticação, CRUD de viaturas, gestão de retomas, utilizadores e ligação à base de dados MySQL. A comunicação entre ambos é feita por API REST."
 
-Se quiseres uma explicação mais detalhada da arquitetura, abre:
-- [docs/PROJECT_MAP.md](docs/PROJECT_MAP.md)
-- [docs/CODE_ORGANIZATION_MAP.md](docs/CODE_ORGANIZATION_MAP.md)
-
 ## Documentação Disponível
 
-- [docs/PROJECT_MAP.md](docs/PROJECT_MAP.md)
-  Mapa geral do projeto: pastas, ficheiros importantes, rotas e forma certa de ler o código.
-
-- [docs/CODE_ORGANIZATION_MAP.md](docs/CODE_ORGANIZATION_MAP.md)
-  Mapa visual com gráficos simples do fluxo frontend -> backend -> base de dados.
-
-- [docs/API_REFERENCE.md](docs/API_REFERENCE.md)
-  Lista dos endpoints do backend, o que recebem e o que devolvem.
-
-- [docs/DATABASE.md](docs/DATABASE.md)
-  Explicação simples das tabelas principais da base de dados e da sua função no projeto.
-
-- [docs/PRESENTATION_GUIDE.md](docs/PRESENTATION_GUIDE.md)
-  Guia de apresentação oral para explicares o projeto com segurança.
-
-- [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md)
-  Roteiro prático da demo: ordem de cliques, frases-chave, tempos e plano B.
-
-- [docs/DEMO_VEHICLES.md](docs/DEMO_VEHICLES.md)
-  Lista das viaturas estrela preparadas para causar melhor primeira impressão.
-
-- [docs/PRESENTATION_SETUP.md](docs/PRESENTATION_SETUP.md)
-  Checklist técnica para preparar MySQL, variáveis de ambiente, admin e arranque da demo.
+- [docs/VERIFICAR_BASE_DADOS.md](docs/VERIFICAR_BASE_DADOS.md)
+  Comandos SQL para verificar utilizadores, viaturas, pedidos e dados guardados no MySQL.
 
 ## Comandos Úteis
 

@@ -44,6 +44,10 @@ function getClosestPrice(price, priceOptions) {
   );
 }
 
+function getVehicleOptionByPrice(price, vehicleOptions) {
+  return vehicleOptions.find((vehicle) => vehicle.price === price) ?? null;
+}
+
 function Financiamento() {
   const {
     vehicles,
@@ -131,8 +135,12 @@ function Financiamento() {
   const vehicleSelectPlaceholder = isLoadingVehicles
     ? "A carregar viaturas..."
     : availableVehicles.length > 0
-      ? "Viatura de interesse (opcional)"
+      ? "Viatura de interesse"
       : "Sem viaturas disponíveis";
+  const selectedVehicleOption =
+    availableVehicles.find((vehicle) => vehicle.value === requestData.viatura) ??
+    getVehicleOptionByPrice(simulation.preco, availableVehicles);
+  const selectedVehicleValue = selectedVehicleOption?.value ?? "";
   const entryPercent = Math.round(
     (simulation.entrada / simulation.preco) * 100,
   );
@@ -187,7 +195,9 @@ function Financiamento() {
     const nextPrice = vehiclePriceOptions[Number(value)];
 
     if (nextPrice) {
-      updateRequest("viatura", "");
+      const nextVehicle = getVehicleOptionByPrice(nextPrice, availableVehicles);
+
+      updateRequest("viatura", nextVehicle?.value ?? "");
       updateSimulation("preco", nextPrice);
     }
   }
@@ -200,7 +210,7 @@ function Financiamento() {
         nome: requestData.nome,
         email: requestData.email,
         telefone: requestData.telefone,
-        viatura: requestData.viatura,
+        viatura: selectedVehicleValue,
         preco: simulation.preco,
         entrada: simulation.entrada,
         meses: simulation.meses,
@@ -364,7 +374,7 @@ function Financiamento() {
                 field.name === "viatura" ? (
                   <CustomSelect
                     key={field.name}
-                    value={requestData[field.name]}
+                    value={selectedVehicleValue}
                     options={availableVehicles}
                     placeholder={vehicleSelectPlaceholder}
                     onChange={handleVehicleSelect}
