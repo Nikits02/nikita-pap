@@ -217,7 +217,7 @@ export async function ensureLeadTables() {
       nome VARCHAR(150) NOT NULL,
       email VARCHAR(150) NOT NULL,
       telefone VARCHAR(60) NOT NULL,
-      viatura VARCHAR(200) DEFAULT NULL,
+      viatura VARCHAR(200) NOT NULL,
       preco DECIMAL(12, 2) NOT NULL,
       entrada DECIMAL(12, 2) NOT NULL,
       meses INT NOT NULL,

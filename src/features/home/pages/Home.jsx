@@ -16,7 +16,7 @@ import {
   StarIcon,
 } from "../../../shared/components/icons/CommonIcons";
 import TypedIcon from "../../../shared/components/icons/TypedIcon";
-import { PesquisaViaturas } from "../../vehicles/components";
+import PesquisaViaturas from "../../vehicles/components/PesquisaViaturas";
 import { homeInitialFilters, whyChooseItems } from "../data/home";
 import useVehicles from "../../vehicles/hooks/useVehicles";
 

@@ -98,7 +98,7 @@ function TestDrive() {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    if (!formData.vehicleSlug) {
+    if (!formData.vehicleSlug || !selectedVehicle) {
       setFormError("Selecione uma viatura para o teste drive.");
       return;
     }

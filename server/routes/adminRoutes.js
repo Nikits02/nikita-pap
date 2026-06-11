@@ -25,9 +25,7 @@ import {
 const router = express.Router();
 const ADMIN_LEAD_STATUSES = new Set([
   "new",
-  "in_contact",
   "scheduled",
-  "completed",
   "cancelled",
 ]);
 const ADMIN_CONTACT_STATUSES = new Set([

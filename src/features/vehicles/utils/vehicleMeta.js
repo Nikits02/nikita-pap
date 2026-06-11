@@ -141,7 +141,7 @@ function getShuffledVehicles(vehicles) {
   return shuffledVehicles;
 }
 
-export function withVehicleMeta(vehicle) {
+function withVehicleMeta(vehicle) {
   const normalizedVehicle = normalizeVehicle(vehicle);
   const sourceLabel =
     normalizedVehicle.source === "highlight"

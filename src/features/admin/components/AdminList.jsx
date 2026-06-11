@@ -5,6 +5,23 @@ import {
 import AdminPageShell from "./AdminPageShell";
 import AdminSectionLinks from "./AdminSectionLinks";
 
+const adminLeadStatusClasses = {
+  accepted: "admin-lead-card__status--accepted",
+  cancelled: "admin-lead-card__status--cancelled",
+  rejected: "admin-lead-card__status--rejected",
+  responded: "admin-lead-card__status--responded",
+  scheduled: "admin-lead-card__status--scheduled",
+};
+
+function getAdminLeadStatusClass(status) {
+  return [
+    "admin-lead-card__status",
+    adminLeadStatusClasses[status.value],
+  ]
+    .filter(Boolean)
+    .join(" ");
+}
+
 export function AdminRecordsPage({
   title,
   currentSection,
@@ -113,9 +130,7 @@ export function AdminLeadCard({
 
         {status ? (
           <div className="admin-lead-card__header-side">
-            <span
-              className={`admin-lead-card__status admin-lead-card__status--${status.value}`}
-            >
+            <span className={getAdminLeadStatusClass(status)}>
               {status.label}
             </span>
             <p className="admin-lead-card__timestamp">{timestamp}</p>

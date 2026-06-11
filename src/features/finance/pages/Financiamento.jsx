@@ -66,6 +66,7 @@ function Financiamento() {
     viatura: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [vehicleSelectionError, setVehicleSelectionError] = useState("");
   const {
     error: submitError,
     isSubmitting,
@@ -182,6 +183,7 @@ function Financiamento() {
   }
 
   function handleVehicleSelect(value) {
+    setVehicleSelectionError("");
     updateRequest("viatura", value);
 
     const selectedVehicle = availableVehicles.find((vehicle) => vehicle.value === value);
@@ -197,6 +199,7 @@ function Financiamento() {
     if (nextPrice) {
       const nextVehicle = getVehicleOptionByPrice(nextPrice, availableVehicles);
 
+      setVehicleSelectionError("");
       updateRequest("viatura", nextVehicle?.value ?? "");
       updateSimulation("preco", nextPrice);
     }
@@ -205,6 +208,12 @@ function Financiamento() {
     event.preventDefault();
 
     clearSubmitError();
+
+    if (!selectedVehicleValue) {
+      setVehicleSelectionError("Selecione uma viatura antes de enviar o pedido.");
+      return;
+    }
+
     await runSubmit(async () => {
       await createFinanceRequest({
         nome: requestData.nome,
@@ -291,7 +300,7 @@ function Financiamento() {
               }
             />
             <div className="finance-control__limits">
-              <span>EUR0</span>
+              <span>0 EUR</span>
               <span>{formatEuroAmount(entryMax)}</span>
             </div>
           </div>
@@ -399,6 +408,11 @@ function Financiamento() {
               )}
               {vehicleError ? (
                 <p className="finance-request-form__hint">{vehicleError}</p>
+              ) : null}
+              {vehicleSelectionError ? (
+                <p className="finance-request-form__error">
+                  {vehicleSelectionError}
+                </p>
               ) : null}
               {submitError ? (
                 <p className="finance-request-form__error">{submitError}</p>

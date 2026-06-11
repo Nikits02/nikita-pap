@@ -1,3 +1,5 @@
+import { isValidIsoDate } from "./validacoesFormularios.js";
+
 export const VEHICLE_FIELDS = [
   "source",
   "marca",
@@ -33,35 +35,60 @@ export function normalizeVehiclePayload(payload = {}) {
     modelo: payload.modelo,
     tipo: payload.tipo ?? null,
     versao: payload.versao ?? null,
-    preco: payload.preco,
-    ano: payload.ano ?? null,
+    preco: Number(payload.preco),
+    ano: Number(payload.ano),
     potencia: payload.potencia ?? null,
     quilometragem: payload.quilometragem ?? null,
     combustivel: payload.combustivel,
     caixa: payload.caixa,
     inserted_at: payload.inserted_at ?? null,
-    novidade: payload.novidade ?? false,
+    novidade:
+      payload.novidade === true ||
+      payload.novidade === "true" ||
+      payload.novidade === 1 ||
+      payload.novidade === "1",
     imagem: payload.imagem,
   };
 }
 
 export function getVehiclePayloadError(vehicle) {
+  const currentYear = new Date().getFullYear();
+  const requiredTextFields = [
+    vehicle.marca,
+    vehicle.modelo,
+    vehicle.quilometragem,
+    vehicle.combustivel,
+    vehicle.caixa,
+    vehicle.inserted_at,
+    vehicle.imagem,
+  ];
+
   if (
-    !vehicle.marca ||
-    !vehicle.modelo ||
-    vehicle.preco == null ||
-    vehicle.ano == null ||
-    !vehicle.quilometragem ||
-    !vehicle.combustivel ||
-    !vehicle.caixa ||
-    !vehicle.inserted_at ||
-    !vehicle.imagem
+    requiredTextFields.some(
+      (field) => typeof field !== "string" || !field.trim(),
+    )
   ) {
     return "Campos obrigatórios em falta.";
   }
 
   if (!["stock", "highlight", "catalog"].includes(vehicle.source)) {
     return "Source inválido.";
+  }
+
+  if (!Number.isFinite(vehicle.preco) || vehicle.preco <= 0) {
+    return "Preço inválido.";
+  }
+
+  if (
+    !Number.isInteger(vehicle.ano) ||
+    vehicle.ano < 1950 ||
+    vehicle.ano > currentYear + 1
+  ) {
+    return "Ano inválido.";
+  }
+
+  if (!isValidIsoDate(vehicle.inserted_at)) {
+    return "Data de inserção inválida.";
   }
 
   return null;

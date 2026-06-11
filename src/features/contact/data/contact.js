@@ -12,8 +12,6 @@ export const initialContactForm = {
   telefone: "",
   assunto: "",
   mensagem: "",
-  dataPreferida: "",
-  horaPreferida: "",
 };
 
 export const contactInfoItems = [

@@ -1,4 +1,4 @@
-export const ADMIN_LEAD_STATUS_OPTIONS = [
+const ADMIN_LEAD_STATUS_OPTIONS = [
   { value: "new", label: "Por ver" },
   { value: "scheduled", label: "Agendado" },
   { value: "cancelled", label: "Cancelado" },
@@ -14,7 +14,7 @@ export const ADMIN_LEAD_STATUS_ACTION_OPTIONS = [
   { value: "cancelled", label: "Cancelado" },
 ];
 
-export const ADMIN_CONTACT_STATUS_OPTIONS = [
+const ADMIN_CONTACT_STATUS_OPTIONS = [
   { value: "new", label: "Por ver" },
   { value: "responded", label: "Respondido" },
 ];
@@ -28,7 +28,7 @@ export const ADMIN_CONTACT_STATUS_ACTION_OPTIONS = [
   { value: "responded", label: "Respondido" },
 ];
 
-export const ADMIN_DECISION_STATUS_OPTIONS = [
+const ADMIN_DECISION_STATUS_OPTIONS = [
   { value: "new", label: "Por ver" },
   { value: "accepted", label: "Aceite" },
   { value: "rejected", label: "Recusado" },
