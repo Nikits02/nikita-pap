@@ -28,20 +28,43 @@ function getTransporter() {
   return transporter;
 }
 
-function formatDate(value) {
+function formatDatePart(value) {
+  return String(value).padStart(2, "0");
+}
+
+export function formatDate(value) {
   if (!value) {
     return "-";
   }
 
-  const rawValue = String(value);
-  const dateOnly = rawValue.slice(0, 10);
-  const [year, month, day] = dateOnly.split("-");
-
-  if (!year || !month || !day) {
-    return rawValue;
+  if (value instanceof Date && !Number.isNaN(value.getTime())) {
+    return [
+      formatDatePart(value.getDate()),
+      formatDatePart(value.getMonth() + 1),
+      value.getFullYear(),
+    ].join("/");
   }
 
-  return `${day}/${month}/${year}`;
+  const rawValue = String(value);
+  const isoDateMatch = rawValue.match(/^(\d{4})-(\d{2})-(\d{2})/);
+
+  if (isoDateMatch) {
+    const [, year, month, day] = isoDateMatch;
+
+    return `${day}/${month}/${year}`;
+  }
+
+  const parsedDate = new Date(rawValue);
+
+  if (!Number.isNaN(parsedDate.getTime())) {
+    return [
+      formatDatePart(parsedDate.getDate()),
+      formatDatePart(parsedDate.getMonth() + 1),
+      parsedDate.getFullYear(),
+    ].join("/");
+  }
+
+  return rawValue;
 }
 
 function formatHour(value) {

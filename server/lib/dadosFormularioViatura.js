@@ -76,35 +76,24 @@ export function getVehiclePayloadError(vehicle) {
     return "Source inválido.";
   }
 
-<<<<<<< HEAD
+  if (!Number.isFinite(vehicle.preco) || vehicle.preco <= 0) {
+    return "Preço inválido.";
+  }
+
   const vehicleYear = Number(vehicle.ano);
-  const currentYear = new Date().getFullYear();
 
   if (
     !Number.isInteger(vehicleYear) ||
     vehicleYear < MIN_VEHICLE_YEAR ||
     vehicleYear > currentYear
-=======
-  if (!Number.isFinite(vehicle.preco) || vehicle.preco <= 0) {
-    return "Preço inválido.";
-  }
-
-  if (
-    !Number.isInteger(vehicle.ano) ||
-    vehicle.ano < 1950 ||
-    vehicle.ano > currentYear + 1
->>>>>>> 8b8f679f2b018dfbe7a1ad01940382b468e89654
   ) {
     return "Ano inválido.";
   }
 
-<<<<<<< HEAD
-=======
   if (!isValidIsoDate(vehicle.inserted_at)) {
     return "Data de inserção inválida.";
   }
 
->>>>>>> 8b8f679f2b018dfbe7a1ad01940382b468e89654
   return null;
 }
 
