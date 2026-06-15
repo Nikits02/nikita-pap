@@ -1,7 +1,25 @@
 import { FormField } from "../../../../shared/components/form/FormField";
 
+function getSelectOptions(field, value) {
+  const options = field.options ?? [];
+
+  if (!value || options.some((option) => option.value === value)) {
+    return options;
+  }
+
+  return [
+    ...options,
+    {
+      value,
+      label: value,
+    },
+  ];
+}
+
 function AdminVehicleInput({ field, value, onChange }) {
   if (field.control === "select") {
+    const options = getSelectOptions(field, value);
+
     return (
       <FormField
         className="admin-form__field"
@@ -10,10 +28,16 @@ function AdminVehicleInput({ field, value, onChange }) {
         hintClassName="admin-form__hint"
       >
         <select
-          value={value}
+          value={value ?? ""}
+          required={field.required}
           onChange={(event) => onChange(field.name, event.target.value)}
         >
-          {field.options.map((option) => (
+          {field.placeholder ? (
+            <option value="" disabled>
+              {field.placeholder}
+            </option>
+          ) : null}
+          {options.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>

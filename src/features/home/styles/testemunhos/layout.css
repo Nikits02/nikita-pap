@@ -17,7 +17,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
-  margin: 0 0 1.15rem;
+  margin: 0 0 1.85rem;
   color: var(--home-accent-red);
   font-family: var(--font-family-sans);
   font-size: 0.8rem;
@@ -34,7 +34,6 @@
 }
 
 .testimonials-section__heading h2,
-.testimonials-section__heading p,
 .testimonials-section__summary {
   color: var(--site-white);
   text-align: center;
@@ -49,12 +48,6 @@
   line-height: 0.98;
   letter-spacing: 0.01em;
   text-transform: none;
-}
-
-.testimonials-section__heading p {
-  margin: 0.8rem 0 0;
-  font-size: 1.05rem;
-  font-weight: 600;
 }
 
 .testimonials-section__summary {

@@ -1,4 +1,14 @@
 const CURRENT_YEAR = new Date().getFullYear();
+const VEHICLE_FUEL_OPTIONS = [
+  { value: "Elétrico", label: "Elétrico" },
+  { value: "Gasoleo", label: "Gasóleo" },
+  { value: "Gasolina", label: "Gasolina" },
+  { value: "Hibrido plug-in", label: "Híbrido plug-in" },
+];
+const VEHICLE_GEARBOX_OPTIONS = [
+  { value: "Automática", label: "Automática" },
+  { value: "Manual", label: "Manual" },
+];
 
 export const adminVehicleFields = [
   {
@@ -73,15 +83,17 @@ export const adminVehicleFields = [
   {
     name: "combustivel",
     label: "Combustivel *",
-    type: "text",
-    placeholder: "Ex.: Elétrico",
+    control: "select",
+    placeholder: "Selecionar combustível",
+    options: VEHICLE_FUEL_OPTIONS,
     required: true,
   },
   {
     name: "caixa",
     label: "Caixa *",
-    type: "text",
-    placeholder: "Ex.: Automática",
+    control: "select",
+    placeholder: "Selecionar caixa",
+    options: VEHICLE_GEARBOX_OPTIONS,
     required: true,
   },
   {
