@@ -76,6 +76,12 @@ Depois entra no MySQL:
 mysql -u root -p
 ```
 
+Tens duas opcoes:
+
+### Opcao A: criar uma base de dados vazia
+
+Usa esta opcao se queres comecar o projeto sem dados no outro PC.
+
 Cria a base de dados usada pelo projeto:
 
 ```sql
@@ -83,6 +89,39 @@ CREATE DATABASE nikita_stand CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 SHOW DATABASES;
 EXIT;
 ```
+
+Neste caso, quando arrancares o backend, ele cria automaticamente as tabelas principais. A base de dados fica vazia e depois podes adicionar viaturas pela area admin.
+
+### Opcao B: passar a base de dados deste PC para o outro
+
+Usa esta opcao se queres manter os dados atuais, como viaturas, admins, utilizadores e pedidos.
+
+No PC antigo, exporta a base de dados:
+
+```powershell
+mysqldump -u root -p nikita_stand > nikita_stand_backup.sql
+```
+
+Copia o ficheiro `nikita_stand_backup.sql` para o PC novo.
+
+No PC novo, cria a base de dados se o ficheiro exportado nao a criar automaticamente:
+
+```powershell
+mysql -u root -p
+```
+
+```sql
+CREATE DATABASE IF NOT EXISTS nikita_stand CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+EXIT;
+```
+
+Depois importa o backup:
+
+```powershell
+mysql -u root -p nikita_stand < nikita_stand_backup.sql
+```
+
+Se importares a base de dados completa, nao precisas de criar as tabelas manualmente nem de criar outra conta admin, porque esses dados ja vêm no backup.
 
 Se o MySQL estiver a usar outra porta, por exemplo `3307`, entra assim:
 
